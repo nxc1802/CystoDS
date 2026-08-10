@@ -242,7 +242,8 @@ def _make_base_config() -> dict:
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.25,
+        "binary_coarse_hierarchy_loss_weight": 0.25,
+        "coarse_fine_hierarchy_loss_weight": 0.25,
         "supervised_contrastive_loss_weight": 0.10,
         "supervised_contrastive_temperature": 0.10,
         "supervised_contrastive_label_level": "fine",
@@ -250,7 +251,8 @@ def _make_base_config() -> dict:
         "class_balance_beta": 0.9999,
         "focal_gamma": 2.0,
         "focal_use_class_balance": False,
-        "logit_adjustment_tau": 1.0,
+        "use_data_augmentation": False,
+        "logit_adjustment_tau": 0.5,
         "fine_prior_source": "patient_count",
         "fine_prior_smoothing_alpha": 1.0,
         "fine_prior_power": 0.5,
@@ -335,6 +337,9 @@ def _make_base_config() -> dict:
     if RUN_PROFILE == "smoke":
         config.update(
             {
+                "checkpoint_backend": os.environ.get(
+                    "CYSTODS_CHECKPOINT_BACKEND", "local"
+                ),
                 "experiment_name": f"{STAGE_NAME}_smoke",
                 "dataset_fingerprint_mode": "semantic",
                 "verify_exact_duplicate_images": False,
@@ -380,13 +385,19 @@ def _make_base_config() -> dict:
 BASE_CONFIG = _make_base_config()
 RESEARCH_TRIALS = (
     {
+        "experiment_id": "ablation_full_proposed",
+        "task_mode": "hierarchical",
+        "overrides": {},
+    },
+    {
         "experiment_id": "ablation_flat_fine_ce",
         "task_mode": "fine",
         "overrides": {
             "binary_loss_weight": 0.0,
             "coarse_loss_weight": 0.0,
             "fine_loss_weight": 1.0,
-            "consistency_loss_weight": 0.0,
+            "binary_coarse_hierarchy_loss_weight": 0.0,
+            "coarse_fine_hierarchy_loss_weight": 0.0,
             "supervised_contrastive_loss_weight": 0.0,
             "fine_loss": "cross_entropy",
             "monitor_metric": "fine_macro_f1",
@@ -396,7 +407,8 @@ RESEARCH_TRIALS = (
         "experiment_id": "ablation_multitask_no_hierarchy",
         "task_mode": "multitask",
         "overrides": {
-            "consistency_loss_weight": 0.0,
+            "binary_coarse_hierarchy_loss_weight": 0.0,
+            "coarse_fine_hierarchy_loss_weight": 0.0,
             "supervised_contrastive_loss_weight": 0.0,
             "fine_loss": "cross_entropy",
             "monitor_metric": "coarse_macro_f1",
@@ -416,9 +428,36 @@ RESEARCH_TRIALS = (
         "overrides": {"binary_loss_weight": 0.0},
     },
     {
-        "experiment_id": "ablation_no_consistency",
+        "experiment_id": "ablation_hierarchy_none",
         "task_mode": "hierarchical",
-        "overrides": {"consistency_loss_weight": 0.0},
+        "overrides": {
+            "binary_coarse_hierarchy_loss_weight": 0.0,
+            "coarse_fine_hierarchy_loss_weight": 0.0,
+        },
+    },
+    {
+        "experiment_id": "ablation_hierarchy_bc_only",
+        "task_mode": "hierarchical",
+        "overrides": {
+            "binary_coarse_hierarchy_loss_weight": 0.25,
+            "coarse_fine_hierarchy_loss_weight": 0.0,
+        },
+    },
+    {
+        "experiment_id": "ablation_hierarchy_cf_only",
+        "task_mode": "hierarchical",
+        "overrides": {
+            "binary_coarse_hierarchy_loss_weight": 0.0,
+            "coarse_fine_hierarchy_loss_weight": 0.25,
+        },
+    },
+    {
+        "experiment_id": "ablation_hierarchy_bc_cf",
+        "task_mode": "hierarchical",
+        "overrides": {
+            "binary_coarse_hierarchy_loss_weight": 0.25,
+            "coarse_fine_hierarchy_loss_weight": 0.25,
+        },
     },
     {
         "experiment_id": "ablation_no_supcon",
@@ -432,6 +471,11 @@ RESEARCH_TRIALS = (
             "sampler": "class_balanced",
             "sampler_label_level": "fine",
         },
+    },
+    {
+        "experiment_id": "ablation_data_augmentation",
+        "task_mode": "hierarchical",
+        "overrides": {"use_data_augmentation": True},
     },
     {
         "experiment_id": "ablation_train_wlc_only",
@@ -461,12 +505,13 @@ SMOKE_TRIALS = (
         },
     },
     {
-        "experiment_id": "smoke_hierarchical_no_consistency",
+        "experiment_id": "smoke_hierarchical_no_hierarchy",
         "task_mode": "hierarchical",
         "overrides": {
             "model_name": "swin_tiny_patch4_window7_224.ms_in1k",
             "pretrained": False,
-            "consistency_loss_weight": 0.0,
+            "binary_coarse_hierarchy_loss_weight": 0.0,
+            "coarse_fine_hierarchy_loss_weight": 0.0,
             "monitor_metric": "coarse_macro_f1",
         },
     },
@@ -502,6 +547,7 @@ REQUIRED_SOURCE_FILES = (
     _THIS_SOURCE,
     _THIS_SOURCE.with_name("cystods_core.py"),
     _THIS_SOURCE.with_name("cystods_hf.py"),
+    _THIS_SOURCE.with_name("cystods_science.py"),
     _THIS_SOURCE.with_name("README.md"),
 )
 

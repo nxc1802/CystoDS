@@ -763,11 +763,94 @@ def split_fingerprint(
     )
 
 
+def binary_coarse_taxonomy_metrics(
+    binary_targets: Sequence[int] | np.ndarray,
+    coarse_probabilities: Sequence[Sequence[float]] | np.ndarray,
+) -> dict[str, float]:
+    targets = _strict_integer_vector(binary_targets, name="binary_targets")
+    probs = np.asarray(coarse_probabilities, dtype=np.float64)
+    if probs.ndim != 2 or probs.shape[1] != 5:
+        raise ValueError("coarse_probabilities must have shape [N, 5].")
+    coarse_preds = probs.argmax(axis=1)
+    coarse_binary_parent = np.isin(coarse_preds, (0, 1)).astype(np.int64)
+    violations = coarse_binary_parent != targets
+
+    coarse_to_binary = np.array(
+        [
+            [0.0, 1.0],  # 0: Malignant -> ROI
+            [0.0, 1.0],  # 1: Non-malignant -> ROI
+            [1.0, 0.0],  # 2: Normal -> Non-ROI
+            [1.0, 0.0],  # 3: Landmark -> Non-ROI
+            [1.0, 0.0],  # 4: Foreign -> Non-ROI
+        ],
+        dtype=np.float64,
+    )
+    binary_from_coarse = probs @ coarse_to_binary
+    correct_mass = binary_from_coarse[np.arange(len(targets)), targets]
+
+    return {
+        "taxonomy_violation_rate": float(violations.mean()),
+        "taxonomy_accuracy": float(1.0 - violations.mean()),
+        "mean_correct_parent_mass": float(correct_mass.mean()),
+    }
+
+
+def coarse_fine_taxonomy_metrics(
+    coarse_targets: Sequence[int] | np.ndarray,
+    fine_targets: Sequence[int] | np.ndarray,
+    fine_probabilities: Sequence[Sequence[float]] | np.ndarray,
+    fine_parent_ids: Sequence[int],
+) -> dict[str, Any]:
+    c_targets = _strict_integer_vector(coarse_targets, name="coarse_targets")
+    f_targets = _strict_integer_vector(
+        fine_targets, name="fine_targets", allow_empty=True
+    )
+    probs = np.asarray(fine_probabilities, dtype=np.float64)
+    if probs.ndim != 2 or probs.shape[1] != len(fine_parent_ids):
+        raise ValueError(
+            "fine_probabilities shape must match fine_parent_ids length."
+        )
+
+    valid = f_targets >= 0
+    if not np.any(valid):
+        return {
+            "status": "not_evaluable",
+            "n": 0,
+        }
+
+    valid_c_targets = c_targets[valid]
+    valid_probs = probs[valid]
+    fine_preds = valid_probs.argmax(axis=1)
+
+    parent_ids = np.asarray(fine_parent_ids, dtype=np.int64)
+    predicted_parent = parent_ids[fine_preds]
+    violations = predicted_parent != valid_c_targets
+
+    fine_to_coarse = np.zeros((len(fine_parent_ids), 5), dtype=np.float64)
+    for fine_id, parent_id in enumerate(parent_ids):
+        fine_to_coarse[fine_id, parent_id] = 1.0
+
+    coarse_from_fine = valid_probs @ fine_to_coarse
+    correct_mass = coarse_from_fine[
+        np.arange(len(valid_c_targets)), valid_c_targets
+    ]
+
+    return {
+        "status": "ok",
+        "n": int(valid.sum()),
+        "taxonomy_violation_rate": float(violations.mean()),
+        "taxonomy_accuracy": float(1.0 - violations.mean()),
+        "mean_correct_parent_mass": float(correct_mass.mean()),
+    }
+
+
 __all__ = [
     "DEFAULT_HIERARCHICAL_COMPOSITE_WEIGHTS",
     "ScientificGateError",
     "audit_rare_class_collapse",
+    "binary_coarse_taxonomy_metrics",
     "build_smoothed_class_prior",
+    "coarse_fine_taxonomy_metrics",
     "compute_fixed_primary_metrics",
     "compute_multiclass_metrics",
     "enforce_rare_class_collapse_gate",

@@ -242,15 +242,17 @@ def _make_base_config() -> dict:
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.25,
+        "binary_coarse_hierarchy_loss_weight": 0.25,
+        "coarse_fine_hierarchy_loss_weight": 0.25,
         "supervised_contrastive_loss_weight": 0.10,
         "supervised_contrastive_temperature": 0.10,
         "supervised_contrastive_label_level": "fine",
-        "fine_loss": "balanced_softmax_smoothed",
+        "fine_loss": "balanced_softmax",
         "class_balance_beta": 0.9999,
         "focal_gamma": 2.0,
         "focal_use_class_balance": False,
-        "logit_adjustment_tau": 1.0,
+        "use_data_augmentation": False,
+        "logit_adjustment_tau": 0.5,
         "fine_prior_source": "patient_count",
         "fine_prior_smoothing_alpha": 1.0,
         "fine_prior_power": 0.5,
@@ -335,6 +337,9 @@ def _make_base_config() -> dict:
     if RUN_PROFILE == "smoke":
         config.update(
             {
+                "checkpoint_backend": os.environ.get(
+                    "CYSTODS_CHECKPOINT_BACKEND", "local"
+                ),
                 "experiment_name": f"{STAGE_NAME}_smoke",
                 "dataset_fingerprint_mode": "semantic",
                 "verify_exact_duplicate_images": False,
@@ -437,6 +442,7 @@ REQUIRED_SOURCE_FILES = (
     _THIS_SOURCE,
     _THIS_SOURCE.with_name("cystods_core.py"),
     _THIS_SOURCE.with_name("cystods_hf.py"),
+    _THIS_SOURCE.with_name("cystods_science.py"),
     _THIS_SOURCE.with_name("README.md"),
 )
 

@@ -239,7 +239,8 @@ def _make_base_config() -> dict:
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.25,
+        "binary_coarse_hierarchy_loss_weight": 0.25,
+        "coarse_fine_hierarchy_loss_weight": 0.25,
         "supervised_contrastive_loss_weight": 0.10,
         "supervised_contrastive_temperature": 0.10,
         "supervised_contrastive_label_level": "fine",
@@ -381,6 +382,7 @@ REQUIRED_SOURCE_FILES = (
     _THIS_SOURCE,
     _THIS_SOURCE.with_name("cystods_core.py"),
     _THIS_SOURCE.with_name("cystods_hf.py"),
+    _THIS_SOURCE.with_name("cystods_science.py"),
     _THIS_SOURCE.with_name("README.md"),
 )
 

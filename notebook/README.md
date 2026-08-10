@@ -1,8 +1,8 @@
 # CystoDS staged pre-notebook pipeline
 
 Đây là implementation nhiều Python pre-notebook cho
-`Docs/CystoDS_Hierarchical_Long_Tailed_Research_Proposal.md`. Pipeline dùng
-duy nhất backbone Swin-Tiny và một hold-out cố định 70/15/15 để các so sánh ở
+`Docs/CystoDS_Hierarchical_Long_Tailed_Research_Proposal.md`. Pipeline hỗ trợ
+4 họ model backbone từ paper CystoDS (Swin-Tiny, ResNet-152, HRNet-W18, ResNeXt-50) và một hold-out cố định 70/15/15 để các so sánh ở
 Stage 10--40 dùng đúng cùng tập bệnh nhân. Cross-validation chỉ chạy ở stage
 cuối cùng.
 
@@ -17,15 +17,14 @@ raise. Khi lifecycle của run đã bắt đầu, lỗi được ghi vào `train
 | File | Thực hiện | Input bắt buộc về logic |
 |---|---|---|
 | `stage_00_prepare_protocol.py` | Audit dữ liệu; tạo một hold-out patient-disjoint cố định 70% train, 15% validation, 15% test; đóng băng taxonomy và protocol SHA-256 | CystoDS thật |
-| `stage_10_run_baselines.py` | Đúng 5 chế độ Swin-Tiny: binary, coarse, fine, multitask Binary + Coarse, multitask Binary + Coarse + Fine | Stage 00 |
+| `stage_10_run_baselines.py` | Chạy baseline suite gồm 4 họ model từ paper (ResNet-152, HRNet-W18, ResNeXt-50, Swin-Tiny) qua các chế độ binary, coarse, fine, multitask | Stage 00 |
 | `stage_20_run_long_tail_screen.py` | Kiểm chứng loss trên Swin-Tiny fine để làm rõ vấn đề long-tail | Stage 00 |
 | `stage_30_run_proposed_method.py` | Chạy hierarchical method đề xuất với smoothed patient prior | Stage 00 |
 | `stage_40_run_ablations.py` | Ablation các thành phần của method đề xuất | Stage 00 |
 | `stage_60_evaluate_external.py` | Evaluation-only tùy chọn trên external cohort thật, tải exact checkpoint theo Hugging Face receipt | Stage 00, completed selected run, HF receipt và external cohort |
 | `stage_90_run_cross_validation_and_report.py` | Chạy final 5-fold cross-validation và kết hợp báo cáo cuối | Stage 00 |
 
-Pipeline chỉ gồm các entry point trong bảng trên; Swin-Tiny là backbone duy
-nhất.
+Pipeline gồm các entry point trong bảng trên; hỗ trợ các baseline backbone chính từ paper (Swin-Tiny, ResNet-152, HRNet-W18, ResNeXt-50).
 
 Stage number thể hiện thứ tự nghiên cứu khuyến nghị, không tạo dependency dây
 chuyền giữa các output training. Stage 10, 20, 30 và 40 đều bind trực tiếp vào

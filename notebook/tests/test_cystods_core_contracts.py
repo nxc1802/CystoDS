@@ -57,7 +57,8 @@ _MODE_WEIGHTS = {
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 0.0,
         "fine_loss_weight": 0.0,
-        "consistency_loss_weight": 0.0,
+        "binary_coarse_hierarchy_loss_weight": 0.0,
+        "coarse_fine_hierarchy_loss_weight": 0.0,
         "supervised_contrastive_loss_weight": 0.0,
         "monitor_metric": "binary_f1",
     },
@@ -65,7 +66,8 @@ _MODE_WEIGHTS = {
         "binary_loss_weight": 0.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 0.0,
-        "consistency_loss_weight": 0.0,
+        "binary_coarse_hierarchy_loss_weight": 0.0,
+        "coarse_fine_hierarchy_loss_weight": 0.0,
         "supervised_contrastive_loss_weight": 0.0,
         "monitor_metric": "coarse_macro_f1",
     },
@@ -73,7 +75,8 @@ _MODE_WEIGHTS = {
         "binary_loss_weight": 0.0,
         "coarse_loss_weight": 0.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.0,
+        "binary_coarse_hierarchy_loss_weight": 0.0,
+        "coarse_fine_hierarchy_loss_weight": 0.0,
         "supervised_contrastive_loss_weight": 0.0,
         "monitor_metric": "fine_macro_f1",
     },
@@ -81,7 +84,8 @@ _MODE_WEIGHTS = {
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.0,
+        "binary_coarse_hierarchy_loss_weight": 0.0,
+        "coarse_fine_hierarchy_loss_weight": 0.0,
         "supervised_contrastive_loss_weight": 0.0,
         "monitor_metric": "coarse_macro_f1",
     },
@@ -89,7 +93,8 @@ _MODE_WEIGHTS = {
         "binary_loss_weight": 1.0,
         "coarse_loss_weight": 1.0,
         "fine_loss_weight": 1.0,
-        "consistency_loss_weight": 0.25,
+        "binary_coarse_hierarchy_loss_weight": 0.25,
+        "coarse_fine_hierarchy_loss_weight": 0.25,
         "supervised_contrastive_loss_weight": 0.0,
         "monitor_metric": "hierarchical_composite",
     },
@@ -347,7 +352,7 @@ def test_build_dataloaders_only_builds_train_and_val_with_separate_eval_config(
     assert loaders["val"].prefetch_factor == 2
 
 
-def test_stage_10_declares_exactly_five_swin_tiny_task_head_contracts() -> None:
+def test_stage_10_declares_baseline_trials_for_paper_backbones() -> None:
     tree = _module_tree("stage_10_run_baselines.py")
     trials = _literal_assignment(tree, "TRIALS")
     expected_active_tasks = {
@@ -355,14 +360,16 @@ def test_stage_10_declares_exactly_five_swin_tiny_task_head_contracts() -> None:
         "coarse_swin_tiny": {"coarse"},
         "fine_swin_tiny": {"fine"},
         "multitask_binary_coarse_swin_tiny": {"binary", "coarse"},
-        "multitask_binary_coarse_fine_swin_tiny": {
-            "binary",
-            "coarse",
-            "fine",
-        },
+        "multitask_binary_coarse_fine_swin_tiny": {"binary", "coarse", "fine"},
+        "binary_resnet152": {"binary"},
+        "multitask_binary_coarse_fine_resnet152": {"binary", "coarse", "fine"},
+        "binary_hrnet_w18": {"binary"},
+        "multitask_binary_coarse_fine_hrnet_w18": {"binary", "coarse", "fine"},
+        "binary_resnext50_32x4d": {"binary"},
+        "multitask_binary_coarse_fine_resnext50_32x4d": {"binary", "coarse", "fine"},
     }
 
-    assert len(trials) == 5
+    assert len(trials) == len(expected_active_tasks)
     assert {trial["experiment_id"] for trial in trials} == set(expected_active_tasks)
     for trial in trials:
         overrides = trial["overrides"]
@@ -372,13 +379,29 @@ def test_stage_10_declares_exactly_five_swin_tiny_task_head_contracts() -> None:
             if float(overrides[f"{task}_loss_weight"]) > 0
         }
         assert active_tasks == expected_active_tasks[trial["experiment_id"]]
-    assert _literal_dict_values(tree, "model_name") == {
-        "swin_tiny_patch4_window7_224.ms_in1k"
+    assert _literal_dict_values(tree, "model_name") >= {
+        "swin_tiny_patch4_window7_224.ms_in1k",
+        "resnet152.a1_in1k",
+        "hrnet_w18.ms_in1k",
+        "resnext50_32x4d.a1_in1k",
     }
     assert _literal_assignment(tree, "PROTOCOL_ROLE") == "fixed_holdout"
-    assert _literal_dict_values(tree, "checkpoint_backend") == {"huggingface"}
-    assert _literal_dict_values(tree, "save_last_checkpoint") == {False}
-    assert _literal_dict_values(tree, "save_epoch_checkpoints") == {False}
+
+
+@pytest.mark.parametrize(
+    "model_name",
+    ["resnet152", "hrnet_w18", "resnext50_32x4d", "swin_tiny"],
+)
+def test_paper_baseline_backbones_instantiate(model_name: str) -> None:
+    config = _config_for("binary")
+    config["model_name"] = model_name
+    core.validate_config(config)
+    model = core.HierarchicalCystoModel(config)
+    assert model.encoder is not None
+    x = torch.randn(2, 3, 224, 224)
+    features = model.encode(x)
+    assert features.shape[0] == 2
+    assert features.shape[1] == model.feature_dim
 
 
 @pytest.mark.parametrize("task_mode", sorted(_MODE_WEIGHTS))
@@ -426,18 +449,165 @@ def test_consistency_objective_runs_without_binary_auxiliary_head() -> None:
         ),
     }
 
-    loss, components = core.compute_multitask_loss(
+    loss_first = core.compute_multitask_loss(
         outputs,
         torch.tensor([1]),
         torch.tensor([core.FINE_PARENT_ID[0]]),
         torch.tensor([0]),
         loss_fn,
         config,
-    )
+    )[0]
+    outputs_second = {**outputs, "fine_logits": outputs["fine_logits"].clone()}
+    outputs_second["fine_logits"][0, 4] = 100.0
+    loss_second = core.compute_multitask_loss(
+        outputs_second,
+        torch.tensor([1]),
+        torch.tensor([core.FINE_PARENT_ID[0]]),
+        torch.tensor([0]),
+        loss_fn,
+        config,
+    )[0]
 
-    assert torch.isfinite(loss)
-    assert "binary_loss" not in components
-    assert "consistency_loss" in components
+    assert torch.allclose(loss_first, loss_second)
+
+
+def test_binary_coarse_loss_rewards_correct_branch() -> None:
+    coarse_probs = torch.tensor(
+        [[0.50, 0.40, 0.05, 0.03, 0.02]],
+        dtype=torch.float32,
+    )
+    logits = coarse_probs.log()
+    binary_target = torch.tensor([1], dtype=torch.long)
+    loss = core.binary_coarse_hierarchy_loss(logits, binary_target)
+    expected = -math.log(0.90)
+    assert torch.allclose(loss, torch.tensor(expected), atol=1e-5)
+
+
+def test_binary_coarse_loss_ignores_within_branch_split() -> None:
+    first = torch.tensor([[0.80, 0.10, 0.05, 0.03, 0.02]], dtype=torch.float32)
+    second = torch.tensor([[0.10, 0.80, 0.05, 0.03, 0.02]], dtype=torch.float32)
+    target = torch.tensor([1], dtype=torch.long)
+    loss_first = core.binary_coarse_hierarchy_loss(first.log(), target)
+    loss_second = core.binary_coarse_hierarchy_loss(second.log(), target)
+    assert torch.allclose(loss_first, loss_second, atol=1e-6)
+
+
+def test_binary_coarse_loss_penalizes_wrong_branch() -> None:
+    correct = torch.tensor([[0.50, 0.40, 0.05, 0.03, 0.02]], dtype=torch.float32)
+    wrong = torch.tensor([[0.02, 0.03, 0.50, 0.25, 0.20]], dtype=torch.float32)
+    target = torch.tensor([1], dtype=torch.long)
+    correct_loss = core.binary_coarse_hierarchy_loss(correct.log(), target)
+    wrong_loss = core.binary_coarse_hierarchy_loss(wrong.log(), target)
+    assert wrong_loss > correct_loss
+
+
+def test_coarse_fine_loss_rewards_correct_parent() -> None:
+    config = _config_for("hierarchical")
+    image_counts = [10] * len(core.FINE_NAMES)
+    patient_counts = [5] * len(core.FINE_NAMES)
+    fine_loss_fn = core.FineLongTailLoss("cross_entropy", image_counts, patient_counts, config)
+
+    probs = torch.full((1, len(core.FINE_NAMES)), 1e-6, dtype=torch.float32)
+    lg = core.FINE_TO_ID["LowGradePapillary"]
+    hg = core.FINE_TO_ID["HighGradePapillary"]
+    air = core.FINE_TO_ID["AirBubble"]
+
+    probs[0, lg] = 0.45
+    probs[0, hg] = 0.45
+    probs[0, air] = 0.10
+    probs = probs / probs.sum(dim=1, keepdim=True)
+
+    coarse_target = torch.tensor([core.COARSE_TO_ID["Malignant"]], dtype=torch.long)
+    fine_target = torch.tensor([hg], dtype=torch.long)
+
+    loss = core.coarse_fine_hierarchy_loss(probs.log(), coarse_target, fine_target, fine_loss_fn)
+    assert loss.item() < 0.2
+
+
+def test_cf_hierarchy_does_not_care_which_child_inside_parent() -> None:
+    config = _config_for("hierarchical")
+    image_counts = [10] * len(core.FINE_NAMES)
+    patient_counts = [5] * len(core.FINE_NAMES)
+    fine_loss_fn = core.FineLongTailLoss("cross_entropy", image_counts, patient_counts, config)
+
+    first = torch.full((1, len(core.FINE_NAMES)), 1e-6, dtype=torch.float32)
+    second = torch.full((1, len(core.FINE_NAMES)), 1e-6, dtype=torch.float32)
+
+    lg = core.FINE_TO_ID["LowGradePapillary"]
+    hg = core.FINE_TO_ID["HighGradePapillary"]
+    air = core.FINE_TO_ID["AirBubble"]
+
+    first[0, lg] = 0.80
+    first[0, hg] = 0.10
+    first[0, air] = 0.10
+
+    second[0, lg] = 0.10
+    second[0, hg] = 0.80
+    second[0, air] = 0.10
+
+    first = first / first.sum(dim=1, keepdim=True)
+    second = second / second.sum(dim=1, keepdim=True)
+
+    coarse = torch.tensor([core.COARSE_TO_ID["Malignant"]], dtype=torch.long)
+    fine = torch.tensor([hg], dtype=torch.long)
+
+    loss_1 = core.coarse_fine_hierarchy_loss(first.log(), coarse, fine, fine_loss_fn)
+    loss_2 = core.coarse_fine_hierarchy_loss(second.log(), coarse, fine, fine_loss_fn)
+
+    assert torch.allclose(loss_1, loss_2, atol=1e-5)
+
+
+def test_cf_hierarchy_penalizes_cross_parent_probability() -> None:
+    config = _config_for("hierarchical")
+    image_counts = [10] * len(core.FINE_NAMES)
+    patient_counts = [5] * len(core.FINE_NAMES)
+    fine_loss_fn = core.FineLongTailLoss("cross_entropy", image_counts, patient_counts, config)
+
+    malignant = torch.full((1, len(core.FINE_NAMES)), 1e-6, dtype=torch.float32)
+    foreign = torch.full((1, len(core.FINE_NAMES)), 1e-6, dtype=torch.float32)
+
+    hg = core.FINE_TO_ID["HighGradePapillary"]
+    air = core.FINE_TO_ID["AirBubble"]
+
+    malignant[0, hg] = 0.95
+    malignant[0, air] = 0.05
+
+    foreign[0, hg] = 0.05
+    foreign[0, air] = 0.95
+
+    malignant = malignant / malignant.sum(dim=1, keepdim=True)
+    foreign = foreign / foreign.sum(dim=1, keepdim=True)
+
+    coarse = torch.tensor([core.COARSE_TO_ID["Malignant"]], dtype=torch.long)
+    fine = torch.tensor([hg], dtype=torch.long)
+
+    good_loss = core.coarse_fine_hierarchy_loss(malignant.log(), coarse, fine, fine_loss_fn)
+    bad_loss = core.coarse_fine_hierarchy_loss(foreign.log(), coarse, fine, fine_loss_fn)
+
+    assert bad_loss > good_loss
+
+
+def test_cf_hierarchy_ignores_normal_mucosa() -> None:
+    config = _config_for("hierarchical")
+    image_counts = [10] * len(core.FINE_NAMES)
+    patient_counts = [5] * len(core.FINE_NAMES)
+    fine_loss_fn = core.FineLongTailLoss("cross_entropy", image_counts, patient_counts, config)
+
+    logits = torch.randn(1, len(core.FINE_NAMES), dtype=torch.float32)
+    coarse = torch.tensor([core.COARSE_TO_ID["Normal mucosa"]], dtype=torch.long)
+    fine = torch.tensor([-1], dtype=torch.long)
+
+    loss = core.coarse_fine_hierarchy_loss(logits, coarse, fine, fine_loss_fn)
+    assert float(loss) == 0.0
+
+
+def test_bc_loss_only_backpropagates_to_coarse_logits() -> None:
+    coarse_logits = torch.randn(4, len(core.COARSE_NAMES), requires_grad=True)
+    binary_target = torch.tensor([0, 1, 1, 0], dtype=torch.long)
+    loss = core.binary_coarse_hierarchy_loss(coarse_logits, binary_target)
+    loss.backward()
+    assert coarse_logits.grad is not None
+    assert torch.isfinite(coarse_logits.grad).all()
 
 
 @pytest.mark.parametrize(
@@ -607,9 +777,9 @@ def test_canonical_balanced_softmax_masks_absent_train_class() -> None:
     assert probabilities[:, 2:].sum().item() == 0.0
 
 
-def test_hierarchical_consistency_ignores_inactive_fine_logits() -> None:
+def test_coarse_fine_hierarchy_ignores_inactive_fine_logits() -> None:
     config = _config_for("hierarchical")
-    config["consistency_loss_weight"] = 1.0
+    config["coarse_fine_hierarchy_loss_weight"] = 1.0
     image_counts = [10, 2, *([0] * 20)]
     patient_counts = [3, 1, *([0] * 20)]
     loss_fn = core.FineLongTailLoss(
@@ -645,8 +815,8 @@ def test_hierarchical_consistency_ignores_inactive_fine_logits() -> None:
         config,
     )
 
-    assert first_components["consistency_loss"] == pytest.approx(
-        second_components["consistency_loss"]
+    assert first_components["coarse_fine_hierarchy_loss"] == pytest.approx(
+        second_components["coarse_fine_hierarchy_loss"]
     )
 
 

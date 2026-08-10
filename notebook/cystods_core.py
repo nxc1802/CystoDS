@@ -284,18 +284,20 @@ BASE_CONFIG = {
     "binary_loss_weight": 1.0,
     "coarse_loss_weight": 1.0,
     "fine_loss_weight": 1.0,
-    "consistency_loss_weight": 0.25,
+    "binary_coarse_hierarchy_loss_weight": 0.25,
+    "coarse_fine_hierarchy_loss_weight": 0.25,
     "supervised_contrastive_loss_weight": 0.10,
     "supervised_contrastive_temperature": 0.10,
     "supervised_contrastive_label_level": "fine",  # fine | coarse
     # Long-tail objective and sampling
-    "fine_loss": "balanced_softmax_smoothed",
+    "fine_loss": "balanced_softmax",
     # cross_entropy | weighted_ce | focal | balanced_softmax |
     # balanced_softmax_smoothed | logit_adjustment | ldam
     "class_balance_beta": 0.9999,
     "focal_gamma": 2.0,
     "focal_use_class_balance": False,
-    "logit_adjustment_tau": 1.0,
+    "use_data_augmentation": False,
+    "logit_adjustment_tau": 0.5,
     "fine_prior_source": "patient_count",  # image_count | patient_count
     "fine_prior_smoothing_alpha": 1.0,
     "fine_prior_power": 0.5,
@@ -385,6 +387,20 @@ BASE_CONFIG = {
     "external_patient_id_column": "patient_id",
 }
 
+PROPOSED_CANONICAL_CONFIG = {
+    "task_mode": "hierarchical",
+    "fine_loss": "balanced_softmax",
+    "fine_prior_source": "patient_count",
+    "binary_loss_weight": 1.0,
+    "coarse_loss_weight": 1.0,
+    "fine_loss_weight": 1.0,
+    "binary_coarse_hierarchy_loss_weight": 0.25,
+    "coarse_fine_hierarchy_loss_weight": 0.25,
+    "supervised_contrastive_loss_weight": 0.10,
+    "use_data_augmentation": False,
+    "logit_adjustment_tau": 0.5,
+}
+
 PROFILE_OVERRIDES = {
     "research": {},
     "smoke": {
@@ -431,6 +447,7 @@ PROFILE_OVERRIDES = {
         "save_last_checkpoint": False,
         "roi_aggregations": ("mean", "vote", "attention"),
         "roi_attention_epochs": 1,
+        "checkpoint_backend": "local",
     },
 }
 
@@ -555,31 +572,29 @@ FINE_PARENT_ID_TENSOR = torch.tensor(FINE_PARENT_ID, dtype=torch.long)
 ROI_COARSE_IDS = frozenset(
     (COARSE_TO_ID["Malignant"], COARSE_TO_ID["Non-malignant"])
 )
-NON_NORMAL_COARSE_IDS = tuple(
-    COARSE_TO_ID[name]
-    for name in (
-        "Malignant",
-        "Non-malignant",
-        "Anatomical landmarks",
-        "Foreign bodies",
-    )
+COARSE_BINARY_PARENT_ID = torch.tensor(
+    [
+        1,  # Malignant -> ROI
+        1,  # Non-malignant -> ROI
+        0,  # Normal mucosa -> Non-ROI
+        0,  # Anatomical landmarks -> Non-ROI
+        0,  # Foreign bodies -> Non-ROI
+    ],
+    dtype=torch.long,
 )
-FINE_IDS_BY_PARENT_ID = {
-    coarse_id: tuple(
-        fine_id
-        for fine_id, parent_id in enumerate(FINE_PARENT_ID)
-        if parent_id == coarse_id
-    )
-    for coarse_id in NON_NORMAL_COARSE_IDS
-}
-FINE_TO_PARENT_MATRIX = torch.zeros((len(FINE_NAMES), 4), dtype=torch.float32)
-for col_idx, coarse_id in enumerate(NON_NORMAL_COARSE_IDS):
-    for fine_id in FINE_IDS_BY_PARENT_ID[coarse_id]:
-        FINE_TO_PARENT_MATRIX[fine_id, col_idx] = 1.0
+COARSE_TO_BINARY_MATRIX = torch.zeros(
+    (len(COARSE_NAMES), len(BINARY_NAMES)),
+    dtype=torch.float32,
+)
+for coarse_id, binary_id in enumerate(COARSE_BINARY_PARENT_ID.tolist()):
+    COARSE_TO_BINARY_MATRIX[coarse_id, binary_id] = 1.0
 
-COARSE_TO_NON_NORMAL_MATRIX = torch.zeros((len(COARSE_NAMES), 4), dtype=torch.float32)
-for col_idx, coarse_id in enumerate(NON_NORMAL_COARSE_IDS):
-    COARSE_TO_NON_NORMAL_MATRIX[coarse_id, col_idx] = 1.0
+FINE_TO_COARSE_MATRIX = torch.zeros(
+    (len(FINE_NAMES), len(COARSE_NAMES)),
+    dtype=torch.float32,
+)
+for fine_id, coarse_id in enumerate(FINE_PARENT_ID):
+    FINE_TO_COARSE_MATRIX[fine_id, coarse_id] = 1.0
 
 REQUIRED_COLUMNS = {
     "filename",
@@ -958,6 +973,12 @@ def validate_config(config: Mapping[str, Any]) -> None:
                 "Hugging Face checkpoint mode permits only the remote best_model.pt; "
                 "save_last_checkpoint and save_epoch_checkpoints must be false."
             )
+    resolved_name = resolve_model_name(config["model_name"])
+    if not timm.is_model(resolved_name):
+        raise ValueError(
+            f"Unsupported or unavailable timm model: '{config['model_name']}' "
+            f"(resolved: '{resolved_name}')"
+        )
     if config["fine_loss"] not in {
         "cross_entropy",
         "weighted_ce",
@@ -1046,7 +1067,8 @@ def validate_config(config: Mapping[str, Any]) -> None:
             "binary_loss_weight",
             "coarse_loss_weight",
             "fine_loss_weight",
-            "consistency_loss_weight",
+            "binary_coarse_hierarchy_loss_weight",
+            "coarse_fine_hierarchy_loss_weight",
             "supervised_contrastive_loss_weight",
         )
     ]
@@ -1068,24 +1090,38 @@ def validate_config(config: Mapping[str, Any]) -> None:
         config["fine_loss_weight"]
     ) <= 0:
         raise ValueError("fine task_mode requires fine_loss_weight > 0.")
+    hierarchy_enabled = (
+        float(config["binary_coarse_hierarchy_loss_weight"]) > 0
+        or float(config["coarse_fine_hierarchy_loss_weight"]) > 0
+    )
+    if hierarchy_enabled and str(config["task_mode"]) != "hierarchical":
+        raise ValueError(
+            "Hierarchy taxonomy losses require task_mode='hierarchical'."
+        )
     inactive_weight_keys = {
         "binary": (
             "coarse_loss_weight",
             "fine_loss_weight",
-            "consistency_loss_weight",
+            "binary_coarse_hierarchy_loss_weight",
+            "coarse_fine_hierarchy_loss_weight",
             "supervised_contrastive_loss_weight",
         ),
         "coarse": (
             "binary_loss_weight",
             "fine_loss_weight",
-            "consistency_loss_weight",
+            "binary_coarse_hierarchy_loss_weight",
+            "coarse_fine_hierarchy_loss_weight",
         ),
         "fine": (
             "binary_loss_weight",
             "coarse_loss_weight",
-            "consistency_loss_weight",
+            "binary_coarse_hierarchy_loss_weight",
+            "coarse_fine_hierarchy_loss_weight",
         ),
-        "multitask": ("consistency_loss_weight",),
+        "multitask": (
+            "binary_coarse_hierarchy_loss_weight",
+            "coarse_fine_hierarchy_loss_weight",
+        ),
         "hierarchical": (),
     }[str(config["task_mode"])]
     nonzero_inactive = [
@@ -2467,36 +2503,6 @@ def build_transforms(
     mean = tuple(config["imagenet_mean"])
     std = tuple(config["imagenet_std"])
     center_crop = CenterFractionCrop(config["fov_center_crop_ratio"])
-    train_transform = transforms.Compose(
-        [
-            center_crop,
-            transforms.RandomResizedCrop(
-                image_size,
-                scale=tuple(config["random_resized_crop_scale"]),
-                interpolation=transforms.InterpolationMode.BILINEAR,
-                antialias=True,
-            ),
-            transforms.RandomHorizontalFlip(
-                p=float(config["horizontal_flip_probability"])
-            ),
-            transforms.RandomVerticalFlip(
-                p=float(config["vertical_flip_probability"])
-            ),
-            transforms.RandomRotation(
-                degrees=float(config["rotation_degrees"]),
-                interpolation=transforms.InterpolationMode.BILINEAR,
-            ),
-            transforms.ColorJitter(*tuple(config["color_jitter"])),
-            transforms.ToTensor(),
-            transforms.Normalize(mean=mean, std=std),
-            transforms.RandomErasing(
-                p=float(config["random_erasing_probability"]),
-                scale=(0.02, 0.15),
-                ratio=(0.3, 3.3),
-                value="random",
-            ),
-        ]
-    )
     eval_transform = transforms.Compose(
         [
             center_crop,
@@ -2509,6 +2515,40 @@ def build_transforms(
             transforms.Normalize(mean=mean, std=std),
         ]
     )
+    use_aug = bool(config.get("use_data_augmentation", False))
+    if use_aug:
+        train_transform = transforms.Compose(
+            [
+                center_crop,
+                transforms.RandomResizedCrop(
+                    image_size,
+                    scale=tuple(config["random_resized_crop_scale"]),
+                    interpolation=transforms.InterpolationMode.BILINEAR,
+                    antialias=True,
+                ),
+                transforms.RandomHorizontalFlip(
+                    p=float(config["horizontal_flip_probability"])
+                ),
+                transforms.RandomVerticalFlip(
+                    p=float(config["vertical_flip_probability"])
+                ),
+                transforms.RandomRotation(
+                    degrees=float(config["rotation_degrees"]),
+                    interpolation=transforms.InterpolationMode.BILINEAR,
+                ),
+                transforms.ColorJitter(*tuple(config["color_jitter"])),
+                transforms.ToTensor(),
+                transforms.Normalize(mean=mean, std=std),
+                transforms.RandomErasing(
+                    p=float(config["random_erasing_probability"]),
+                    scale=(0.02, 0.15),
+                    ratio=(0.3, 3.3),
+                    value="random",
+                ),
+            ]
+        )
+    else:
+        train_transform = eval_transform
     return train_transform, eval_transform
 
 
@@ -2805,6 +2845,24 @@ def build_dataloaders(
     return loaders, datasets
 
 
+PAPER_BASELINE_BACKBONES: dict[str, str] = {
+    "resnet152": "resnet152.a1_in1k",
+    "resnet152d": "resnet152d",
+    "hrnet_w18": "hrnet_w18.ms_in1k",
+    "resnext50_32x4d": "resnext50_32x4d.a1_in1k",
+    "resnext50": "resnext50_32x4d.a1_in1k",
+    "swin_tiny": "swin_tiny_patch4_window7_224.ms_in1k",
+}
+
+
+def resolve_model_name(model_name: str) -> str:
+    cleaned = str(model_name).strip()
+    key = cleaned.lower()
+    if key in PAPER_BASELINE_BACKBONES:
+        return PAPER_BASELINE_BACKBONES[key]
+    return cleaned
+
+
 class HierarchicalCystoModel(nn.Module):
     def __init__(self, config: Mapping[str, Any]) -> None:
         super().__init__()
@@ -2813,28 +2871,17 @@ class HierarchicalCystoModel(nn.Module):
             active_tasks = {"binary"}
         elif task_mode == "coarse":
             active_tasks = {"coarse"}
-        elif task_mode == "fine":
-            active_tasks = {"fine"}
         else:
-            active_tasks = {
-                task_name
-                for task_name, weight_key in (
-                    ("binary", "binary_loss_weight"),
-                    ("coarse", "coarse_loss_weight"),
-                    ("fine", "fine_loss_weight"),
-                )
-                if float(config[weight_key]) > 0
-            }
-            if float(config["consistency_loss_weight"]) > 0:
-                active_tasks.update(("coarse", "fine"))
+            active_tasks = active_tasks_from_config(config)
         if not active_tasks:
             raise ValueError("Model configuration activates no prediction head.")
         self.task_mode = task_mode
         self.active_tasks = frozenset(active_tasks)
-        model_name = str(config["model_name"])
+        raw_model_name = str(config["model_name"])
+        model_name = resolve_model_name(raw_model_name)
         if not timm.is_model(model_name):
             raise ValueError(
-                f"timm model '{model_name}' is unavailable in "
+                f"timm model '{model_name}' (resolved from '{raw_model_name}') is unavailable in "
                 f"timm {timm.__version__}."
             )
         encoder_kwargs: dict[str, Any] = {
@@ -2844,7 +2891,14 @@ class HierarchicalCystoModel(nn.Module):
             "img_size": int(config["image_size"]),
         }
         try:
-            self.encoder = timm.create_model(model_name, **encoder_kwargs)
+            try:
+                self.encoder = timm.create_model(model_name, **encoder_kwargs)
+            except TypeError as err:
+                if "img_size" in str(err):
+                    encoder_kwargs.pop("img_size")
+                    self.encoder = timm.create_model(model_name, **encoder_kwargs)
+                else:
+                    raise err
         except Exception as exc:
             raise TypeError(
                 f"Failed to construct encoder '{model_name}' with "
@@ -3152,8 +3206,10 @@ def active_tasks_from_config(
         )
         if float(config[weight_key]) > 0
     }
-    if float(config["consistency_loss_weight"]) > 0:
-        active.update(("coarse", "fine"))
+    if float(config["binary_coarse_hierarchy_loss_weight"]) > 0:
+        active.add("coarse")
+    if float(config["coarse_fine_hierarchy_loss_weight"]) > 0:
+        active.add("fine")
     if not active:
         raise ValueError("Multi-head configuration activates no task.")
     return frozenset(active)
@@ -3194,47 +3250,111 @@ def supervised_contrastive_loss(
     return -mean_positive_log_prob[valid].mean()
 
 
-def symmetric_kl(
-    first: torch.Tensor, second: torch.Tensor
+def negative_log_correct_parent_mass(
+    parent_probabilities: torch.Tensor,
+    parent_targets: torch.Tensor,
+    *,
+    eps: float = 1e-8,
 ) -> torch.Tensor:
-    first = first.clamp_min(1e-8)
-    second = second.clamp_min(1e-8)
-    first = first / first.sum(dim=1, keepdim=True)
-    second = second / second.sum(dim=1, keepdim=True)
-    kl_first = F.kl_div(first.log(), second, reduction="batchmean")
-    kl_second = F.kl_div(second.log(), first, reduction="batchmean")
-    return 0.5 * (kl_first + kl_second)
+    if parent_probabilities.ndim != 2:
+        raise ValueError("parent_probabilities must have shape [N, C].")
+    if parent_targets.ndim != 1:
+        raise ValueError("parent_targets must have shape [N].")
+    if len(parent_probabilities) != len(parent_targets):
+        raise ValueError(
+            "Parent probabilities and targets must have equal batch size."
+        )
+    if len(parent_targets) == 0:
+        return parent_probabilities.sum() * 0.0
+    if not torch.isfinite(parent_probabilities).all():
+        raise FloatingPointError(
+            "Parent probabilities contain NaN or infinity."
+        )
+    if torch.any(parent_targets < 0):
+        raise ValueError("Parent targets cannot contain negative IDs.")
+    if torch.any(parent_targets >= parent_probabilities.shape[1]):
+        raise ValueError("Parent target is outside probability dimensions.")
+
+    correct_parent_mass = parent_probabilities.gather(
+        dim=1,
+        index=parent_targets.unsqueeze(1),
+    ).squeeze(1)
+
+    if not torch.isfinite(correct_parent_mass).all():
+        raise FloatingPointError(
+            "Correct parent probability mass is not finite."
+        )
+
+    return -torch.log(correct_parent_mass.clamp_min(eps)).mean()
 
 
-def hierarchical_consistency_loss(
-    outputs: Mapping[str, torch.Tensor],
+def binary_coarse_hierarchy_loss(
+    coarse_logits: torch.Tensor,
+    binary_targets: torch.Tensor,
+) -> torch.Tensor:
+    if coarse_logits.ndim != 2:
+        raise ValueError("coarse_logits must have shape [N, 5].")
+    if coarse_logits.shape[1] != len(COARSE_NAMES):
+        raise ValueError(f"Expected {len(COARSE_NAMES)} coarse logits.")
+    if binary_targets.ndim != 1:
+        raise ValueError("binary_targets must have shape [N].")
+    if len(coarse_logits) != len(binary_targets):
+        raise ValueError("Coarse logits and binary targets must align.")
+
+    coarse_probs = coarse_logits.softmax(dim=1)
+    mapping = COARSE_TO_BINARY_MATRIX.to(
+        device=coarse_probs.device,
+        dtype=coarse_probs.dtype,
+    )
+    binary_probs_from_coarse = coarse_probs @ mapping
+    return negative_log_correct_parent_mass(
+        binary_probs_from_coarse,
+        binary_targets,
+    )
+
+
+def coarse_fine_hierarchy_loss(
+    fine_logits: torch.Tensor,
     coarse_targets: torch.Tensor,
+    fine_targets: torch.Tensor,
     fine_loss_fn: FineLongTailLoss,
 ) -> torch.Tensor:
-    coarse_probs = outputs["coarse_logits"].softmax(dim=1)
-    fine_probs = fine_loss_fn.mask_logits(
-        outputs["fine_logits"]
-    ).softmax(dim=1)
-    loss = coarse_probs.sum() * 0.0
-    if "binary_logits" in outputs:
-        binary_probs = outputs["binary_logits"].softmax(dim=1)
-        coarse_roi = coarse_probs[:, :2].sum(dim=1, keepdim=True)
-        coarse_binary = torch.cat((1.0 - coarse_roi, coarse_roi), dim=1)
-        loss = loss + symmetric_kl(binary_probs, coarse_binary)
-
-    normal_id = COARSE_TO_ID["Normal mucosa"]
-    valid = coarse_targets != normal_id
-    if valid.any():
-        device = fine_probs.device
-        dtype = fine_probs.dtype
-        fine_matrix = FINE_TO_PARENT_MATRIX.to(device=device, dtype=dtype)
-        coarse_matrix = COARSE_TO_NON_NORMAL_MATRIX.to(device=device, dtype=dtype)
-        fine_parent_probs = fine_probs[valid] @ fine_matrix
-        coarse_conditional = coarse_probs[valid] @ coarse_matrix
-        loss = loss + symmetric_kl(
-            fine_parent_probs, coarse_conditional
+    if fine_logits.ndim != 2:
+        raise ValueError("fine_logits must have shape [N, 22].")
+    if fine_logits.shape[1] != len(FINE_NAMES):
+        raise ValueError(f"Expected {len(FINE_NAMES)} fine logits.")
+    if coarse_targets.ndim != 1:
+        raise ValueError("coarse_targets must have shape [N].")
+    if fine_targets.ndim != 1:
+        raise ValueError("fine_targets must have shape [N].")
+    if not (len(fine_logits) == len(coarse_targets) == len(fine_targets)):
+        raise ValueError(
+            "Fine logits, coarse targets and fine targets must align."
         )
-    return loss
+
+    valid = fine_targets >= 0
+    if not valid.any():
+        return fine_logits.sum() * 0.0
+
+    valid_coarse_targets = coarse_targets[valid]
+    normal_id = COARSE_TO_ID["Normal mucosa"]
+    if torch.any(valid_coarse_targets == normal_id):
+        raise ValueError(
+            "A sample with a valid fine target cannot have "
+            "Normal mucosa as its coarse target."
+        )
+
+    masked_fine_logits = fine_loss_fn.mask_logits(fine_logits[valid])
+    fine_probs = masked_fine_logits.softmax(dim=1)
+    mapping = FINE_TO_COARSE_MATRIX.to(
+        device=fine_probs.device,
+        dtype=fine_probs.dtype,
+    )
+    coarse_probs_from_fine = fine_probs @ mapping
+    return negative_log_correct_parent_mass(
+        coarse_probs_from_fine,
+        valid_coarse_targets,
+    )
 
 
 def compute_multitask_loss(
@@ -3294,19 +3414,45 @@ def compute_multitask_loss(
             valid_fine.float().mean()
         )
         total = total + float(config["fine_loss_weight"]) * fine_loss
-    consistency_weight = float(config["consistency_loss_weight"])
-    if consistency_weight > 0:
+    bc_weight = float(config["binary_coarse_hierarchy_loss_weight"])
+    if bc_weight > 0:
         if str(config["task_mode"]) != "hierarchical":
             raise ValueError(
-                "Consistency loss is only valid for hierarchical task_mode."
+                "Binary-Coarse hierarchy loss requires task_mode='hierarchical'."
             )
-        consistency = hierarchical_consistency_loss(
-            outputs,
+        if "coarse_logits" not in outputs:
+            raise ValueError(
+                "Binary-Coarse hierarchy loss requires coarse_logits."
+            )
+        bc_hierarchy_loss = binary_coarse_hierarchy_loss(
+            outputs["coarse_logits"],
+            binary_targets,
+        )
+        components["binary_coarse_hierarchy_loss"] = bc_hierarchy_loss
+        total = total + bc_weight * bc_hierarchy_loss
+
+    cf_weight = float(config["coarse_fine_hierarchy_loss_weight"])
+    if cf_weight > 0:
+        if str(config["task_mode"]) != "hierarchical":
+            raise ValueError(
+                "Coarse-Fine hierarchy loss requires task_mode='hierarchical'."
+            )
+        if "fine_logits" not in outputs:
+            raise ValueError(
+                "Coarse-Fine hierarchy loss requires fine_logits."
+            )
+        if fine_loss_fn is None:
+            raise ValueError(
+                "Coarse-Fine hierarchy loss requires FineLongTailLoss."
+            )
+        cf_hierarchy_loss = coarse_fine_hierarchy_loss(
+            outputs["fine_logits"],
             coarse_targets,
+            fine_targets,
             fine_loss_fn,
         )
-        components["consistency_loss"] = consistency
-        total = total + consistency_weight * consistency
+        components["coarse_fine_hierarchy_loss"] = cf_hierarchy_loss
+        total = total + cf_weight * cf_hierarchy_loss
     if not torch.isfinite(total):
         raise FloatingPointError("Classification loss is not finite.")
     components["classification_total"] = total
