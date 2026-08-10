@@ -1,0 +1,18 @@
+# Ignore everything by default
+/*
+
+# Whitelist .gitignore
+!.gitignore
+
+# Whitelist notebook directory and all contents inside it
+!notebook/
+!notebook/**
+
+# Ignore python bytecode, cache, and OS artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+.DS_Store
+.ipynb_checkpoints/
+.pytest_cache/
+.ruff_cache/
