@@ -1,0 +1,562 @@
+=== PAGE 1 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+https://doi.org/10.1038/s41597-026-06887-z
+Received: 4 August 2025
+Accepted: 10 February 2026
+Cite this article as: Lee, T.J., Qiu, L.,
+Long, J. et al. CystoDS: a multiclass
+endoscopy image dataset for artificial
+intelligence-assisted bladder cancer
+detection. Sci Data (2026). https://
+doi.org/10.1038/s41597-026-06887-z
+Timothy J. Lee, Liang Qiu, Jin Long, Kathleen E. Mach, Dylan Peterson, Qingsong Yao,
+Eugene Shkolyar, Md Tauhidul Islam, Lei Xing & Joseph C. Liao
+We are providing an unedited version of this manuscript to give early access to its
+findings. Before final publication, the manuscript will undergo further editing. Please
+note there may be errors present which affect the content, and all legal disclaimers
+apply.
+If this paper is publishing under a Transparent Peer Review model then Peer
+Review reports will publish with the final article.
+© This is a U.S. Government work and not under copyright protection in the US; foreign copyright protection may apply 2026. Open Access This article
+is licensed under a Creative Commons Attribution 4.0 International License, which permits use, sharing, adaptation, distribution and reproduction in
+any medium or format, as long as you give appropriate credit to the original author(s) and the source, provide a link to the Creative Commons licence,
+and indicate if changes were made. The images or other third party material in this article are included in the article's Creative Commons licence, unless
+indicated otherwise in a credit line to the material. If material is not included in the article's Creative Commons licence and your intended use is not
+permitted by statutory regulation or exceeds the permitted use, you will need to obtain permission directly from the copyright holder. To view a copy of
+this licence, visit http://creativecommons.org/licenses/by/4.0/.
+Scientific Data
+Article in Press
+CystoDS: a multiclass endoscopy image dataset for
+artificial intelligence-assisted bladder cancer
+detection
+=== PAGE 2 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+Title 
+CystoDS: a multiclass endoscopy image dataset for artificial intelligence-assisted bladder cancer detection 
+ 
+Authors 
+Timothy J. Lee1,2, Liang Qiu 1,2, Jin Long 3, Kathleen E. Mach1,2, Dylan Peterson 1, Qingsong Yao 1,2, Eugene 
+Shkolyar1,2, Md Tauhidul Islam4, Lei Xing3,4, Joseph C. Liao1,2,3,* 
+ 
+Affiliations 
+1. Department of Urology, Stanford University School of Medicine 
+2. Veterans Affairs Palo Alto Health Care System 
+3. Center for Artificial Intelligence in Medicine & Imaging, Stanford University School of Medicine 
+4. Department of Radiation Oncology, Stanford University School of Medicine 
+ 
+* Corresponding author: Joseph Liao (jliao@stanford.edu) 
+ 
+Abstract 
+Cystoscopy is a common endoscopic procedure used for the visual inspection of the lower urinary tract, 
+particularly for the detection and surveillance of bladder cancer. Artificial intelligence (AI) strategies could 
+help address the  recognized shortcomings of cystosco py by identifying malignant and non -malignant 
+regions of interest ( ROIs) and provid ing real-time clinical decision support for biopsy and surgical 
+resection. However, curating a dataset for training AI models is challenging and time-time consuming. We 
+present CystoDS, a high-quality bladder imaging dataset derived from standard white light cystoscopy that 
+is ready for AI  applications for detection of bladder cancer and cancer -mimicking benign lesions . This 
+dataset includes 8,067 images from 160 patients labelled with five classes and 22 subclasses, along with 
+segmentation data for 768 of the images. We detail the methods used for image acquisition, the structure 
+of the dataset, and our technical validation process to demonstrate the AI-readiness of the data. 
+ 
+ 
+Background & Summary 
+ 
+Bladder cancer  is the 6 th most commonly  diagnosed malignancy in the United States  and 
+disproportionately affects males, with 63,070 new cases in males compared to 20,120 new cases in 
+females in 2024 1. White light c ystoscopy is the standard endoscopic method for visual  identification of 
+suspected bladder cancer and other regions of interest (ROI) in the bladder2. In a clinic setting, a flexible 
+cystoscope is inserted through the urethra into the bladder to visualize the mucosa and identify  any 
+abnormalities. If tumor s or ROIs are detected, an endoscopic surgical procedure called  transurethral 
+resection of bladder tumor (TURBT) is performed in the operating room to treat the tumor and establish 
+a pathologic diagnosis3.  
+ 
+Standard white light cystoscopy has several recognized shortcomings including difficulty in differentiating 
+cancer from non-cancerous ROIs,4,5 detecting non-papillary carcinoma in situ  (CIS) that lacks visually 
+distinct borders 6–8, enumerating multifocal tumors, and ensuring complete tumor resec tion9. Bladder 
+cancer has the highest lifetime treatment costs of any cancer 10, highlighting the need to address these 
+shortcomings. Efforts in this space include enhanced cystoscopy technologies such as  blue light 
+cystoscopy, which requires instillation of the optical imaging agent hexaminolevulinate11. Currently, blue 
+light cystoscopy is recommended by recognized guidelines , if available, to increase tumor detection12.  
+ 
+=== PAGE 3 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+Artificial intelligence (AI) and deep learning have the potential to enhance visualization, enabling surgeons 
+to better identify, evaluate, and treat bladder cancer. We previously reported on CystoNet, an AI model 
+that accurately detects bladder tumors during cystoscopy 13,14. While this model demonstrated promising 
+performance for papillary tumors, to create more comprehensive and accurate AI tools, a large dataset of 
+quality images following FAIR principles  (Findable, Accessible, Interoperable, Reusable) is req uired for 
+model training and testing15. As new deep learning techniques become available, having AI-ready datasets 
+with accurate, complete, and consisten t data becomes imperative for model training and validation 16. 
+While several large endoscopic imaging datasets exist for other organ systems, such as the gastrointestinal 
+tract17–19, large cystoscopy imaging datasets for training AI models are lacking. One bladder endoscopy 
+dataset used to train a classification model has been published20. Another small cystoscopy imaging atlas 
+derived from a textbook was published, but it is limited due the small size of the dataset and suboptimal 
+image quality21. 
+ 
+In this study,  we prese nt CystoDS 22, an accessible cystoscopy image dataset containing 8,067 labelled 
+images from 160 patients. These labelled images include pathologically confirmed malignant and non-
+malignant ROIs, anatomical landmarks of the bladder, foreign bodies, and normal bladder mucosa . We 
+performed technical validation using our labelled data set to demonstrate the feasibility and potential 
+usability of CystoDS for AI model training and validation.  The benchmark performance of CystoDS was 
+validated using publicly available deep learning image classification models towards developing AI-driven 
+solutions to enhance endoscopic bladder tumor detection and resection. 
+ 
+ 
+Methods 
+ 
+With Institutional Review Board (IRB #29838 and #36085) approval, human subjects (n=160) undergoing 
+cystoscopy and TURBT were consented and enrolled from 2016 to 2022 at the Veterans Affairs Palo Alto 
+Health Care System  (VAPAHCS). Patients consented to recording of standard of care cysto scopies to be 
+uploaded to a secure database as de -identified files that can be shared electronically. Informed consent 
+was obtained at the time of cystoscopy by trained research personnel. Only the protocol director and his 
+trained research personnel have full access to patient data.  Table 1  shows p atient demographics and 
+diversity of images and ROIs . Video and image data were acquired at the time of TURBT (n=200, KARL 
+STORZ Endoskope, Tuttlingen, Germany ) in the operating room  or flexible cystoscopy (n=8, Olympus 
+Corporation, Tokyo, Japan ) in the clinic . Additional still images were captured from cystoscopy videos 
+using built -in MacOS screenshotting software and FFmpeg, an open -source video processing software  
+(ffmpeg.org). A schematic of data acquisition and storage is shown in Figure 1. 
+ 
+All images (n=8,067) were labelled after clinical and pathological diagnoses were established. The labelling 
+process involves renaming image file names with clinical information following a standardized protocol23. 
+This clinical information served as the basis of the class and subclass determination for each image.  File 
+names of images included in CystoDS were changed to a random 8-digit alphanumeric sequence to protect 
+patient privacy and only relevant de-identified clinical data were stored in the accompanying cystods.csv 
+file. 
+ 
+ROIs in select images (n=768, 9.6% of total images) were segmented by an expert urologist using LabelMe. 
+Segmentation consisted of outlining ROIs considered suspicious enough to warrant a biopsy  and/or 
+surgical resection for pathological diagnosis. Segmented images were then reviewed by another expert 
+urologist for quality control. Data of verified segmentations were stored in JSON files. 
+ 
+=== PAGE 4 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+ 
+Data Records 
+ 
+The complete CystoDS dataset 22, including images, segmentation data, and metadata, is available from 
+Open Science Framework (OSF) at https://osf.io/xvdhy/. CystoDS comprises three main components: the 
+“image” folder, “ segmentation” folder, and “cystods.csv” file . The “image” folder  contains all images 
+included in the dataset (n=8,067) in PNG format, with resolutions ranging from 252 to 5120 pixels in width 
+and 209 to 2880 pixels in height. The median file size is 95 kilobytes  (KB), with a range of 44 to 8787  KB. 
+The “segmentations” folder contains JSON files that store segmentation data for the segmented images 
+(n=768). Similar to other published endoscopy datasets , not all images in CystoDS have associated 
+segmentation data (Table 2); however, all images in CystoDS have a class label. CystoDS has a comparable 
+number of  segmented and labelled  images to existing endoscopy datasets  such as HyperKvasir 17,24 
+(n=10,662 labelled images; 1,000 segmented images), PolypGen 18,25 (n=8,037 labelled images; 1,537 
+segmented images), and GastroVision 19,26 (n=8,000 labelled images; 0 segmented images). Compared to 
+the bladder endoscopy dataset published by Lazo et al20,27 (n=1,754 labelled images; 0 segmented images; 
+23 patients), CystoDS offers images from a greater number of patients (n=160) and segmentation data for 
+a subset of the dataset.  Additionally, CystoDS contains a higher percentage  (79%) of normal mucosa 
+images. This skew towards normal mucosa images reflects the reality of bladder endoscopy where 
+typically more normal mucosa is visualized compared to abnormal. Users of our dataset can address the 
+potential bias that comes with class imbalance by randomly sel ecting a subset of normal mucosa images 
+during training. 
+ 
+The file , cystods.csv,  contains the metadata for all 8, 067 images including variables such as filename, 
+participant identification number (pid), visit, ROI, multifocal, bladder cancer status (bca), class, subclass, 
+subclass2, stage, morphology, modality, and JSON. The “filename” variable is a randomized  image file 
+name that was generated using the ids package in R to deidentify any protected health information (PHI) 
+in the original file name. Every participant was assigned a random patient identification number (pid) after 
+obtaining informed consent and prior to data  collection. Due to the recurrent nature of bladder cancer, 
+participants often undergo multiple cystoscopies for disease surveillance and therefore contributed to the 
+dataset multiple times. Specifically, there are images from one (n=83 patients) or two (n=57) visits, with 
+some contributing images from three (n=14), four (n=3), five (n=2), and seven (n=1) visits. Visits were 
+numbered sequen tially for each individual and stored in the “visit” variable.  Within any given visit, 
+multiple ROIs may be identified, and multiple images of the same ROI from different perspective can be 
+generated. The “ROI” variable denotes the identification number for the given image , with  different 
+numbers represent different ROIs or identify the same ROI from different perspectives. In cases where 
+enumeration of ROIs was not feasible, or multiple ROIs were sent for pathology as one specimen, images 
+were labelled  “multifocal” instead of a number for their ROI variable (Fig. 4b) . Additionally, the 
+“multifocal” variable is assigned “2-7” or “8+” as an estimate of the number of tumors associated with the 
+multifocality. The “bca” variable is set to 1 for images containing bladder cancer and 0 when no cancer is 
+present in the image. All images are assigned a “class” and “subclass”: the five classes – malignant, non-
+malignant, anatomical landmarks, foreign bodies, and normal mucosa are further defined into 2 2 
+subclasses (Fig. 2 & 3).  
+ 
+• Malignant subclasses (n=4): LowGradePapillary, HighGradePapillary, CIS, and PreMalignant are 
+subclasses based on guidelines for non -muscle invasive bladder cancer (NMIBC) 28. PreMalignant 
+includes urothelial tumors that are not assigned a grade or stage such as urothelial proliferation 
+of undetermined malignant potential (UPUMP) and papillary urothelial neoplasms of low 
+malignant potential (PUNLMP)29. 
+=== PAGE 5 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+  
+• Non-malignant subclasses (n=8): BenignNOS (benign, not otherwise specified), InflammationNOS 
+(inflammation, not otherwise specified), CCG (cystitis cystica and glandularis), Denuded (denuded 
+urothelium), UrothelialPapilloma, SquamousMetaplasia, NephrogenicAdenoma,  and BenignRare 
+are subclasses determined through internal discussion between expert urologists and 
+pathologists to consolidate various benign ROIs that can mimic bladder cancer on cystoscopy. 
+ 
+•  BenignNOS includes pathological findings such as reactive changes, urothelial mucosa, atypia, 
+and dysplasia. InflammationNOS includes the various non-specific diagnoses of cystitis, while CCG 
+is a more specific diagnosis associated with chronic  inflammation. BenignRare includes rare 
+cystoscopic findings such as malakoplakia and melanosis.  
+ 
+• Anatomical landmarks subclasses (n=6) : UreteralOrifice, ResectionBed, ResectionScar, 
+ProstaticUrethra, Trabeculation, and Diverticulum are common anatomical landmarks observed 
+in patients at risk for bladder cancer30. 
+ 
+• Foreign bodies subclasses (n=4): AirBubble, ResectionLoop, BiopsyForcep, and Stent are common 
+cystoscopy findings and tools. 
+  
+• Normal mucosa: Images of visually normal-appearing bladder tissue  are assigned this class and 
+NA (not applicable) for subclass. 
+ 
+A subset of cases contains ROIs with complex pathology. Twelve ROIs are pathologically low grade with 
+focal high grade papillary urothelial carcinoma. In these cases, the images were assigned class Malignant, 
+subclass LowGradePapillary, and HighGradePapillary for “subclass2”. In a four cases CIS was present in 
+addition to papillary urothelial carcinoma. These images were assigned  class Malignant, subclass 
+HighGradePapillary, and CIS for subclass2. Bladder cancer pathology also includes local stage information 
+(T0, Ta, Tis, T1, T2) for depth of tumor involvement. These data are stored in the “stage” variable. Bladder 
+cancer pathology is defined by both the grade and stage. The 998 images of malignant ROIs in the dataset 
+fall into five combinations of grade and stage: LG (low grade) Ta (n=491), LG T1 (n=2), HG (high grade) Ta 
+(n=210), HG T1 (n=170), and HG T2 (n=53). Images that do not contain malignant ROIs with stage 
+information are assigned NA for stage . “Morphology” refers to the physical appearance of a n ROI . 
+Malignant and non-malignant ROIs are assigned either papillary or non-papillary morphology (Figure 4). 
+In some cases, blue light cystoscopy was used in addition to white light cystoscopy. Images a re assigned 
+either BLC (n=450) or WLC (n=7,617) respectively under “modality”. If an image has an associated 
+segmentation file, “JSON” is set to 1; otherwise, it is set to 0 (Figure 5). 
+ 
+Technical Validation 
+We performed technical validation of the CystoDS  dataset using publicly available deep learning models  
+to demonstrate its reliability and suitability for bladder ROI classification tasks.  
+ 
+Experimental setup 
+We trained four widely used deep learning models for medical image classification to establish benchmark 
+performance on the dataset. These models were selected to evaluate both standard convolutional neural 
+network (CNN) architectures and advanced transformer-based designs, providing a comprehensive basis 
+for comparison.  ResNet31 is a CNN known for its straightforward design and robust feature extraction 
+capabilities. ResNeXt32 extends ResN et with a grouped convolution strategy, balancing efficiency and 
+complexity to handle diverse ROI types. HRNet 33 preserves high-resolution representations throughout  
+=== PAGE 6 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+the network, making it particularly effective for capturing fine -grained details and spatial accuracy in 
+medical imaging tasks. Swin -Transformer34, a state-of-the-art vision transformer, utilizes a hierarchical 
+self-attention mechanism with shifted windows, offering superior performance by modelling both local 
+and global features. 
+ 
+To enable training, validation, and internal testing for classification  of regions of in terest (ROIs) , we 
+randomized the CystoDS dataset into three subsets following a 7 0:15:15 split. Randomization was 
+performed at the patient level ensuring that no patient’s data appeared in more than one subset. The 
+final data splits include a training set of 1,772 images from 128 patients for model training, a validation 
+set of 226 images from 15 patients for hyperparameter tuning and early stopping, and a test set of 219 
+images from 17 patients for final model evaluation. Furthermore, we simplified the classification task for 
+our model by grouping image classes into two categories: ROI and non -ROI. The ROI group (n=1,2 15) 
+included malignant images (n= 994) and non-malignant images (n=221) . The non-ROI group (n=1,0 02) 
+consisted of anatomical landmarks (n=421), foreign bodies (n=41), and a randomly selected subset of 
+normal mucosa (n=540) from 6,386 available images. Since normal mucosa was the largest class, limiting 
+its inclusion to 540 images (~10%) helped balance the dataset and minimize potential model bias. 
+ 
+To further assess generalizability  of CystoDS, we performed external validation by applying the models 
+trained on CystoDS  images to the independent bladder endoscopy dataset published by Lazo et al 20,27, 
+without any fine-tuning. 
+ 
+Validation results 
+To evaluate  ROI classification performance of the models  with the CystoDS dataset, standard metrics 
+including sensitivity, specificity, accuracy, precision, and F-1 score were determined. 
+ 
+Table 3 shows the variation in standard metric across the different deep learning models for internal and 
+external validation. Trained on the CystoDS dataset, Swin-Transformer achieved the highest performance 
+across all metrics, with an accuracy of 0.831 and 0.873 in internal and external validation, respectively and 
+F1-scores of 0.856 and 0.862 in internal and external validation, respectively . This superior performance 
+highlights the potential of hierarchical attention mechanisms to address the diverse characteristics of 
+CystoDS, positioning it as a promising avenue for future research.  With the external validation set the 
+models exhibited varying levels of cross -dataset performance, with some demonstrating strong 
+generalizability.  
+ 
+The variability in model performance further emphasizes the importance of tailoring model selection to 
+specific clini cal objectives. Moreover, the dataset's high -quality segmentations and detailed 
+categorization enable researchers to evaluate model performance across a wide range of ROIs and non-
+ROIs, driving advancements in diagnostic accuracy and clinical utility. 
+ 
+Data Availability 
+The complete CystoDS dataset 22, including images, segmentation data, and metadata, is available from 
+Open Science Framework (OSF) at https://doi.org/10.17605/OSF.IO/XVDHY. 
+ 
+Code Availability 
+The code used to test the dataset is available on GitHub at https://github.com/liaolabsu/CystoDS. 
+ 
+=== PAGE 7 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+Acknowledgements 
+The authors gratefully acknowledge research support from NIH R01 CA260426 (J. Liao and L. Xing) and 
+Department of Veterans Affairs BLR&D I01 BX005598 (J. Liao). 
+ 
+Author contributions 
+Study design was conceived by T JL, LQ, JL, and JCL . TJL, LQ, and JL  prepared and clea ned the data for 
+publication. ES and JCL procured the segmentation data.  LQ and QY performed the technical validation . 
+All authors provided critical review of the manuscript and agreed to submission. 
+ 
+Competing interests 
+Authors declare no competing interests. 
+  
+=== PAGE 8 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+ 
+Figure legends 
+ 
+ 
+Figure 1. CystoDS imaging d ata acquisition and storage . A total of  8,067 images were captured from 
+cystoscopy videos. Images were then labelled with relevant clinical and pathological information retrieved 
+from medical records. 768 images containing regions of interest were additionally segmented and 
+reviewed by expert urologists and then stored with corresponding segmentation data in JSON format. 
+ 
+ 
+Figure 2. CystoDS class es, subclasses  and representative images . A total of 8067 images from 160 
+patients were divided into five classes: (a) malignant; (b) non-malignant; (c) anatomical landmarks; (d) 
+foreign bodies; and (e) normal mucosa. Malignant includes pathologically confirmed papillary urothelial 
+carcinoma, carcinoma in situ  (CIS), and a pre-malignant urothelial tumor. Non-malignant are cancer -
+mimicking in appearance but confirmed pathologically to be benign. Anatomical landmarks are structures 
+(e.g. ureteral orifice) or featur es within the bladder  as determined by experienced urologists . Foreign 
+bodies include surgical instruments and other findings that are not normally present in the bladder. 
+Normal mucosa is visually normal-appearing bladder tissue. Abbreviations: NOS (not otherwise specified), 
+CCG (cystitis cystica and glandularis). 
+ 
+ 
+Figure 3. CystoDS images by class and subclass. The 22 subclasses are grouped into five classes: Malignant 
+(n = 998), Non -malignant (n = 221), Anatomical  landmarks (n = 211), Foreign bodies (n = 251). Normal 
+mucosa images (n = 6,386) are not shown. 
+ 
+ 
+Figure 4. Representative images of bladder tumor morphology and multifocality . Morphology and 
+multifocality are additional labels included in the metadata for the dataset. (a) ROIs that appear papillary 
+(n=875) or non -papillary (n=344) can be either malignant or non -malignant. The malignant 
+LowGradePapillary ROI depicted in a.1 appear morphologically similar  to the  non-malignant 
+UrothelialPapilloma shown in a.3. Similarly, the CIS in a.2 and BenignNOS are difficult to differentiate. (b) 
+Images labelled as multifocal (n=100) contain multiple malignant tumors within a single image. This 
+creates a challenge in enumerating tumors within a bladder.  
+ 
+ 
+Figure 5. 768 segmented images in CystoDS by class and subclass. Segmented images are images with a 
+corresponding segmentation mask that was created by a urologist and reviewed by a second urologist.  
+Normal mucosa images were not segmented. 
+=== PAGE 9 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+  
+ 
+ 
+Tables 
+n  160 
+Age, median (IQR)  78 (75, 83) 
+Race, n (%) White 130 (81.2) 
+ Non-white 30 (18.8) 
+Ethnicity, n (%) Hispanic or Latino 15 (9.6) 
+ Not Hispanic or Latino 138 (87.9) 
+ Unknown or not reported 4 (2.5) 
+Male, n (%)  159 (99.4) 
+Images per patient,  
+median (IQR) 
+ 8 (4, 45) 
+ROIs per patient,  
+median (IQR) 
+ 1 (1, 2) 
+ 
+Table 1. Patient demographics and diversity of images and ROIs. Participants were enrolled at a Veterans 
+Affairs medical center , where majority of patients are males . Images per patient  includes all types of 
+images (malignant, non-malignant, anatomical landmarks, foreign bodies, and normal mucosa). ROIs per 
+patient includes both malignant and non-malignant. 
+  
+=== PAGE 10 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+ 
+ 
+Dataset Labelled Images Segmented Images Patients 
+HyperKvasir17,24 10,662 1,000 N/A 
+PolypGen18,25 8,037 1,537 300+ 
+GastroVision19,26 8,000 0 N/A 
+Lazo et al20,27 1,754 0 23 
+CystoDS22 8,067 768 160 
+    
+Table 2. Publicly available  gastrointestinal and bladder  endoscopy datasets  compared to CystoDS . 
+HyperKvasir, PolypGen and GastroVision are AI-ready endoscopy image datasets available for the  
+gastrointestinal tract, while Lazo et al is an AI ready bladder image dataset. Labelled images include images 
+that have been assigned a class. Segmented images include images that were segmented by a urologist. 
+There is overlap between labelled and segmented images. N/A = not applicable. 
+  
+=== PAGE 11 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+Model Sensitivity Specificity Accuracy Precision F1-Score 
+Internal Test (CystoDS22) 
+ResNet31 0.692 0.787 0.731 0.826 0.753 
+ResNeXt32 0.754 0.787 0.767 0.838 0.794 
+HRNet33 0.692 0.910 0.781 0.918 0.789 
+Swin-Transformer34 0.846 0.809 0.831 0.866 0.856 
+External Test (Lazo et al20,27) 
+ResNet31 0.664 0.746 0.708 0.694 0.678 
+ResNeXt32 0.506 0.779 0.584 0.851 0.634 
+HRNet33 0.555 0.575 0.561 0.764 0.643 
+Swin-Transformer34 0.853 0.890 0.873 0.870 0.862 
+      
+ 
+Table 3. Results for four deep learning classification models trained on CystoDS, tested internally on the 
+CystoDS test set and externally on the dataset published by Lazo et al., providing an evaluation of the 
+generalizability and usability of CystoDS. 
+ 
+  
+=== PAGE 12 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+ 
+ 
+References 
+1. Siegel, R. L., Giaquinto, A. N.  & Jemal, A. Cancer statistics, 2024. CA A Cancer J Clinicians 
+74, 12–49 (2024). 
+2. Ahmadi, H., Duddalwar, V. & Daneshmand, S. Diagnosis and Staging of Bladder Cancer. 
+Hematology/Oncology Clinics of North America 35, 531–541 (2021). 
+3. Cheung, G., Sahai, A., Billia, M., Dasgupta, P. & Khan, M. S. Recent advances in the diagnosis 
+and treatment of bladder cancer. BMC Med 11, 13 (2013). 
+4. Hameed, O. & Humphrey, P. A. Pseudoneoplastic Mimics of Prostate and Bladder Carcinomas. 
+Archives of Pathology & Laboratory Medicine 134, 427–443 (2010). 
+5. Samaratunga, H., Delahunt, B., Yaxley, J. & Egevad, L. Tumour -like lesions of the urinary 
+bladder. Pathology 53, 44–55 (2021). 
+6. Erton, M., Ilker, Y. & Akdaş, A. Carcinoma in situ and treatment options. International Urology 
+and Nephrology 28, 33–42 (1996). 
+7. van der Meijden, A. et al. Significance of bladder biopsies in Ta,T1 bladder tumors: a report 
+from the EORTC Genito -Urinary Tract Cancer Cooperative Group. EORTC -GU Group 
+Superficial Bladder Committee. Eur Urol 35, 267–271 (1999). 
+8. Herr, H. W., Al-Ahmadie, H., Dalbagni, G. & Reuter, V. E. Bladder cancer in cystoscopically 
+normal-appearing mucosa: a case of mistaken identity? BJU Int 106, 1499–1501 (2010). 
+9. Hermann, G. G., Mogensen, K., Carlsson, S., Marcussen, N. & Duun, S. Fluorescence -guided 
+transurethral resection of bladder tumours reduces bladder tumour recurrence due to less 
+residual tumour tissue in T a/T1 patients: a randomized two -centre study. BJU International 
+108, E297–E303 (2011). 
+=== PAGE 13 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+10. Evolution and patterns of global health financing 1995 –2014: development assistance for 
+health, and government, prepaid private, and out -of-pocket health spending in 184 countries. 
+Lancet 389, 1981–2004 (2017). 
+11. Shkolyar, E. et al. Optimizing cystoscopy and TURBT: enhanced imaging and artificial 
+intelligence. Nat Rev Urol 22, 46–54 (2025). 
+12. Holzbeierlein, J. M. et al.  Diagnosis and Treatment of Non -Muscle Invasive Bladder 
+Cancer: AUA/SUO Guideline: 2024 Amendment. J Urol. 211, 533–538 (2024). 
+13. Shkolyar, E. et al. Augmented Bladder Tumor Detection Using Deep Learning. European 
+Urology 76, 714–718 (2019). 
+14. Chang, T. C. et al. Real-time Detection of Bladder Cancer Using Augmented Cystoscopy 
+with Deep Learning: a Pilot Study. Journal of Endourology  end.2023.0056 (2023) 
+doi:10.1089/end.2023.0056. 
+15. Huerta, E. A. et al. FAIR for AI: An interdisciplinary and international community building 
+perspective. Sci Data 10, 487 (2023). 
+16. Ng, M. Y. et al. Perceptions of Data Set Experts on Important Characteristics of Health 
+Data Sets Ready for Machine Learning. JAMA Netw Open 6, e2345892 (2023). 
+17. Borgli, H. et al. HyperKvasir, a comp rehensive multi-class image and video dataset for 
+gastrointestinal endoscopy. Sci Data 7, 283 (2020). 
+18. Ali, S. et al. A multi-centre polyp detection and segmentation dataset for generalisability 
+assessment. Sci Data 10, 75 (2023). 
+19. Jha, D. et al. GastroVision: A Multi-class Endoscopy Image Dataset for Computer Aided 
+Gastrointestinal Disease Detection. Preprint at http://arxiv.org/abs/2307.08140 (2023). 
+20. Lazo, J. F. et al.  Semi-Supervised Bladder Tissue Classification in Multi -Domain 
+Endoscopic Images. IEEE Trans. Biomed. Eng. 70, 2822–2833 (2023). 
+=== PAGE 14 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+21. Eminaga, O. et al.  Efficient Augmented Intelligence Framework for Bladder Lesion 
+Detection. JCO Clinical Cancer Informatics e2300031 (2023) doi:10.1200/CCI.23.00031. 
+22. Lee, T. J. et al.  CystoDS. Open  Science Framework 
+https://doi.org/10.17605/OSF.IO/XVDHY (2025).  
+23. Eminaga, O. et al. Conceptual Framework and Documentation Standards of Cystoscopic 
+Media Content for Artificial Intelligence. J Biomed Inform 142, 104369 (2023). 
+24. Borgli, H. et al.  The HyperKvasir Dataset. Open Science Framework 
+https://doi.org/10.17605/OSF.IO/MH9SJ (2019). 
+25. Ali, S. et al. PolypGen. Synapse https://doi.org/10.7303/syn26376615. 
+26. Jha, D., Sharma, V., Riegler, M. A., Halvorsen, P. & Bagci, U. GastroVision. Open Science 
+Framework (2023). 
+27. Lazo, J. F. et al.  Endoscopic Bladder Tissue Classification Dataset. Zenodo 
+https://doi.org/10.5281/zenodo.7741476 (2023). 
+28. Woldu, S. L., Bagrodia, A. & Lotan, Y. Guideline of Guidelines – Non-Muscle Invasive 
+Bladder Cancer. BJU Int 119, 371–380 (2017). 
+29. Netto, G. J. et al. The 2022 World Health Organization Classification of Tumors of the 
+Urinary System and Male Genital Organs —Part B: Prostate and Urinary Tract Tumors. 
+European Urology 82, 469–482 (2022). 
+30. Engelsgjerd, J. S. & Deibert, C. M. Cystoscopy. in StatPearls (StatPearls Publishing, 
+Treasure Island (FL), 2025). 
+31. He, K., Zhang, X., Ren, S. & Sun, J. Deep Residual Learning for Image Recognition. in 
+2016 IEEE Conference on Computer Vision and Pattern Recognition (CVPR) 770–778 (IEEE, 
+Las Vegas, NV, USA, 2016). doi:10.1109/CVPR.2016.90. 
+=== PAGE 15 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+ 
+ 
+ 
+32. Xie, S., Girshick, R., Dollar, P., Tu, Z. & He, K. Aggregated Residual Transformations for 
+Deep Neural Networks. in 2017 IEEE Conference on Computer Vision and Pattern Recognition 
+(CVPR) 5987–5995 (IEEE, Honolulu, HI, 2017). doi:10.1109/CVPR.2017.634. 
+33. Sun, K., Xiao, B., Liu, D. & Wang, J. Deep High-Resolution Representation Learning for 
+Human Pose Estimation. in 2019 IEEE/CVF Conference on Computer Vision and Pattern 
+Recognition (CVPR)  5686–5696 (IEEE, Long Beach, CA, USA, 2019). 
+doi:10.1109/CVPR.2019.00584. 
+34. Liu, Z. et al. Swin Transformer: Hierarchical Vision Transformer using Shifted Windows. 
+in 2021 IEEE/CVF International Conference on Computer Vision (ICCV) 9992–10002 (IEEE, 
+Montreal, QC, Canada, 2021). doi:10.1109/ICCV48922.2021.00986. 
+ 
+=== PAGE 16 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+
+=== PAGE 17 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+
+=== PAGE 18 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+
+=== PAGE 19 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+
+=== PAGE 20 ===
+ARTICLE IN PRESS
+ARTICLE IN PRESS
+

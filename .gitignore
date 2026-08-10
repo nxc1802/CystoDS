@@ -8,6 +8,12 @@
 !notebook/
 !notebook/**
 
+# Whitelist Docs and output directories
+!Docs/
+!Docs/**
+!output/
+!output/**
+
 # Ignore python bytecode, cache, and OS artifacts
 __pycache__/
 *.py[cod]

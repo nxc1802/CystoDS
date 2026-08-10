@@ -1,0 +1,244 @@
+{
+  "schema_version": "cystods.architecture_inference_benchmark.v1",
+  "created_at_utc": "2026-08-03T13:05:51.290795+00:00",
+  "scope": "architecture_equivalent_no_learned_checkpoint",
+  "scientific_interpretation": "Valid for graph-level runtime and allocation on this machine; not valid for predictions, accuracy, or explainability.",
+  "checkpoint_access": {
+    "loaded": false,
+    "reason": "Receipt declares a private Hugging Face repository; no local checkpoint/cache or authenticated Hugging Face token was available.",
+    "repo_id": "Cuong2004/CystoDS-Checkpoints",
+    "commit_oid": "2dc6122b0af33f605e30ef329baa3d81a4101db9",
+    "path_in_repo": "cystods_hierarchical_long_tailed_2026/stage_30_run_proposed_method/68d782ed2517d2d849d5/holdout/best_model.pt",
+    "checkpoint_sha256": "554abf5c42a3a1f0e049e9ddba97c02e4677341ce399aa728cfaa1a3ad3ad68d",
+    "checkpoint_bytes": 112988870
+  },
+  "architecture": {
+    "model_name": "swin_tiny_patch4_window7_224.ms_in1k",
+    "image_size": 224,
+    "channels_last": true,
+    "feature_dim": 768,
+    "total_parameters": 28230679,
+    "trainable_parameters": 28230679,
+    "parameter_count_matches_published_artifact": true,
+    "active_outputs": [
+      "projection",
+      "binary_logits",
+      "coarse_logits",
+      "fine_logits"
+    ]
+  },
+  "runtime": {
+    "device": "mps",
+    "precision": "fp32",
+    "inference_mode": true,
+    "torch_compile": false,
+    "python": "3.11.15",
+    "platform": "macOS-26.6-arm64-arm-64bit",
+    "machine": "arm64",
+    "processor": "arm",
+    "logical_cpu_count": 10,
+    "physical_cpu_count": 10,
+    "ram_total_gib": 16.0,
+    "torch": "2.13.0",
+    "torchvision": "0.28.0",
+    "timm": "1.0.28",
+    "model_allocated_memory_mib": 108.76123046875,
+    "model_driver_memory_mib": 144.46875,
+    "process_rss_after_model_mib": 659.59375
+  },
+  "method": {
+    "timer": "time.perf_counter",
+    "device_synchronized_each_timed_iteration": true,
+    "warmup_iterations_model_forward": 15,
+    "timing_includes_preprocessing": false,
+    "timing_includes_host_to_device_transfer": false,
+    "batch_sizes": [
+      1,
+      8,
+      32
+    ]
+  },
+  "model_forward_measurements": [
+    {
+      "batch_size": 1,
+      "timed_iterations": 60,
+      "latency_mean_ms_per_batch": 12.080781957289824,
+      "latency_median_ms_per_batch": 12.983499909751117,
+      "latency_p95_ms_per_batch": 13.36652496829629,
+      "latency_std_ms_per_batch": 1.585950964603308,
+      "latency_mean_ms_per_image": 12.080781957289824,
+      "throughput_images_per_second": 82.77609872733252,
+      "scope": "model_forward_only",
+      "warmup_iterations": 15,
+      "input_shape": [
+        1,
+        3,
+        224,
+        224
+      ],
+      "allocated_memory_after_warmup_mib": 110.834228515625,
+      "driver_memory_after_warmup_mib": 154.703125,
+      "output_shapes": {
+        "features": [
+          1,
+          768
+        ],
+        "projection": [
+          1,
+          128
+        ],
+        "binary_logits": [
+          1,
+          2
+        ],
+        "coarse_logits": [
+          1,
+          5
+        ],
+        "fine_logits": [
+          1,
+          22
+        ]
+      }
+    },
+    {
+      "batch_size": 8,
+      "timed_iterations": 60,
+      "latency_mean_ms_per_batch": 81.33378191463028,
+      "latency_median_ms_per_batch": 81.74485398922116,
+      "latency_p95_ms_per_batch": 83.83545445976779,
+      "latency_std_ms_per_batch": 1.8413012462250826,
+      "latency_mean_ms_per_image": 10.166722739328785,
+      "throughput_images_per_second": 98.36011324786267,
+      "scope": "model_forward_only",
+      "warmup_iterations": 15,
+      "input_shape": [
+        8,
+        3,
+        224,
+        224
+      ],
+      "allocated_memory_after_warmup_mib": 113.986572265625,
+      "driver_memory_after_warmup_mib": 1202.703125,
+      "output_shapes": {
+        "features": [
+          8,
+          768
+        ],
+        "projection": [
+          8,
+          128
+        ],
+        "binary_logits": [
+          8,
+          2
+        ],
+        "coarse_logits": [
+          8,
+          5
+        ],
+        "fine_logits": [
+          8,
+          22
+        ]
+      }
+    },
+    {
+      "batch_size": 32,
+      "timed_iterations": 20,
+      "latency_mean_ms_per_batch": 318.53868537582457,
+      "latency_median_ms_per_batch": 317.31677101925015,
+      "latency_p95_ms_per_batch": 326.51558745419607,
+      "latency_std_ms_per_batch": 5.148807815383902,
+      "latency_mean_ms_per_image": 9.954333917994518,
+      "throughput_images_per_second": 100.45875577795246,
+      "scope": "model_forward_only",
+      "warmup_iterations": 15,
+      "input_shape": [
+        32,
+        3,
+        224,
+        224
+      ],
+      "allocated_memory_after_warmup_mib": 127.99853515625,
+      "driver_memory_after_warmup_mib": 1170.703125,
+      "output_shapes": {
+        "features": [
+          32,
+          768
+        ],
+        "projection": [
+          32,
+          128
+        ],
+        "binary_logits": [
+          32,
+          2
+        ],
+        "coarse_logits": [
+          32,
+          5
+        ],
+        "fine_logits": [
+          32,
+          22
+        ]
+      }
+    }
+  ],
+  "preprocessing_measurement": {
+    "batch_size": 1,
+    "timed_iterations": 60,
+    "latency_mean_ms_per_batch": 1.2905353719058137,
+    "latency_median_ms_per_batch": 1.235332922078669,
+    "latency_p95_ms_per_batch": 1.612792129162699,
+    "latency_std_ms_per_batch": 0.1709571654693577,
+    "latency_mean_ms_per_image": 1.2905353719058137,
+    "throughput_images_per_second": 774.872213322784,
+    "scope": "decode_center_crop_resize_normalize_only",
+    "warmup_iterations": 5,
+    "source_image": "xvdhy-osfstorage-archive/images/0bceb179.png",
+    "output_shape": [
+      3,
+      224,
+      224
+    ],
+    "filesystem_cache_state": "warm_after_warmup"
+  },
+  "end_to_end_batch1_measurement": {
+    "batch_size": 1,
+    "timed_iterations": 60,
+    "latency_mean_ms_per_batch": 15.000271490619829,
+    "latency_median_ms_per_batch": 15.592145500704646,
+    "latency_p95_ms_per_batch": 15.841885574627668,
+    "latency_std_ms_per_batch": 1.3309383215039503,
+    "latency_mean_ms_per_image": 15.000271490619829,
+    "throughput_images_per_second": 66.66546006352841,
+    "scope": "decode_preprocess_transfer_and_model_forward",
+    "warmup_iterations": 5,
+    "source_image": "xvdhy-osfstorage-archive/images/0bceb179.png",
+    "filesystem_cache_state": "warm_after_warmup",
+    "output_shapes": {
+      "features": [
+        1,
+        768
+      ],
+      "projection": [
+        1,
+        128
+      ],
+      "binary_logits": [
+        1,
+        2
+      ],
+      "coarse_logits": [
+        1,
+        5
+      ],
+      "fine_logits": [
+        1,
+        22
+      ]
+    }
+  }
+}

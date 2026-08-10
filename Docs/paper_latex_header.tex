@@ -1,0 +1,78 @@
+% Publication layout additions for the CystoDS Vietnamese manuscript.
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+\usepackage{pdflscape}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{ragged2e}
+\usepackage{seqsplit}
+\usepackage{booktabs}
+\usepackage{changepage}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+
+\definecolor{CystoBlue}{HTML}{1F4E79}
+\definecolor{CystoTeal}{HTML}{2A7F62}
+\definecolor{CystoGray}{HTML}{4A5568}
+\definecolor{CystoDark}{HTML}{1A202C}
+\definecolor{CystoLightBg}{HTML}{F7FAFC}
+
+\graphicspath{{../../Docs/}{Docs/}{paper_assets/}}
+
+\captionsetup{font=small,labelfont={bf,color=CystoBlue}}
+\captionsetup[table]{position=top,skip=3pt}
+\captionsetup[figure]{position=bottom,skip=4pt}
+
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+\renewcommand{\contentsname}{Mục lục}
+
+\titleformat{\section}
+  {\large\bfseries\color{CystoBlue}}
+  {\thesection.}{0.4em}{}
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{CystoTeal}}
+  {\thesubsection.}{0.4em}{}
+\titleformat{\subsubsection}
+  {\small\bfseries\color{CystoDark}}
+  {\thesubsubsection.}{0.4em}{}
+
+\titlespacing*{\section}{0pt}{1.5ex plus 0.4ex minus 0.2ex}{0.6ex}
+\titlespacing*{\subsection}{0pt}{1.2ex plus 0.3ex minus 0.2ex}{0.4ex}
+\titlespacing*{\subsubsection}{0pt}{1.0ex plus 0.2ex minus 0.2ex}{0.3ex}
+
+\setlength{\parindent}{1.0em}
+\setlength{\parskip}{0.22em plus 0.05em minus 0.05em}
+\setlength{\emergencystretch}{3em}
+\setlength{\columnsep}{0.65cm}
+\setlength{\tabcolsep}{4pt}
+\renewcommand{\arraystretch}{1.15}
+\setlist{nosep,leftmargin=1.4em,topsep=0.3em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{CystoGray}CystoDS -- Phân loại phân cấp bàng quang}
+\fancyhead[R]{\small\color{CystoGray}Bản thảo nghiên cứu nội bộ}
+\fancyfoot[C]{\small\color{CystoGray}\thepage}
+\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0.35pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\widowpenalty=10000
+\clubpenalty=10000
+\displaywidowpenalty=10000
+
+\AtBeginDocument{%
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=CystoBlue,
+    urlcolor=CystoTeal,
+    citecolor=CystoBlue,
+    pdfsubject={Phân loại phân cấp tổn thương bàng quang trên CystoDS},
+    pdfkeywords={CystoDS, cystoscopy, hierarchical classification, long-tail learning, Swin Transformer}
+  }%
+}
