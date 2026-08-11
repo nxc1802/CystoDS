@@ -7647,13 +7647,13 @@ def find_latest_completed_protocol_run(
     for base in search_dirs:
         if not base.is_dir():
             continue
-        for path in base.rglob("stage_00_prepare_protocol_*"):
+        for manifest_file in base.rglob("protocol_manifest.json"):
+            path = manifest_file.parent
             if not path.is_dir() or path in seen:
                 continue
             seen.add(path)
             status_file = path / "run_status.json"
-            manifest_file = path / "protocol_manifest.json"
-            if not (status_file.is_file() and manifest_file.is_file()):
+            if not status_file.is_file():
                 continue
             try:
                 status = json.loads(status_file.read_text(encoding="utf-8"))
