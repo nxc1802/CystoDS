@@ -541,6 +541,8 @@ def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
     flat.setdefault("evaluation_scope", "development")
     flat.setdefault("suite_trial_id", None)
     flat.setdefault("expected_dataset_semantic_sha256", None)
+    flat["filter_models"] = config.get("filter_models")
+    flat["filter_trials"] = config.get("filter_trials")
 
     # Apply stage-specific overrides
     if stage is not None:

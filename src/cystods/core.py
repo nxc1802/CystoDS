@@ -223,6 +223,8 @@ BASE_CONFIG = {
     "protocol_role": None,
     "evaluation_scope": "legacy",
     "suite_trial_id": None,
+    "filter_models": None,
+    "filter_trials": None,
     "max_train_samples": None,
     "max_val_samples": None,
     "max_test_samples": None,
@@ -825,6 +827,7 @@ class FlushFileHandler(logging.FileHandler):
 
 
 def setup_logger(log_path: Path) -> logging.Logger:
+    log_path.parent.mkdir(parents=True, exist_ok=True)
     logger = logging.getLogger(f"cystods.{log_path.parent.parent.name}")
     logger.setLevel(logging.INFO)
     logger.propagate = False
@@ -874,6 +877,7 @@ def snapshot_source_files(
     source_files: Sequence[Path | str],
 ) -> dict[str, Any]:
     resolved = validate_source_files(source_files)
+    (run_dir / "source").mkdir(parents=True, exist_ok=True)
     rows = []
     for source_path in resolved:
         destination = run_dir / "source" / source_path.name
