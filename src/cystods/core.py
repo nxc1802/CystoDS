@@ -2451,6 +2451,10 @@ def load_frozen_protocol_splits(
     logger: logging.Logger,
 ) -> list[tuple[str, dict[str, pd.DataFrame], dict[str, set[str]]]]:
     if not protocol_manifest_dir.is_dir():
+        if protocol_manifest_dir.parent.is_dir():
+            protocol_manifest_dir = protocol_manifest_dir.parent
+
+    if not protocol_manifest_dir.is_dir():
         raise FileNotFoundError(
             f"Frozen protocol directory not found: {protocol_manifest_dir}"
         )
@@ -2462,19 +2466,24 @@ def load_frozen_protocol_splits(
         unit_dirs = [protocol_manifest_dir]
     else:
         discovered_dirs = sorted(
-            path
-            for path in protocol_manifest_dir.iterdir()
-            if path.is_dir() and (path / "summary.json").is_file()
+            summary_path.parent
+            for summary_path in protocol_manifest_dir.rglob("summary.json")
+            if (summary_path.parent / "train.csv").is_file()
         )
         if config["protocol"] == "holdout":
             unit_dirs = [
-                path for path in discovered_dirs if path.name == "holdout"
+                path
+                for path in discovered_dirs
+                if path.name == "holdout"
+                or path.parent.name == "holdout"
+                or "holdout" in str(path)
             ]
         else:
             unit_dirs = [
                 path
                 for path in discovered_dirs
                 if path.name.startswith("fold_")
+                or path.parent.name.startswith("fold_")
             ]
     if not unit_dirs:
         raise FileNotFoundError(
