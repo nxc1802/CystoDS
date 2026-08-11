@@ -817,6 +817,8 @@ def make_run_directory(config: Mapping[str, Any]) -> Path:
         run_dir = root / stage_prefix / f"{profile}_{stamp}_{suffix:02d}"
         suffix += 1
     run_dir.mkdir(parents=True, exist_ok=True)
+    for sub in ("reports", "splits", "system", "source", "logs", "folds"):
+        (run_dir / sub).mkdir(parents=True, exist_ok=True)
     return run_dir
 
 
