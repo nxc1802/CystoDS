@@ -689,7 +689,6 @@ def show_config(
         stage=stage,
         cli_overrides=cli_overrides,
     )
-    # Convert Path objects for YAML serialization
     serializable = {}
     for key, value in sorted(flat.items()):
         if isinstance(value, Path):
@@ -699,3 +698,175 @@ def show_config(
         else:
             serializable[key] = value
     return yaml.dump(serializable, default_flow_style=False, sort_keys=True)
+
+
+from datetime import datetime, timezone
+from collections.abc import Mapping
+
+def make_run_directory(config: Mapping[str, Any]) -> Path:
+    root = Path(config["result_root"]).resolve()
+    root.mkdir(parents=True, exist_ok=True)
+    stamp = datetime.now(timezone.utc).astimezone().strftime(
+        "%Y%m%d-%H%M%S"
+    )
+    exp_name = str(config.get("experiment_name", "cystods"))
+    profile = str(config.get("run_profile", "research"))
+
+    stage_prefix = exp_name
+    if "stage_00" in exp_name:
+        stage_prefix = "00_protocol"
+    elif "stage_10" in exp_name:
+        stage_prefix = "10_baselines"
+    elif "stage_20" in exp_name:
+        stage_prefix = "20_long_tail"
+    elif "stage_30" in exp_name:
+        stage_prefix = "30_proposed"
+    elif "stage_40" in exp_name:
+        stage_prefix = "40_ablations"
+    elif "stage_60" in exp_name:
+        stage_prefix = "60_external"
+    elif "stage_90" in exp_name:
+        stage_prefix = "90_final_cv"
+
+    base = root / stage_prefix / f"{profile}_{stamp}"
+    run_dir = base
+    suffix = 1
+    while run_dir.exists():
+        run_dir = root / stage_prefix / f"{profile}_{stamp}_{suffix:02d}"
+        suffix += 1
+    run_dir.mkdir(parents=True, exist_ok=True)
+    for sub in ("reports", "splits", "system", "source", "logs", "folds"):
+        (run_dir / sub).mkdir(parents=True, exist_ok=True)
+    return run_dir
+
+
+def normalize_core_config(
+    config: Mapping[str, Any],
+) -> dict[str, Any]:
+    from cystods.core import BASE_CONFIG
+    unknown = set(config) - set(BASE_CONFIG)
+    if unknown:
+        raise KeyError(f"Core config contains unknown keys: {sorted(unknown)}")
+    normalized = dict(BASE_CONFIG)
+    normalized.update(dict(config))
+    return normalized
+
+
+from cystods.models.factory import validate_config
+
+PROPOSED_CANONICAL_CONFIG: dict[str, Any] = {
+    "image_size": 224,
+    "fov_center_crop_ratio": 0.92,
+    "model_name": "swin_tiny_patch4_window7_224.ms_in1k",
+    "pretrained": True,
+    "dropout": 0.20,
+    "projection_dim": 128,
+    "task_mode": "hierarchical",
+    "binary_loss_weight": 1.0,
+    "coarse_loss_weight": 1.0,
+    "fine_loss_weight": 1.0,
+    "binary_coarse_hierarchy_loss_weight": 0.25,
+    "coarse_fine_hierarchy_loss_weight": 0.25,
+    "fine_loss": "balanced_softmax",
+    "fine_prior_source": "patient_count",
+    "fine_prior_smoothing_alpha": 1.0,
+    "fine_prior_power": 0.5,
+    "fine_prior_max_ratio": 50.0,
+    "fine_absent_train_policy": "mask_and_score_zero",
+    "class_balance_beta": 0.9999,
+    "focal_gamma": 2.0,
+    "focal_use_class_balance": False,
+    "logit_adjustment_tau": 0.5,
+    "ldam_max_margin": 0.5,
+    "ldam_scale": 30.0,
+    "supervised_contrastive_loss_weight": 0.10,
+    "supervised_contrastive_temperature": 0.10,
+    "supervised_contrastive_label_level": "fine",
+    "use_data_augmentation": False,
+    "sampler": "random",
+    "sampler_label_level": "fine",
+    "fine_inference_calibration_mode": "validation_grid",
+    "fine_inference_prior_tau": 0.0,
+    "fine_inference_tau_grid": (0.0, 0.25, 0.5, 0.75, 1.0),
+    "fine_inference_calibration_metric": "primary_macro_f1_all_classes",
+    "batch_size": 256,
+    "epochs": 25,
+    "learning_rate": 3.0e-4,
+    "encoder_learning_rate_multiplier": 0.25,
+    "weight_decay": 0.05,
+    "optimizer": "adamw",
+    "warmup_epochs": 2.0,
+    "scheduler_epochs": 25,
+    "minimum_learning_rate_ratio": 0.01,
+    "gradient_accumulation_steps": 1,
+    "gradient_clip_norm": 1.0,
+    "random_resized_crop_scale": (0.75, 1.0),
+    "horizontal_flip_probability": 0.5,
+    "vertical_flip_probability": 0.5,
+    "rotation_degrees": 15,
+    "color_jitter": (0.20, 0.20, 0.15, 0.05),
+    "random_erasing_probability": 0.20,
+    "imagenet_mean": (0.485, 0.456, 0.406),
+    "imagenet_std": (0.229, 0.224, 0.225),
+    "train_modality": "all",
+    "evaluate_wlc_only": False,
+    "early_stopping_patience": 6,
+    "monitor_metric": "hierarchical_composite",
+    "hierarchical_composite_weights": {
+        "coarse_macro_f1_all_classes": 0.35,
+        "primary_macro_f1_all_classes": 0.45,
+        "hierarchical_accuracy": 0.20,
+    },
+    "checkpoint_min_delta": 1.0e-4,
+}
+
+PROFILE_OVERRIDES: dict[str, dict[str, Any]] = {
+    "research": {},
+    "smoke": {
+        "experiment_name": "cystods_local_smoke",
+        "verify_all_image_decodes": False,
+        "dataset_fingerprint_mode": "semantic",
+        "verify_exact_duplicate_images": False,
+        "protocol": "holdout",
+        "fixed_split_pids": {
+            "train": ("1552",),
+            "val": ("1261",),
+            "test": ("808",),
+        },
+        "normal_mucosa_limit": None,
+        "image_size": 64,
+        "fov_center_crop_ratio": 0.95,
+        "random_resized_crop_scale": (0.85, 1.0),
+        "batch_size": 4,
+        "eval_batch_size": 4,
+        "num_workers": 0,
+        "eval_num_workers": 0,
+        "persistent_workers": False,
+        "pin_memory": False,
+        "model_name": "swin_tiny_patch4_window7_224.ms_in1k",
+        "pretrained": False,
+        "dropout": 0.10,
+        "supervised_contrastive_loss_weight": 0.0,
+        "fine_loss": "focal",
+        "fine_inference_calibration_mode": "fixed",
+        "epochs": 1,
+        "scheduler_epochs": 1,
+        "learning_rate": 1.0e-3,
+        "warmup_epochs": 0.0,
+        "early_stopping_patience": 1,
+        "monitor_metric": "coarse_macro_f1",
+        "device": "cpu",
+        "precision": "fp32",
+        "enable_tf32": False,
+        "channels_last": False,
+        "bootstrap_iterations": 20,
+        "scientific_gate_mode": "report",
+        "log_every_n_steps": 1,
+        "sample_grid_images_per_class": 1,
+        "save_last_checkpoint": False,
+        "roi_aggregations": ("mean", "vote", "attention"),
+        "roi_attention_epochs": 1,
+        "checkpoint_backend": "local",
+    },
+}
+

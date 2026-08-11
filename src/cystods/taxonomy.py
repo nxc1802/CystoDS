@@ -73,7 +73,11 @@ if len(FINE_NAMES) != 22 or len(set(FINE_NAMES)) != 22:
 
 # ── ID look-ups ─────────────────────────────────────────────────────────
 COARSE_TO_ID: dict[str, int] = {name: idx for idx, name in enumerate(COARSE_NAMES)}
+COARSE_ID_BY_NAME = COARSE_TO_ID
+COARSE_BY_ID: dict[int, str] = {idx: name for idx, name in enumerate(COARSE_NAMES)}
 FINE_TO_ID: dict[str, int] = {name: idx for idx, name in enumerate(FINE_NAMES)}
+FINE_ID_BY_NAME = FINE_TO_ID
+FINE_BY_ID: dict[int, str] = {idx: name for idx, name in enumerate(FINE_NAMES)}
 
 FINE_PARENT_ID: tuple[int, ...] = tuple(
     COARSE_TO_ID[parent]
@@ -81,12 +85,34 @@ FINE_PARENT_ID: tuple[int, ...] = tuple(
     for parent, children in FINE_BY_PARENT.items()
     if fine_name in children
 )
+FINE_TO_COARSE_ID = FINE_PARENT_ID
+
+FINE_PARENT_NAME: dict[str, str] = {
+    fine_name: parent
+    for parent, children in FINE_BY_PARENT.items()
+    for fine_name in children
+}
 
 FINE_PARENT_ID_TENSOR = torch.tensor(FINE_PARENT_ID, dtype=torch.long)
 
 ROI_COARSE_IDS = frozenset(
     (COARSE_TO_ID["Malignant"], COARSE_TO_ID["Non-malignant"])
 )
+
+
+def coarse_id_from_subclass(subclass_name: str) -> int:
+    parent_name = FINE_PARENT_NAME.get(subclass_name)
+    if parent_name is None:
+        return COARSE_TO_ID["Normal mucosa"]
+    return COARSE_TO_ID[parent_name]
+
+
+def coarse_name_from_subclass(subclass_name: str) -> str:
+    return FINE_PARENT_NAME.get(subclass_name, "Normal mucosa")
+
+
+def fine_id_from_subclass(subclass_name: str) -> int:
+    return FINE_TO_ID.get(subclass_name, -1)
 
 # ── Hierarchy mapping tensors ───────────────────────────────────────────
 COARSE_BINARY_PARENT_ID = torch.tensor(
