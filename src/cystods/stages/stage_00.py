@@ -40,6 +40,7 @@ def run(config: dict[str, Any]) -> Path:
     config["evaluation_scope"] = "development"
     config["verify_all_image_decodes"] = config.get("verify_all_image_decodes", True)
     config["deterministic"] = config.get("deterministic", True)
+    config["checkpoint_backend"] = "local"
 
     if config.get("run_profile") == "smoke":
         config.setdefault("protocol_role", "smoke_holdout")

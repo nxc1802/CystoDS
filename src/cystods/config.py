@@ -521,7 +521,7 @@ def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
     flat["resume_checkpoint"] = checkpoint.get("resume")
 
     # HF
-    flat["hf_repo_id"] = hf.get("repo_id")
+    flat["hf_repo_id"] = hf.get("repo_id") or os.environ.get("CYSTODS_HF_REPO_ID")
     flat["hf_revision"] = hf.get("revision", "main")
     flat["hf_private"] = hf.get("private", True)
     flat["hf_create_repo"] = hf.get("create_repo", True)
@@ -529,6 +529,10 @@ def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
         "path_prefix", f"{flat['study_id']}/{flat.get('stage_name', 'cystods')}"
     )
     flat["hf_token_env"] = hf.get("token_env", "HF_TOKEN")
+
+    # Fallback to local checkpointing if checkpoint_backend is huggingface but no valid hf_repo_id is supplied
+    if flat["checkpoint_backend"] == "huggingface" and not flat["hf_repo_id"]:
+        flat["checkpoint_backend"] = "local"
 
     # Logging
     flat["log_every_n_steps"] = logging_cfg.get("log_every_n_steps", 20)
