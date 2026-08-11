@@ -1,0 +1,1554 @@
+filename,image_path,pid,visit,lesion,class,subclass,binary_id,coarse_id,fine_id,modality,json
+e2b568c6.png,/marimo/xvdhy-osfstorage-archive/images/e2b568c6.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+5d2d1a18.png,/marimo/xvdhy-osfstorage-archive/images/5d2d1a18.png,909,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f0ce26d4.png,/marimo/xvdhy-osfstorage-archive/images/f0ce26d4.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+400e23c9.bmp,/marimo/xvdhy-osfstorage-archive/images/400e23c9.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+33c7c81a.jpg,/marimo/xvdhy-osfstorage-archive/images/33c7c81a.png,612,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+b2ec43a6.png,/marimo/xvdhy-osfstorage-archive/images/b2ec43a6.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ed620e1e.png,/marimo/xvdhy-osfstorage-archive/images/ed620e1e.png,1052,2,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+936e6691.bmp,/marimo/xvdhy-osfstorage-archive/images/936e6691.png,666,1,L2,Non-malignant,BenignRare,1,1,11,BLC,0
+060bc9d8.png,/marimo/xvdhy-osfstorage-archive/images/060bc9d8.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+9667ea2f.jpg,/marimo/xvdhy-osfstorage-archive/images/9667ea2f.png,1192,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+7b801a4b.png,/marimo/xvdhy-osfstorage-archive/images/7b801a4b.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+00ca8767.bmp,/marimo/xvdhy-osfstorage-archive/images/00ca8767.png,878,2,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+53a1d4b7.bmp,/marimo/xvdhy-osfstorage-archive/images/53a1d4b7.png,1405,5,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+e7fa3438.png,/marimo/xvdhy-osfstorage-archive/images/e7fa3438.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+70397ec1.png,/marimo/xvdhy-osfstorage-archive/images/70397ec1.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+1a6a4204.png,/marimo/xvdhy-osfstorage-archive/images/1a6a4204.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+af88535f.png,/marimo/xvdhy-osfstorage-archive/images/af88535f.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+a555f1e8.jpg,/marimo/xvdhy-osfstorage-archive/images/a555f1e8.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+25a19d13.png,/marimo/xvdhy-osfstorage-archive/images/25a19d13.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d6119ac4.png,/marimo/xvdhy-osfstorage-archive/images/d6119ac4.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+6f4e4b4a.png,/marimo/xvdhy-osfstorage-archive/images/6f4e4b4a.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+60899eed.png,/marimo/xvdhy-osfstorage-archive/images/60899eed.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+cc42468f.png,/marimo/xvdhy-osfstorage-archive/images/cc42468f.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+63fae2e7.jpg,/marimo/xvdhy-osfstorage-archive/images/63fae2e7.png,1417,1,L2,Non-malignant,CCG,1,1,6,BLC,0
+e1fe80db.png,/marimo/xvdhy-osfstorage-archive/images/e1fe80db.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+c722469e.png,/marimo/xvdhy-osfstorage-archive/images/c722469e.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+ba8f2eae.png,/marimo/xvdhy-osfstorage-archive/images/ba8f2eae.png,376,2,L2,Non-malignant,Denuded,1,1,7,WLC,0
+037b6303.png,/marimo/xvdhy-osfstorage-archive/images/037b6303.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+275ca61f.png,/marimo/xvdhy-osfstorage-archive/images/275ca61f.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+ce1dd6d9.jpg,/marimo/xvdhy-osfstorage-archive/images/ce1dd6d9.png,1261,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+14c841a1.png,/marimo/xvdhy-osfstorage-archive/images/14c841a1.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+db33b4b8.png,/marimo/xvdhy-osfstorage-archive/images/db33b4b8.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+9bea59ef.bmp,/marimo/xvdhy-osfstorage-archive/images/9bea59ef.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+5116f062.png,/marimo/xvdhy-osfstorage-archive/images/5116f062.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b55be11a.jpg,/marimo/xvdhy-osfstorage-archive/images/b55be11a.png,1258,1,L1,Non-malignant,SquamousMetaplasia,1,1,9,WLC,0
+0f61da9e.png,/marimo/xvdhy-osfstorage-archive/images/0f61da9e.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+94985ec4.png,/marimo/xvdhy-osfstorage-archive/images/94985ec4.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9bb62c9e.png,/marimo/xvdhy-osfstorage-archive/images/9bb62c9e.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+1edea4f4.bmp,/marimo/xvdhy-osfstorage-archive/images/1edea4f4.png,832,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+a49f84fb.bmp,/marimo/xvdhy-osfstorage-archive/images/a49f84fb.png,386,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+9287ae39.png,/marimo/xvdhy-osfstorage-archive/images/9287ae39.png,1599,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+c0065c0b.png,/marimo/xvdhy-osfstorage-archive/images/c0065c0b.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+14657c4f.png,/marimo/xvdhy-osfstorage-archive/images/14657c4f.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+ca50f1d6.bmp,/marimo/xvdhy-osfstorage-archive/images/ca50f1d6.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+5cf24e2d.png,/marimo/xvdhy-osfstorage-archive/images/5cf24e2d.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+c373b336.png,/marimo/xvdhy-osfstorage-archive/images/c373b336.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+fd6817bd.png,/marimo/xvdhy-osfstorage-archive/images/fd6817bd.png,1396,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+355016c2.png,/marimo/xvdhy-osfstorage-archive/images/355016c2.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3efb934a.png,/marimo/xvdhy-osfstorage-archive/images/3efb934a.png,952,5,L0,Foreign bodies,Stent,0,4,21,WLC,0
+9a7ed64e.bmp,/marimo/xvdhy-osfstorage-archive/images/9a7ed64e.png,1116,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+4bdba844.png,/marimo/xvdhy-osfstorage-archive/images/4bdba844.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+c84a865c.bmp,/marimo/xvdhy-osfstorage-archive/images/c84a865c.png,1014,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+2b0168e0.png,/marimo/xvdhy-osfstorage-archive/images/2b0168e0.png,1177,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+43fb2c13.png,/marimo/xvdhy-osfstorage-archive/images/43fb2c13.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5450bf64.png,/marimo/xvdhy-osfstorage-archive/images/5450bf64.png,1064,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0a9b6f86.png,/marimo/xvdhy-osfstorage-archive/images/0a9b6f86.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+0ab3ee56.png,/marimo/xvdhy-osfstorage-archive/images/0ab3ee56.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ac2917f6.png,/marimo/xvdhy-osfstorage-archive/images/ac2917f6.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+fc73bbf0.png,/marimo/xvdhy-osfstorage-archive/images/fc73bbf0.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+47cc4f68.png,/marimo/xvdhy-osfstorage-archive/images/47cc4f68.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5cb4954e.png,/marimo/xvdhy-osfstorage-archive/images/5cb4954e.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d80ab8ba.png,/marimo/xvdhy-osfstorage-archive/images/d80ab8ba.png,1223,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+90b20d11.png,/marimo/xvdhy-osfstorage-archive/images/90b20d11.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+fad008a3.png,/marimo/xvdhy-osfstorage-archive/images/fad008a3.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d9236218.png,/marimo/xvdhy-osfstorage-archive/images/d9236218.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+44ac1589.png,/marimo/xvdhy-osfstorage-archive/images/44ac1589.png,952,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4185b088.jpg,/marimo/xvdhy-osfstorage-archive/images/4185b088.png,952,6,L1,Non-malignant,NephrogenicAdenoma,1,1,10,WLC,0
+3b532b58.bmp,/marimo/xvdhy-osfstorage-archive/images/3b532b58.png,1014,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+256467ba.png,/marimo/xvdhy-osfstorage-archive/images/256467ba.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+b43dedbe.bmp,/marimo/xvdhy-osfstorage-archive/images/b43dedbe.png,23,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+74e9d39f.png,/marimo/xvdhy-osfstorage-archive/images/74e9d39f.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1b183ab9.png,/marimo/xvdhy-osfstorage-archive/images/1b183ab9.png,761,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+e56ec723.bmp,/marimo/xvdhy-osfstorage-archive/images/e56ec723.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+9c93a2f0.png,/marimo/xvdhy-osfstorage-archive/images/9c93a2f0.png,818,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+ce81faf3.png,/marimo/xvdhy-osfstorage-archive/images/ce81faf3.png,952,3,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+eb6523dd.png,/marimo/xvdhy-osfstorage-archive/images/eb6523dd.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+3809a14e.png,/marimo/xvdhy-osfstorage-archive/images/3809a14e.png,1033,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+74fbddc5.png,/marimo/xvdhy-osfstorage-archive/images/74fbddc5.png,1405,4,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+b1476903.bmp,/marimo/xvdhy-osfstorage-archive/images/b1476903.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+c72bb5ad.bmp,/marimo/xvdhy-osfstorage-archive/images/c72bb5ad.png,808,2,L5,Malignant,CIS,1,0,2,WLC,0
+f2a002bd.png,/marimo/xvdhy-osfstorage-archive/images/f2a002bd.png,1351,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+afc27fc7.bmp,/marimo/xvdhy-osfstorage-archive/images/afc27fc7.png,952,1,L1,Malignant,CIS,1,0,2,WLC,0
+20b7c06d.png,/marimo/xvdhy-osfstorage-archive/images/20b7c06d.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d5b08434.png,/marimo/xvdhy-osfstorage-archive/images/d5b08434.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+e6e05f93.png,/marimo/xvdhy-osfstorage-archive/images/e6e05f93.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c7a6705c.png,/marimo/xvdhy-osfstorage-archive/images/c7a6705c.png,1131,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+24ff3dc8.png,/marimo/xvdhy-osfstorage-archive/images/24ff3dc8.png,1177,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,1
+f8f29aba.png,/marimo/xvdhy-osfstorage-archive/images/f8f29aba.png,858,2,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+8273947f.png,/marimo/xvdhy-osfstorage-archive/images/8273947f.png,658,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+c4e5949c.jpg,/marimo/xvdhy-osfstorage-archive/images/c4e5949c.png,1387,1,L3,Non-malignant,NephrogenicAdenoma,1,1,10,BLC,0
+21151f20.png,/marimo/xvdhy-osfstorage-archive/images/21151f20.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+29e80787.bmp,/marimo/xvdhy-osfstorage-archive/images/29e80787.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+25ecb3c8.png,/marimo/xvdhy-osfstorage-archive/images/25ecb3c8.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+25d8afde.png,/marimo/xvdhy-osfstorage-archive/images/25d8afde.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+c9382cf4.png,/marimo/xvdhy-osfstorage-archive/images/c9382cf4.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+85cc880d.bmp,/marimo/xvdhy-osfstorage-archive/images/85cc880d.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+26ab7c41.png,/marimo/xvdhy-osfstorage-archive/images/26ab7c41.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+2c3f4b59.png,/marimo/xvdhy-osfstorage-archive/images/2c3f4b59.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7ccb62cd.png,/marimo/xvdhy-osfstorage-archive/images/7ccb62cd.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d87135d8.jpg,/marimo/xvdhy-osfstorage-archive/images/d87135d8.png,808,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+db884dff.png,/marimo/xvdhy-osfstorage-archive/images/db884dff.png,1522,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+a401c3db.jpg,/marimo/xvdhy-osfstorage-archive/images/a401c3db.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+fafa370e.png,/marimo/xvdhy-osfstorage-archive/images/fafa370e.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+e8da60fc.png,/marimo/xvdhy-osfstorage-archive/images/e8da60fc.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+56f481b7.png,/marimo/xvdhy-osfstorage-archive/images/56f481b7.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+9ce4f0c9.bmp,/marimo/xvdhy-osfstorage-archive/images/9ce4f0c9.png,1405,5,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+b8d1710c.png,/marimo/xvdhy-osfstorage-archive/images/b8d1710c.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+94338d69.png,/marimo/xvdhy-osfstorage-archive/images/94338d69.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d2e83843.png,/marimo/xvdhy-osfstorage-archive/images/d2e83843.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+de21b75d.png,/marimo/xvdhy-osfstorage-archive/images/de21b75d.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+936eb434.png,/marimo/xvdhy-osfstorage-archive/images/936eb434.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f50f4d3b.png,/marimo/xvdhy-osfstorage-archive/images/f50f4d3b.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9b69d59a.png,/marimo/xvdhy-osfstorage-archive/images/9b69d59a.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9f90e60e.bmp,/marimo/xvdhy-osfstorage-archive/images/9f90e60e.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+adeff92e.png,/marimo/xvdhy-osfstorage-archive/images/adeff92e.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+1f881d00.png,/marimo/xvdhy-osfstorage-archive/images/1f881d00.png,587,1,L2,Malignant,CIS,1,0,2,WLC,0
+2bc8227e.png,/marimo/xvdhy-osfstorage-archive/images/2bc8227e.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+57608c6d.png,/marimo/xvdhy-osfstorage-archive/images/57608c6d.png,1711,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+007ed6ad.bmp,/marimo/xvdhy-osfstorage-archive/images/007ed6ad.png,1599,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+bfc0928b.png,/marimo/xvdhy-osfstorage-archive/images/bfc0928b.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+11448b98.bmp,/marimo/xvdhy-osfstorage-archive/images/11448b98.png,941,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+99a257dd.png,/marimo/xvdhy-osfstorage-archive/images/99a257dd.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6d90e486.png,/marimo/xvdhy-osfstorage-archive/images/6d90e486.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+c2848dd8.png,/marimo/xvdhy-osfstorage-archive/images/c2848dd8.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2f0737a7.png,/marimo/xvdhy-osfstorage-archive/images/2f0737a7.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+c258f004.tiff,/marimo/xvdhy-osfstorage-archive/images/c258f004.png,410,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+d9d6997e.png,/marimo/xvdhy-osfstorage-archive/images/d9d6997e.png,1519,1,L3,Non-malignant,InflammationNOS,1,1,5,BLC,0
+cbdec6f5.jpg,/marimo/xvdhy-osfstorage-archive/images/cbdec6f5.png,1319,1,L4,Malignant,CIS,1,0,2,WLC,0
+6bd77849.jpg,/marimo/xvdhy-osfstorage-archive/images/6bd77849.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+9a54db95.png,/marimo/xvdhy-osfstorage-archive/images/9a54db95.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+03b1cd76.png,/marimo/xvdhy-osfstorage-archive/images/03b1cd76.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+be223900.png,/marimo/xvdhy-osfstorage-archive/images/be223900.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4ee141e4.png,/marimo/xvdhy-osfstorage-archive/images/4ee141e4.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0a9d5aa9.png,/marimo/xvdhy-osfstorage-archive/images/0a9d5aa9.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+5c26e3e8.png,/marimo/xvdhy-osfstorage-archive/images/5c26e3e8.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f41bb831.png,/marimo/xvdhy-osfstorage-archive/images/f41bb831.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e579ef64.png,/marimo/xvdhy-osfstorage-archive/images/e579ef64.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3181feec.png,/marimo/xvdhy-osfstorage-archive/images/3181feec.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2af95faa.bmp,/marimo/xvdhy-osfstorage-archive/images/2af95faa.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,WLC,0
+6e1a81ee.png,/marimo/xvdhy-osfstorage-archive/images/6e1a81ee.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+1f78f86c.bmp,/marimo/xvdhy-osfstorage-archive/images/1f78f86c.png,1616,1,L3,Malignant,HighGradePapillary,1,0,1,BLC,0
+3eb69970.png,/marimo/xvdhy-osfstorage-archive/images/3eb69970.png,1378,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+2a7c825d.bmp,/marimo/xvdhy-osfstorage-archive/images/2a7c825d.png,1616,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+5e87c5dd.png,/marimo/xvdhy-osfstorage-archive/images/5e87c5dd.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+5261617a.bmp,/marimo/xvdhy-osfstorage-archive/images/5261617a.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+ea8cf7e0.png,/marimo/xvdhy-osfstorage-archive/images/ea8cf7e0.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+23a847a1.png,/marimo/xvdhy-osfstorage-archive/images/23a847a1.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+335b2dbf.png,/marimo/xvdhy-osfstorage-archive/images/335b2dbf.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+a60adc1d.jpg,/marimo/xvdhy-osfstorage-archive/images/a60adc1d.png,1405,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+c5d9aa47.jpg,/marimo/xvdhy-osfstorage-archive/images/c5d9aa47.png,808,1,L1,Malignant,CIS,1,0,2,BLC,0
+f362e1e7.png,/marimo/xvdhy-osfstorage-archive/images/f362e1e7.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+74bcda85.jpg,/marimo/xvdhy-osfstorage-archive/images/74bcda85.png,889,3,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+5ba7fa33.png,/marimo/xvdhy-osfstorage-archive/images/5ba7fa33.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+efbe074c.png,/marimo/xvdhy-osfstorage-archive/images/efbe074c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+c1142ce7.bmp,/marimo/xvdhy-osfstorage-archive/images/c1142ce7.png,1599,1,L3,Non-malignant,InflammationNOS,1,1,5,WLC,0
+2e8b8986.png,/marimo/xvdhy-osfstorage-archive/images/2e8b8986.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+cc208251.jpg,/marimo/xvdhy-osfstorage-archive/images/cc208251.png,1552,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+e053931f.png,/marimo/xvdhy-osfstorage-archive/images/e053931f.png,711,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2b5dba65.png,/marimo/xvdhy-osfstorage-archive/images/2b5dba65.png,1599,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+35ba2848.png,/marimo/xvdhy-osfstorage-archive/images/35ba2848.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+0261099e.png,/marimo/xvdhy-osfstorage-archive/images/0261099e.png,1170,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+15f9994a.png,/marimo/xvdhy-osfstorage-archive/images/15f9994a.png,1177,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+ef369949.jpg,/marimo/xvdhy-osfstorage-archive/images/ef369949.png,1229,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+f5f90094.png,/marimo/xvdhy-osfstorage-archive/images/f5f90094.png,1052,2,L2,Malignant,CIS,1,0,2,WLC,0
+69d50563.png,/marimo/xvdhy-osfstorage-archive/images/69d50563.png,889,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+62b9c4c3.png,/marimo/xvdhy-osfstorage-archive/images/62b9c4c3.png,805,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,0
+18899eb7.png,/marimo/xvdhy-osfstorage-archive/images/18899eb7.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c3b3e8a4.tiff,/marimo/xvdhy-osfstorage-archive/images/c3b3e8a4.png,1135,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+046561a8.png,/marimo/xvdhy-osfstorage-archive/images/046561a8.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bb42d1ed.png,/marimo/xvdhy-osfstorage-archive/images/bb42d1ed.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7c2bc1a8.png,/marimo/xvdhy-osfstorage-archive/images/7c2bc1a8.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ff690897.png,/marimo/xvdhy-osfstorage-archive/images/ff690897.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+85279ebb.png,/marimo/xvdhy-osfstorage-archive/images/85279ebb.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+629f0fbb.tiff,/marimo/xvdhy-osfstorage-archive/images/629f0fbb.png,1135,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+9dd11865.png,/marimo/xvdhy-osfstorage-archive/images/9dd11865.png,1427,1,L1,Non-malignant,BenignRare,1,1,11,BLC,0
+312ce260.png,/marimo/xvdhy-osfstorage-archive/images/312ce260.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b0364fff.png,/marimo/xvdhy-osfstorage-archive/images/b0364fff.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f258bffd.png,/marimo/xvdhy-osfstorage-archive/images/f258bffd.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+bb95a274.bmp,/marimo/xvdhy-osfstorage-archive/images/bb95a274.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+aae07443.png,/marimo/xvdhy-osfstorage-archive/images/aae07443.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+faac1e18.png,/marimo/xvdhy-osfstorage-archive/images/faac1e18.png,1131,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+99217621.png,/marimo/xvdhy-osfstorage-archive/images/99217621.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d5832c78.png,/marimo/xvdhy-osfstorage-archive/images/d5832c78.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+95671c2a.png,/marimo/xvdhy-osfstorage-archive/images/95671c2a.png,1393,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+bd3c8088.png,/marimo/xvdhy-osfstorage-archive/images/bd3c8088.png,376,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+83f064f7.png,/marimo/xvdhy-osfstorage-archive/images/83f064f7.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+a49447a7.png,/marimo/xvdhy-osfstorage-archive/images/a49447a7.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3531f61a.png,/marimo/xvdhy-osfstorage-archive/images/3531f61a.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fce009ab.png,/marimo/xvdhy-osfstorage-archive/images/fce009ab.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8d804ebe.png,/marimo/xvdhy-osfstorage-archive/images/8d804ebe.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6a6af2e3.jpg,/marimo/xvdhy-osfstorage-archive/images/6a6af2e3.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3a1ea097.png,/marimo/xvdhy-osfstorage-archive/images/3a1ea097.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+42435e89.png,/marimo/xvdhy-osfstorage-archive/images/42435e89.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+4467175c.bmp,/marimo/xvdhy-osfstorage-archive/images/4467175c.png,1616,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+dc7f55cd.jpg,/marimo/xvdhy-osfstorage-archive/images/dc7f55cd.png,1522,1,L1,Non-malignant,CCG,1,1,6,BLC,0
+c7750fd8.png,/marimo/xvdhy-osfstorage-archive/images/c7750fd8.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+0cbca657.png,/marimo/xvdhy-osfstorage-archive/images/0cbca657.png,1170,1,L3,Malignant,CIS,1,0,2,BLC,0
+07fa4155.bmp,/marimo/xvdhy-osfstorage-archive/images/07fa4155.png,1043,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+4ca1136c.png,/marimo/xvdhy-osfstorage-archive/images/4ca1136c.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2982c918.bmp,/marimo/xvdhy-osfstorage-archive/images/2982c918.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+8a5710a7.png,/marimo/xvdhy-osfstorage-archive/images/8a5710a7.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6cf24f0a.jpg,/marimo/xvdhy-osfstorage-archive/images/6cf24f0a.png,1417,1,L2,Non-malignant,CCG,1,1,6,WLC,0
+c36362b9.png,/marimo/xvdhy-osfstorage-archive/images/c36362b9.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+13ca2f11.jpg,/marimo/xvdhy-osfstorage-archive/images/13ca2f11.png,942,1,L1,Malignant,CIS,1,0,2,WLC,0
+a4de25b7.png,/marimo/xvdhy-osfstorage-archive/images/a4de25b7.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+10825c00.png,/marimo/xvdhy-osfstorage-archive/images/10825c00.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2462daf1.png,/marimo/xvdhy-osfstorage-archive/images/2462daf1.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+79db4e6e.png,/marimo/xvdhy-osfstorage-archive/images/79db4e6e.png,612,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e8a4a94b.png,/marimo/xvdhy-osfstorage-archive/images/e8a4a94b.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+376c5d3b.png,/marimo/xvdhy-osfstorage-archive/images/376c5d3b.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4ce96486.png,/marimo/xvdhy-osfstorage-archive/images/4ce96486.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c3b6fc70.png,/marimo/xvdhy-osfstorage-archive/images/c3b6fc70.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+84b63606.bmp,/marimo/xvdhy-osfstorage-archive/images/84b63606.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d2cea656.jpg,/marimo/xvdhy-osfstorage-archive/images/d2cea656.png,889,3,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+273f57c8.png,/marimo/xvdhy-osfstorage-archive/images/273f57c8.png,858,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+56dbdaeb.png,/marimo/xvdhy-osfstorage-archive/images/56dbdaeb.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a1879ada.png,/marimo/xvdhy-osfstorage-archive/images/a1879ada.png,750,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2685f261.png,/marimo/xvdhy-osfstorage-archive/images/2685f261.png,1318,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,0
+bab7dddf.png,/marimo/xvdhy-osfstorage-archive/images/bab7dddf.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+adeb627a.png,/marimo/xvdhy-osfstorage-archive/images/adeb627a.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+37aa72d1.png,/marimo/xvdhy-osfstorage-archive/images/37aa72d1.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b9f103e7.bmp,/marimo/xvdhy-osfstorage-archive/images/b9f103e7.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+97d51b28.png,/marimo/xvdhy-osfstorage-archive/images/97d51b28.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f0a5be20.png,/marimo/xvdhy-osfstorage-archive/images/f0a5be20.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+85e8c621.png,/marimo/xvdhy-osfstorage-archive/images/85e8c621.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d07e8c7e.png,/marimo/xvdhy-osfstorage-archive/images/d07e8c7e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f95242e5.png,/marimo/xvdhy-osfstorage-archive/images/f95242e5.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bd4debe3.png,/marimo/xvdhy-osfstorage-archive/images/bd4debe3.png,800,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+0497145f.png,/marimo/xvdhy-osfstorage-archive/images/0497145f.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+207e3533.bmp,/marimo/xvdhy-osfstorage-archive/images/207e3533.png,1036,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+1d42199f.png,/marimo/xvdhy-osfstorage-archive/images/1d42199f.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5074646a.png,/marimo/xvdhy-osfstorage-archive/images/5074646a.png,1223,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+1bed29ba.png,/marimo/xvdhy-osfstorage-archive/images/1bed29ba.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+94b23acb.png,/marimo/xvdhy-osfstorage-archive/images/94b23acb.png,1022,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+57bf34c9.png,/marimo/xvdhy-osfstorage-archive/images/57bf34c9.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+3082bf6b.png,/marimo/xvdhy-osfstorage-archive/images/3082bf6b.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+72a56c76.png,/marimo/xvdhy-osfstorage-archive/images/72a56c76.png,952,1,L2,Malignant,CIS,1,0,2,WLC,0
+32509078.bmp,/marimo/xvdhy-osfstorage-archive/images/32509078.png,1405,5,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+9dc48e85.png,/marimo/xvdhy-osfstorage-archive/images/9dc48e85.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+344811f2.png,/marimo/xvdhy-osfstorage-archive/images/344811f2.png,1405,4,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+4540e9c1.png,/marimo/xvdhy-osfstorage-archive/images/4540e9c1.png,1223,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,1
+cb5f6657.png,/marimo/xvdhy-osfstorage-archive/images/cb5f6657.png,1412,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+66dc42df.bmp,/marimo/xvdhy-osfstorage-archive/images/66dc42df.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+e20faf71.png,/marimo/xvdhy-osfstorage-archive/images/e20faf71.png,808,2,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+aaa13941.png,/marimo/xvdhy-osfstorage-archive/images/aaa13941.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8f6cefb8.png,/marimo/xvdhy-osfstorage-archive/images/8f6cefb8.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+fe0a0152.png,/marimo/xvdhy-osfstorage-archive/images/fe0a0152.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bdf5ed8a.png,/marimo/xvdhy-osfstorage-archive/images/bdf5ed8a.png,376,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a2f4e508.png,/marimo/xvdhy-osfstorage-archive/images/a2f4e508.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e465e94b.png,/marimo/xvdhy-osfstorage-archive/images/e465e94b.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+47086a2a.bmp,/marimo/xvdhy-osfstorage-archive/images/47086a2a.png,878,2,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+3cc0db0c.jpg,/marimo/xvdhy-osfstorage-archive/images/3cc0db0c.png,808,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+8b49fa18.png,/marimo/xvdhy-osfstorage-archive/images/8b49fa18.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cb01d35f.png,/marimo/xvdhy-osfstorage-archive/images/cb01d35f.png,1318,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,BLC,0
+8a8cb820.png,/marimo/xvdhy-osfstorage-archive/images/8a8cb820.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+a4bffbbb.png,/marimo/xvdhy-osfstorage-archive/images/a4bffbbb.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+352c44bb.png,/marimo/xvdhy-osfstorage-archive/images/352c44bb.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+83e30988.png,/marimo/xvdhy-osfstorage-archive/images/83e30988.png,889,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+b444eba4.png,/marimo/xvdhy-osfstorage-archive/images/b444eba4.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10e2f4fc.png,/marimo/xvdhy-osfstorage-archive/images/10e2f4fc.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+3ed18b3c.png,/marimo/xvdhy-osfstorage-archive/images/3ed18b3c.png,858,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+978c17dd.png,/marimo/xvdhy-osfstorage-archive/images/978c17dd.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f9ab7b56.jpg,/marimo/xvdhy-osfstorage-archive/images/f9ab7b56.png,680,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+ecf301cf.png,/marimo/xvdhy-osfstorage-archive/images/ecf301cf.png,1223,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+77260e2d.png,/marimo/xvdhy-osfstorage-archive/images/77260e2d.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+a677df33.png,/marimo/xvdhy-osfstorage-archive/images/a677df33.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ad8e27c5.png,/marimo/xvdhy-osfstorage-archive/images/ad8e27c5.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+6cab7203.png,/marimo/xvdhy-osfstorage-archive/images/6cab7203.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2f1a3b30.png,/marimo/xvdhy-osfstorage-archive/images/2f1a3b30.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+8bc0730a.bmp,/marimo/xvdhy-osfstorage-archive/images/8bc0730a.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+8f43e35c.jpg,/marimo/xvdhy-osfstorage-archive/images/8f43e35c.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+33983efd.png,/marimo/xvdhy-osfstorage-archive/images/33983efd.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ca578d2d.png,/marimo/xvdhy-osfstorage-archive/images/ca578d2d.png,1432,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+cb261d26.bmp,/marimo/xvdhy-osfstorage-archive/images/cb261d26.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+c4835e34.png,/marimo/xvdhy-osfstorage-archive/images/c4835e34.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+476feed9.jpg,/marimo/xvdhy-osfstorage-archive/images/476feed9.png,1276,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+8b1d5590.png,/marimo/xvdhy-osfstorage-archive/images/8b1d5590.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f3dbaca2.png,/marimo/xvdhy-osfstorage-archive/images/f3dbaca2.png,1519,1,L3,Non-malignant,InflammationNOS,1,1,5,WLC,0
+ad10e803.png,/marimo/xvdhy-osfstorage-archive/images/ad10e803.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+8153ee88.png,/marimo/xvdhy-osfstorage-archive/images/8153ee88.png,1177,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+afbf2ba7.png,/marimo/xvdhy-osfstorage-archive/images/afbf2ba7.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+32c79490.png,/marimo/xvdhy-osfstorage-archive/images/32c79490.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+48258dea.png,/marimo/xvdhy-osfstorage-archive/images/48258dea.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+056a2d91.png,/marimo/xvdhy-osfstorage-archive/images/056a2d91.png,329,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+91bca78b.bmp,/marimo/xvdhy-osfstorage-archive/images/91bca78b.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+4e10baa2.png,/marimo/xvdhy-osfstorage-archive/images/4e10baa2.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d4c20329.png,/marimo/xvdhy-osfstorage-archive/images/d4c20329.png,1261,3,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+9be644b2.png,/marimo/xvdhy-osfstorage-archive/images/9be644b2.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+5ea1e7f1.png,/marimo/xvdhy-osfstorage-archive/images/5ea1e7f1.png,1526,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+84f793e7.png,/marimo/xvdhy-osfstorage-archive/images/84f793e7.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+7d4833d7.png,/marimo/xvdhy-osfstorage-archive/images/7d4833d7.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4a1f2808.bmp,/marimo/xvdhy-osfstorage-archive/images/4a1f2808.png,994,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+140290c5.png,/marimo/xvdhy-osfstorage-archive/images/140290c5.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+161cfc16.png,/marimo/xvdhy-osfstorage-archive/images/161cfc16.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+38668e53.png,/marimo/xvdhy-osfstorage-archive/images/38668e53.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2716aadb.bmp,/marimo/xvdhy-osfstorage-archive/images/2716aadb.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+cb042d54.png,/marimo/xvdhy-osfstorage-archive/images/cb042d54.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+d530d655.png,/marimo/xvdhy-osfstorage-archive/images/d530d655.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+99e0a12b.bmp,/marimo/xvdhy-osfstorage-archive/images/99e0a12b.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+eac2c89b.png,/marimo/xvdhy-osfstorage-archive/images/eac2c89b.png,761,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+14ea78c2.png,/marimo/xvdhy-osfstorage-archive/images/14ea78c2.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5869cffb.png,/marimo/xvdhy-osfstorage-archive/images/5869cffb.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+cdb6341c.png,/marimo/xvdhy-osfstorage-archive/images/cdb6341c.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+0fd502c6.png,/marimo/xvdhy-osfstorage-archive/images/0fd502c6.png,1054,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+4e5d489e.png,/marimo/xvdhy-osfstorage-archive/images/4e5d489e.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a2febe50.png,/marimo/xvdhy-osfstorage-archive/images/a2febe50.png,1552,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+422d4c75.bmp,/marimo/xvdhy-osfstorage-archive/images/422d4c75.png,1616,1,L4,Malignant,HighGradePapillary,1,0,1,WLC,0
+23388787.png,/marimo/xvdhy-osfstorage-archive/images/23388787.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+477db87b.png,/marimo/xvdhy-osfstorage-archive/images/477db87b.png,1368,1,L1,Malignant,CIS,1,0,2,WLC,0
+4118071e.png,/marimo/xvdhy-osfstorage-archive/images/4118071e.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b4a974e2.bmp,/marimo/xvdhy-osfstorage-archive/images/b4a974e2.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,WLC,0
+6560fcf9.png,/marimo/xvdhy-osfstorage-archive/images/6560fcf9.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+00ae488a.png,/marimo/xvdhy-osfstorage-archive/images/00ae488a.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+77b0a507.png,/marimo/xvdhy-osfstorage-archive/images/77b0a507.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+926d6b87.png,/marimo/xvdhy-osfstorage-archive/images/926d6b87.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+b6e2960c.png,/marimo/xvdhy-osfstorage-archive/images/b6e2960c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+918f5ffe.png,/marimo/xvdhy-osfstorage-archive/images/918f5ffe.png,889,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b134c584.png,/marimo/xvdhy-osfstorage-archive/images/b134c584.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e8583015.png,/marimo/xvdhy-osfstorage-archive/images/e8583015.png,1427,1,L1,Non-malignant,BenignRare,1,1,11,WLC,0
+d7b2f4b1.png,/marimo/xvdhy-osfstorage-archive/images/d7b2f4b1.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+474704c0.png,/marimo/xvdhy-osfstorage-archive/images/474704c0.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+59003ef8.bmp,/marimo/xvdhy-osfstorage-archive/images/59003ef8.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+4b59e146.png,/marimo/xvdhy-osfstorage-archive/images/4b59e146.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a6c890f3.bmp,/marimo/xvdhy-osfstorage-archive/images/a6c890f3.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+f7af45e2.png,/marimo/xvdhy-osfstorage-archive/images/f7af45e2.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+22383307.png,/marimo/xvdhy-osfstorage-archive/images/22383307.png,1711,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+d08bf1da.png,/marimo/xvdhy-osfstorage-archive/images/d08bf1da.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+5b34bcbe.bmp,/marimo/xvdhy-osfstorage-archive/images/5b34bcbe.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+aede092b.bmp,/marimo/xvdhy-osfstorage-archive/images/aede092b.png,808,2,L6,Non-malignant,BenignNOS,1,1,4,BLC,0
+b96df369.png,/marimo/xvdhy-osfstorage-archive/images/b96df369.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d20fd79f.png,/marimo/xvdhy-osfstorage-archive/images/d20fd79f.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+fcd06cfe.jpg,/marimo/xvdhy-osfstorage-archive/images/fcd06cfe.png,1261,2,L1,Malignant,CIS,1,0,2,BLC,0
+13b3972a.bmp,/marimo/xvdhy-osfstorage-archive/images/13b3972a.png,1261,3,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+beed7045.png,/marimo/xvdhy-osfstorage-archive/images/beed7045.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a484f62f.png,/marimo/xvdhy-osfstorage-archive/images/a484f62f.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fa9dd547.png,/marimo/xvdhy-osfstorage-archive/images/fa9dd547.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f7792288.png,/marimo/xvdhy-osfstorage-archive/images/f7792288.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f7cd1bb2.bmp,/marimo/xvdhy-osfstorage-archive/images/f7cd1bb2.png,1405,5,L4,Non-malignant,BenignNOS,1,1,4,BLC,0
+8ce9d4e6.png,/marimo/xvdhy-osfstorage-archive/images/8ce9d4e6.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+8e352a14.png,/marimo/xvdhy-osfstorage-archive/images/8e352a14.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+164561fd.png,/marimo/xvdhy-osfstorage-archive/images/164561fd.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+af883498.png,/marimo/xvdhy-osfstorage-archive/images/af883498.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4b628718.bmp,/marimo/xvdhy-osfstorage-archive/images/4b628718.png,1303,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d149b196.png,/marimo/xvdhy-osfstorage-archive/images/d149b196.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+659f67fd.png,/marimo/xvdhy-osfstorage-archive/images/659f67fd.png,988,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7ef555b6.png,/marimo/xvdhy-osfstorage-archive/images/7ef555b6.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+58a3fc4a.png,/marimo/xvdhy-osfstorage-archive/images/58a3fc4a.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+528f19ac.png,/marimo/xvdhy-osfstorage-archive/images/528f19ac.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+5cca52b0.png,/marimo/xvdhy-osfstorage-archive/images/5cca52b0.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+1bd05f94.bmp,/marimo/xvdhy-osfstorage-archive/images/1bd05f94.png,1032,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+1d2ee440.png,/marimo/xvdhy-osfstorage-archive/images/1d2ee440.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a877aa2b.png,/marimo/xvdhy-osfstorage-archive/images/a877aa2b.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c62aaf8a.png,/marimo/xvdhy-osfstorage-archive/images/c62aaf8a.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d13fe75c.png,/marimo/xvdhy-osfstorage-archive/images/d13fe75c.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+9bf7bfe5.png,/marimo/xvdhy-osfstorage-archive/images/9bf7bfe5.png,994,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fd379315.png,/marimo/xvdhy-osfstorage-archive/images/fd379315.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+27abcc2b.png,/marimo/xvdhy-osfstorage-archive/images/27abcc2b.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+bb5796f5.png,/marimo/xvdhy-osfstorage-archive/images/bb5796f5.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+181ead5b.png,/marimo/xvdhy-osfstorage-archive/images/181ead5b.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b5c71685.bmp,/marimo/xvdhy-osfstorage-archive/images/b5c71685.png,1599,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+9449003c.bmp,/marimo/xvdhy-osfstorage-archive/images/9449003c.png,832,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+e7b003bc.png,/marimo/xvdhy-osfstorage-archive/images/e7b003bc.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6080b428.png,/marimo/xvdhy-osfstorage-archive/images/6080b428.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6d937396.png,/marimo/xvdhy-osfstorage-archive/images/6d937396.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3457063f.png,/marimo/xvdhy-osfstorage-archive/images/3457063f.png,952,4,L2,Malignant,CIS,1,0,2,BLC,0
+198158bc.jpg,/marimo/xvdhy-osfstorage-archive/images/198158bc.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+7291956e.png,/marimo/xvdhy-osfstorage-archive/images/7291956e.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+119b7591.png,/marimo/xvdhy-osfstorage-archive/images/119b7591.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+79f28b28.png,/marimo/xvdhy-osfstorage-archive/images/79f28b28.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f678dfbc.jpg,/marimo/xvdhy-osfstorage-archive/images/f678dfbc.png,612,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+150e0edc.bmp,/marimo/xvdhy-osfstorage-archive/images/150e0edc.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+58d25ebe.png,/marimo/xvdhy-osfstorage-archive/images/58d25ebe.png,889,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+dc540216.bmp,/marimo/xvdhy-osfstorage-archive/images/dc540216.png,750,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+1c8a6068.png,/marimo/xvdhy-osfstorage-archive/images/1c8a6068.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+be7a3b8f.png,/marimo/xvdhy-osfstorage-archive/images/be7a3b8f.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+16956ab2.png,/marimo/xvdhy-osfstorage-archive/images/16956ab2.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+e48ac185.png,/marimo/xvdhy-osfstorage-archive/images/e48ac185.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+06e95b62.png,/marimo/xvdhy-osfstorage-archive/images/06e95b62.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+010465a0.png,/marimo/xvdhy-osfstorage-archive/images/010465a0.png,159,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+ad786c7f.png,/marimo/xvdhy-osfstorage-archive/images/ad786c7f.png,1267,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+a11130da.png,/marimo/xvdhy-osfstorage-archive/images/a11130da.png,658,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+dcc8b55d.bmp,/marimo/xvdhy-osfstorage-archive/images/dcc8b55d.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+c635d393.bmp,/marimo/xvdhy-osfstorage-archive/images/c635d393.png,889,1,L1,Non-malignant,CCG,1,1,6,BLC,0
+8f08b4ea.bmp,/marimo/xvdhy-osfstorage-archive/images/8f08b4ea.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+7081955c.png,/marimo/xvdhy-osfstorage-archive/images/7081955c.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bf856cd2.png,/marimo/xvdhy-osfstorage-archive/images/bf856cd2.png,909,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+566d5799.png,/marimo/xvdhy-osfstorage-archive/images/566d5799.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0b0a82d1.png,/marimo/xvdhy-osfstorage-archive/images/0b0a82d1.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+61b657cd.png,/marimo/xvdhy-osfstorage-archive/images/61b657cd.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+824bc507.bmp,/marimo/xvdhy-osfstorage-archive/images/824bc507.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+8889e546.png,/marimo/xvdhy-osfstorage-archive/images/8889e546.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+55e9c92d.png,/marimo/xvdhy-osfstorage-archive/images/55e9c92d.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8f0cefbd.png,/marimo/xvdhy-osfstorage-archive/images/8f0cefbd.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+7092f473.png,/marimo/xvdhy-osfstorage-archive/images/7092f473.png,889,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ec676ae9.png,/marimo/xvdhy-osfstorage-archive/images/ec676ae9.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a51b73d1.png,/marimo/xvdhy-osfstorage-archive/images/a51b73d1.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+52678d9d.png,/marimo/xvdhy-osfstorage-archive/images/52678d9d.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+de416f64.png,/marimo/xvdhy-osfstorage-archive/images/de416f64.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+8434742b.jpg,/marimo/xvdhy-osfstorage-archive/images/8434742b.png,376,2,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+888d0f81.bmp,/marimo/xvdhy-osfstorage-archive/images/888d0f81.png,1319,2,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+ed87ab8f.tiff,/marimo/xvdhy-osfstorage-archive/images/ed87ab8f.png,1135,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+34772bbc.png,/marimo/xvdhy-osfstorage-archive/images/34772bbc.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+ce2ba0a0.png,/marimo/xvdhy-osfstorage-archive/images/ce2ba0a0.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bacbc744.png,/marimo/xvdhy-osfstorage-archive/images/bacbc744.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5dfddbfb.jpg,/marimo/xvdhy-osfstorage-archive/images/5dfddbfb.png,1387,1,L2,Non-malignant,SquamousMetaplasia,1,1,9,WLC,0
+301068b1.jpg,/marimo/xvdhy-osfstorage-archive/images/301068b1.png,1387,1,L2,Non-malignant,SquamousMetaplasia,1,1,9,BLC,0
+32219149.png,/marimo/xvdhy-osfstorage-archive/images/32219149.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+965f6c18.png,/marimo/xvdhy-osfstorage-archive/images/965f6c18.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+31e313a4.png,/marimo/xvdhy-osfstorage-archive/images/31e313a4.png,804,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+059decc1.jpg,/marimo/xvdhy-osfstorage-archive/images/059decc1.png,1417,1,L2,Non-malignant,CCG,1,1,6,WLC,0
+d52f1bd1.png,/marimo/xvdhy-osfstorage-archive/images/d52f1bd1.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+0346d379.png,/marimo/xvdhy-osfstorage-archive/images/0346d379.png,1170,1,L2,Malignant,CIS,1,0,2,BLC,0
+8c57bdda.png,/marimo/xvdhy-osfstorage-archive/images/8c57bdda.png,1041,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+fdbf4199.bmp,/marimo/xvdhy-osfstorage-archive/images/fdbf4199.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+e68a461b.bmp,/marimo/xvdhy-osfstorage-archive/images/e68a461b.png,612,1,L1,Non-malignant,Denuded,1,1,7,WLC,0
+efd08be6.png,/marimo/xvdhy-osfstorage-archive/images/efd08be6.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7b433139.png,/marimo/xvdhy-osfstorage-archive/images/7b433139.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+040b3937.png,/marimo/xvdhy-osfstorage-archive/images/040b3937.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+3d784c76.png,/marimo/xvdhy-osfstorage-archive/images/3d784c76.png,750,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cf0cde1a.tiff,/marimo/xvdhy-osfstorage-archive/images/cf0cde1a.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+61fbc4b0.png,/marimo/xvdhy-osfstorage-archive/images/61fbc4b0.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b52c5c72.jpg,/marimo/xvdhy-osfstorage-archive/images/b52c5c72.png,1199,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+877251dc.jpg,/marimo/xvdhy-osfstorage-archive/images/877251dc.png,1232,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+292d64ea.png,/marimo/xvdhy-osfstorage-archive/images/292d64ea.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+c3534f4f.png,/marimo/xvdhy-osfstorage-archive/images/c3534f4f.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+2c793a79.png,/marimo/xvdhy-osfstorage-archive/images/2c793a79.png,1052,2,L2,Malignant,CIS,1,0,2,BLC,0
+92dd916f.png,/marimo/xvdhy-osfstorage-archive/images/92dd916f.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bd904948.png,/marimo/xvdhy-osfstorage-archive/images/bd904948.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a796296d.png,/marimo/xvdhy-osfstorage-archive/images/a796296d.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+dd4505a1.png,/marimo/xvdhy-osfstorage-archive/images/dd4505a1.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+76a3ec7d.png,/marimo/xvdhy-osfstorage-archive/images/76a3ec7d.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e4bb325a.png,/marimo/xvdhy-osfstorage-archive/images/e4bb325a.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3554519a.png,/marimo/xvdhy-osfstorage-archive/images/3554519a.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+a29eccd2.jpg,/marimo/xvdhy-osfstorage-archive/images/a29eccd2.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+c1ef703f.png,/marimo/xvdhy-osfstorage-archive/images/c1ef703f.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3de13c98.png,/marimo/xvdhy-osfstorage-archive/images/3de13c98.png,711,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+998161f0.png,/marimo/xvdhy-osfstorage-archive/images/998161f0.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10f1ddc7.png,/marimo/xvdhy-osfstorage-archive/images/10f1ddc7.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b082591c.png,/marimo/xvdhy-osfstorage-archive/images/b082591c.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2a20c716.png,/marimo/xvdhy-osfstorage-archive/images/2a20c716.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+63a6511a.png,/marimo/xvdhy-osfstorage-archive/images/63a6511a.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+c02df3f1.png,/marimo/xvdhy-osfstorage-archive/images/c02df3f1.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+8c9d666a.jpg,/marimo/xvdhy-osfstorage-archive/images/8c9d666a.png,952,6,L4,Non-malignant,InflammationNOS,1,1,5,BLC,0
+c415e47f.png,/marimo/xvdhy-osfstorage-archive/images/c415e47f.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fca5ca1e.png,/marimo/xvdhy-osfstorage-archive/images/fca5ca1e.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+1a68b530.png,/marimo/xvdhy-osfstorage-archive/images/1a68b530.png,658,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+789c7542.png,/marimo/xvdhy-osfstorage-archive/images/789c7542.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+d6df5610.png,/marimo/xvdhy-osfstorage-archive/images/d6df5610.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+bf1d1e1c.png,/marimo/xvdhy-osfstorage-archive/images/bf1d1e1c.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+b0b79945.png,/marimo/xvdhy-osfstorage-archive/images/b0b79945.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+57fbe852.png,/marimo/xvdhy-osfstorage-archive/images/57fbe852.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e3770df0.png,/marimo/xvdhy-osfstorage-archive/images/e3770df0.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+7b1f70e6.png,/marimo/xvdhy-osfstorage-archive/images/7b1f70e6.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+8cc01bb4.png,/marimo/xvdhy-osfstorage-archive/images/8cc01bb4.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fe1f3276.png,/marimo/xvdhy-osfstorage-archive/images/fe1f3276.png,1388,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+19055e0c.bmp,/marimo/xvdhy-osfstorage-archive/images/19055e0c.png,1405,5,L4,Non-malignant,BenignNOS,1,1,4,WLC,0
+e1133f90.png,/marimo/xvdhy-osfstorage-archive/images/e1133f90.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+524b6efb.jpg,/marimo/xvdhy-osfstorage-archive/images/524b6efb.png,889,3,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+ac290a98.png,/marimo/xvdhy-osfstorage-archive/images/ac290a98.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+73c736d0.png,/marimo/xvdhy-osfstorage-archive/images/73c736d0.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+e970f437.png,/marimo/xvdhy-osfstorage-archive/images/e970f437.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5878253f.png,/marimo/xvdhy-osfstorage-archive/images/5878253f.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+17faf6e7.png,/marimo/xvdhy-osfstorage-archive/images/17faf6e7.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a5010276.png,/marimo/xvdhy-osfstorage-archive/images/a5010276.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8d825019.png,/marimo/xvdhy-osfstorage-archive/images/8d825019.png,1036,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+f479e635.bmp,/marimo/xvdhy-osfstorage-archive/images/f479e635.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+0b9ad921.png,/marimo/xvdhy-osfstorage-archive/images/0b9ad921.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+788e60fb.png,/marimo/xvdhy-osfstorage-archive/images/788e60fb.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e898ee52.jpg,/marimo/xvdhy-osfstorage-archive/images/e898ee52.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+26b11db8.jpg,/marimo/xvdhy-osfstorage-archive/images/26b11db8.png,1552,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+c56ed2b8.png,/marimo/xvdhy-osfstorage-archive/images/c56ed2b8.png,612,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+cabf9350.png,/marimo/xvdhy-osfstorage-archive/images/cabf9350.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6117b61f.png,/marimo/xvdhy-osfstorage-archive/images/6117b61f.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+50c8350e.png,/marimo/xvdhy-osfstorage-archive/images/50c8350e.png,604,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+33926c83.bmp,/marimo/xvdhy-osfstorage-archive/images/33926c83.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+aaff3734.png,/marimo/xvdhy-osfstorage-archive/images/aaff3734.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4e3f9f09.png,/marimo/xvdhy-osfstorage-archive/images/4e3f9f09.png,386,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2293737d.png,/marimo/xvdhy-osfstorage-archive/images/2293737d.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+aa5ad47f.png,/marimo/xvdhy-osfstorage-archive/images/aa5ad47f.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2cd5d777.png,/marimo/xvdhy-osfstorage-archive/images/2cd5d777.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fae92dc8.png,/marimo/xvdhy-osfstorage-archive/images/fae92dc8.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8deb3376.png,/marimo/xvdhy-osfstorage-archive/images/8deb3376.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+616dce27.png,/marimo/xvdhy-osfstorage-archive/images/616dce27.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f72b7ef5.png,/marimo/xvdhy-osfstorage-archive/images/f72b7ef5.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+58732d1b.bmp,/marimo/xvdhy-osfstorage-archive/images/58732d1b.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+c3620fd6.png,/marimo/xvdhy-osfstorage-archive/images/c3620fd6.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2ec65836.png,/marimo/xvdhy-osfstorage-archive/images/2ec65836.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c21c12a7.png,/marimo/xvdhy-osfstorage-archive/images/c21c12a7.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d39b1bcf.png,/marimo/xvdhy-osfstorage-archive/images/d39b1bcf.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+dc62af64.bmp,/marimo/xvdhy-osfstorage-archive/images/dc62af64.png,941,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+f7f183d3.png,/marimo/xvdhy-osfstorage-archive/images/f7f183d3.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+482b9225.png,/marimo/xvdhy-osfstorage-archive/images/482b9225.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a5397115.png,/marimo/xvdhy-osfstorage-archive/images/a5397115.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b0e9e940.png,/marimo/xvdhy-osfstorage-archive/images/b0e9e940.png,1552,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+72092661.png,/marimo/xvdhy-osfstorage-archive/images/72092661.png,1033,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,1
+78ea3100.png,/marimo/xvdhy-osfstorage-archive/images/78ea3100.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+3bb05e98.png,/marimo/xvdhy-osfstorage-archive/images/3bb05e98.png,515,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+b7b1bcfd.png,/marimo/xvdhy-osfstorage-archive/images/b7b1bcfd.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d7bdbb70.png,/marimo/xvdhy-osfstorage-archive/images/d7bdbb70.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bfb5442e.png,/marimo/xvdhy-osfstorage-archive/images/bfb5442e.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6de0fbb7.png,/marimo/xvdhy-osfstorage-archive/images/6de0fbb7.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cd0d8e5d.png,/marimo/xvdhy-osfstorage-archive/images/cd0d8e5d.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+65e142ab.png,/marimo/xvdhy-osfstorage-archive/images/65e142ab.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7a163a1f.png,/marimo/xvdhy-osfstorage-archive/images/7a163a1f.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b3ce5b20.jpg,/marimo/xvdhy-osfstorage-archive/images/b3ce5b20.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+82af2b94.png,/marimo/xvdhy-osfstorage-archive/images/82af2b94.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c4bc6fbb.png,/marimo/xvdhy-osfstorage-archive/images/c4bc6fbb.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e12017d8.bmp,/marimo/xvdhy-osfstorage-archive/images/e12017d8.png,988,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+53d60913.png,/marimo/xvdhy-osfstorage-archive/images/53d60913.png,1177,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+58975f45.png,/marimo/xvdhy-osfstorage-archive/images/58975f45.png,1223,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e208c785.png,/marimo/xvdhy-osfstorage-archive/images/e208c785.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+1ac00fc1.png,/marimo/xvdhy-osfstorage-archive/images/1ac00fc1.png,1285,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+9ffe3faf.png,/marimo/xvdhy-osfstorage-archive/images/9ffe3faf.png,1410,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+bbd005ea.bmp,/marimo/xvdhy-osfstorage-archive/images/bbd005ea.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,0
+31015e58.png,/marimo/xvdhy-osfstorage-archive/images/31015e58.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,1
+ff44742d.png,/marimo/xvdhy-osfstorage-archive/images/ff44742d.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+69bb9441.png,/marimo/xvdhy-osfstorage-archive/images/69bb9441.png,1124,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f8f79720.png,/marimo/xvdhy-osfstorage-archive/images/f8f79720.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d3d21ef0.png,/marimo/xvdhy-osfstorage-archive/images/d3d21ef0.png,1295,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+f0f7b2c3.bmp,/marimo/xvdhy-osfstorage-archive/images/f0f7b2c3.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+dbd74c6a.png,/marimo/xvdhy-osfstorage-archive/images/dbd74c6a.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5e68a76c.png,/marimo/xvdhy-osfstorage-archive/images/5e68a76c.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10a01dd5.jpg,/marimo/xvdhy-osfstorage-archive/images/10a01dd5.png,942,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+23b416c2.png,/marimo/xvdhy-osfstorage-archive/images/23b416c2.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+19f5c5ff.png,/marimo/xvdhy-osfstorage-archive/images/19f5c5ff.png,1412,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+7c9842ff.png,/marimo/xvdhy-osfstorage-archive/images/7c9842ff.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b10bd8cb.png,/marimo/xvdhy-osfstorage-archive/images/b10bd8cb.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+98f9ccbb.png,/marimo/xvdhy-osfstorage-archive/images/98f9ccbb.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+f61a1be7.png,/marimo/xvdhy-osfstorage-archive/images/f61a1be7.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+ac5a1c0d.jpg,/marimo/xvdhy-osfstorage-archive/images/ac5a1c0d.png,952,6,L3,Non-malignant,InflammationNOS,1,1,5,WLC,0
+3a7372d9.png,/marimo/xvdhy-osfstorage-archive/images/3a7372d9.png,680,2,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+71bf7498.png,/marimo/xvdhy-osfstorage-archive/images/71bf7498.png,1081,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3f70d3ef.png,/marimo/xvdhy-osfstorage-archive/images/3f70d3ef.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ebf2b1a7.png,/marimo/xvdhy-osfstorage-archive/images/ebf2b1a7.png,804,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e823f1c7.png,/marimo/xvdhy-osfstorage-archive/images/e823f1c7.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a74f9a2b.png,/marimo/xvdhy-osfstorage-archive/images/a74f9a2b.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+47aa1347.png,/marimo/xvdhy-osfstorage-archive/images/47aa1347.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e914f64f.png,/marimo/xvdhy-osfstorage-archive/images/e914f64f.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1488f91f.png,/marimo/xvdhy-osfstorage-archive/images/1488f91f.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+7a74b1e6.png,/marimo/xvdhy-osfstorage-archive/images/7a74b1e6.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5817c629.png,/marimo/xvdhy-osfstorage-archive/images/5817c629.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c2535251.png,/marimo/xvdhy-osfstorage-archive/images/c2535251.png,376,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+8c38e774.png,/marimo/xvdhy-osfstorage-archive/images/8c38e774.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2e0b5aa2.bmp,/marimo/xvdhy-osfstorage-archive/images/2e0b5aa2.png,808,2,L1,Malignant,CIS,1,0,2,WLC,0
+28912572.png,/marimo/xvdhy-osfstorage-archive/images/28912572.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+730b6f41.png,/marimo/xvdhy-osfstorage-archive/images/730b6f41.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f5dd58ef.png,/marimo/xvdhy-osfstorage-archive/images/f5dd58ef.png,1410,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+bc1d5a8b.png,/marimo/xvdhy-osfstorage-archive/images/bc1d5a8b.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5e97f015.png,/marimo/xvdhy-osfstorage-archive/images/5e97f015.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+e291ac6e.png,/marimo/xvdhy-osfstorage-archive/images/e291ac6e.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+687b62b1.png,/marimo/xvdhy-osfstorage-archive/images/687b62b1.png,808,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e0645e62.bmp,/marimo/xvdhy-osfstorage-archive/images/e0645e62.png,1261,3,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+2b29b14c.png,/marimo/xvdhy-osfstorage-archive/images/2b29b14c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+780e6b8d.bmp,/marimo/xvdhy-osfstorage-archive/images/780e6b8d.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+f8f23e5c.png,/marimo/xvdhy-osfstorage-archive/images/f8f23e5c.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8e6b2b35.png,/marimo/xvdhy-osfstorage-archive/images/8e6b2b35.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+ef0b2834.png,/marimo/xvdhy-osfstorage-archive/images/ef0b2834.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1a41abdd.png,/marimo/xvdhy-osfstorage-archive/images/1a41abdd.png,1552,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+42d53502.bmp,/marimo/xvdhy-osfstorage-archive/images/42d53502.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+615508a5.bmp,/marimo/xvdhy-osfstorage-archive/images/615508a5.png,1616,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+446e65bf.jpg,/marimo/xvdhy-osfstorage-archive/images/446e65bf.png,808,1,L1,Malignant,CIS,1,0,2,WLC,0
+9c017198.png,/marimo/xvdhy-osfstorage-archive/images/9c017198.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+978b4cdf.png,/marimo/xvdhy-osfstorage-archive/images/978b4cdf.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f90e8a16.bmp,/marimo/xvdhy-osfstorage-archive/images/f90e8a16.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+6004822a.png,/marimo/xvdhy-osfstorage-archive/images/6004822a.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+9217fb91.png,/marimo/xvdhy-osfstorage-archive/images/9217fb91.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,1
+b4dc98e9.jpg,/marimo/xvdhy-osfstorage-archive/images/b4dc98e9.png,1261,2,L2,Non-malignant,CCG,1,1,6,BLC,0
+59363799.tiff,/marimo/xvdhy-osfstorage-archive/images/59363799.png,1135,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+3e5b07b8.bmp,/marimo/xvdhy-osfstorage-archive/images/3e5b07b8.png,1026,1,L4,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+b2d52573.png,/marimo/xvdhy-osfstorage-archive/images/b2d52573.png,805,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+3e68f1c8.png,/marimo/xvdhy-osfstorage-archive/images/3e68f1c8.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d574d0c9.jpg,/marimo/xvdhy-osfstorage-archive/images/d574d0c9.png,1199,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+4232ed05.png,/marimo/xvdhy-osfstorage-archive/images/4232ed05.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+1a83e512.png,/marimo/xvdhy-osfstorage-archive/images/1a83e512.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+91bb27e7.png,/marimo/xvdhy-osfstorage-archive/images/91bb27e7.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1d0ddf4b.png,/marimo/xvdhy-osfstorage-archive/images/1d0ddf4b.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+40bb2d0f.bmp,/marimo/xvdhy-osfstorage-archive/images/40bb2d0f.png,909,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+41234a16.png,/marimo/xvdhy-osfstorage-archive/images/41234a16.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+e7902614.png,/marimo/xvdhy-osfstorage-archive/images/e7902614.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+e7821199.png,/marimo/xvdhy-osfstorage-archive/images/e7821199.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+01a344f2.bmp,/marimo/xvdhy-osfstorage-archive/images/01a344f2.png,1319,2,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+9cd37241.png,/marimo/xvdhy-osfstorage-archive/images/9cd37241.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+0ba7ff7f.bmp,/marimo/xvdhy-osfstorage-archive/images/0ba7ff7f.png,889,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+8f92135a.png,/marimo/xvdhy-osfstorage-archive/images/8f92135a.png,858,1,L3,Malignant,HighGradePapillary,1,0,1,BLC,0
+7f5a0038.png,/marimo/xvdhy-osfstorage-archive/images/7f5a0038.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+8fe399ba.png,/marimo/xvdhy-osfstorage-archive/images/8fe399ba.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+92cac595.bmp,/marimo/xvdhy-osfstorage-archive/images/92cac595.png,1303,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3dd2b75f.png,/marimo/xvdhy-osfstorage-archive/images/3dd2b75f.png,159,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+a551f57e.png,/marimo/xvdhy-osfstorage-archive/images/a551f57e.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+dc270d45.png,/marimo/xvdhy-osfstorage-archive/images/dc270d45.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+abd46929.png,/marimo/xvdhy-osfstorage-archive/images/abd46929.png,1393,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+bf900b02.png,/marimo/xvdhy-osfstorage-archive/images/bf900b02.png,1393,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+30c1fb75.png,/marimo/xvdhy-osfstorage-archive/images/30c1fb75.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+5617bf54.png,/marimo/xvdhy-osfstorage-archive/images/5617bf54.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7a3deac5.png,/marimo/xvdhy-osfstorage-archive/images/7a3deac5.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b7904381.png,/marimo/xvdhy-osfstorage-archive/images/b7904381.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e8c3d6f6.png,/marimo/xvdhy-osfstorage-archive/images/e8c3d6f6.png,1519,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+52286bdb.png,/marimo/xvdhy-osfstorage-archive/images/52286bdb.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e1533f9b.png,/marimo/xvdhy-osfstorage-archive/images/e1533f9b.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e7ccfff6.bmp,/marimo/xvdhy-osfstorage-archive/images/e7ccfff6.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+f3e87007.png,/marimo/xvdhy-osfstorage-archive/images/f3e87007.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+260a8ef6.jpg,/marimo/xvdhy-osfstorage-archive/images/260a8ef6.png,889,3,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+0d185768.png,/marimo/xvdhy-osfstorage-archive/images/0d185768.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+4e3d5d0c.bmp,/marimo/xvdhy-osfstorage-archive/images/4e3d5d0c.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+53d1d352.png,/marimo/xvdhy-osfstorage-archive/images/53d1d352.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+05b17d0b.png,/marimo/xvdhy-osfstorage-archive/images/05b17d0b.png,1072,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+86d10c96.png,/marimo/xvdhy-osfstorage-archive/images/86d10c96.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fbee4ff8.png,/marimo/xvdhy-osfstorage-archive/images/fbee4ff8.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a451d296.png,/marimo/xvdhy-osfstorage-archive/images/a451d296.png,707,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+a83a0ba8.png,/marimo/xvdhy-osfstorage-archive/images/a83a0ba8.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+74c06ecc.png,/marimo/xvdhy-osfstorage-archive/images/74c06ecc.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+a2230276.bmp,/marimo/xvdhy-osfstorage-archive/images/a2230276.png,1026,1,L4,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+26ada85b.png,/marimo/xvdhy-osfstorage-archive/images/26ada85b.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+0c81b9c8.png,/marimo/xvdhy-osfstorage-archive/images/0c81b9c8.png,1229,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8cb7d4a3.png,/marimo/xvdhy-osfstorage-archive/images/8cb7d4a3.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9f1a69c7.png,/marimo/xvdhy-osfstorage-archive/images/9f1a69c7.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f71f790a.png,/marimo/xvdhy-osfstorage-archive/images/f71f790a.png,16,1,L0,Foreign bodies,Stent,0,4,21,WLC,0
+2ddd9e80.png,/marimo/xvdhy-osfstorage-archive/images/2ddd9e80.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+ac0dc8f0.png,/marimo/xvdhy-osfstorage-archive/images/ac0dc8f0.png,410,1,L0,Foreign bodies,Stent,0,4,21,WLC,0
+4bf1d8fe.png,/marimo/xvdhy-osfstorage-archive/images/4bf1d8fe.png,805,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,0
+e55682ff.png,/marimo/xvdhy-osfstorage-archive/images/e55682ff.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f26096ec.png,/marimo/xvdhy-osfstorage-archive/images/f26096ec.png,16,1,L1,Malignant,PreMalignant,1,0,3,WLC,0
+2535168f.tiff,/marimo/xvdhy-osfstorage-archive/images/2535168f.png,410,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+e3fc5fe5.png,/marimo/xvdhy-osfstorage-archive/images/e3fc5fe5.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+83c107a3.bmp,/marimo/xvdhy-osfstorage-archive/images/83c107a3.png,1124,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+93e738ae.png,/marimo/xvdhy-osfstorage-archive/images/93e738ae.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+53673524.jpg,/marimo/xvdhy-osfstorage-archive/images/53673524.png,1192,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+28da718e.bmp,/marimo/xvdhy-osfstorage-archive/images/28da718e.png,1041,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+e04396b8.png,/marimo/xvdhy-osfstorage-archive/images/e04396b8.png,1295,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d412d37a.png,/marimo/xvdhy-osfstorage-archive/images/d412d37a.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+f1f3cb35.png,/marimo/xvdhy-osfstorage-archive/images/f1f3cb35.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7c2aed46.png,/marimo/xvdhy-osfstorage-archive/images/7c2aed46.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1cd40aec.png,/marimo/xvdhy-osfstorage-archive/images/1cd40aec.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a3340f60.png,/marimo/xvdhy-osfstorage-archive/images/a3340f60.png,1014,3,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+8819b4f0.png,/marimo/xvdhy-osfstorage-archive/images/8819b4f0.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+d588d832.png,/marimo/xvdhy-osfstorage-archive/images/d588d832.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+88d59a47.jpg,/marimo/xvdhy-osfstorage-archive/images/88d59a47.png,612,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+7d581d1c.png,/marimo/xvdhy-osfstorage-archive/images/7d581d1c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4721f0e1.png,/marimo/xvdhy-osfstorage-archive/images/4721f0e1.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0ac0a19c.png,/marimo/xvdhy-osfstorage-archive/images/0ac0a19c.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ba6cccf3.png,/marimo/xvdhy-osfstorage-archive/images/ba6cccf3.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5c68566d.png,/marimo/xvdhy-osfstorage-archive/images/5c68566d.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bfa79919.png,/marimo/xvdhy-osfstorage-archive/images/bfa79919.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+c0271166.png,/marimo/xvdhy-osfstorage-archive/images/c0271166.png,16,1,L0,Foreign bodies,Stent,0,4,21,WLC,0
+e23a0c2a.png,/marimo/xvdhy-osfstorage-archive/images/e23a0c2a.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+9263f02c.bmp,/marimo/xvdhy-osfstorage-archive/images/9263f02c.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d3e5a4f4.png,/marimo/xvdhy-osfstorage-archive/images/d3e5a4f4.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ceeef217.png,/marimo/xvdhy-osfstorage-archive/images/ceeef217.png,805,1,L1,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+7c207c79.png,/marimo/xvdhy-osfstorage-archive/images/7c207c79.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+401139c5.png,/marimo/xvdhy-osfstorage-archive/images/401139c5.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c1dd6a51.png,/marimo/xvdhy-osfstorage-archive/images/c1dd6a51.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e8f9d453.png,/marimo/xvdhy-osfstorage-archive/images/e8f9d453.png,858,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+db15b6ca.bmp,/marimo/xvdhy-osfstorage-archive/images/db15b6ca.png,612,1,L1,Non-malignant,Denuded,1,1,7,WLC,0
+7aa9b3cb.png,/marimo/xvdhy-osfstorage-archive/images/7aa9b3cb.png,988,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+32a144b8.png,/marimo/xvdhy-osfstorage-archive/images/32a144b8.png,1131,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+abe99363.png,/marimo/xvdhy-osfstorage-archive/images/abe99363.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+147a1e14.png,/marimo/xvdhy-osfstorage-archive/images/147a1e14.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a912b4af.png,/marimo/xvdhy-osfstorage-archive/images/a912b4af.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7df0543b.png,/marimo/xvdhy-osfstorage-archive/images/7df0543b.png,1264,2,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+9d4183b8.png,/marimo/xvdhy-osfstorage-archive/images/9d4183b8.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0427674e.png,/marimo/xvdhy-osfstorage-archive/images/0427674e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+817802b5.jpg,/marimo/xvdhy-osfstorage-archive/images/817802b5.png,1261,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+81b23864.png,/marimo/xvdhy-osfstorage-archive/images/81b23864.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+016ce849.png,/marimo/xvdhy-osfstorage-archive/images/016ce849.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5033cb3b.png,/marimo/xvdhy-osfstorage-archive/images/5033cb3b.png,1526,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+85cdd34e.png,/marimo/xvdhy-osfstorage-archive/images/85cdd34e.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ce19df78.png,/marimo/xvdhy-osfstorage-archive/images/ce19df78.png,1052,2,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+f8440faf.png,/marimo/xvdhy-osfstorage-archive/images/f8440faf.png,952,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+31ffa314.bmp,/marimo/xvdhy-osfstorage-archive/images/31ffa314.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+b2bee1c6.png,/marimo/xvdhy-osfstorage-archive/images/b2bee1c6.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+8ec23e8f.png,/marimo/xvdhy-osfstorage-archive/images/8ec23e8f.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+6a8d4d5d.png,/marimo/xvdhy-osfstorage-archive/images/6a8d4d5d.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f42adbdd.png,/marimo/xvdhy-osfstorage-archive/images/f42adbdd.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+3baa4c4c.bmp,/marimo/xvdhy-osfstorage-archive/images/3baa4c4c.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+ce5b69cd.png,/marimo/xvdhy-osfstorage-archive/images/ce5b69cd.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+fa18146b.jpg,/marimo/xvdhy-osfstorage-archive/images/fa18146b.png,1405,3,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+6df8bfac.png,/marimo/xvdhy-osfstorage-archive/images/6df8bfac.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+dbceb50e.png,/marimo/xvdhy-osfstorage-archive/images/dbceb50e.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+dce0bf61.png,/marimo/xvdhy-osfstorage-archive/images/dce0bf61.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6c536761.png,/marimo/xvdhy-osfstorage-archive/images/6c536761.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6798a9c0.png,/marimo/xvdhy-osfstorage-archive/images/6798a9c0.png,1264,2,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+f30abe4a.jpg,/marimo/xvdhy-osfstorage-archive/images/f30abe4a.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+a44982c2.png,/marimo/xvdhy-osfstorage-archive/images/a44982c2.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+d0937f86.png,/marimo/xvdhy-osfstorage-archive/images/d0937f86.png,761,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+e5b567a9.png,/marimo/xvdhy-osfstorage-archive/images/e5b567a9.png,1229,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+414d4ae4.png,/marimo/xvdhy-osfstorage-archive/images/414d4ae4.png,711,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f8b6853a.png,/marimo/xvdhy-osfstorage-archive/images/f8b6853a.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+389432f3.bmp,/marimo/xvdhy-osfstorage-archive/images/389432f3.png,612,1,L1,Non-malignant,Denuded,1,1,7,BLC,0
+91f3b77e.png,/marimo/xvdhy-osfstorage-archive/images/91f3b77e.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+5c5fec6f.png,/marimo/xvdhy-osfstorage-archive/images/5c5fec6f.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+97fd426f.png,/marimo/xvdhy-osfstorage-archive/images/97fd426f.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+686c620f.png,/marimo/xvdhy-osfstorage-archive/images/686c620f.png,808,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+686c0f1a.png,/marimo/xvdhy-osfstorage-archive/images/686c0f1a.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+68299714.png,/marimo/xvdhy-osfstorage-archive/images/68299714.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+8ae3c6a4.png,/marimo/xvdhy-osfstorage-archive/images/8ae3c6a4.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b2036a95.bmp,/marimo/xvdhy-osfstorage-archive/images/b2036a95.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3f543814.png,/marimo/xvdhy-osfstorage-archive/images/3f543814.png,1465,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+90412187.png,/marimo/xvdhy-osfstorage-archive/images/90412187.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+844b299d.png,/marimo/xvdhy-osfstorage-archive/images/844b299d.png,858,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+bb22e27f.png,/marimo/xvdhy-osfstorage-archive/images/bb22e27f.png,909,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+35f8ae91.png,/marimo/xvdhy-osfstorage-archive/images/35f8ae91.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+30915853.png,/marimo/xvdhy-osfstorage-archive/images/30915853.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+512c4f90.png,/marimo/xvdhy-osfstorage-archive/images/512c4f90.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bc7b87e6.png,/marimo/xvdhy-osfstorage-archive/images/bc7b87e6.png,1417,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+7cd112d6.bmp,/marimo/xvdhy-osfstorage-archive/images/7cd112d6.png,909,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+6eb25883.png,/marimo/xvdhy-osfstorage-archive/images/6eb25883.png,376,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+44c803e8.png,/marimo/xvdhy-osfstorage-archive/images/44c803e8.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+190347f2.png,/marimo/xvdhy-osfstorage-archive/images/190347f2.png,1319,1,L1,Malignant,CIS,1,0,2,BLC,0
+acf3b29b.png,/marimo/xvdhy-osfstorage-archive/images/acf3b29b.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+18fb20d1.bmp,/marimo/xvdhy-osfstorage-archive/images/18fb20d1.png,941,1,L1,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+fdfc2e3c.png,/marimo/xvdhy-osfstorage-archive/images/fdfc2e3c.png,1258,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+616c7eaf.png,/marimo/xvdhy-osfstorage-archive/images/616c7eaf.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7d80703f.png,/marimo/xvdhy-osfstorage-archive/images/7d80703f.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+bd945f95.png,/marimo/xvdhy-osfstorage-archive/images/bd945f95.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+5755963f.png,/marimo/xvdhy-osfstorage-archive/images/5755963f.png,1177,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+813f8255.png,/marimo/xvdhy-osfstorage-archive/images/813f8255.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+889704d6.png,/marimo/xvdhy-osfstorage-archive/images/889704d6.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+30dc5332.bmp,/marimo/xvdhy-osfstorage-archive/images/30dc5332.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+8e98bf7b.bmp,/marimo/xvdhy-osfstorage-archive/images/8e98bf7b.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+9940eba5.png,/marimo/xvdhy-osfstorage-archive/images/9940eba5.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+1c5d258e.png,/marimo/xvdhy-osfstorage-archive/images/1c5d258e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0cdb68d7.jpg,/marimo/xvdhy-osfstorage-archive/images/0cdb68d7.png,1319,1,L2,Malignant,CIS,1,0,2,BLC,0
+beea4b23.jpg,/marimo/xvdhy-osfstorage-archive/images/beea4b23.png,1232,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+c8b60a9c.jpg,/marimo/xvdhy-osfstorage-archive/images/c8b60a9c.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+9296ef74.png,/marimo/xvdhy-osfstorage-archive/images/9296ef74.png,941,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+c0465dbb.jpg,/marimo/xvdhy-osfstorage-archive/images/c0465dbb.png,1417,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+142cc6ce.png,/marimo/xvdhy-osfstorage-archive/images/142cc6ce.png,1378,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+ec925e7a.png,/marimo/xvdhy-osfstorage-archive/images/ec925e7a.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c608e745.png,/marimo/xvdhy-osfstorage-archive/images/c608e745.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+8e37b3ee.png,/marimo/xvdhy-osfstorage-archive/images/8e37b3ee.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5cd0b57d.jpg,/marimo/xvdhy-osfstorage-archive/images/5cd0b57d.png,1319,1,L2,Malignant,CIS,1,0,2,WLC,0
+db81e417.png,/marimo/xvdhy-osfstorage-archive/images/db81e417.png,1041,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+d6e97a81.png,/marimo/xvdhy-osfstorage-archive/images/d6e97a81.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f4d42e14.png,/marimo/xvdhy-osfstorage-archive/images/f4d42e14.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c88eb681.png,/marimo/xvdhy-osfstorage-archive/images/c88eb681.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c608e2a7.png,/marimo/xvdhy-osfstorage-archive/images/c608e2a7.png,612,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+00b175e1.png,/marimo/xvdhy-osfstorage-archive/images/00b175e1.png,1177,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+1f19b1e3.tiff,/marimo/xvdhy-osfstorage-archive/images/1f19b1e3.png,1014,2,L1,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+cb48d83b.png,/marimo/xvdhy-osfstorage-archive/images/cb48d83b.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c82781b6.bmp,/marimo/xvdhy-osfstorage-archive/images/c82781b6.png,1319,2,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+d75e2fb3.png,/marimo/xvdhy-osfstorage-archive/images/d75e2fb3.png,658,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+74d748e8.png,/marimo/xvdhy-osfstorage-archive/images/74d748e8.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+fbdca58d.png,/marimo/xvdhy-osfstorage-archive/images/fbdca58d.png,1291,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+c2160fd8.png,/marimo/xvdhy-osfstorage-archive/images/c2160fd8.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+15aad409.png,/marimo/xvdhy-osfstorage-archive/images/15aad409.png,750,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6831cacf.bmp,/marimo/xvdhy-osfstorage-archive/images/6831cacf.png,808,2,L2,Malignant,CIS,1,0,2,BLC,0
+65b539e3.png,/marimo/xvdhy-osfstorage-archive/images/65b539e3.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e170037b.png,/marimo/xvdhy-osfstorage-archive/images/e170037b.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+055089e6.bmp,/marimo/xvdhy-osfstorage-archive/images/055089e6.png,889,1,L1,Non-malignant,CCG,1,1,6,WLC,0
+7aa1ebee.png,/marimo/xvdhy-osfstorage-archive/images/7aa1ebee.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+d5d09959.png,/marimo/xvdhy-osfstorage-archive/images/d5d09959.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+41f81370.png,/marimo/xvdhy-osfstorage-archive/images/41f81370.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+9d897a92.png,/marimo/xvdhy-osfstorage-archive/images/9d897a92.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9910b6f4.png,/marimo/xvdhy-osfstorage-archive/images/9910b6f4.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+fd59877f.png,/marimo/xvdhy-osfstorage-archive/images/fd59877f.png,1425,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+d24ad73c.png,/marimo/xvdhy-osfstorage-archive/images/d24ad73c.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+48b452c5.png,/marimo/xvdhy-osfstorage-archive/images/48b452c5.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+8e3af83c.png,/marimo/xvdhy-osfstorage-archive/images/8e3af83c.png,1276,2,L1,Malignant,CIS,1,0,2,WLC,0
+687f275b.png,/marimo/xvdhy-osfstorage-archive/images/687f275b.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+28919608.png,/marimo/xvdhy-osfstorage-archive/images/28919608.png,1519,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+17104a6a.bmp,/marimo/xvdhy-osfstorage-archive/images/17104a6a.png,1711,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+6fd0a07e.tiff,/marimo/xvdhy-osfstorage-archive/images/6fd0a07e.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+d12a4bad.bmp,/marimo/xvdhy-osfstorage-archive/images/d12a4bad.png,23,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+c59c1cbf.bmp,/marimo/xvdhy-osfstorage-archive/images/c59c1cbf.png,386,2,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+fd7533d4.bmp,/marimo/xvdhy-osfstorage-archive/images/fd7533d4.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+ff7c9f8a.png,/marimo/xvdhy-osfstorage-archive/images/ff7c9f8a.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ffd009ca.png,/marimo/xvdhy-osfstorage-archive/images/ffd009ca.png,1022,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+cc0725ba.png,/marimo/xvdhy-osfstorage-archive/images/cc0725ba.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+90c9347c.bmp,/marimo/xvdhy-osfstorage-archive/images/90c9347c.png,909,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+ba22eac7.bmp,/marimo/xvdhy-osfstorage-archive/images/ba22eac7.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+80a86edf.jpg,/marimo/xvdhy-osfstorage-archive/images/80a86edf.png,214,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+1dc3ad02.jpg,/marimo/xvdhy-osfstorage-archive/images/1dc3ad02.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+a95ef6c3.png,/marimo/xvdhy-osfstorage-archive/images/a95ef6c3.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+74b6ace5.png,/marimo/xvdhy-osfstorage-archive/images/74b6ace5.png,805,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+82e4872d.png,/marimo/xvdhy-osfstorage-archive/images/82e4872d.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+31920798.png,/marimo/xvdhy-osfstorage-archive/images/31920798.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+01c5cce3.png,/marimo/xvdhy-osfstorage-archive/images/01c5cce3.png,952,1,L1,Malignant,CIS,1,0,2,WLC,0
+f1a9805f.png,/marimo/xvdhy-osfstorage-archive/images/f1a9805f.png,1319,1,L3,Malignant,CIS,1,0,2,BLC,0
+e1987b85.png,/marimo/xvdhy-osfstorage-archive/images/e1987b85.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0610d6e3.png,/marimo/xvdhy-osfstorage-archive/images/0610d6e3.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e52f29cb.png,/marimo/xvdhy-osfstorage-archive/images/e52f29cb.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f3f652dc.png,/marimo/xvdhy-osfstorage-archive/images/f3f652dc.png,376,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6713f3f3.png,/marimo/xvdhy-osfstorage-archive/images/6713f3f3.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+434a07d6.png,/marimo/xvdhy-osfstorage-archive/images/434a07d6.png,1261,3,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+d8d35437.jpg,/marimo/xvdhy-osfstorage-archive/images/d8d35437.png,1192,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+da1c98a3.png,/marimo/xvdhy-osfstorage-archive/images/da1c98a3.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a7ebe7cc.png,/marimo/xvdhy-osfstorage-archive/images/a7ebe7cc.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4a553120.png,/marimo/xvdhy-osfstorage-archive/images/4a553120.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ed11d33f.png,/marimo/xvdhy-osfstorage-archive/images/ed11d33f.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+23a59431.png,/marimo/xvdhy-osfstorage-archive/images/23a59431.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+80acdf90.bmp,/marimo/xvdhy-osfstorage-archive/images/80acdf90.png,1041,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+0f49c7ae.png,/marimo/xvdhy-osfstorage-archive/images/0f49c7ae.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f6fa39b4.png,/marimo/xvdhy-osfstorage-archive/images/f6fa39b4.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+13d0abb9.png,/marimo/xvdhy-osfstorage-archive/images/13d0abb9.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fa8f8341.png,/marimo/xvdhy-osfstorage-archive/images/fa8f8341.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+99865682.png,/marimo/xvdhy-osfstorage-archive/images/99865682.png,1261,3,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+ee5103ef.png,/marimo/xvdhy-osfstorage-archive/images/ee5103ef.png,1319,2,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+a5191daa.png,/marimo/xvdhy-osfstorage-archive/images/a5191daa.png,1232,2,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+2880eecf.png,/marimo/xvdhy-osfstorage-archive/images/2880eecf.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+eebdf6fb.png,/marimo/xvdhy-osfstorage-archive/images/eebdf6fb.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+d2090bd5.png,/marimo/xvdhy-osfstorage-archive/images/d2090bd5.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+cb55e618.png,/marimo/xvdhy-osfstorage-archive/images/cb55e618.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+98e79444.png,/marimo/xvdhy-osfstorage-archive/images/98e79444.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a98d432a.png,/marimo/xvdhy-osfstorage-archive/images/a98d432a.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+832f016e.png,/marimo/xvdhy-osfstorage-archive/images/832f016e.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d8fe9929.bmp,/marimo/xvdhy-osfstorage-archive/images/d8fe9929.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+130aa722.jpg,/marimo/xvdhy-osfstorage-archive/images/130aa722.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+783d44bb.png,/marimo/xvdhy-osfstorage-archive/images/783d44bb.png,1396,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+c6950a79.jpg,/marimo/xvdhy-osfstorage-archive/images/c6950a79.png,942,1,L1,Malignant,CIS,1,0,2,BLC,0
+2e937f29.png,/marimo/xvdhy-osfstorage-archive/images/2e937f29.png,1096,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9b67345d.png,/marimo/xvdhy-osfstorage-archive/images/9b67345d.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+0e16c447.bmp,/marimo/xvdhy-osfstorage-archive/images/0e16c447.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+9b56a13f.png,/marimo/xvdhy-osfstorage-archive/images/9b56a13f.png,1052,2,L1,Malignant,CIS,1,0,2,WLC,0
+5040436b.png,/marimo/xvdhy-osfstorage-archive/images/5040436b.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+4d1d25da.png,/marimo/xvdhy-osfstorage-archive/images/4d1d25da.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d3fb1446.png,/marimo/xvdhy-osfstorage-archive/images/d3fb1446.png,952,4,L1,Malignant,CIS,1,0,2,BLC,0
+cf58185b.png,/marimo/xvdhy-osfstorage-archive/images/cf58185b.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+916e84cf.png,/marimo/xvdhy-osfstorage-archive/images/916e84cf.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+78805488.png,/marimo/xvdhy-osfstorage-archive/images/78805488.png,1388,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+8bd4568d.png,/marimo/xvdhy-osfstorage-archive/images/8bd4568d.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+3451655e.png,/marimo/xvdhy-osfstorage-archive/images/3451655e.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c1fc4a90.png,/marimo/xvdhy-osfstorage-archive/images/c1fc4a90.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f4e69e4f.png,/marimo/xvdhy-osfstorage-archive/images/f4e69e4f.png,1351,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+860c482d.png,/marimo/xvdhy-osfstorage-archive/images/860c482d.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+13752978.bmp,/marimo/xvdhy-osfstorage-archive/images/13752978.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+24f1a967.png,/marimo/xvdhy-osfstorage-archive/images/24f1a967.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5f689b00.png,/marimo/xvdhy-osfstorage-archive/images/5f689b00.png,858,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+a35b5cdb.png,/marimo/xvdhy-osfstorage-archive/images/a35b5cdb.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f76f49d1.png,/marimo/xvdhy-osfstorage-archive/images/f76f49d1.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ed3b58fb.png,/marimo/xvdhy-osfstorage-archive/images/ed3b58fb.png,627,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ab04b2e8.png,/marimo/xvdhy-osfstorage-archive/images/ab04b2e8.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+9487fbda.bmp,/marimo/xvdhy-osfstorage-archive/images/9487fbda.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+9327c958.png,/marimo/xvdhy-osfstorage-archive/images/9327c958.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+de6cb29c.bmp,/marimo/xvdhy-osfstorage-archive/images/de6cb29c.png,1405,5,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+28276d4b.jpg,/marimo/xvdhy-osfstorage-archive/images/28276d4b.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+e110739a.png,/marimo/xvdhy-osfstorage-archive/images/e110739a.png,1177,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+381115a7.png,/marimo/xvdhy-osfstorage-archive/images/381115a7.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+1154b70f.png,/marimo/xvdhy-osfstorage-archive/images/1154b70f.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+9e65857a.png,/marimo/xvdhy-osfstorage-archive/images/9e65857a.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+0786b9ff.png,/marimo/xvdhy-osfstorage-archive/images/0786b9ff.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+aeb54320.png,/marimo/xvdhy-osfstorage-archive/images/aeb54320.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6f3353a3.bmp,/marimo/xvdhy-osfstorage-archive/images/6f3353a3.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+b2606800.bmp,/marimo/xvdhy-osfstorage-archive/images/b2606800.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+14b7af6c.png,/marimo/xvdhy-osfstorage-archive/images/14b7af6c.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+bb975906.bmp,/marimo/xvdhy-osfstorage-archive/images/bb975906.png,1014,1,L1,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+68835579.png,/marimo/xvdhy-osfstorage-archive/images/68835579.png,1405,2,L1,Malignant,CIS,1,0,2,WLC,0
+98b86378.png,/marimo/xvdhy-osfstorage-archive/images/98b86378.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ddfc981f.png,/marimo/xvdhy-osfstorage-archive/images/ddfc981f.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+60661a03.png,/marimo/xvdhy-osfstorage-archive/images/60661a03.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+3e3548f0.png,/marimo/xvdhy-osfstorage-archive/images/3e3548f0.png,1432,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+925d08d2.bmp,/marimo/xvdhy-osfstorage-archive/images/925d08d2.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+9da91342.bmp,/marimo/xvdhy-osfstorage-archive/images/9da91342.png,1405,5,L3,Non-malignant,BenignNOS,1,1,4,BLC,0
+d91e7165.png,/marimo/xvdhy-osfstorage-archive/images/d91e7165.png,707,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+c03e8270.png,/marimo/xvdhy-osfstorage-archive/images/c03e8270.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+3529420e.png,/marimo/xvdhy-osfstorage-archive/images/3529420e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+0601921e.png,/marimo/xvdhy-osfstorage-archive/images/0601921e.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b66f95ae.png,/marimo/xvdhy-osfstorage-archive/images/b66f95ae.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1cbb4ce5.png,/marimo/xvdhy-osfstorage-archive/images/1cbb4ce5.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6e9e7418.png,/marimo/xvdhy-osfstorage-archive/images/6e9e7418.png,1378,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+80e0d4b0.png,/marimo/xvdhy-osfstorage-archive/images/80e0d4b0.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+96001d0f.jpg,/marimo/xvdhy-osfstorage-archive/images/96001d0f.png,1405,4,L1,Malignant,CIS,1,0,2,BLC,0
+1b5cf499.png,/marimo/xvdhy-osfstorage-archive/images/1b5cf499.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fd47fd39.png,/marimo/xvdhy-osfstorage-archive/images/fd47fd39.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+25db9982.png,/marimo/xvdhy-osfstorage-archive/images/25db9982.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4ea4ec6a.bmp,/marimo/xvdhy-osfstorage-archive/images/4ea4ec6a.png,1405,5,L3,Non-malignant,BenignNOS,1,1,4,WLC,0
+1b7d44ce.png,/marimo/xvdhy-osfstorage-archive/images/1b7d44ce.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a49decb7.png,/marimo/xvdhy-osfstorage-archive/images/a49decb7.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+e246e153.bmp,/marimo/xvdhy-osfstorage-archive/images/e246e153.png,1319,2,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+de779204.png,/marimo/xvdhy-osfstorage-archive/images/de779204.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+c6f6edd4.png,/marimo/xvdhy-osfstorage-archive/images/c6f6edd4.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+68aed284.png,/marimo/xvdhy-osfstorage-archive/images/68aed284.png,952,4,L2,Malignant,CIS,1,0,2,WLC,0
+3938e1ec.bmp,/marimo/xvdhy-osfstorage-archive/images/3938e1ec.png,1026,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+7afcaa40.jpg,/marimo/xvdhy-osfstorage-archive/images/7afcaa40.png,1387,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+e20a1200.png,/marimo/xvdhy-osfstorage-archive/images/e20a1200.png,167,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+bf6e0860.png,/marimo/xvdhy-osfstorage-archive/images/bf6e0860.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7458e21d.png,/marimo/xvdhy-osfstorage-archive/images/7458e21d.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+ceb40165.png,/marimo/xvdhy-osfstorage-archive/images/ceb40165.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7d54c128.jpg,/marimo/xvdhy-osfstorage-archive/images/7d54c128.png,1552,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+185e5396.png,/marimo/xvdhy-osfstorage-archive/images/185e5396.png,1267,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+60d6e68f.png,/marimo/xvdhy-osfstorage-archive/images/60d6e68f.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f5bb8239.png,/marimo/xvdhy-osfstorage-archive/images/f5bb8239.png,1396,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+61239284.png,/marimo/xvdhy-osfstorage-archive/images/61239284.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+50c6a0db.png,/marimo/xvdhy-osfstorage-archive/images/50c6a0db.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+6f61e61d.png,/marimo/xvdhy-osfstorage-archive/images/6f61e61d.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+dc6320ca.png,/marimo/xvdhy-osfstorage-archive/images/dc6320ca.png,1351,2,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+63395837.png,/marimo/xvdhy-osfstorage-archive/images/63395837.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+73335e3f.png,/marimo/xvdhy-osfstorage-archive/images/73335e3f.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+43fc647d.png,/marimo/xvdhy-osfstorage-archive/images/43fc647d.png,1526,1,L3,Malignant,CIS,1,0,2,WLC,0
+c52a96da.png,/marimo/xvdhy-osfstorage-archive/images/c52a96da.png,1616,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+311f85f1.bmp,/marimo/xvdhy-osfstorage-archive/images/311f85f1.png,1599,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+02e6f1d8.png,/marimo/xvdhy-osfstorage-archive/images/02e6f1d8.png,376,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+80c3d5ad.jpg,/marimo/xvdhy-osfstorage-archive/images/80c3d5ad.png,1405,4,L2,Malignant,CIS,1,0,2,WLC,0
+2609e6f7.png,/marimo/xvdhy-osfstorage-archive/images/2609e6f7.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bba6d9ad.png,/marimo/xvdhy-osfstorage-archive/images/bba6d9ad.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cdc84bcd.png,/marimo/xvdhy-osfstorage-archive/images/cdc84bcd.png,1319,2,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+2f54af3e.png,/marimo/xvdhy-osfstorage-archive/images/2f54af3e.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6a4961a2.png,/marimo/xvdhy-osfstorage-archive/images/6a4961a2.png,1232,2,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+38ffb250.jpg,/marimo/xvdhy-osfstorage-archive/images/38ffb250.png,1405,3,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+0c1d087d.bmp,/marimo/xvdhy-osfstorage-archive/images/0c1d087d.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+3a65b620.png,/marimo/xvdhy-osfstorage-archive/images/3a65b620.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+2b030b49.png,/marimo/xvdhy-osfstorage-archive/images/2b030b49.png,515,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+f8efd4b7.jpg,/marimo/xvdhy-osfstorage-archive/images/f8efd4b7.png,448,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+9bfe41e7.png,/marimo/xvdhy-osfstorage-archive/images/9bfe41e7.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+aa392f82.bmp,/marimo/xvdhy-osfstorage-archive/images/aa392f82.png,1116,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+ad85d867.png,/marimo/xvdhy-osfstorage-archive/images/ad85d867.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+7ae75178.png,/marimo/xvdhy-osfstorage-archive/images/7ae75178.png,1081,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+1eac51c7.png,/marimo/xvdhy-osfstorage-archive/images/1eac51c7.png,941,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+0ddc7a3d.png,/marimo/xvdhy-osfstorage-archive/images/0ddc7a3d.png,1223,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+988c6408.png,/marimo/xvdhy-osfstorage-archive/images/988c6408.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9f20aedc.png,/marimo/xvdhy-osfstorage-archive/images/9f20aedc.png,858,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+8588044e.png,/marimo/xvdhy-osfstorage-archive/images/8588044e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3fa9367b.png,/marimo/xvdhy-osfstorage-archive/images/3fa9367b.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+49f21bd5.png,/marimo/xvdhy-osfstorage-archive/images/49f21bd5.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+15d75913.png,/marimo/xvdhy-osfstorage-archive/images/15d75913.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c87384e9.png,/marimo/xvdhy-osfstorage-archive/images/c87384e9.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+97676832.tiff,/marimo/xvdhy-osfstorage-archive/images/97676832.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+8954106a.png,/marimo/xvdhy-osfstorage-archive/images/8954106a.png,1177,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,1
+efbf2b02.png,/marimo/xvdhy-osfstorage-archive/images/efbf2b02.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+906cb590.png,/marimo/xvdhy-osfstorage-archive/images/906cb590.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e46b7121.png,/marimo/xvdhy-osfstorage-archive/images/e46b7121.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+d86621ce.png,/marimo/xvdhy-osfstorage-archive/images/d86621ce.png,1036,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+48cf0c44.png,/marimo/xvdhy-osfstorage-archive/images/48cf0c44.png,761,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+45627e88.png,/marimo/xvdhy-osfstorage-archive/images/45627e88.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bd60515f.bmp,/marimo/xvdhy-osfstorage-archive/images/bd60515f.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+08856379.png,/marimo/xvdhy-osfstorage-archive/images/08856379.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+fa3922a3.jpg,/marimo/xvdhy-osfstorage-archive/images/fa3922a3.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+b994229a.png,/marimo/xvdhy-osfstorage-archive/images/b994229a.png,889,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+03f1b170.png,/marimo/xvdhy-osfstorage-archive/images/03f1b170.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+601c6a6e.png,/marimo/xvdhy-osfstorage-archive/images/601c6a6e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b31be36a.png,/marimo/xvdhy-osfstorage-archive/images/b31be36a.png,1054,1,L3,Non-malignant,BenignNOS,1,1,4,WLC,0
+97667430.png,/marimo/xvdhy-osfstorage-archive/images/97667430.png,1054,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+1feb29bf.png,/marimo/xvdhy-osfstorage-archive/images/1feb29bf.png,804,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d24c842a.png,/marimo/xvdhy-osfstorage-archive/images/d24c842a.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+779c9ecc.png,/marimo/xvdhy-osfstorage-archive/images/779c9ecc.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ff92e655.bmp,/marimo/xvdhy-osfstorage-archive/images/ff92e655.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d7ec742f.jpg,/marimo/xvdhy-osfstorage-archive/images/d7ec742f.png,1229,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+6619d23e.bmp,/marimo/xvdhy-osfstorage-archive/images/6619d23e.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+2308e2a8.png,/marimo/xvdhy-osfstorage-archive/images/2308e2a8.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+5eaa96d0.png,/marimo/xvdhy-osfstorage-archive/images/5eaa96d0.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1f5e942f.png,/marimo/xvdhy-osfstorage-archive/images/1f5e942f.png,1033,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,1
+c578f7e2.png,/marimo/xvdhy-osfstorage-archive/images/c578f7e2.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+db83cf78.png,/marimo/xvdhy-osfstorage-archive/images/db83cf78.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+55b5de58.png,/marimo/xvdhy-osfstorage-archive/images/55b5de58.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+5cfc1eed.png,/marimo/xvdhy-osfstorage-archive/images/5cfc1eed.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3a541222.png,/marimo/xvdhy-osfstorage-archive/images/3a541222.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f34a5517.png,/marimo/xvdhy-osfstorage-archive/images/f34a5517.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7fb9b6ee.png,/marimo/xvdhy-osfstorage-archive/images/7fb9b6ee.png,1599,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+365b79e4.png,/marimo/xvdhy-osfstorage-archive/images/365b79e4.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bc15fabf.png,/marimo/xvdhy-osfstorage-archive/images/bc15fabf.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+94b72639.png,/marimo/xvdhy-osfstorage-archive/images/94b72639.png,1131,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+eb9cece1.png,/marimo/xvdhy-osfstorage-archive/images/eb9cece1.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+86f24c60.png,/marimo/xvdhy-osfstorage-archive/images/86f24c60.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+c71402ae.png,/marimo/xvdhy-osfstorage-archive/images/c71402ae.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e8660232.png,/marimo/xvdhy-osfstorage-archive/images/e8660232.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+a623542f.png,/marimo/xvdhy-osfstorage-archive/images/a623542f.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c483a3aa.png,/marimo/xvdhy-osfstorage-archive/images/c483a3aa.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+72b1a450.png,/marimo/xvdhy-osfstorage-archive/images/72b1a450.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e7ff6aa5.png,/marimo/xvdhy-osfstorage-archive/images/e7ff6aa5.png,1368,1,L1,Malignant,CIS,1,0,2,BLC,0
+5e49444f.bmp,/marimo/xvdhy-osfstorage-archive/images/5e49444f.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+ccef3032.bmp,/marimo/xvdhy-osfstorage-archive/images/ccef3032.png,1616,1,L4,Malignant,HighGradePapillary,1,0,1,BLC,0
+288dbac2.png,/marimo/xvdhy-osfstorage-archive/images/288dbac2.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+2efd6be0.png,/marimo/xvdhy-osfstorage-archive/images/2efd6be0.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+9317fdcd.png,/marimo/xvdhy-osfstorage-archive/images/9317fdcd.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+79db7e43.png,/marimo/xvdhy-osfstorage-archive/images/79db7e43.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+02b8bc2c.png,/marimo/xvdhy-osfstorage-archive/images/02b8bc2c.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+16b47208.png,/marimo/xvdhy-osfstorage-archive/images/16b47208.png,376,2,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+ab3766eb.png,/marimo/xvdhy-osfstorage-archive/images/ab3766eb.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ac822cdc.png,/marimo/xvdhy-osfstorage-archive/images/ac822cdc.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f8b6ad8c.png,/marimo/xvdhy-osfstorage-archive/images/f8b6ad8c.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9538a7e9.png,/marimo/xvdhy-osfstorage-archive/images/9538a7e9.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+7988c20f.png,/marimo/xvdhy-osfstorage-archive/images/7988c20f.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d86146ad.png,/marimo/xvdhy-osfstorage-archive/images/d86146ad.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+34ece906.png,/marimo/xvdhy-osfstorage-archive/images/34ece906.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5718cfa4.jpg,/marimo/xvdhy-osfstorage-archive/images/5718cfa4.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+3838ed11.jpg,/marimo/xvdhy-osfstorage-archive/images/3838ed11.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+bfbedef3.png,/marimo/xvdhy-osfstorage-archive/images/bfbedef3.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+8c8480a7.png,/marimo/xvdhy-osfstorage-archive/images/8c8480a7.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b9036338.png,/marimo/xvdhy-osfstorage-archive/images/b9036338.png,808,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a1f005c6.bmp,/marimo/xvdhy-osfstorage-archive/images/a1f005c6.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+0ac49382.png,/marimo/xvdhy-osfstorage-archive/images/0ac49382.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+82317225.bmp,/marimo/xvdhy-osfstorage-archive/images/82317225.png,941,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+b3f3f43a.jpg,/marimo/xvdhy-osfstorage-archive/images/b3f3f43a.png,214,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+35abfaf1.png,/marimo/xvdhy-osfstorage-archive/images/35abfaf1.png,1390,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+76b8d4b9.png,/marimo/xvdhy-osfstorage-archive/images/76b8d4b9.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9a8f597b.png,/marimo/xvdhy-osfstorage-archive/images/9a8f597b.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9a2e9ec9.png,/marimo/xvdhy-osfstorage-archive/images/9a2e9ec9.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+43f802fe.png,/marimo/xvdhy-osfstorage-archive/images/43f802fe.png,1033,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,1
+3788ecfa.png,/marimo/xvdhy-osfstorage-archive/images/3788ecfa.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a1d23eac.png,/marimo/xvdhy-osfstorage-archive/images/a1d23eac.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+ce717b8c.png,/marimo/xvdhy-osfstorage-archive/images/ce717b8c.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+cf67024b.png,/marimo/xvdhy-osfstorage-archive/images/cf67024b.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+df807597.png,/marimo/xvdhy-osfstorage-archive/images/df807597.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2997c591.png,/marimo/xvdhy-osfstorage-archive/images/2997c591.png,707,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+865d920d.png,/marimo/xvdhy-osfstorage-archive/images/865d920d.png,1033,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,1
+3b1f36e2.png,/marimo/xvdhy-osfstorage-archive/images/3b1f36e2.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+0513b2e0.bmp,/marimo/xvdhy-osfstorage-archive/images/0513b2e0.png,167,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+d9c19def.png,/marimo/xvdhy-osfstorage-archive/images/d9c19def.png,1124,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+8ea84e38.bmp,/marimo/xvdhy-osfstorage-archive/images/8ea84e38.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+ffed30fd.jpg,/marimo/xvdhy-osfstorage-archive/images/ffed30fd.png,1223,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+0d4f6603.png,/marimo/xvdhy-osfstorage-archive/images/0d4f6603.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+dc277f3c.png,/marimo/xvdhy-osfstorage-archive/images/dc277f3c.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+236846a4.bmp,/marimo/xvdhy-osfstorage-archive/images/236846a4.png,750,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+7b3dd712.png,/marimo/xvdhy-osfstorage-archive/images/7b3dd712.png,952,2,L1,Malignant,CIS,1,0,2,WLC,0
+6319e81b.png,/marimo/xvdhy-osfstorage-archive/images/6319e81b.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+894ab988.jpg,/marimo/xvdhy-osfstorage-archive/images/894ab988.png,1405,3,L2,Malignant,CIS,1,0,2,BLC,0
+34b727c4.png,/marimo/xvdhy-osfstorage-archive/images/34b727c4.png,1378,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+fb469a52.png,/marimo/xvdhy-osfstorage-archive/images/fb469a52.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+bd22ab1d.png,/marimo/xvdhy-osfstorage-archive/images/bd22ab1d.png,627,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+034948e8.png,/marimo/xvdhy-osfstorage-archive/images/034948e8.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1770dd44.png,/marimo/xvdhy-osfstorage-archive/images/1770dd44.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ccc0f650.jpg,/marimo/xvdhy-osfstorage-archive/images/ccc0f650.png,1319,1,L4,Malignant,CIS,1,0,2,BLC,0
+e7b2fa72.png,/marimo/xvdhy-osfstorage-archive/images/e7b2fa72.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+d3731fd7.png,/marimo/xvdhy-osfstorage-archive/images/d3731fd7.png,1522,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+5ba0b5f6.png,/marimo/xvdhy-osfstorage-archive/images/5ba0b5f6.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+99dbebc6.bmp,/marimo/xvdhy-osfstorage-archive/images/99dbebc6.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+7230a58c.bmp,/marimo/xvdhy-osfstorage-archive/images/7230a58c.png,808,2,L2,Malignant,CIS,1,0,2,WLC,0
+3a572703.png,/marimo/xvdhy-osfstorage-archive/images/3a572703.png,878,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+733340be.png,/marimo/xvdhy-osfstorage-archive/images/733340be.png,1375,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+cdd1505c.png,/marimo/xvdhy-osfstorage-archive/images/cdd1505c.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+ffa47519.png,/marimo/xvdhy-osfstorage-archive/images/ffa47519.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2c117dc4.bmp,/marimo/xvdhy-osfstorage-archive/images/2c117dc4.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+6bca45df.png,/marimo/xvdhy-osfstorage-archive/images/6bca45df.png,858,2,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+14859ea0.png,/marimo/xvdhy-osfstorage-archive/images/14859ea0.png,1041,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+af9b4d12.png,/marimo/xvdhy-osfstorage-archive/images/af9b4d12.png,612,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c3842e32.png,/marimo/xvdhy-osfstorage-archive/images/c3842e32.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4e302653.png,/marimo/xvdhy-osfstorage-archive/images/4e302653.png,1041,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+59f37e15.png,/marimo/xvdhy-osfstorage-archive/images/59f37e15.png,1432,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+a150d047.png,/marimo/xvdhy-osfstorage-archive/images/a150d047.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+bd6de0fe.jpg,/marimo/xvdhy-osfstorage-archive/images/bd6de0fe.png,1319,1,L2,Malignant,CIS,1,0,2,BLC,0
+5033403f.png,/marimo/xvdhy-osfstorage-archive/images/5033403f.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b083e0f5.png,/marimo/xvdhy-osfstorage-archive/images/b083e0f5.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ca3dc532.png,/marimo/xvdhy-osfstorage-archive/images/ca3dc532.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+eaba04e0.png,/marimo/xvdhy-osfstorage-archive/images/eaba04e0.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+001d986a.png,/marimo/xvdhy-osfstorage-archive/images/001d986a.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+368a9c89.png,/marimo/xvdhy-osfstorage-archive/images/368a9c89.png,1033,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,1
+67ef25f7.png,/marimo/xvdhy-osfstorage-archive/images/67ef25f7.png,1229,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+25baf3c5.bmp,/marimo/xvdhy-osfstorage-archive/images/25baf3c5.png,941,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+45872eaf.png,/marimo/xvdhy-osfstorage-archive/images/45872eaf.png,515,1,L3,Non-malignant,InflammationNOS,1,1,5,WLC,0
+23a333c9.png,/marimo/xvdhy-osfstorage-archive/images/23a333c9.png,711,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c005ebe4.png,/marimo/xvdhy-osfstorage-archive/images/c005ebe4.png,1599,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+e92c8ddc.png,/marimo/xvdhy-osfstorage-archive/images/e92c8ddc.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+a7da52a3.png,/marimo/xvdhy-osfstorage-archive/images/a7da52a3.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+19358b99.bmp,/marimo/xvdhy-osfstorage-archive/images/19358b99.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+7deabadb.png,/marimo/xvdhy-osfstorage-archive/images/7deabadb.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4894e921.png,/marimo/xvdhy-osfstorage-archive/images/4894e921.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+b1b7bc0f.png,/marimo/xvdhy-osfstorage-archive/images/b1b7bc0f.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9bc5c5e5.png,/marimo/xvdhy-osfstorage-archive/images/9bc5c5e5.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0a69a145.png,/marimo/xvdhy-osfstorage-archive/images/0a69a145.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a501d302.png,/marimo/xvdhy-osfstorage-archive/images/a501d302.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+aa472820.bmp,/marimo/xvdhy-osfstorage-archive/images/aa472820.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+c6def635.png,/marimo/xvdhy-osfstorage-archive/images/c6def635.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+bdf271c2.bmp,/marimo/xvdhy-osfstorage-archive/images/bdf271c2.png,666,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+dea9eedf.bmp,/marimo/xvdhy-osfstorage-archive/images/dea9eedf.png,889,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+4af6a3b4.png,/marimo/xvdhy-osfstorage-archive/images/4af6a3b4.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e04733f4.png,/marimo/xvdhy-osfstorage-archive/images/e04733f4.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+27f8805b.png,/marimo/xvdhy-osfstorage-archive/images/27f8805b.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+23ae17fa.bmp,/marimo/xvdhy-osfstorage-archive/images/23ae17fa.png,612,1,L1,Non-malignant,Denuded,1,1,7,BLC,0
+d7db85c7.png,/marimo/xvdhy-osfstorage-archive/images/d7db85c7.png,1519,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+3c1a680e.png,/marimo/xvdhy-osfstorage-archive/images/3c1a680e.png,1465,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+4eacdca7.png,/marimo/xvdhy-osfstorage-archive/images/4eacdca7.png,1396,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+fa917c85.jpg,/marimo/xvdhy-osfstorage-archive/images/fa917c85.png,1552,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+2c25cc4f.png,/marimo/xvdhy-osfstorage-archive/images/2c25cc4f.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ada263c9.png,/marimo/xvdhy-osfstorage-archive/images/ada263c9.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+2a692224.png,/marimo/xvdhy-osfstorage-archive/images/2a692224.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+78214145.png,/marimo/xvdhy-osfstorage-archive/images/78214145.png,761,1,L3,Malignant,HighGradePapillary,1,0,1,BLC,0
+258635fc.bmp,/marimo/xvdhy-osfstorage-archive/images/258635fc.png,1026,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+e73d5a1e.png,/marimo/xvdhy-osfstorage-archive/images/e73d5a1e.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+233de240.bmp,/marimo/xvdhy-osfstorage-archive/images/233de240.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+02639b8e.png,/marimo/xvdhy-osfstorage-archive/images/02639b8e.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+f999a730.png,/marimo/xvdhy-osfstorage-archive/images/f999a730.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+fa5efc3c.jpg,/marimo/xvdhy-osfstorage-archive/images/fa5efc3c.png,952,6,L4,Non-malignant,InflammationNOS,1,1,5,WLC,0
+ec66a265.bmp,/marimo/xvdhy-osfstorage-archive/images/ec66a265.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+5d3ab24d.png,/marimo/xvdhy-osfstorage-archive/images/5d3ab24d.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+14eeb548.bmp,/marimo/xvdhy-osfstorage-archive/images/14eeb548.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+333c568c.png,/marimo/xvdhy-osfstorage-archive/images/333c568c.png,952,2,L1,Malignant,CIS,1,0,2,BLC,0
+bde4830d.png,/marimo/xvdhy-osfstorage-archive/images/bde4830d.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2ed588f2.png,/marimo/xvdhy-osfstorage-archive/images/2ed588f2.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+cef5cfe7.png,/marimo/xvdhy-osfstorage-archive/images/cef5cfe7.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+a1df8b03.png,/marimo/xvdhy-osfstorage-archive/images/a1df8b03.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b6428fa4.bmp,/marimo/xvdhy-osfstorage-archive/images/b6428fa4.png,1014,1,L1,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+102a10c1.jpg,/marimo/xvdhy-osfstorage-archive/images/102a10c1.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+ff696789.png,/marimo/xvdhy-osfstorage-archive/images/ff696789.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+d87a5f18.png,/marimo/xvdhy-osfstorage-archive/images/d87a5f18.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+0a785464.jpg,/marimo/xvdhy-osfstorage-archive/images/0a785464.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+24e5fdd3.tiff,/marimo/xvdhy-osfstorage-archive/images/24e5fdd3.png,410,1,L1,Malignant,CIS,1,0,2,BLC,0
+dfc99a50.png,/marimo/xvdhy-osfstorage-archive/images/dfc99a50.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b771548b.jpg,/marimo/xvdhy-osfstorage-archive/images/b771548b.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+4a113a88.png,/marimo/xvdhy-osfstorage-archive/images/4a113a88.png,159,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+57b9c82f.jpg,/marimo/xvdhy-osfstorage-archive/images/57b9c82f.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+a4385091.tiff,/marimo/xvdhy-osfstorage-archive/images/a4385091.png,1135,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+00fd4702.png,/marimo/xvdhy-osfstorage-archive/images/00fd4702.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c6e46d25.png,/marimo/xvdhy-osfstorage-archive/images/c6e46d25.png,952,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4bbad981.png,/marimo/xvdhy-osfstorage-archive/images/4bbad981.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ce9132d4.png,/marimo/xvdhy-osfstorage-archive/images/ce9132d4.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+d080fc7b.png,/marimo/xvdhy-osfstorage-archive/images/d080fc7b.png,1425,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+f9454c77.png,/marimo/xvdhy-osfstorage-archive/images/f9454c77.png,805,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+b2b866b7.jpg,/marimo/xvdhy-osfstorage-archive/images/b2b866b7.png,1405,3,L2,Malignant,CIS,1,0,2,WLC,0
+8afca82b.png,/marimo/xvdhy-osfstorage-archive/images/8afca82b.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b88dfa3f.png,/marimo/xvdhy-osfstorage-archive/images/b88dfa3f.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fdf4f9ea.png,/marimo/xvdhy-osfstorage-archive/images/fdf4f9ea.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+fc2e57a0.png,/marimo/xvdhy-osfstorage-archive/images/fc2e57a0.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+5e387b26.png,/marimo/xvdhy-osfstorage-archive/images/5e387b26.png,1519,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+67a8b476.bmp,/marimo/xvdhy-osfstorage-archive/images/67a8b476.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+f968cb15.png,/marimo/xvdhy-osfstorage-archive/images/f968cb15.png,1295,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+0a387497.png,/marimo/xvdhy-osfstorage-archive/images/0a387497.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+39c6f3e0.png,/marimo/xvdhy-osfstorage-archive/images/39c6f3e0.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+562d33ef.png,/marimo/xvdhy-osfstorage-archive/images/562d33ef.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+19f8fb95.png,/marimo/xvdhy-osfstorage-archive/images/19f8fb95.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+71a0e90d.tiff,/marimo/xvdhy-osfstorage-archive/images/71a0e90d.png,410,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+9c16562b.bmp,/marimo/xvdhy-osfstorage-archive/images/9c16562b.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+c01854f3.png,/marimo/xvdhy-osfstorage-archive/images/c01854f3.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b4eacda9.jpg,/marimo/xvdhy-osfstorage-archive/images/b4eacda9.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+17b231b8.png,/marimo/xvdhy-osfstorage-archive/images/17b231b8.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7221c5d7.png,/marimo/xvdhy-osfstorage-archive/images/7221c5d7.png,1054,1,L3,Non-malignant,BenignNOS,1,1,4,BLC,0
+2a3ef97e.bmp,/marimo/xvdhy-osfstorage-archive/images/2a3ef97e.png,941,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+97c31755.png,/marimo/xvdhy-osfstorage-archive/images/97c31755.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+714c1821.png,/marimo/xvdhy-osfstorage-archive/images/714c1821.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+3f503cc4.bmp,/marimo/xvdhy-osfstorage-archive/images/3f503cc4.png,941,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+4c2e51b5.jpg,/marimo/xvdhy-osfstorage-archive/images/4c2e51b5.png,952,6,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+ee791ca0.png,/marimo/xvdhy-osfstorage-archive/images/ee791ca0.png,1152,2,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+620e6d66.png,/marimo/xvdhy-osfstorage-archive/images/620e6d66.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+2256b819.png,/marimo/xvdhy-osfstorage-archive/images/2256b819.png,376,2,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+aa5b1a3e.jpg,/marimo/xvdhy-osfstorage-archive/images/aa5b1a3e.png,1229,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+fd293f80.png,/marimo/xvdhy-osfstorage-archive/images/fd293f80.png,1054,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7f210376.jpg,/marimo/xvdhy-osfstorage-archive/images/7f210376.png,952,6,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+6490b9e8.png,/marimo/xvdhy-osfstorage-archive/images/6490b9e8.png,878,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+9a991623.png,/marimo/xvdhy-osfstorage-archive/images/9a991623.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+2a73203e.png,/marimo/xvdhy-osfstorage-archive/images/2a73203e.png,1223,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b0bd7fe0.jpg,/marimo/xvdhy-osfstorage-archive/images/b0bd7fe0.png,1261,2,L2,Non-malignant,CCG,1,1,6,WLC,0
+4306ea07.bmp,/marimo/xvdhy-osfstorage-archive/images/4306ea07.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d49fa9cd.png,/marimo/xvdhy-osfstorage-archive/images/d49fa9cd.png,1131,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+89cf67ca.bmp,/marimo/xvdhy-osfstorage-archive/images/89cf67ca.png,1599,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+b6ded008.jpg,/marimo/xvdhy-osfstorage-archive/images/b6ded008.png,1405,4,L2,Malignant,CIS,1,0,2,BLC,0
+ab7dee82.png,/marimo/xvdhy-osfstorage-archive/images/ab7dee82.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b3aaf9ad.png,/marimo/xvdhy-osfstorage-archive/images/b3aaf9ad.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5fe58d77.png,/marimo/xvdhy-osfstorage-archive/images/5fe58d77.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6d00a3ef.png,/marimo/xvdhy-osfstorage-archive/images/6d00a3ef.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+2e5806ae.bmp,/marimo/xvdhy-osfstorage-archive/images/2e5806ae.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+a61d846a.png,/marimo/xvdhy-osfstorage-archive/images/a61d846a.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6071cfe3.tiff,/marimo/xvdhy-osfstorage-archive/images/6071cfe3.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+856c9897.png,/marimo/xvdhy-osfstorage-archive/images/856c9897.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1c784593.png,/marimo/xvdhy-osfstorage-archive/images/1c784593.png,870,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+df0ad6bb.png,/marimo/xvdhy-osfstorage-archive/images/df0ad6bb.png,1542,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+52523090.jpg,/marimo/xvdhy-osfstorage-archive/images/52523090.png,1258,1,L1,Non-malignant,SquamousMetaplasia,1,1,9,BLC,0
+05a3f5cf.png,/marimo/xvdhy-osfstorage-archive/images/05a3f5cf.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+4113c484.png,/marimo/xvdhy-osfstorage-archive/images/4113c484.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+48c73c41.png,/marimo/xvdhy-osfstorage-archive/images/48c73c41.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+fba5723d.png,/marimo/xvdhy-osfstorage-archive/images/fba5723d.png,627,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+99eec581.png,/marimo/xvdhy-osfstorage-archive/images/99eec581.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fd1ea350.png,/marimo/xvdhy-osfstorage-archive/images/fd1ea350.png,627,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+756ef1f1.jpg,/marimo/xvdhy-osfstorage-archive/images/756ef1f1.png,1319,1,L2,Malignant,CIS,1,0,2,WLC,0
+2c03f782.bmp,/marimo/xvdhy-osfstorage-archive/images/2c03f782.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+63e0544c.png,/marimo/xvdhy-osfstorage-archive/images/63e0544c.png,1526,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+1862ab0f.jpg,/marimo/xvdhy-osfstorage-archive/images/1862ab0f.png,1192,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+dfb8a962.png,/marimo/xvdhy-osfstorage-archive/images/dfb8a962.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c40fa001.png,/marimo/xvdhy-osfstorage-archive/images/c40fa001.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+527bbc21.png,/marimo/xvdhy-osfstorage-archive/images/527bbc21.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9bbece0e.png,/marimo/xvdhy-osfstorage-archive/images/9bbece0e.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+515e8c13.png,/marimo/xvdhy-osfstorage-archive/images/515e8c13.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ab6b9028.png,/marimo/xvdhy-osfstorage-archive/images/ab6b9028.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d0bb23f5.png,/marimo/xvdhy-osfstorage-archive/images/d0bb23f5.png,680,2,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+248ee79a.png,/marimo/xvdhy-osfstorage-archive/images/248ee79a.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+1c2a4498.jpg,/marimo/xvdhy-osfstorage-archive/images/1c2a4498.png,952,6,L3,Non-malignant,InflammationNOS,1,1,5,BLC,0
+8a7ec35e.png,/marimo/xvdhy-osfstorage-archive/images/8a7ec35e.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0e364ca4.png,/marimo/xvdhy-osfstorage-archive/images/0e364ca4.png,1160,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,1
+c72e246b.png,/marimo/xvdhy-osfstorage-archive/images/c72e246b.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+cf0e03a5.png,/marimo/xvdhy-osfstorage-archive/images/cf0e03a5.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0934349d.png,/marimo/xvdhy-osfstorage-archive/images/0934349d.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ba4f4df0.png,/marimo/xvdhy-osfstorage-archive/images/ba4f4df0.png,1170,1,L3,Malignant,CIS,1,0,2,WLC,0
+62ba9da2.jpg,/marimo/xvdhy-osfstorage-archive/images/62ba9da2.png,808,1,L3,Non-malignant,BenignNOS,1,1,4,WLC,0
+9a4caffc.png,/marimo/xvdhy-osfstorage-archive/images/9a4caffc.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+72dc0c2e.png,/marimo/xvdhy-osfstorage-archive/images/72dc0c2e.png,1616,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+aa27c216.png,/marimo/xvdhy-osfstorage-archive/images/aa27c216.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+6f731643.png,/marimo/xvdhy-osfstorage-archive/images/6f731643.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+465d625e.png,/marimo/xvdhy-osfstorage-archive/images/465d625e.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a44e2504.png,/marimo/xvdhy-osfstorage-archive/images/a44e2504.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+70dfc7e4.png,/marimo/xvdhy-osfstorage-archive/images/70dfc7e4.png,1375,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+61815e4e.bmp,/marimo/xvdhy-osfstorage-archive/images/61815e4e.png,167,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+69707293.png,/marimo/xvdhy-osfstorage-archive/images/69707293.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+42deaeaf.png,/marimo/xvdhy-osfstorage-archive/images/42deaeaf.png,627,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+cd689de6.png,/marimo/xvdhy-osfstorage-archive/images/cd689de6.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bbfb6e81.png,/marimo/xvdhy-osfstorage-archive/images/bbfb6e81.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+201bbdca.png,/marimo/xvdhy-osfstorage-archive/images/201bbdca.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cd27bd60.png,/marimo/xvdhy-osfstorage-archive/images/cd27bd60.png,941,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+7bfc4e79.png,/marimo/xvdhy-osfstorage-archive/images/7bfc4e79.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+31c01b52.png,/marimo/xvdhy-osfstorage-archive/images/31c01b52.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+63472235.png,/marimo/xvdhy-osfstorage-archive/images/63472235.png,376,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+467cdaa8.png,/marimo/xvdhy-osfstorage-archive/images/467cdaa8.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+714d3bea.png,/marimo/xvdhy-osfstorage-archive/images/714d3bea.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e4ae3657.png,/marimo/xvdhy-osfstorage-archive/images/e4ae3657.png,1160,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+8241b7ff.png,/marimo/xvdhy-osfstorage-archive/images/8241b7ff.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+99d572fb.png,/marimo/xvdhy-osfstorage-archive/images/99d572fb.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+45a3de62.png,/marimo/xvdhy-osfstorage-archive/images/45a3de62.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+068f946b.png,/marimo/xvdhy-osfstorage-archive/images/068f946b.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+69934f82.png,/marimo/xvdhy-osfstorage-archive/images/69934f82.png,889,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+1b961d2a.png,/marimo/xvdhy-osfstorage-archive/images/1b961d2a.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+946572dd.png,/marimo/xvdhy-osfstorage-archive/images/946572dd.png,1410,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+2987c78c.png,/marimo/xvdhy-osfstorage-archive/images/2987c78c.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+697ea914.png,/marimo/xvdhy-osfstorage-archive/images/697ea914.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+54f51ab0.png,/marimo/xvdhy-osfstorage-archive/images/54f51ab0.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e357f4b8.png,/marimo/xvdhy-osfstorage-archive/images/e357f4b8.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+219e7749.png,/marimo/xvdhy-osfstorage-archive/images/219e7749.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10d52764.png,/marimo/xvdhy-osfstorage-archive/images/10d52764.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+e07932d5.png,/marimo/xvdhy-osfstorage-archive/images/e07932d5.png,1014,4,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+1cceeae2.png,/marimo/xvdhy-osfstorage-archive/images/1cceeae2.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+23b02856.png,/marimo/xvdhy-osfstorage-archive/images/23b02856.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10ee7714.png,/marimo/xvdhy-osfstorage-archive/images/10ee7714.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2113c2c1.png,/marimo/xvdhy-osfstorage-archive/images/2113c2c1.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e272fb35.png,/marimo/xvdhy-osfstorage-archive/images/e272fb35.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+adaf8946.bmp,/marimo/xvdhy-osfstorage-archive/images/adaf8946.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+3b813112.png,/marimo/xvdhy-osfstorage-archive/images/3b813112.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3a70f2e8.png,/marimo/xvdhy-osfstorage-archive/images/3a70f2e8.png,1052,2,L1,Malignant,CIS,1,0,2,BLC,0
+6d048a24.png,/marimo/xvdhy-osfstorage-archive/images/6d048a24.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c66dd64c.bmp,/marimo/xvdhy-osfstorage-archive/images/c66dd64c.png,808,2,L5,Malignant,CIS,1,0,2,BLC,0
+4b3e56eb.png,/marimo/xvdhy-osfstorage-archive/images/4b3e56eb.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0c0a6b42.png,/marimo/xvdhy-osfstorage-archive/images/0c0a6b42.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ec3e8ff6.png,/marimo/xvdhy-osfstorage-archive/images/ec3e8ff6.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e17498b1.png,/marimo/xvdhy-osfstorage-archive/images/e17498b1.png,889,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+4897a868.png,/marimo/xvdhy-osfstorage-archive/images/4897a868.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+8112404c.png,/marimo/xvdhy-osfstorage-archive/images/8112404c.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+8dac32c3.png,/marimo/xvdhy-osfstorage-archive/images/8dac32c3.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7f50ee71.png,/marimo/xvdhy-osfstorage-archive/images/7f50ee71.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0cd3614d.bmp,/marimo/xvdhy-osfstorage-archive/images/0cd3614d.png,1599,1,L4,Non-malignant,InflammationNOS,1,1,5,BLC,0
+1e77be72.png,/marimo/xvdhy-osfstorage-archive/images/1e77be72.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+6e0aca81.png,/marimo/xvdhy-osfstorage-archive/images/6e0aca81.png,818,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+777b8bf3.png,/marimo/xvdhy-osfstorage-archive/images/777b8bf3.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+635326cc.tiff,/marimo/xvdhy-osfstorage-archive/images/635326cc.png,862,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+52361cb4.png,/marimo/xvdhy-osfstorage-archive/images/52361cb4.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bcebe0b5.png,/marimo/xvdhy-osfstorage-archive/images/bcebe0b5.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+fcf856a9.png,/marimo/xvdhy-osfstorage-archive/images/fcf856a9.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+dcfbaabc.png,/marimo/xvdhy-osfstorage-archive/images/dcfbaabc.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+ddb80a38.bmp,/marimo/xvdhy-osfstorage-archive/images/ddb80a38.png,1711,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+dfb690cc.jpg,/marimo/xvdhy-osfstorage-archive/images/dfb690cc.png,1223,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+84fabbc6.png,/marimo/xvdhy-osfstorage-archive/images/84fabbc6.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+28d3260f.png,/marimo/xvdhy-osfstorage-archive/images/28d3260f.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+bbcc3768.png,/marimo/xvdhy-osfstorage-archive/images/bbcc3768.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a58504b5.png,/marimo/xvdhy-osfstorage-archive/images/a58504b5.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+20275ef9.png,/marimo/xvdhy-osfstorage-archive/images/20275ef9.png,1542,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+10684db0.jpg,/marimo/xvdhy-osfstorage-archive/images/10684db0.png,952,6,L1,Non-malignant,NephrogenicAdenoma,1,1,10,BLC,0
+2d93dbb0.png,/marimo/xvdhy-osfstorage-archive/images/2d93dbb0.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+febe6c7b.png,/marimo/xvdhy-osfstorage-archive/images/febe6c7b.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+8131fd75.png,/marimo/xvdhy-osfstorage-archive/images/8131fd75.png,805,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+295851ba.tiff,/marimo/xvdhy-osfstorage-archive/images/295851ba.png,1014,2,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+16b615e9.bmp,/marimo/xvdhy-osfstorage-archive/images/16b615e9.png,666,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+ba22777d.png,/marimo/xvdhy-osfstorage-archive/images/ba22777d.png,1526,1,L3,Malignant,CIS,1,0,2,BLC,0
+ad91203b.bmp,/marimo/xvdhy-osfstorage-archive/images/ad91203b.png,666,1,L2,Non-malignant,BenignRare,1,1,11,WLC,0
+84a854a8.png,/marimo/xvdhy-osfstorage-archive/images/84a854a8.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+745f9d54.png,/marimo/xvdhy-osfstorage-archive/images/745f9d54.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+95b155b1.png,/marimo/xvdhy-osfstorage-archive/images/95b155b1.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+813278b2.bmp,/marimo/xvdhy-osfstorage-archive/images/813278b2.png,658,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+842da25c.bmp,/marimo/xvdhy-osfstorage-archive/images/842da25c.png,808,2,L1,Malignant,CIS,1,0,2,BLC,0
+b4fcd337.png,/marimo/xvdhy-osfstorage-archive/images/b4fcd337.png,386,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e2d92d66.png,/marimo/xvdhy-osfstorage-archive/images/e2d92d66.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+0920c95d.png,/marimo/xvdhy-osfstorage-archive/images/0920c95d.png,805,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+63e67fc6.png,/marimo/xvdhy-osfstorage-archive/images/63e67fc6.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+807da3aa.png,/marimo/xvdhy-osfstorage-archive/images/807da3aa.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+25789f7b.png,/marimo/xvdhy-osfstorage-archive/images/25789f7b.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+81dc4158.bmp,/marimo/xvdhy-osfstorage-archive/images/81dc4158.png,1599,1,L3,Non-malignant,InflammationNOS,1,1,5,BLC,0
+f614adc4.png,/marimo/xvdhy-osfstorage-archive/images/f614adc4.png,707,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+2a3881ad.png,/marimo/xvdhy-osfstorage-archive/images/2a3881ad.png,1522,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+3b6acb08.png,/marimo/xvdhy-osfstorage-archive/images/3b6acb08.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+154a69c0.png,/marimo/xvdhy-osfstorage-archive/images/154a69c0.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+71fac23c.png,/marimo/xvdhy-osfstorage-archive/images/71fac23c.png,1124,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9e493210.png,/marimo/xvdhy-osfstorage-archive/images/9e493210.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b6a39b2a.png,/marimo/xvdhy-osfstorage-archive/images/b6a39b2a.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+38594277.tiff,/marimo/xvdhy-osfstorage-archive/images/38594277.png,862,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+e9840aab.png,/marimo/xvdhy-osfstorage-archive/images/e9840aab.png,1319,1,L3,Malignant,CIS,1,0,2,WLC,0
+050c9c26.bmp,/marimo/xvdhy-osfstorage-archive/images/050c9c26.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+85b19254.png,/marimo/xvdhy-osfstorage-archive/images/85b19254.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+6ea463d2.bmp,/marimo/xvdhy-osfstorage-archive/images/6ea463d2.png,1036,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+150b39b5.png,/marimo/xvdhy-osfstorage-archive/images/150b39b5.png,1430,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+44d3dc31.png,/marimo/xvdhy-osfstorage-archive/images/44d3dc31.png,1035,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+c329c5fd.png,/marimo/xvdhy-osfstorage-archive/images/c329c5fd.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ca67213b.png,/marimo/xvdhy-osfstorage-archive/images/ca67213b.png,1177,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+3ec3a44f.png,/marimo/xvdhy-osfstorage-archive/images/3ec3a44f.png,1405,2,L1,Malignant,CIS,1,0,2,BLC,0
+e2eb57cf.png,/marimo/xvdhy-osfstorage-archive/images/e2eb57cf.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+fbc50fc0.png,/marimo/xvdhy-osfstorage-archive/images/fbc50fc0.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+28511b4a.png,/marimo/xvdhy-osfstorage-archive/images/28511b4a.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+65cca4ae.png,/marimo/xvdhy-osfstorage-archive/images/65cca4ae.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+63f09c0e.png,/marimo/xvdhy-osfstorage-archive/images/63f09c0e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+11015113.png,/marimo/xvdhy-osfstorage-archive/images/11015113.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6db47719.png,/marimo/xvdhy-osfstorage-archive/images/6db47719.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+aca0a570.bmp,/marimo/xvdhy-osfstorage-archive/images/aca0a570.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+9381c25a.png,/marimo/xvdhy-osfstorage-archive/images/9381c25a.png,1405,4,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+1198d4ff.jpg,/marimo/xvdhy-osfstorage-archive/images/1198d4ff.png,612,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+ece1f910.png,/marimo/xvdhy-osfstorage-archive/images/ece1f910.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+27fe95ee.png,/marimo/xvdhy-osfstorage-archive/images/27fe95ee.png,1170,1,L1,Malignant,CIS,1,0,2,WLC,0
+e7c10609.bmp,/marimo/xvdhy-osfstorage-archive/images/e7c10609.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+5d7c092c.png,/marimo/xvdhy-osfstorage-archive/images/5d7c092c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0aa9e8b5.jpg,/marimo/xvdhy-osfstorage-archive/images/0aa9e8b5.png,376,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+39966e60.png,/marimo/xvdhy-osfstorage-archive/images/39966e60.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5ff37343.png,/marimo/xvdhy-osfstorage-archive/images/5ff37343.png,1261,3,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+5f8745f2.bmp,/marimo/xvdhy-osfstorage-archive/images/5f8745f2.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+340b35b5.png,/marimo/xvdhy-osfstorage-archive/images/340b35b5.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+977e548f.png,/marimo/xvdhy-osfstorage-archive/images/977e548f.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+b59b8ad7.png,/marimo/xvdhy-osfstorage-archive/images/b59b8ad7.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a4694658.bmp,/marimo/xvdhy-osfstorage-archive/images/a4694658.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+cc4802d9.bmp,/marimo/xvdhy-osfstorage-archive/images/cc4802d9.png,1599,1,L4,Non-malignant,InflammationNOS,1,1,5,WLC,0
+f2e92ff0.png,/marimo/xvdhy-osfstorage-archive/images/f2e92ff0.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+51ef40d6.png,/marimo/xvdhy-osfstorage-archive/images/51ef40d6.png,988,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3d652cbc.bmp,/marimo/xvdhy-osfstorage-archive/images/3d652cbc.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+fd6fabfc.png,/marimo/xvdhy-osfstorage-archive/images/fd6fabfc.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+52c07029.png,/marimo/xvdhy-osfstorage-archive/images/52c07029.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+4af693d3.jpg,/marimo/xvdhy-osfstorage-archive/images/4af693d3.png,1276,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+8af681b8.png,/marimo/xvdhy-osfstorage-archive/images/8af681b8.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+04d8f9ab.png,/marimo/xvdhy-osfstorage-archive/images/04d8f9ab.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+60c6c987.jpg,/marimo/xvdhy-osfstorage-archive/images/60c6c987.png,1232,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+4d2f40f5.png,/marimo/xvdhy-osfstorage-archive/images/4d2f40f5.png,1170,1,L2,Malignant,CIS,1,0,2,WLC,0
+6f9a0f9d.png,/marimo/xvdhy-osfstorage-archive/images/6f9a0f9d.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+fd9da01f.png,/marimo/xvdhy-osfstorage-archive/images/fd9da01f.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+fb8cef8a.png,/marimo/xvdhy-osfstorage-archive/images/fb8cef8a.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6abbbf96.png,/marimo/xvdhy-osfstorage-archive/images/6abbbf96.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+92f78f12.png,/marimo/xvdhy-osfstorage-archive/images/92f78f12.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4dde01de.png,/marimo/xvdhy-osfstorage-archive/images/4dde01de.png,1526,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+59b24892.png,/marimo/xvdhy-osfstorage-archive/images/59b24892.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+02e81863.png,/marimo/xvdhy-osfstorage-archive/images/02e81863.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+42cb6c77.png,/marimo/xvdhy-osfstorage-archive/images/42cb6c77.png,889,3,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+d194193a.png,/marimo/xvdhy-osfstorage-archive/images/d194193a.png,858,2,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+1d5189a2.png,/marimo/xvdhy-osfstorage-archive/images/1d5189a2.png,1072,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+7235345f.png,/marimo/xvdhy-osfstorage-archive/images/7235345f.png,858,1,L4,Malignant,HighGradePapillary,1,0,1,WLC,0
+3a1b3227.png,/marimo/xvdhy-osfstorage-archive/images/3a1b3227.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+30f45fa0.png,/marimo/xvdhy-osfstorage-archive/images/30f45fa0.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+21c72687.png,/marimo/xvdhy-osfstorage-archive/images/21c72687.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+23475b60.png,/marimo/xvdhy-osfstorage-archive/images/23475b60.png,941,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+1f6e3466.png,/marimo/xvdhy-osfstorage-archive/images/1f6e3466.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+323ad109.tiff,/marimo/xvdhy-osfstorage-archive/images/323ad109.png,862,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+442c12b7.png,/marimo/xvdhy-osfstorage-archive/images/442c12b7.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+5c7b2483.png,/marimo/xvdhy-osfstorage-archive/images/5c7b2483.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7ea72cd1.png,/marimo/xvdhy-osfstorage-archive/images/7ea72cd1.png,858,1,L4,Malignant,HighGradePapillary,1,0,1,WLC,0
+bca3b572.png,/marimo/xvdhy-osfstorage-archive/images/bca3b572.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+b3a5a81e.png,/marimo/xvdhy-osfstorage-archive/images/b3a5a81e.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+c2962e42.png,/marimo/xvdhy-osfstorage-archive/images/c2962e42.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0c3d981a.bmp,/marimo/xvdhy-osfstorage-archive/images/0c3d981a.png,952,1,L1,Malignant,CIS,1,0,2,BLC,0
+7e3d258e.jpg,/marimo/xvdhy-osfstorage-archive/images/7e3d258e.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+63db6104.tiff,/marimo/xvdhy-osfstorage-archive/images/63db6104.png,1135,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+8608b30b.png,/marimo/xvdhy-osfstorage-archive/images/8608b30b.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c824bd7d.png,/marimo/xvdhy-osfstorage-archive/images/c824bd7d.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+aa4a81a0.png,/marimo/xvdhy-osfstorage-archive/images/aa4a81a0.png,1432,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+55b69e3c.tiff,/marimo/xvdhy-osfstorage-archive/images/55b69e3c.png,410,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+8828572b.png,/marimo/xvdhy-osfstorage-archive/images/8828572b.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a287bff1.png,/marimo/xvdhy-osfstorage-archive/images/a287bff1.png,1022,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c2ba1ae7.png,/marimo/xvdhy-osfstorage-archive/images/c2ba1ae7.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+0cf82ba1.png,/marimo/xvdhy-osfstorage-archive/images/0cf82ba1.png,1054,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+507ac1a1.png,/marimo/xvdhy-osfstorage-archive/images/507ac1a1.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+e0ddcbd9.png,/marimo/xvdhy-osfstorage-archive/images/e0ddcbd9.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0b905848.png,/marimo/xvdhy-osfstorage-archive/images/0b905848.png,761,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+c947fe52.bmp,/marimo/xvdhy-osfstorage-archive/images/c947fe52.png,941,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+f286b91c.tiff,/marimo/xvdhy-osfstorage-archive/images/f286b91c.png,1014,2,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+cf06cd15.png,/marimo/xvdhy-osfstorage-archive/images/cf06cd15.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3241a73e.png,/marimo/xvdhy-osfstorage-archive/images/3241a73e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9ec63177.png,/marimo/xvdhy-osfstorage-archive/images/9ec63177.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2ad1695b.png,/marimo/xvdhy-osfstorage-archive/images/2ad1695b.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d86b9dd4.png,/marimo/xvdhy-osfstorage-archive/images/d86b9dd4.png,1261,2,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+dc52689a.png,/marimo/xvdhy-osfstorage-archive/images/dc52689a.png,1170,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a7a1cb9e.jpg,/marimo/xvdhy-osfstorage-archive/images/a7a1cb9e.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+2045a510.png,/marimo/xvdhy-osfstorage-archive/images/2045a510.png,988,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+a710273b.png,/marimo/xvdhy-osfstorage-archive/images/a710273b.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5ee2247d.jpg,/marimo/xvdhy-osfstorage-archive/images/5ee2247d.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+70f9003c.png,/marimo/xvdhy-osfstorage-archive/images/70f9003c.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3697fb4d.png,/marimo/xvdhy-osfstorage-archive/images/3697fb4d.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a551f45c.png,/marimo/xvdhy-osfstorage-archive/images/a551f45c.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a8d41c84.png,/marimo/xvdhy-osfstorage-archive/images/a8d41c84.png,994,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+5bab430e.png,/marimo/xvdhy-osfstorage-archive/images/5bab430e.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+b0ad41cf.bmp,/marimo/xvdhy-osfstorage-archive/images/b0ad41cf.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,BLC,0
+fe8235d3.png,/marimo/xvdhy-osfstorage-archive/images/fe8235d3.png,1276,2,L1,Malignant,CIS,1,0,2,BLC,0
+453720f8.bmp,/marimo/xvdhy-osfstorage-archive/images/453720f8.png,909,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+f19c8a91.png,/marimo/xvdhy-osfstorage-archive/images/f19c8a91.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+762691f4.png,/marimo/xvdhy-osfstorage-archive/images/762691f4.png,1135,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,1
+2659a4b6.png,/marimo/xvdhy-osfstorage-archive/images/2659a4b6.png,805,1,L1,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+80175344.png,/marimo/xvdhy-osfstorage-archive/images/80175344.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+9071b330.png,/marimo/xvdhy-osfstorage-archive/images/9071b330.png,612,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+c3ab34a5.png,/marimo/xvdhy-osfstorage-archive/images/c3ab34a5.png,750,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bf8ad17e.png,/marimo/xvdhy-osfstorage-archive/images/bf8ad17e.png,1052,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+39116288.png,/marimo/xvdhy-osfstorage-archive/images/39116288.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+77178104.png,/marimo/xvdhy-osfstorage-archive/images/77178104.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+abf63f83.png,/marimo/xvdhy-osfstorage-archive/images/abf63f83.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7ce0fdd1.png,/marimo/xvdhy-osfstorage-archive/images/7ce0fdd1.png,952,3,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+c2610751.png,/marimo/xvdhy-osfstorage-archive/images/c2610751.png,1276,2,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+f7e90bbb.png,/marimo/xvdhy-osfstorage-archive/images/f7e90bbb.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+cbdd049b.png,/marimo/xvdhy-osfstorage-archive/images/cbdd049b.png,168,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+15a634ec.png,/marimo/xvdhy-osfstorage-archive/images/15a634ec.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+4c4764a9.png,/marimo/xvdhy-osfstorage-archive/images/4c4764a9.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+444de9c6.png,/marimo/xvdhy-osfstorage-archive/images/444de9c6.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+74e88801.jpg,/marimo/xvdhy-osfstorage-archive/images/74e88801.png,1405,1,L1,Malignant,CIS,1,0,2,BLC,0
+17ea2bef.png,/marimo/xvdhy-osfstorage-archive/images/17ea2bef.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+cdfbbcad.bmp,/marimo/xvdhy-osfstorage-archive/images/cdfbbcad.png,1043,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+e89d9f2c.png,/marimo/xvdhy-osfstorage-archive/images/e89d9f2c.png,1319,1,L1,Malignant,CIS,1,0,2,WLC,0
+0127815b.jpg,/marimo/xvdhy-osfstorage-archive/images/0127815b.png,942,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+d9076dae.bmp,/marimo/xvdhy-osfstorage-archive/images/d9076dae.png,988,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+b8070a9b.png,/marimo/xvdhy-osfstorage-archive/images/b8070a9b.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+71909213.png,/marimo/xvdhy-osfstorage-archive/images/71909213.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,BLC,0
+ec0e18c8.png,/marimo/xvdhy-osfstorage-archive/images/ec0e18c8.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e40c12a1.png,/marimo/xvdhy-osfstorage-archive/images/e40c12a1.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+5caec65f.jpg,/marimo/xvdhy-osfstorage-archive/images/5caec65f.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+495fd7c4.png,/marimo/xvdhy-osfstorage-archive/images/495fd7c4.png,804,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+5132b85d.png,/marimo/xvdhy-osfstorage-archive/images/5132b85d.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+4ee0c9e2.png,/marimo/xvdhy-osfstorage-archive/images/4ee0c9e2.png,952,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+19e0a4e8.png,/marimo/xvdhy-osfstorage-archive/images/19e0a4e8.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+7aaaf2e9.bmp,/marimo/xvdhy-osfstorage-archive/images/7aaaf2e9.png,1041,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+aac63a5e.png,/marimo/xvdhy-osfstorage-archive/images/aac63a5e.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+12c57c3b.png,/marimo/xvdhy-osfstorage-archive/images/12c57c3b.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+aef94aae.png,/marimo/xvdhy-osfstorage-archive/images/aef94aae.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+56396b50.png,/marimo/xvdhy-osfstorage-archive/images/56396b50.png,994,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+c5c2d071.png,/marimo/xvdhy-osfstorage-archive/images/c5c2d071.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e350f4c3.bmp,/marimo/xvdhy-osfstorage-archive/images/e350f4c3.png,1043,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+cde82a21.png,/marimo/xvdhy-osfstorage-archive/images/cde82a21.png,994,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+5f209ef2.png,/marimo/xvdhy-osfstorage-archive/images/5f209ef2.png,167,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+a7755008.jpg,/marimo/xvdhy-osfstorage-archive/images/a7755008.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+e4003b1f.png,/marimo/xvdhy-osfstorage-archive/images/e4003b1f.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+64984fb7.png,/marimo/xvdhy-osfstorage-archive/images/64984fb7.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+85af5bdc.png,/marimo/xvdhy-osfstorage-archive/images/85af5bdc.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b5254eda.png,/marimo/xvdhy-osfstorage-archive/images/b5254eda.png,1014,4,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+c2cf45a0.bmp,/marimo/xvdhy-osfstorage-archive/images/c2cf45a0.png,808,2,L6,Non-malignant,BenignNOS,1,1,4,WLC,0
+9f860d96.png,/marimo/xvdhy-osfstorage-archive/images/9f860d96.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+02e6c23f.png,/marimo/xvdhy-osfstorage-archive/images/02e6c23f.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+543bf890.png,/marimo/xvdhy-osfstorage-archive/images/543bf890.png,988,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+8628057d.jpg,/marimo/xvdhy-osfstorage-archive/images/8628057d.png,1522,1,L1,Non-malignant,CCG,1,1,6,WLC,0
+00fa0b74.bmp,/marimo/xvdhy-osfstorage-archive/images/00fa0b74.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+d6c4b750.png,/marimo/xvdhy-osfstorage-archive/images/d6c4b750.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+79dfcee5.png,/marimo/xvdhy-osfstorage-archive/images/79dfcee5.png,988,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+f863759d.png,/marimo/xvdhy-osfstorage-archive/images/f863759d.png,1522,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+bfb20ca1.png,/marimo/xvdhy-osfstorage-archive/images/bfb20ca1.png,1264,2,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+eb142fbf.bmp,/marimo/xvdhy-osfstorage-archive/images/eb142fbf.png,1052,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+eb4966dd.png,/marimo/xvdhy-osfstorage-archive/images/eb4966dd.png,952,1,L1,Malignant,CIS,1,0,2,WLC,0
+a477360d.bmp,/marimo/xvdhy-osfstorage-archive/images/a477360d.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+c1a0a367.png,/marimo/xvdhy-osfstorage-archive/images/c1a0a367.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+80d7c658.bmp,/marimo/xvdhy-osfstorage-archive/images/80d7c658.png,963,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+c197c0f3.jpg,/marimo/xvdhy-osfstorage-archive/images/c197c0f3.png,680,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+6af7feda.png,/marimo/xvdhy-osfstorage-archive/images/6af7feda.png,1295,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+e09c7a66.png,/marimo/xvdhy-osfstorage-archive/images/e09c7a66.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+76573fdf.png,/marimo/xvdhy-osfstorage-archive/images/76573fdf.png,1261,2,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+7cb7d041.jpg,/marimo/xvdhy-osfstorage-archive/images/7cb7d041.png,1387,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+6703d1cc.png,/marimo/xvdhy-osfstorage-archive/images/6703d1cc.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+c7d599c3.png,/marimo/xvdhy-osfstorage-archive/images/c7d599c3.png,988,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6cb336cc.bmp,/marimo/xvdhy-osfstorage-archive/images/6cb336cc.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,BLC,0
+0fad9783.png,/marimo/xvdhy-osfstorage-archive/images/0fad9783.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+4c6573c9.jpg,/marimo/xvdhy-osfstorage-archive/images/4c6573c9.png,1232,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+488e6061.png,/marimo/xvdhy-osfstorage-archive/images/488e6061.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c24566b9.jpg,/marimo/xvdhy-osfstorage-archive/images/c24566b9.png,1261,2,L1,Malignant,CIS,1,0,2,WLC,0
+1fede14e.png,/marimo/xvdhy-osfstorage-archive/images/1fede14e.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+71e23725.png,/marimo/xvdhy-osfstorage-archive/images/71e23725.png,808,2,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+5fbaa699.jpg,/marimo/xvdhy-osfstorage-archive/images/5fbaa699.png,448,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+d1ffa0dd.png,/marimo/xvdhy-osfstorage-archive/images/d1ffa0dd.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+96866177.png,/marimo/xvdhy-osfstorage-archive/images/96866177.png,666,1,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+c0ecccc7.png,/marimo/xvdhy-osfstorage-archive/images/c0ecccc7.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+bafa200c.png,/marimo/xvdhy-osfstorage-archive/images/bafa200c.png,386,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+c46fd9fe.png,/marimo/xvdhy-osfstorage-archive/images/c46fd9fe.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7df90514.png,/marimo/xvdhy-osfstorage-archive/images/7df90514.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d68f419c.png,/marimo/xvdhy-osfstorage-archive/images/d68f419c.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+6e909803.png,/marimo/xvdhy-osfstorage-archive/images/6e909803.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ece2f0a6.png,/marimo/xvdhy-osfstorage-archive/images/ece2f0a6.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3e89f267.png,/marimo/xvdhy-osfstorage-archive/images/3e89f267.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+16db5047.png,/marimo/xvdhy-osfstorage-archive/images/16db5047.png,627,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d4fea824.png,/marimo/xvdhy-osfstorage-archive/images/d4fea824.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c8ba67d5.bmp,/marimo/xvdhy-osfstorage-archive/images/c8ba67d5.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+142f30ff.png,/marimo/xvdhy-osfstorage-archive/images/142f30ff.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+a1adc1b9.png,/marimo/xvdhy-osfstorage-archive/images/a1adc1b9.png,1054,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+6fb087cc.bmp,/marimo/xvdhy-osfstorage-archive/images/6fb087cc.png,1124,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+d9d352ca.png,/marimo/xvdhy-osfstorage-archive/images/d9d352ca.png,1542,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+a4adf76c.bmp,/marimo/xvdhy-osfstorage-archive/images/a4adf76c.png,627,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+aacc0513.png,/marimo/xvdhy-osfstorage-archive/images/aacc0513.png,1430,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+f2dd2172.bmp,/marimo/xvdhy-osfstorage-archive/images/f2dd2172.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+489f6a5e.png,/marimo/xvdhy-osfstorage-archive/images/489f6a5e.png,761,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+8941680b.png,/marimo/xvdhy-osfstorage-archive/images/8941680b.png,515,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+54349652.png,/marimo/xvdhy-osfstorage-archive/images/54349652.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+2ee3e776.png,/marimo/xvdhy-osfstorage-archive/images/2ee3e776.png,1152,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+33e09eba.png,/marimo/xvdhy-osfstorage-archive/images/33e09eba.png,587,1,L2,Malignant,CIS,1,0,2,BLC,0
+a617c37a.png,/marimo/xvdhy-osfstorage-archive/images/a617c37a.png,386,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+650af06e.png,/marimo/xvdhy-osfstorage-archive/images/650af06e.png,878,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e9a6d593.png,/marimo/xvdhy-osfstorage-archive/images/e9a6d593.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+32333079.png,/marimo/xvdhy-osfstorage-archive/images/32333079.png,1096,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+56be9248.png,/marimo/xvdhy-osfstorage-archive/images/56be9248.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+ea62fb43.bmp,/marimo/xvdhy-osfstorage-archive/images/ea62fb43.png,1041,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+ab8cfbb1.bmp,/marimo/xvdhy-osfstorage-archive/images/ab8cfbb1.png,1711,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+461b8674.bmp,/marimo/xvdhy-osfstorage-archive/images/461b8674.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,BLC,0
+05259250.png,/marimo/xvdhy-osfstorage-archive/images/05259250.png,587,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+14feea0a.png,/marimo/xvdhy-osfstorage-archive/images/14feea0a.png,1177,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,1
+a1d4ac4b.png,/marimo/xvdhy-osfstorage-archive/images/a1d4ac4b.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+b00a33ef.png,/marimo/xvdhy-osfstorage-archive/images/b00a33ef.png,1519,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+f1811e6e.jpg,/marimo/xvdhy-osfstorage-archive/images/f1811e6e.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+d41004fc.png,/marimo/xvdhy-osfstorage-archive/images/d41004fc.png,1160,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a1538a3a.png,/marimo/xvdhy-osfstorage-archive/images/a1538a3a.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+94b2720c.jpg,/marimo/xvdhy-osfstorage-archive/images/94b2720c.png,1405,4,L1,Malignant,CIS,1,0,2,WLC,0
+cf8cb21d.png,/marimo/xvdhy-osfstorage-archive/images/cf8cb21d.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e0f04a30.png,/marimo/xvdhy-osfstorage-archive/images/e0f04a30.png,805,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+a718004b.png,/marimo/xvdhy-osfstorage-archive/images/a718004b.png,376,2,L2,Non-malignant,Denuded,1,1,7,BLC,0
+9247cc90.png,/marimo/xvdhy-osfstorage-archive/images/9247cc90.png,858,2,L3,Malignant,HighGradePapillary,1,0,1,BLC,0
+a77a2926.png,/marimo/xvdhy-osfstorage-archive/images/a77a2926.png,1526,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+d4842b7e.png,/marimo/xvdhy-osfstorage-archive/images/d4842b7e.png,1054,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+b339a1bd.png,/marimo/xvdhy-osfstorage-archive/images/b339a1bd.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+7c429229.tiff,/marimo/xvdhy-osfstorage-archive/images/7c429229.png,410,1,L1,Malignant,CIS,1,0,2,WLC,0
+e2b70879.png,/marimo/xvdhy-osfstorage-archive/images/e2b70879.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6796bb69.jpg,/marimo/xvdhy-osfstorage-archive/images/6796bb69.png,808,1,L3,Non-malignant,BenignNOS,1,1,4,BLC,0
+e8ea7af9.jpg,/marimo/xvdhy-osfstorage-archive/images/e8ea7af9.png,1405,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+3a6fd6e3.png,/marimo/xvdhy-osfstorage-archive/images/3a6fd6e3.png,1542,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+764e9a43.png,/marimo/xvdhy-osfstorage-archive/images/764e9a43.png,862,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+4aa59d3a.png,/marimo/xvdhy-osfstorage-archive/images/4aa59d3a.png,1393,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+f5e6179b.bmp,/marimo/xvdhy-osfstorage-archive/images/f5e6179b.png,1131,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+1ee09b75.png,/marimo/xvdhy-osfstorage-archive/images/1ee09b75.png,627,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+debf1e6a.bmp,/marimo/xvdhy-osfstorage-archive/images/debf1e6a.png,1043,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+635ad83c.jpg,/marimo/xvdhy-osfstorage-archive/images/635ad83c.png,1387,1,L3,Non-malignant,NephrogenicAdenoma,1,1,10,WLC,0
+17b21fb2.png,/marimo/xvdhy-osfstorage-archive/images/17b21fb2.png,952,4,L1,Malignant,CIS,1,0,2,WLC,0
+ee8b98eb.png,/marimo/xvdhy-osfstorage-archive/images/ee8b98eb.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3a5bc201.png,/marimo/xvdhy-osfstorage-archive/images/3a5bc201.png,878,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d582d5c0.png,/marimo/xvdhy-osfstorage-archive/images/d582d5c0.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+87ad3d2c.png,/marimo/xvdhy-osfstorage-archive/images/87ad3d2c.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+be31e576.png,/marimo/xvdhy-osfstorage-archive/images/be31e576.png,970,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+b7b531ff.png,/marimo/xvdhy-osfstorage-archive/images/b7b531ff.png,988,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6a4bfacb.png,/marimo/xvdhy-osfstorage-archive/images/6a4bfacb.png,909,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+789915cf.bmp,/marimo/xvdhy-osfstorage-archive/images/789915cf.png,658,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+884e14f4.png,/marimo/xvdhy-osfstorage-archive/images/884e14f4.png,1229,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+e4217f80.bmp,/marimo/xvdhy-osfstorage-archive/images/e4217f80.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+96f88bf5.png,/marimo/xvdhy-osfstorage-archive/images/96f88bf5.png,804,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2bfe741a.png,/marimo/xvdhy-osfstorage-archive/images/2bfe741a.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6b843ec3.png,/marimo/xvdhy-osfstorage-archive/images/6b843ec3.png,1124,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+0eb8c24f.png,/marimo/xvdhy-osfstorage-archive/images/0eb8c24f.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+79959c12.png,/marimo/xvdhy-osfstorage-archive/images/79959c12.png,1264,1,Multifocal,Malignant,HighGradePapillary,1,0,1,WLC,0
+e6feac10.png,/marimo/xvdhy-osfstorage-archive/images/e6feac10.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+af47dadc.bmp,/marimo/xvdhy-osfstorage-archive/images/af47dadc.png,970,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+3547ea95.png,/marimo/xvdhy-osfstorage-archive/images/3547ea95.png,761,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+88b05c72.png,/marimo/xvdhy-osfstorage-archive/images/88b05c72.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+367bc6e6.png,/marimo/xvdhy-osfstorage-archive/images/367bc6e6.png,1276,2,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+f26d174a.png,/marimo/xvdhy-osfstorage-archive/images/f26d174a.png,1177,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+f7dc3b84.png,/marimo/xvdhy-osfstorage-archive/images/f7dc3b84.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+1499c6cc.png,/marimo/xvdhy-osfstorage-archive/images/1499c6cc.png,1170,1,L1,Malignant,CIS,1,0,2,BLC,0
+014449a1.png,/marimo/xvdhy-osfstorage-archive/images/014449a1.png,612,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+379de69d.png,/marimo/xvdhy-osfstorage-archive/images/379de69d.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+e58df554.png,/marimo/xvdhy-osfstorage-archive/images/e58df554.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,1
+60f59a56.png,/marimo/xvdhy-osfstorage-archive/images/60f59a56.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+38d8b099.png,/marimo/xvdhy-osfstorage-archive/images/38d8b099.png,167,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+022ea82d.png,/marimo/xvdhy-osfstorage-archive/images/022ea82d.png,1131,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2ea82575.png,/marimo/xvdhy-osfstorage-archive/images/2ea82575.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+9b170b79.png,/marimo/xvdhy-osfstorage-archive/images/9b170b79.png,515,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+88f6a8ce.jpg,/marimo/xvdhy-osfstorage-archive/images/88f6a8ce.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+ddd4853a.png,/marimo/xvdhy-osfstorage-archive/images/ddd4853a.png,952,1,L2,Malignant,CIS,1,0,2,BLC,0
+e10b2d3a.tiff,/marimo/xvdhy-osfstorage-archive/images/e10b2d3a.png,410,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+6575a5a0.png,/marimo/xvdhy-osfstorage-archive/images/6575a5a0.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+84168323.png,/marimo/xvdhy-osfstorage-archive/images/84168323.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3a03bbca.bmp,/marimo/xvdhy-osfstorage-archive/images/3a03bbca.png,988,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+7e62676c.png,/marimo/xvdhy-osfstorage-archive/images/7e62676c.png,1014,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ffcb19dc.png,/marimo/xvdhy-osfstorage-archive/images/ffcb19dc.png,168,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2cbb4485.png,/marimo/xvdhy-osfstorage-archive/images/2cbb4485.png,587,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+be9d9706.png,/marimo/xvdhy-osfstorage-archive/images/be9d9706.png,862,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a9b3505e.jpg,/marimo/xvdhy-osfstorage-archive/images/a9b3505e.png,1229,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+b9c54522.png,/marimo/xvdhy-osfstorage-archive/images/b9c54522.png,750,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+a867426a.bmp,/marimo/xvdhy-osfstorage-archive/images/a867426a.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+e1c3c1e0.png,/marimo/xvdhy-osfstorage-archive/images/e1c3c1e0.png,376,2,L0,Foreign bodies,ResectionLoop,0,4,19,WLC,0
+699827fc.png,/marimo/xvdhy-osfstorage-archive/images/699827fc.png,1711,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+e9aed780.jpg,/marimo/xvdhy-osfstorage-archive/images/e9aed780.png,1402,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+0fd60b24.png,/marimo/xvdhy-osfstorage-archive/images/0fd60b24.png,711,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f101c581.png,/marimo/xvdhy-osfstorage-archive/images/f101c581.png,1043,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+51823a4b.png,/marimo/xvdhy-osfstorage-archive/images/51823a4b.png,1014,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+94fc5a40.png,/marimo/xvdhy-osfstorage-archive/images/94fc5a40.png,1014,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
