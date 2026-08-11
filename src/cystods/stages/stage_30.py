@@ -32,14 +32,6 @@ def run(config: dict[str, Any]) -> Path:
     config["experiment_name"] = STAGE_NAME
     config["evaluation_scope"] = "development"
 
-    # Apply PROPOSED_CANONICAL_CONFIG from core
-    config.update(core.PROPOSED_CANONICAL_CONFIG)
-
-    # Restore runtime overrides from environment
-    config["batch_size"] = int(
-        os.environ.get("CYSTODS_BATCH_SIZE", str(core.PROPOSED_CANONICAL_CONFIG["batch_size"]))
-    )
-
     protocol_run_dir = config.get("protocol_manifest_dir")
     if protocol_run_dir is None:
         env_val = os.environ.get("CYSTODS_PROTOCOL_RUN_DIR")
@@ -62,7 +54,6 @@ def run(config: dict[str, Any]) -> Path:
             {
                 "experiment_id": "proposed_hierarchical_swin",
                 "task_mode": "hierarchical",
-                "overrides": dict(core.PROPOSED_CANONICAL_CONFIG),
             },
         ]
 
@@ -78,6 +69,43 @@ def run(config: dict[str, Any]) -> Path:
                 },
             },
         ]
+
+    # Try loading selected backbone & long-tail method from Stage 10 & 20 artifacts
+    from cystods.experiments.artifacts import (
+        find_and_load_stage_artifact,
+        write_stage_selection_artifact,
+    )
+
+    selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
+    selected_long_tail = "balanced_softmax"
+
+    try:
+        s10_artifact = find_and_load_stage_artifact(
+            config["result_root"],
+            stage_id="10",
+            artifact_name="selected_backbone.json",
+            expected_protocol_sha256=expected_sha,
+        )
+        selected_backbone = s10_artifact.get("selected_backbone", selected_backbone)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"[Stage 30] Notice: Could not load Stage 10 artifact ({exc}). Defaulting backbone to {selected_backbone}.")
+
+    try:
+        s20_artifact = find_and_load_stage_artifact(
+            config["result_root"],
+            stage_id="20",
+            artifact_name="selected_long_tail_method.json",
+            expected_protocol_sha256=expected_sha,
+        )
+        selected_long_tail = s20_artifact.get("selected_long_tail_method", selected_long_tail)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"[Stage 30] Notice: Could not load Stage 20 artifact ({exc}). Defaulting long-tail to {selected_long_tail}.")
+
+    config["model_name"] = selected_backbone
+    config["fine_loss"] = selected_long_tail
+    for t in trials:
+        t.setdefault("overrides", {})["model_name"] = selected_backbone
+        t.setdefault("overrides", {})["fine_loss"] = selected_long_tail
 
     suite_config = {
         "schema_version": "cystods.stage.v2",
@@ -96,4 +124,21 @@ def run(config: dict[str, Any]) -> Path:
         "trials": tuple(trials),
     }
 
-    return core.run_training_suite(suite_config, _source_files())
+    source_files = _source_files()
+    run_dir = core.run_training_suite(suite_config, source_files)
+
+    protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+    write_stage_selection_artifact(
+        run_dir,
+        "proposed_model.json",
+        {
+            "stage_id": STAGE_ID,
+            "selected_backbone": selected_backbone,
+            "selected_long_tail_method": selected_long_tail,
+            "task_mode": "hierarchical",
+            "protocol_sha256": protocol_sha,
+            "study_id": config["study_id"],
+        },
+    )
+
+    return run_dir

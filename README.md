@@ -74,7 +74,7 @@ cystods run 30 --set runtime.batch_size=128 --set runtime.device=cuda
 | Stage | Description | Key Outputs |
 |---|---|---|
 | `stage_00` | Data audit + freeze 70/15/15 patient-disjoint split | `protocol_manifest.json`, `split_manifest.csv` |
-| `stage_10` | Benchmark baselines across 4 backbones (Swin-Tiny, ResNet-152, HRNet-W18, ResNeXt-50) | Baseline performance metrics & checkpoints |
+| `stage_10` | Benchmark baselines across 4 backbones (Swin-Tiny, ResNet-152, HRNet-W18, ResNeXt-50) & task-formulation baselines (11 trials) | Baseline performance metrics & checkpoints |
 | `stage_20` | Long-tail loss screening (7 loss functions on Swin-Tiny fine head) | Long-tail loss comparison report |
 | `stage_30` | Proposed method (Hierarchical + Balanced Softmax + SupCon) | Canonical proposed model evaluation |
 | `stage_40` | Component ablation studies (16 ablation configurations) | Systematic ablation comparison table |
@@ -85,13 +85,14 @@ cystods run 30 --set runtime.batch_size=128 --set runtime.device=cuda
 
 ## ⚙️ Configuration System
 
-All experiment parameters are managed in a single central [`config.yaml`](file:///Volumes/WorkSpace/Project/CystoDS/config.yaml).
+All experiment parameters are managed in a single central [`config.yaml`](config.yaml).
 
-Overriding hierarchy (later layer overrides earlier):
+Overriding hierarchy (later layer overrides earlier, CLI is always highest):
 1. Base configuration (`config.yaml`)
-2. Execution profile (`--profile smoke` or `--profile research`)
-3. Environment variables (`CYSTODS_BATCH_SIZE`, `CYSTODS_DATA_ROOT`, etc.)
-4. CLI options (`--set key=value`)
+2. Stage defaults (`stages[stage]` in `config.yaml`)
+3. Execution profile (`--profile smoke` or `--profile research`)
+4. Environment variables (`CYSTODS_BATCH_SIZE`, `CYSTODS_DATA_ROOT`, etc.)
+5. CLI options (`--set key=value`)
 
 ---
 

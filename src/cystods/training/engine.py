@@ -794,11 +794,19 @@ def run_training_suite(
 
         completed_trials = []
         for trial_index, trial in enumerate(trials_spec):
-            trial_config = dict(runtime_config)
-            trial_config.update(trial)
-            _validate_config(trial_config)
+            trial_name = str(
+                trial.get("trial_id", trial.get("experiment_id", trial.get("trial_name", f"trial_{trial_index:02d}")))
+            )
 
-            trial_name = str(trial.get("trial_name", f"trial_{trial_index:02d}"))
+            trial_config = dict(runtime_config)
+            trial_config["task_mode"] = trial.get(
+                "task_mode",
+                trial_config["task_mode"],
+            )
+            trial_config.update(trial.get("overrides", {}))
+            trial_config["suite_trial_id"] = trial_name
+
+            _validate_config(trial_config)
             logger.info("Executing trial=%s", trial_name)
 
             device = resolve_device(trial_config)
@@ -809,12 +817,12 @@ def run_training_suite(
             )
 
             # Execution logic delegate to core data loaders & models
-            from cystods.data.dataset import build_dataloaders
+            from cystods.data.sampler import build_dataloaders
             from cystods.data.splits.protocol import build_all_protocol_splits
-            from cystods.data.loader import prepare_raw_dataframe
+            from cystods.data.manifest import load_and_validate_manifest
 
-            raw_frame, data_dir = prepare_raw_dataframe(
-                trial_config["data_root"]
+            raw_frame, audit = load_and_validate_manifest(
+                trial_config, run_dir, logger
             )
 
             units = build_all_protocol_splits(

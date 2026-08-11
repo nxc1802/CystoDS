@@ -232,16 +232,12 @@ stages:
     protocol: holdout
 
   "10":
-    task_mode: binary
-    monitor_metric: binary_auroc
     binary_loss_weight: 1.0
     coarse_loss_weight: 0.0
     fine_loss_weight: 0.0
     binary_coarse_hierarchy_loss_weight: 0.0
     coarse_fine_hierarchy_loss_weight: 0.0
     supervised_contrastive_loss_weight: 0.0
-    fine_loss:
-      inference_calibration_mode: fixed
     use_data_augmentation: false
     trials:
       - experiment_id: binary_swin_tiny
@@ -249,31 +245,7 @@ stages:
         overrides:
           model_name: swin_tiny_patch4_window7_224.ms_in1k
           monitor_metric: binary_auroc
-      - experiment_id: coarse_swin_tiny
-        task_mode: coarse
-        overrides:
-          model_name: swin_tiny_patch4_window7_224.ms_in1k
-          binary_loss_weight: 0.0
-          coarse_loss_weight: 1.0
-          fine_loss_weight: 0.0
-          monitor_metric: coarse_macro_f1
-      - experiment_id: fine_swin_tiny
-        task_mode: fine
-        overrides:
-          model_name: swin_tiny_patch4_window7_224.ms_in1k
-          binary_loss_weight: 0.0
-          coarse_loss_weight: 0.0
-          fine_loss_weight: 1.0
-          fine_loss: cross_entropy
-          monitor_metric: fine_macro_f1
-      - experiment_id: multitask_binary_coarse_swin_tiny
-        task_mode: multitask
-        overrides:
-          model_name: swin_tiny_patch4_window7_224.ms_in1k
-          coarse_loss_weight: 1.0
-          fine_loss_weight: 0.0
-          monitor_metric: coarse_macro_f1
-      - experiment_id: multitask_binary_coarse_fine_swin_tiny
+      - experiment_id: multitask_swin_tiny
         task_mode: multitask
         overrides:
           model_name: swin_tiny_patch4_window7_224.ms_in1k
@@ -286,7 +258,7 @@ stages:
         overrides:
           model_name: resnet152.a1_in1k
           monitor_metric: binary_auroc
-      - experiment_id: multitask_binary_coarse_fine_resnet152
+      - experiment_id: multitask_resnet152
         task_mode: multitask
         overrides:
           model_name: resnet152.a1_in1k
@@ -299,7 +271,7 @@ stages:
         overrides:
           model_name: hrnet_w18.ms_in1k
           monitor_metric: binary_auroc
-      - experiment_id: multitask_binary_coarse_fine_hrnet_w18
+      - experiment_id: multitask_hrnet_w18
         task_mode: multitask
         overrides:
           model_name: hrnet_w18.ms_in1k
@@ -312,7 +284,7 @@ stages:
         overrides:
           model_name: resnext50_32x4d.a1_in1k
           monitor_metric: binary_auroc
-      - experiment_id: multitask_binary_coarse_fine_resnext50_32x4d
+      - experiment_id: multitask_resnext50_32x4d
         task_mode: multitask
         overrides:
           model_name: resnext50_32x4d.a1_in1k
@@ -322,52 +294,54 @@ stages:
           monitor_metric: hierarchical_composite
 
   "20":
-    task_mode: fine
+    task_mode: multitask
+    binary_loss_weight: 1.0
+    coarse_loss_weight: 1.0
+    fine_loss_weight: 1.0
+    binary_coarse_hierarchy_loss_weight: 0.0
+    coarse_fine_hierarchy_loss_weight: 0.0
+    supervised_contrastive_loss_weight: 0.0
     monitor_metric: fine_macro_f1_all_classes
     epochs: 20
     early_stopping_patience: 5
     scientific_gate_mode: report
     trials:
       - experiment_id: fine_cross_entropy
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: cross_entropy
       - experiment_id: fine_weighted_ce
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: weighted_ce
           class_balance_beta: 0.9999
       - experiment_id: fine_focal
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: focal
           focal_gamma: 2.0
       - experiment_id: fine_balanced_softmax
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: balanced_softmax
-      - experiment_id: fine_balanced_softmax_smoothed
-        task_mode: fine
-        overrides:
-          fine_loss: balanced_softmax_smoothed
       - experiment_id: fine_logit_adjustment
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: logit_adjustment
           logit_adjustment_tau: 0.5
       - experiment_id: fine_ldam
-        task_mode: fine
+        task_mode: multitask
         overrides:
           fine_loss: ldam
           ldam_max_margin: 0.5
           ldam_scale: 30.0
 
   "30":
-    # Uses PROPOSED_CANONICAL_CONFIG from code
     task_mode: hierarchical
     fine_loss: balanced_softmax
-    hierarchy_weight: 0.25
-    supcon_weight: 0.10
+    binary_coarse_hierarchy_loss_weight: 0.25
+    coarse_fine_hierarchy_loss_weight: 0.25
+    supervised_contrastive_loss_weight: 0.10
     trials:
       - experiment_id: proposed_hierarchical_swin
         task_mode: hierarchical
@@ -377,12 +351,60 @@ stages:
     scheduler_epochs: 20
     early_stopping_patience: 5
     trials:
+      # Group 1: Task formulation ablations
+      - experiment_id: task_binary_only
+        task_mode: binary
+        overrides:
+          binary_loss_weight: 1.0
+          coarse_loss_weight: 0.0
+          fine_loss_weight: 0.0
+          monitor_metric: binary_auroc
+      - experiment_id: task_coarse_only
+        task_mode: coarse
+        overrides:
+          binary_loss_weight: 0.0
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 0.0
+          monitor_metric: coarse_macro_f1
+      - experiment_id: task_fine_only
+        task_mode: fine
+        overrides:
+          binary_loss_weight: 0.0
+          coarse_loss_weight: 0.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1
+      - experiment_id: task_binary_coarse
+        task_mode: multitask
+        overrides:
+          binary_loss_weight: 1.0
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 0.0
+          monitor_metric: coarse_macro_f1
+      - experiment_id: task_multitask_bcf
+        task_mode: multitask
+        overrides:
+          binary_loss_weight: 1.0
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: hierarchical_composite
+      # Group 2: Proposed method objective & loss ablations
       - experiment_id: ablation_full_proposed
         task_mode: hierarchical
-      - experiment_id: ablation_fine_ce
+      - experiment_id: ablation_no_long_tail
         task_mode: hierarchical
         overrides:
           fine_loss: cross_entropy
+      - experiment_id: ablation_no_supcon
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_loss_weight: 0.0
+      - experiment_id: ablation_no_hierarchy
+        task_mode: hierarchical
+        overrides:
+          binary_coarse_hierarchy_loss_weight: 0.0
+          coarse_fine_hierarchy_loss_weight: 0.0
       - experiment_id: ablation_no_bc_hierarchy
         task_mode: hierarchical
         overrides:
@@ -391,64 +413,6 @@ stages:
         task_mode: hierarchical
         overrides:
           coarse_fine_hierarchy_loss_weight: 0.0
-      - experiment_id: ablation_no_supcon
-        task_mode: hierarchical
-        overrides:
-          supervised_contrastive_loss_weight: 0.0
-      - experiment_id: ablation_no_binary_auxiliary
-        task_mode: hierarchical
-        overrides:
-          binary_loss_weight: 0.0
-      - experiment_id: ablation_class_balanced_sampler
-        task_mode: hierarchical
-        overrides:
-          sampler: class_balanced
-          sampler_label_level: fine
-      - experiment_id: ablation_data_augmentation
-        task_mode: hierarchical
-        overrides:
-          use_data_augmentation: true
-      - experiment_id: ablation_no_prior_calibration
-        task_mode: hierarchical
-        overrides:
-          fine_inference_calibration_mode: fixed
-      - experiment_id: ablation_flat_fine_ce
-        task_mode: fine
-        overrides:
-          fine_loss: cross_entropy
-          fine_inference_calibration_mode: fixed
-          monitor_metric: fine_macro_f1
-      - experiment_id: ablation_multitask_no_hierarchy
-        task_mode: multitask
-        overrides:
-          fine_loss: cross_entropy
-          fine_inference_calibration_mode: fixed
-          monitor_metric: hierarchical_composite
-      - experiment_id: ablation_hierarchy_none
-        task_mode: hierarchical
-        overrides:
-          binary_coarse_hierarchy_loss_weight: 0.0
-          coarse_fine_hierarchy_loss_weight: 0.0
-      - experiment_id: ablation_hierarchy_bc_only
-        task_mode: hierarchical
-        overrides:
-          binary_coarse_hierarchy_loss_weight: 0.25
-          coarse_fine_hierarchy_loss_weight: 0.0
-      - experiment_id: ablation_hierarchy_cf_only
-        task_mode: hierarchical
-        overrides:
-          binary_coarse_hierarchy_loss_weight: 0.0
-          coarse_fine_hierarchy_loss_weight: 0.25
-      - experiment_id: ablation_train_wlc_only
-        task_mode: hierarchical
-        overrides:
-          train_modality: WLC
-          evaluate_wlc_only: true
-      - experiment_id: ablation_train_all_evaluate_wlc
-        task_mode: hierarchical
-        overrides:
-          train_modality: all
-          evaluate_wlc_only: true
 
   "90":
     protocol: cross_validation
@@ -457,7 +421,7 @@ stages:
     torch_compile: true
     torch_compile_mode: max-autotune
     trials:
-      - experiment_id: cv_multitask_swin_ce
+      - experiment_id: cv_multitask_ce_baseline
         task_mode: multitask
         overrides:
           fine_loss: cross_entropy
@@ -466,5 +430,5 @@ stages:
           supervised_contrastive_loss_weight: 0.0
           fine_inference_calibration_mode: fixed
           monitor_metric: hierarchical_composite
-      - experiment_id: cv_proposed_hierarchical_swin
+      - experiment_id: cv_proposed_hierarchical
         task_mode: hierarchical

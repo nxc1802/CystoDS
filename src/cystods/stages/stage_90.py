@@ -32,12 +32,6 @@ def run(config: dict[str, Any]) -> Path:
     config["experiment_name"] = STAGE_NAME
     config["evaluation_scope"] = "final_cv"
 
-    # Apply proposed canonical config
-    config.update(core.PROPOSED_CANONICAL_CONFIG)
-    config["batch_size"] = int(
-        os.environ.get("CYSTODS_BATCH_SIZE", str(core.PROPOSED_CANONICAL_CONFIG["batch_size"]))
-    )
-
     # Cross-validation defaults
     if config.get("run_profile") != "smoke":
         config["protocol"] = "cross_validation"
@@ -77,7 +71,7 @@ def run(config: dict[str, Any]) -> Path:
         else:
             trials = [
                 {
-                    "experiment_id": "cv_multitask_swin_ce",
+                    "experiment_id": "cv_multitask_ce_baseline",
                     "task_mode": "multitask",
                     "overrides": {
                         "fine_loss": "cross_entropy",
@@ -89,11 +83,43 @@ def run(config: dict[str, Any]) -> Path:
                     },
                 },
                 {
-                    "experiment_id": "cv_proposed_hierarchical_swin",
+                    "experiment_id": "cv_proposed_hierarchical",
                     "task_mode": "hierarchical",
-                    "overrides": dict(core.PROPOSED_CANONICAL_CONFIG),
                 },
             ]
+
+    # Try loading selected backbone & long-tail method from Stage 10 & 20 artifacts
+    from cystods.experiments.artifacts import find_and_load_stage_artifact
+
+    selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
+    selected_long_tail = "balanced_softmax"
+
+    try:
+        s10_artifact = find_and_load_stage_artifact(
+            config["result_root"],
+            stage_id="10",
+            artifact_name="selected_backbone.json",
+            expected_protocol_sha256=expected_sha,
+        )
+        selected_backbone = s10_artifact.get("selected_backbone", selected_backbone)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"[Stage 90] Notice: Could not load Stage 10 artifact ({exc}). Defaulting backbone to {selected_backbone}.")
+
+    try:
+        s20_artifact = find_and_load_stage_artifact(
+            config["result_root"],
+            stage_id="20",
+            artifact_name="selected_long_tail_method.json",
+            expected_protocol_sha256=expected_sha,
+        )
+        selected_long_tail = s20_artifact.get("selected_long_tail_method", selected_long_tail)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"[Stage 90] Notice: Could not load Stage 20 artifact ({exc}). Defaulting long-tail to {selected_long_tail}.")
+
+    config["model_name"] = selected_backbone
+    config["fine_loss"] = selected_long_tail
+    for t in trials:
+        t.setdefault("overrides", {})["model_name"] = selected_backbone
 
     # Seeds and fold config
     seeds = (

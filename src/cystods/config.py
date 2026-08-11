@@ -125,6 +125,19 @@ def load_yaml(config_path: Path | str | None = None) -> dict:
     return data
 
 
+def apply_stage(config: dict, stage: str | None) -> dict:
+    """Merge stage defaults from config['stages'][stage] on top of base config."""
+    if stage is None:
+        return config
+    stages = config.get("stages", {})
+    stage_key = str(stage)
+    if stage_key not in stages:
+        return config
+    stage_cfg = copy.deepcopy(stages[stage_key])
+    stage_cfg.pop("trials", None)  # Trials are handled separately
+    return _deep_merge(config, stage_cfg)
+
+
 def apply_profile(config: dict, profile: str | None) -> dict:
     """Merge a named profile on top of base config."""
     if profile is None:
@@ -169,6 +182,8 @@ def apply_cli_overrides(config: dict, overrides: list[str] | None) -> dict:
         key = key.strip()
         value = _coerce_value(raw_value.strip())
         _set_nested(result, key, value)
+        leaf_key = key.split(".")[-1]
+        result[leaf_key] = value
     return result
 
 
@@ -593,14 +608,16 @@ def load_config(
     if effective_profile is None:
         effective_profile = "research"
 
-    # Apply layers
+    # Apply layers (Precedence: Base -> Stage -> Profile -> Env -> CLI)
     merged = apply_profile(raw, effective_profile)
     merged = apply_env_overrides(merged)
-    merged = apply_cli_overrides(merged, cli_overrides)
     merged = resolve_paths(merged)
 
-    # Flatten
+    # Flatten (flattens merged YAML and applies stage overrides from stages[stage])
     flat = flatten_to_core_config(merged, stage=stage)
+
+    # Apply CLI overrides on top of flat dict LAST so CLI is ALWAYS highest precedence
+    flat = apply_cli_overrides(flat, cli_overrides)
 
     # Inject profile and stage
     flat["run_profile"] = effective_profile
@@ -743,7 +760,7 @@ def make_run_directory(config: Mapping[str, Any]) -> Path:
 def normalize_core_config(
     config: Mapping[str, Any],
 ) -> dict[str, Any]:
-    from cystods.core import BASE_CONFIG
+    from cystods.config_schema import BASE_CONFIG
     unknown = set(config) - set(BASE_CONFIG)
     if unknown:
         raise KeyError(f"Core config contains unknown keys: {sorted(unknown)}")

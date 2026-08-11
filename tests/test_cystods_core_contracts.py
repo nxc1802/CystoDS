@@ -377,16 +377,13 @@ def test_stage_10_declares_baseline_trials_for_paper_backbones() -> None:
     trials = get_stage_trials(stage="10")
     expected_active_tasks = {
         "binary_swin_tiny": {"binary"},
-        "coarse_swin_tiny": {"coarse"},
-        "fine_swin_tiny": {"fine"},
-        "multitask_binary_coarse_swin_tiny": {"binary", "coarse"},
-        "multitask_binary_coarse_fine_swin_tiny": {"binary", "coarse", "fine"},
+        "multitask_swin_tiny": {"binary", "coarse", "fine"},
         "binary_resnet152": {"binary"},
-        "multitask_binary_coarse_fine_resnet152": {"binary", "coarse", "fine"},
+        "multitask_resnet152": {"binary", "coarse", "fine"},
         "binary_hrnet_w18": {"binary"},
-        "multitask_binary_coarse_fine_hrnet_w18": {"binary", "coarse", "fine"},
+        "multitask_hrnet_w18": {"binary", "coarse", "fine"},
         "binary_resnext50_32x4d": {"binary"},
-        "multitask_binary_coarse_fine_resnext50_32x4d": {"binary", "coarse", "fine"},
+        "multitask_resnext50_32x4d": {"binary", "coarse", "fine"},
     }
 
     assert len(trials) == len(expected_active_tasks)
@@ -1081,9 +1078,10 @@ def test_matched_checkpoint_monitor() -> None:
                 "fine_macro_f1",
                 "fine_macro_f1_all_classes",
                 "coarse_macro_f1",
+                "binary_auroc",
             )
 
-    multitask_ref = [t for t in trials if t["experiment_id"] == "ablation_multitask_no_hierarchy"][0]
+    multitask_ref = [t for t in trials if t["experiment_id"] == "task_multitask_bcf"][0]
     assert multitask_ref.get("overrides", {}).get("monitor_metric") == "hierarchical_composite"
 
     trials90 = get_stage_trials(stage="90")

@@ -958,21 +958,17 @@ def _complete_stage_source_files(
     required_source_files: Sequence[Path | str],
 ) -> tuple[Path, ...]:
     try:
-        core_source = Path(__file__).resolve()
+        runner_source = Path(__file__).resolve()
     except NameError as exc:
         raise RuntimeError(
-            "Stage execution requires an on-disk cystods_core.py source."
+            "Stage execution requires an on-disk source file."
         ) from exc
-    science_src = (
-        core_source.with_name("science.py")
-        if core_source.with_name("science.py").exists()
-        else core_source.with_name("cystods_science.py")
-    )
-    hf_src = (
-        core_source.with_name("hf.py")
-        if core_source.with_name("hf.py").exists()
-        else core_source.with_name("cystods_hf.py")
-    )
+    package_root = runner_source.parent.parent
+
+    core_source = package_root / "core.py"
+    science_src = package_root / "science.py"
+    hf_src = package_root / "hf.py"
+
     candidates = [
         *required_source_files,
         core_source,

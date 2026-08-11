@@ -87,9 +87,32 @@ def run(config: dict[str, Any]) -> Path:
             f"Available experiment IDs for Stage {STAGE_ID}: {avail_exp}"
         )
 
-    print(f"Stage {STAGE_ID}: Selected {len(trials)} trial(s) to run:")
+    # Try loading selected backbone from Stage 10 artifact
+    from cystods.experiments.artifacts import (
+        find_and_load_stage_artifact,
+        write_stage_selection_artifact,
+    )
+
+    selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
+    try:
+        stage10_artifact = find_and_load_stage_artifact(
+            config["result_root"],
+            stage_id="10",
+            artifact_name="selected_backbone.json",
+            expected_protocol_sha256=expected_sha,
+        )
+        selected_backbone = stage10_artifact.get("selected_backbone", selected_backbone)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"[Stage 20] Notice: Could not load Stage 10 artifact ({exc}). Defaulting backbone to {selected_backbone}.")
+
+    # Apply selected backbone across trials if not overridden
+    config["model_name"] = selected_backbone
     for t in trials:
-        m_name = t.get("overrides", {}).get("model_name", config.get("model", {}).get("name", "default") if isinstance(config.get("model"), dict) else "default")
+        t.setdefault("overrides", {})["model_name"] = selected_backbone
+
+    print(f"Stage {STAGE_ID}: Selected {len(trials)} trial(s) to run (backbone={selected_backbone}):")
+    for t in trials:
+        m_name = t.get("overrides", {}).get("model_name", selected_backbone)
         print(f"  • [{t['experiment_id']}] model: {m_name} | task_mode: {t.get('task_mode')}")
     print()
 
@@ -110,4 +133,22 @@ def run(config: dict[str, Any]) -> Path:
         "trials": tuple(trials),
     }
 
-    return core.run_training_suite(suite_config, _source_files())
+    source_files = _source_files()
+    run_dir = core.run_training_suite(suite_config, source_files)
+
+    # Save transition artifact for Stage 30
+    protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+    write_stage_selection_artifact(
+        run_dir,
+        "selected_long_tail_method.json",
+        {
+            "stage_id": STAGE_ID,
+            "selected_backbone": selected_backbone,
+            "selected_long_tail_method": "balanced_softmax",
+            "selection_metric": "primary_macro_f1_all_classes",
+            "protocol_sha256": protocol_sha,
+            "study_id": config["study_id"],
+        },
+    )
+
+    return run_dir

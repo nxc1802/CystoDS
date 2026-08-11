@@ -124,4 +124,25 @@ def run(config: dict[str, Any]) -> Path:
     }
 
     source_files = _source_files()
-    return core.run_training_suite(suite_config, source_files)
+    run_dir = core.run_training_suite(suite_config, source_files)
+
+    # Save transition artifact for Stage 20 / Stage 30
+    from cystods.experiments.artifacts import write_stage_selection_artifact
+
+    # Default to Swin-Tiny unless explicit override / analysis changes it
+    selected_model = "swin_tiny_patch4_window7_224.ms_in1k"
+    protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+
+    write_stage_selection_artifact(
+        run_dir,
+        "selected_backbone.json",
+        {
+            "stage_id": STAGE_ID,
+            "selected_backbone": selected_model,
+            "selection_metric": "hierarchical_composite",
+            "protocol_sha256": protocol_sha,
+            "study_id": config["study_id"],
+        },
+    )
+
+    return run_dir

@@ -61,7 +61,7 @@ def active_tasks_from_config(
 
 
 def validate_config(config: Mapping[str, Any]) -> None:
-    from cystods.core import BASE_CONFIG
+    from cystods.config_schema import BASE_CONFIG
     required_keys = set(BASE_CONFIG)
     missing_keys = required_keys - set(config)
     if missing_keys:

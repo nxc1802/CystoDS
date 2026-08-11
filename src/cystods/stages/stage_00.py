@@ -35,15 +35,15 @@ def run(config: dict[str, Any]) -> Path:
     # Ensure stage identity
     config = dict(config)
     config["stage_name"] = STAGE_NAME
-    config["experiment_name"] = STAGE_NAME
-    config["protocol_role"] = "fixed_holdout"
     config["evaluation_scope"] = "development"
     config["verify_all_image_decodes"] = config.get("verify_all_image_decodes", True)
     config["deterministic"] = config.get("deterministic", True)
     config["checkpoint_backend"] = "local"
 
     if config.get("run_profile") == "smoke":
-        config.setdefault("protocol_role", "smoke_holdout")
+        config["protocol_role"] = "smoke_holdout"
+    else:
+        config["protocol_role"] = "fixed_holdout"
 
     stage_config = {
         "schema_version": "cystods.stage.v2",
