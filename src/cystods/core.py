@@ -168,38 +168,8 @@ if RUN_PROFILE not in {"research", "smoke"}:
 # error because silently selecting a different Kaggle dataset invalidates a
 # paired experiment.
 def _resolve_data_root() -> Path:
-    if "CYSTODS_DATA_ROOT" in os.environ:
-        explicit = Path(
-            os.environ["CYSTODS_DATA_ROOT"]
-        ).expanduser().resolve()
-        if not (explicit / "cystods.csv").is_file():
-            raise FileNotFoundError(
-                "CYSTODS_DATA_ROOT does not contain cystods.csv: "
-                f"{explicit}"
-            )
-        return explicit
-
-    candidates = [
-        Path("/kaggle/input/datasets/cuongnguyen1802/cystods"),
-        Path("/kaggle/input/cystods"),
-        Path("/kaggle/input/cystods/xvdhy-osfstorage-archive"),
-        Path.cwd() / "xvdhy-osfstorage-archive",
-        Path.cwd().parent / "xvdhy-osfstorage-archive",
-    ]
-    matches = sorted(
-        {
-            path.resolve()
-            for path in candidates
-            if (path / "cystods.csv").is_file()
-        }
-    )
-    if len(matches) != 1:
-        raise RuntimeError(
-            "Dataset root resolution requires exactly one known match; "
-            f"found={list(map(str, matches))}. Set CYSTODS_DATA_ROOT "
-            "explicitly in Cell 2."
-        )
-    return matches[0]
+    from cystods.config import resolve_dataset_root
+    return resolve_dataset_root()
 
 def _resolve_result_root() -> Path:
     if "CYSTODS_RESULT_ROOT" in os.environ:

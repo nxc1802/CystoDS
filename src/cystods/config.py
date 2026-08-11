@@ -172,34 +172,95 @@ def apply_cli_overrides(config: dict, overrides: list[str] | None) -> dict:
     return result
 
 
+def _download_dataset_from_hf(target_dir: Path | None = None) -> Path:
+    """Download CystoDS dataset from Hugging Face Hub as Priority 3 fallback."""
+    repo_id = os.environ.get("CYSTODS_HF_DATASET_REPO_ID", "cuongnguyen1802/cystods")
+    if target_dir is None:
+        target_dir = (Path.cwd() / "xvdhy-osfstorage-archive").resolve()
+    else:
+        target_dir = Path(target_dir).expanduser().resolve()
+
+    target_dir.mkdir(parents=True, exist_ok=True)
+    print(
+        f"[CystoDS] Dataset not found on Kaggle or local directory. "
+        f"Downloading from HuggingFace dataset repo '{repo_id}' to '{target_dir}'..."
+    )
+
+    try:
+        from huggingface_hub import snapshot_download
+
+        token = os.environ.get("HF_TOKEN")
+        snapshot_download(
+            repo_id=repo_id,
+            repo_type="dataset",
+            local_dir=str(target_dir),
+            token=token,
+        )
+        if not (target_dir / "cystods.csv").is_file():
+            raise FileNotFoundError(
+                f"Downloaded dataset to '{target_dir}', but 'cystods.csv' was not found in the repository."
+            )
+        print(f"[CystoDS] ✓ Dataset successfully downloaded from HF to '{target_dir}'")
+        return target_dir
+    except Exception as exc:
+        raise RuntimeError(
+            f"Failed to download CystoDS dataset from HuggingFace repo '{repo_id}': {exc}\n"
+            "Please check internet connection, HF_TOKEN, or place dataset in "
+            "'/kaggle/input/datasets/cuongnguyen1802/cystods' or './xvdhy-osfstorage-archive'."
+        ) from exc
+
+
+def resolve_dataset_root(configured_path: str | Path | None = None) -> Path:
+    """Resolve data_root following strict 3-step priority hierarchy:
+    1. Priority 1: Check Kaggle input dataset (/kaggle/input/datasets/cuongnguyen1802/cystods, etc.)
+    2. Priority 2: Check local folder (./xvdhy-osfstorage-archive)
+    3. Priority 3: Download from HuggingFace (cuongnguyen1802/cystods)
+    """
+    if "CYSTODS_DATA_ROOT" in os.environ:
+        explicit = Path(os.environ["CYSTODS_DATA_ROOT"]).expanduser().resolve()
+        if (explicit / "cystods.csv").is_file():
+            return explicit
+        raise FileNotFoundError(
+            f"CYSTODS_DATA_ROOT does not contain cystods.csv: {explicit}"
+        )
+
+    if configured_path:
+        cand = Path(configured_path).expanduser().resolve()
+        if cand.is_dir() and (cand / "cystods.csv").is_file():
+            return cand
+
+    # Priority 1: Kaggle input dataset
+    kaggle_candidates = [
+        Path("/kaggle/input/datasets/cuongnguyen1802/cystods"),
+        Path("/kaggle/input/cystods"),
+        Path("/kaggle/input/cystods/xvdhy-osfstorage-archive"),
+    ]
+    for kp in kaggle_candidates:
+        if kp.is_dir() and (kp / "cystods.csv").is_file():
+            return kp.resolve()
+
+    # Priority 2: Local folder xvdhy-osfstorage-archive
+    local_candidates = [
+        Path.cwd() / "xvdhy-osfstorage-archive",
+        Path.cwd().parent / "xvdhy-osfstorage-archive",
+        Path("./xvdhy-osfstorage-archive").expanduser().resolve(),
+    ]
+    for lp in local_candidates:
+        if lp.is_dir() and (lp / "cystods.csv").is_file():
+            return lp.resolve()
+
+    # Priority 3: Download from HF
+    return _download_dataset_from_hf()
+
+
 def resolve_paths(config: dict) -> dict:
     """Resolve data_root and result_root to absolute paths."""
     result = copy.deepcopy(config)
     paths = result.get("paths", {})
 
-    # Data root resolution
-    data_root_str = paths.get("data_root", "./xvdhy-osfstorage-archive")
-    data_root = Path(data_root_str).expanduser().resolve()
-
-    if not data_root.is_dir():
-        # Try well-known Kaggle locations
-        candidates = [
-            Path("/kaggle/input/datasets/cuongnguyen1802/cystods"),
-            Path("/kaggle/input/cystods"),
-            Path("/kaggle/input/cystods/xvdhy-osfstorage-archive"),
-            Path.cwd() / "xvdhy-osfstorage-archive",
-            Path.cwd().parent / "xvdhy-osfstorage-archive",
-        ]
-        matches = sorted(
-            {c.resolve() for c in candidates if (c / "cystods.csv").is_file()}
-        )
-        if len(matches) == 1:
-            data_root = matches[0]
-        elif len(matches) > 1:
-            raise RuntimeError(
-                f"Multiple CystoDS data roots found: {[str(m) for m in matches]}. "
-                "Set paths.data_root explicitly."
-            )
+    # Data root resolution with 3-priority fallback
+    data_root_str = paths.get("data_root")
+    data_root = resolve_dataset_root(data_root_str)
 
     paths["data_root"] = data_root
     paths["metadata_csv"] = data_root / "cystods.csv"
@@ -218,6 +279,7 @@ def resolve_paths(config: dict) -> dict:
 
     result["paths"] = paths
     return result
+
 
 
 def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
