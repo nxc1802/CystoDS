@@ -1,0 +1,470 @@
+# CystoDS Pipeline Configuration
+# ================================
+# Single source of truth for all experiment parameters.
+# Override precedence: config.yaml → profile → env vars → CLI --set
+
+project:
+  study_id: cystods_hierarchical_long_tailed_2026
+  seed: 20260729
+  split_seed: 20260729
+
+paths:
+  data_root: ./xvdhy-osfstorage-archive
+  result_root: ./result
+
+data:
+  image_size: 224
+  fov_center_crop_ratio: 0.92
+  train_fraction: 0.70
+  val_fraction: 0.15
+  test_fraction: 0.15
+  normal_mucosa_limit: 540
+  split_search_candidates: 4096
+  force_fine_labels_with_fewer_than_n_patients_to_train: 3
+  verify_all_image_decodes: false
+  verify_segmentation_inventory: true
+  dataset_fingerprint_mode: full
+  verify_exact_duplicate_images: true
+
+  augmentation:
+    random_resized_crop_scale: [0.75, 1.0]
+    horizontal_flip_probability: 0.5
+    vertical_flip_probability: 0.5
+    rotation_degrees: 15
+    color_jitter: [0.20, 0.20, 0.15, 0.05]
+    random_erasing_probability: 0.20
+    imagenet_mean: [0.485, 0.456, 0.406]
+    imagenet_std: [0.229, 0.224, 0.225]
+
+  cv:
+    folds: 5
+    val_fraction_of_remaining: 0.15
+
+runtime:
+  device: cuda
+  precision: bf16
+  batch_size: 256
+  eval_batch_size: 1024
+  num_workers: 4
+  eval_num_workers: 4
+  prefetch_factor: 2
+  eval_prefetch_factor: 2
+  persistent_workers: true
+  pin_memory: true
+  num_cpu_threads: 32
+  enable_tf32: true
+  channels_last: true
+  torch_compile: false
+  torch_compile_mode: default
+  float32_matmul_precision: high
+
+model:
+  name: swin_tiny_patch4_window7_224.ms_in1k
+  pretrained: true
+  task_mode: hierarchical
+  dropout: 0.20
+  projection_dim: 128
+
+training:
+  epochs: 25
+  learning_rate: 0.0003
+  encoder_learning_rate_multiplier: 0.25
+  weight_decay: 0.05
+  optimizer: adamw
+  use_fused_optimizer: true
+  warmup_epochs: 2.0
+  scheduler_epochs: 25
+  minimum_learning_rate_ratio: 0.01
+  gradient_accumulation_steps: 1
+  gradient_clip_norm: 1.0
+  early_stopping_patience: 6
+  checkpoint_min_delta: 0.0001
+
+  monitor_metric: hierarchical_composite
+  hierarchical_composite_weights:
+    coarse_macro_f1_all_classes: 0.35
+    primary_macro_f1_all_classes: 0.45
+    hierarchical_accuracy: 0.20
+
+  loss:
+    binary_loss_weight: 1.0
+    coarse_loss_weight: 1.0
+    fine_loss_weight: 1.0
+    binary_coarse_hierarchy_loss_weight: 0.25
+    coarse_fine_hierarchy_loss_weight: 0.25
+    supervised_contrastive_loss_weight: 0.10
+    supervised_contrastive_temperature: 0.10
+    supervised_contrastive_label_level: fine
+
+  fine_loss:
+    name: balanced_softmax
+    class_balance_beta: 0.9999
+    focal_gamma: 2.0
+    focal_use_class_balance: false
+    logit_adjustment_tau: 0.5
+    prior_source: patient_count
+    prior_smoothing_alpha: 1.0
+    prior_power: 0.5
+    prior_max_ratio: 50.0
+    absent_train_policy: mask_and_score_zero
+    inference_calibration_mode: validation_grid
+    inference_prior_tau: 0.0
+    inference_tau_grid: [0.0, 0.25, 0.5, 0.75, 1.0]
+    inference_calibration_metric: primary_macro_f1_all_classes
+    ldam_max_margin: 0.5
+    ldam_scale: 30.0
+
+  sampler:
+    type: random
+    label_level: fine
+
+  use_data_augmentation: false
+
+evaluation:
+  binary_decision_threshold: 0.5
+  bootstrap_iterations: 1000
+  bootstrap_confidence: 0.95
+  probability_sum_tolerance: 0.005
+  primary_fine_min_train_patients: 10
+  tail_class_max_train_samples: 20
+  scientific_gate_mode: enforce
+  generate_sample_grid: false
+  sample_grid_images_per_class: 3
+
+  rare_gate:
+    max_train_patients: 2
+    absolute_pred_share: 0.10
+    prior_multiplier: 10.0
+    min_pred_count: 5
+
+  roi:
+    evaluate_roi_level: false
+    aggregations: [mean, vote, attention]
+    conflict_policy: exclude_and_report
+    attention_epochs: 25
+    attention_learning_rate: 0.001
+    attention_hidden_dim: 128
+    attention_early_stopping_patience: 5
+
+  modality:
+    train_modality: all
+    evaluate_wlc_only: false
+
+  external:
+    enabled: false
+    manifest_csv: null
+    image_root: null
+    path_column: path
+    binary_label_column: binary_label
+    patient_id_column: patient_id
+
+checkpoint:
+  backend: huggingface
+  save_last: false
+  save_epoch: false
+
+hf:
+  repo_id: null
+  private: true
+  create_repo: true
+  revision: main
+  token_env: HF_TOKEN
+
+logging:
+  log_every_n_steps: 20
+
+# ============================================================
+# Profiles — merged on top of the base config
+# ============================================================
+profiles:
+  smoke:
+    data:
+      image_size: 64
+      normal_mucosa_limit: null
+      verify_all_image_decodes: false
+      dataset_fingerprint_mode: semantic
+      verify_exact_duplicate_images: false
+      split_search_candidates: 64
+    runtime:
+      device: cpu
+      precision: fp32
+      batch_size: 4
+      eval_batch_size: 4
+      num_workers: 0
+      eval_num_workers: 0
+      persistent_workers: false
+      pin_memory: false
+      enable_tf32: false
+      channels_last: false
+      torch_compile: false
+    model:
+      pretrained: false
+    training:
+      epochs: 1
+      scheduler_epochs: 1
+      learning_rate: 0.001
+      warmup_epochs: 0.0
+      early_stopping_patience: 1
+      use_fused_optimizer: false
+      monitor_metric: coarse_macro_f1
+      loss:
+        supervised_contrastive_loss_weight: 0.0
+      fine_loss:
+        inference_calibration_mode: fixed
+    evaluation:
+      bootstrap_iterations: 20
+      scientific_gate_mode: report
+      roi:
+        attention_epochs: 1
+    checkpoint:
+      backend: local
+      save_last: false
+    logging:
+      log_every_n_steps: 1
+
+# ============================================================
+# Stage-specific configuration
+# ============================================================
+stages:
+  "00":
+    deterministic: true
+    verify_all_image_decodes: true
+    protocol: holdout
+
+  "10":
+    task_mode: binary
+    monitor_metric: binary_auroc
+    binary_loss_weight: 1.0
+    coarse_loss_weight: 0.0
+    fine_loss_weight: 0.0
+    binary_coarse_hierarchy_loss_weight: 0.0
+    coarse_fine_hierarchy_loss_weight: 0.0
+    supervised_contrastive_loss_weight: 0.0
+    fine_loss:
+      inference_calibration_mode: fixed
+    use_data_augmentation: false
+    trials:
+      - experiment_id: binary_swin_tiny
+        task_mode: binary
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          monitor_metric: binary_auroc
+      - experiment_id: coarse_swin_tiny
+        task_mode: coarse
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          binary_loss_weight: 0.0
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 0.0
+          monitor_metric: coarse_macro_f1
+      - experiment_id: fine_swin_tiny
+        task_mode: fine
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          binary_loss_weight: 0.0
+          coarse_loss_weight: 0.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1
+      - experiment_id: multitask_binary_coarse_swin_tiny
+        task_mode: multitask
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 0.0
+          monitor_metric: coarse_macro_f1
+      - experiment_id: multitask_binary_coarse_fine_swin_tiny
+        task_mode: multitask
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: hierarchical_composite
+      - experiment_id: binary_resnet152
+        task_mode: binary
+        overrides:
+          model_name: resnet152.a1_in1k
+          monitor_metric: binary_auroc
+      - experiment_id: multitask_binary_coarse_fine_resnet152
+        task_mode: multitask
+        overrides:
+          model_name: resnet152.a1_in1k
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: hierarchical_composite
+      - experiment_id: binary_hrnet_w18
+        task_mode: binary
+        overrides:
+          model_name: hrnet_w18.ms_in1k
+          monitor_metric: binary_auroc
+      - experiment_id: multitask_binary_coarse_fine_hrnet_w18
+        task_mode: multitask
+        overrides:
+          model_name: hrnet_w18.ms_in1k
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: hierarchical_composite
+      - experiment_id: binary_resnext50_32x4d
+        task_mode: binary
+        overrides:
+          model_name: resnext50_32x4d.a1_in1k
+          monitor_metric: binary_auroc
+      - experiment_id: multitask_binary_coarse_fine_resnext50_32x4d
+        task_mode: multitask
+        overrides:
+          model_name: resnext50_32x4d.a1_in1k
+          coarse_loss_weight: 1.0
+          fine_loss_weight: 1.0
+          fine_loss: cross_entropy
+          monitor_metric: hierarchical_composite
+
+  "20":
+    task_mode: fine
+    monitor_metric: fine_macro_f1_all_classes
+    epochs: 20
+    early_stopping_patience: 5
+    scientific_gate_mode: report
+    trials:
+      - experiment_id: fine_cross_entropy
+        task_mode: fine
+        overrides:
+          fine_loss: cross_entropy
+      - experiment_id: fine_weighted_ce
+        task_mode: fine
+        overrides:
+          fine_loss: weighted_ce
+          class_balance_beta: 0.9999
+      - experiment_id: fine_focal
+        task_mode: fine
+        overrides:
+          fine_loss: focal
+          focal_gamma: 2.0
+      - experiment_id: fine_balanced_softmax
+        task_mode: fine
+        overrides:
+          fine_loss: balanced_softmax
+      - experiment_id: fine_balanced_softmax_smoothed
+        task_mode: fine
+        overrides:
+          fine_loss: balanced_softmax_smoothed
+      - experiment_id: fine_logit_adjustment
+        task_mode: fine
+        overrides:
+          fine_loss: logit_adjustment
+          logit_adjustment_tau: 0.5
+      - experiment_id: fine_ldam
+        task_mode: fine
+        overrides:
+          fine_loss: ldam
+          ldam_max_margin: 0.5
+          ldam_scale: 30.0
+
+  "30":
+    # Uses PROPOSED_CANONICAL_CONFIG from code
+    task_mode: hierarchical
+    fine_loss: balanced_softmax
+    hierarchy_weight: 0.25
+    supcon_weight: 0.10
+    trials:
+      - experiment_id: proposed_hierarchical_swin
+        task_mode: hierarchical
+
+  "40":
+    epochs: 20
+    scheduler_epochs: 20
+    early_stopping_patience: 5
+    trials:
+      - experiment_id: ablation_full_proposed
+        task_mode: hierarchical
+      - experiment_id: ablation_fine_ce
+        task_mode: hierarchical
+        overrides:
+          fine_loss: cross_entropy
+      - experiment_id: ablation_no_bc_hierarchy
+        task_mode: hierarchical
+        overrides:
+          binary_coarse_hierarchy_loss_weight: 0.0
+      - experiment_id: ablation_no_cf_hierarchy
+        task_mode: hierarchical
+        overrides:
+          coarse_fine_hierarchy_loss_weight: 0.0
+      - experiment_id: ablation_no_supcon
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_loss_weight: 0.0
+      - experiment_id: ablation_no_binary_auxiliary
+        task_mode: hierarchical
+        overrides:
+          binary_loss_weight: 0.0
+      - experiment_id: ablation_class_balanced_sampler
+        task_mode: hierarchical
+        overrides:
+          sampler: class_balanced
+          sampler_label_level: fine
+      - experiment_id: ablation_data_augmentation
+        task_mode: hierarchical
+        overrides:
+          use_data_augmentation: true
+      - experiment_id: ablation_no_prior_calibration
+        task_mode: hierarchical
+        overrides:
+          fine_inference_calibration_mode: fixed
+      - experiment_id: ablation_flat_fine_ce
+        task_mode: fine
+        overrides:
+          fine_loss: cross_entropy
+          fine_inference_calibration_mode: fixed
+          monitor_metric: fine_macro_f1
+      - experiment_id: ablation_multitask_no_hierarchy
+        task_mode: multitask
+        overrides:
+          fine_loss: cross_entropy
+          fine_inference_calibration_mode: fixed
+          monitor_metric: hierarchical_composite
+      - experiment_id: ablation_hierarchy_none
+        task_mode: hierarchical
+        overrides:
+          binary_coarse_hierarchy_loss_weight: 0.0
+          coarse_fine_hierarchy_loss_weight: 0.0
+      - experiment_id: ablation_hierarchy_bc_only
+        task_mode: hierarchical
+        overrides:
+          binary_coarse_hierarchy_loss_weight: 0.25
+          coarse_fine_hierarchy_loss_weight: 0.0
+      - experiment_id: ablation_hierarchy_cf_only
+        task_mode: hierarchical
+        overrides:
+          binary_coarse_hierarchy_loss_weight: 0.0
+          coarse_fine_hierarchy_loss_weight: 0.25
+      - experiment_id: ablation_train_wlc_only
+        task_mode: hierarchical
+        overrides:
+          train_modality: WLC
+          evaluate_wlc_only: true
+      - experiment_id: ablation_train_all_evaluate_wlc
+        task_mode: hierarchical
+        overrides:
+          train_modality: all
+          evaluate_wlc_only: true
+
+  "90":
+    protocol: cross_validation
+    cv_folds: 5
+    seeds: [20260729, 20260730, 20260731]
+    torch_compile: true
+    torch_compile_mode: max-autotune
+    trials:
+      - experiment_id: cv_multitask_swin_ce
+        task_mode: multitask
+        overrides:
+          fine_loss: cross_entropy
+          binary_coarse_hierarchy_loss_weight: 0.0
+          coarse_fine_hierarchy_loss_weight: 0.0
+          supervised_contrastive_loss_weight: 0.0
+          fine_inference_calibration_mode: fixed
+          monitor_metric: hierarchical_composite
+      - experiment_id: cv_proposed_hierarchical_swin
+        task_mode: hierarchical
