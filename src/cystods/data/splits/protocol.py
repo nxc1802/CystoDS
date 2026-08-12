@@ -391,7 +391,7 @@ def find_latest_completed_protocol_run(
     protocol_dir = root / "00_protocol"
     if not protocol_dir.is_dir():
         return None, None
-    candidates: list[tuple[float, Path, str]] = []
+    candidates: list[tuple[int, float, Path, str]] = []
     seen: set[Path] = set()
     for manifest_file in protocol_dir.rglob("protocol_manifest.json"):
         path = manifest_file.parent
@@ -406,8 +406,7 @@ def find_latest_completed_protocol_run(
             if status.get("status") != "completed":
                 continue
             manifest = json.loads(manifest_file.read_text(encoding="utf-8"))
-            if run_profile and manifest.get("run_profile") != run_profile:
-                continue
+            prof = manifest.get("run_profile")
         except (
             OSError,
             UnicodeError,
@@ -417,13 +416,22 @@ def find_latest_completed_protocol_run(
             ValueError,
         ):
             continue
+
+        if run_profile and prof == run_profile:
+            priority = 2
+        elif prof == "research":
+            priority = 1
+        else:
+            priority = 0
+
         mtime = manifest_file.stat().st_mtime
         sha256 = sha256_file(manifest_file)
-        candidates.append((mtime, path, sha256))
+        candidates.append((priority, mtime, path, sha256))
+
     if not candidates:
         return None, None
-    candidates.sort(key=lambda item: item[0], reverse=True)
-    return candidates[0][1], candidates[0][2]
+    candidates.sort(key=lambda item: (item[0], item[1]), reverse=True)
+    return candidates[0][2], candidates[0][3]
 
 
 def _load_and_validate_protocol_binding(
@@ -471,8 +479,12 @@ def _load_and_validate_protocol_binding(
         raise ValueError("Unsupported protocol manifest schema.")
     if protocol_manifest.get("study_id") != stage_config["study_id"]:
         raise ValueError("Protocol study_id differs from stage study_id.")
-    if protocol_manifest.get("run_profile") != stage_config["run_profile"]:
-        raise ValueError("Protocol run_profile differs from stage run_profile.")
+    prof = protocol_manifest.get("run_profile")
+    stage_prof = stage_config["run_profile"]
+    if prof != stage_prof and prof != "research":
+        raise ValueError(
+            f"Incompatible protocol run_profile '{prof}' for stage run_profile '{stage_prof}'."
+        )
     protocol_hash = sha256_file(protocol_path)
     if expected_hash is None:
         if stage_config["run_profile"] == "research":

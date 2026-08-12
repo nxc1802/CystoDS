@@ -1154,3 +1154,23 @@ def test_audit_image_size_distribution(tmp_path: Path) -> None:
     assert (run_dir / "reports" / "image_size_distribution.csv").is_file()
 
 
+def test_find_latest_completed_protocol_run_fallback(tmp_path: Path) -> None:
+    from cystods.data.splits.protocol import find_latest_completed_protocol_run
+
+    result_root = tmp_path / "result"
+    proto_dir = result_root / "00_protocol" / "research_20260813-000000"
+    proto_dir.mkdir(parents=True)
+
+    (proto_dir / "run_status.json").write_text(json.dumps({"status": "completed"}), encoding="utf-8")
+    (proto_dir / "protocol_manifest.json").write_text(
+        json.dumps({"schema_version": "cystods.protocol.v2", "run_profile": "research"}),
+        encoding="utf-8",
+    )
+
+    # Looking for 'smoke' should fallback to 'research' protocol run
+    found_dir, found_sha = find_latest_completed_protocol_run(result_root, run_profile="smoke")
+    assert found_dir == proto_dir
+    assert found_sha is not None
+
+
+
