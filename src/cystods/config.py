@@ -639,6 +639,19 @@ def load_config(
     return flat
 
 
+def _normalize_filter_list(values: list[str] | None) -> list[str] | None:
+    """Normalize filter values into a clean list of unique trimmed strings."""
+    if not values:
+        return None
+    result: list[str] = []
+    for item in values:
+        for part in str(item).split(","):
+            cleaned = part.strip()
+            if cleaned and cleaned not in result:
+                result.append(cleaned)
+    return result if result else None
+
+
 def filter_stage_trials(
     trials: list[dict],
     *,
@@ -647,14 +660,20 @@ def filter_stage_trials(
     default_model_name: str | None = None,
 ) -> list[dict]:
     """Filter trial definitions by model backbone names/aliases and/or trial experiment IDs."""
+    filter_models = _normalize_filter_list(filter_models)
+    filter_trials = _normalize_filter_list(filter_trials)
     if not filter_models and not filter_trials:
         return list(trials)
+
+    all_exp_ids = [str(t.get("experiment_id", "")) for t in trials]
+    all_fine_losses = [str(t.get("overrides", {}).get("fine_loss", "")) for t in trials]
 
     filtered = []
     for trial in trials:
         exp_id = str(trial.get("experiment_id", ""))
         overrides = trial.get("overrides", {})
         model_name = str(overrides.get("model_name") or default_model_name or "")
+        fine_loss = str(overrides.get("fine_loss", ""))
 
         match_model = True
         if filter_models:
@@ -665,10 +684,26 @@ def filter_stage_trials(
 
         match_trial = True
         if filter_trials:
-            match_trial = any(
-                t.lower() in exp_id.lower()
-                for t in filter_trials
-            )
+            match_trial = False
+            for t in filter_trials:
+                t_low = t.lower()
+                exp_low = exp_id.lower()
+                fl_low = fine_loss.lower()
+
+                # Exact match on experiment_id, fine_loss, or fine_<t>
+                if t_low == exp_low or (fl_low and t_low == fl_low) or f"fine_{t_low}" == exp_low:
+                    match_trial = True
+                    break
+
+                # If exact match exists for term t in any other trial, skip fuzzy matching
+                has_exact_match_anywhere = any(
+                    t_low == eid.lower() or (fl and t_low == fl.lower()) or f"fine_{t_low}" == eid.lower()
+                    for eid, fl in zip(all_exp_ids, all_fine_losses)
+                )
+                if not has_exact_match_anywhere:
+                    if t_low in exp_low or (fl_low and t_low in fl_low):
+                        match_trial = True
+                        break
 
         if match_model and match_trial:
             filtered.append(trial)

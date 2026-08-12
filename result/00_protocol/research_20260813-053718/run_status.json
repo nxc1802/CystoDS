@@ -1,0 +1,8 @@
+{
+  "status": "completed",
+  "started_utc": "2026-08-12T22:37:18.408522+00:00",
+  "completed_utc": "2026-08-12T22:37:26.349107+00:00",
+  "stage_name": "stage_00_prepare_protocol",
+  "run_dir": "/Volumes/WorkSpace/Project/CystoDS/result/00_protocol/research_20260813-053718",
+  "protocol_sha256": "b8119168f27cfd56c59585f76f234db03f7cb830d1f96d45c9f22c33bb22e1c6"
+}

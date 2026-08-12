@@ -32,6 +32,8 @@ xvdhy-osfstorage-archive/
 xvdhy-osfstorage-archive.zip
 
 # === Project: result directories (generated at runtime) ===
-result/
+result/*
+!result/00_protocol/
+!result/00_protocol/**
 !Docs/result/
 !Docs/result/**

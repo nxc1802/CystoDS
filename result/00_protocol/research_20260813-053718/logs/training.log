@@ -1,0 +1,14 @@
+2026-08-13 05:37:18 | INFO | Protocol stage starts profile=research output=/Volumes/WorkSpace/Project/CystoDS/result/00_protocol/research_20260813-053718
+2026-08-13 05:37:18 | INFO | Manifest loaded: rows=8067 patients=160 normalized_suffixes={'.png': 7564, '.tiff': 44, '.bmp': 294, '.jpg': 165}
+2026-08-13 05:37:18 | INFO | Verifying all 8067 PNG decodes...
+2026-08-13 05:37:19 | INFO | Image decode audit: 1000/8067
+2026-08-13 05:37:19 | INFO | Image decode audit: 2000/8067
+2026-08-13 05:37:19 | INFO | Image decode audit: 3000/8067
+2026-08-13 05:37:19 | INFO | Image decode audit: 4000/8067
+2026-08-13 05:37:20 | INFO | Image decode audit: 5000/8067
+2026-08-13 05:37:20 | INFO | Image decode audit: 6000/8067
+2026-08-13 05:37:20 | INFO | Image decode audit: 7000/8067
+2026-08-13 05:37:21 | INFO | Image decode audit: 8000/8067
+2026-08-13 05:37:24 | INFO | Auditing image size distribution across 8067 images...
+2026-08-13 05:37:26 | INFO | Selected patient split with score 1.338516
+2026-08-13 05:37:26 | INFO | Protocol stage completed successfully: protocol_sha256=b8119168f27cfd56c59585f76f234db03f7cb830d1f96d45c9f22c33bb22e1c6 run_dir=/Volumes/WorkSpace/Project/CystoDS/result/00_protocol/research_20260813-053718

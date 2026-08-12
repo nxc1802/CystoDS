@@ -88,6 +88,17 @@ cystods run 30
 # Run with smoke profile for quick testing
 cystods run 30 --profile smoke
 
+# Run Stage 10 for specific model backbone(s)
+cystods run 10 --models swin_tiny resnet152
+
+# Run Stage 20 for a single loss trial (by alias or experiment ID)
+cystods run 20 --trials focal
+cystods run 20 --trials fine_balanced_softmax
+
+# Run Stage 20 for a specific group of loss trials
+cystods run 20 --trials focal ldam logit_adjustment
+cystods run 20 --trials fine_cross_entropy,fine_weighted_ce
+
 # Run all stages in sequence
 cystods run all --profile smoke
 ```

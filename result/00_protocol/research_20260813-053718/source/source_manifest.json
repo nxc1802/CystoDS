@@ -1,0 +1,26 @@
+{
+  "schema_version": "cystods.source_manifest.v1",
+  "files": [
+    {
+      "path": "core.py",
+      "source_path": "/Volumes/WorkSpace/Project/CystoDS/src/cystods/core.py",
+      "snapshot_path": "source/core.py",
+      "bytes": 7679,
+      "sha256": "3b38d896ee238d5868c8e15fd3fd20e79e308cae29997e011041ba12204129e1"
+    },
+    {
+      "path": "hf.py",
+      "source_path": "/Volumes/WorkSpace/Project/CystoDS/src/cystods/hf.py",
+      "snapshot_path": "source/hf.py",
+      "bytes": 28616,
+      "sha256": "d49c7d04e4c3d6f68e5fc134140e2383006e012786de0ff16c46441ed926a84b"
+    },
+    {
+      "path": "science.py",
+      "source_path": "/Volumes/WorkSpace/Project/CystoDS/src/cystods/science.py",
+      "snapshot_path": "source/science.py",
+      "bytes": 33939,
+      "sha256": "01caefb537859c24273b874182eaf0388a44869f8a465ed9c63f0e8208ed19cb"
+    }
+  ]
+}

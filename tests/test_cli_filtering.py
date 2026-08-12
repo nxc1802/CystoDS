@@ -142,3 +142,30 @@ def test_get_stage_trials_with_filters():
 
     multi_model_trials = get_stage_trials(stage="10", filter_models=["swin_tiny", "resnet152"])
     assert len(multi_model_trials) > len(swin_trials)
+
+
+def test_stage_20_cli_trial_filtering():
+    # Load all Stage 20 trials (should be 7)
+    all_s20 = get_stage_trials(stage="20")
+    assert len(all_s20) == 7
+
+    # Filter single trial by exact loss name alias 'focal'
+    focal_trials = get_stage_trials(stage="20", filter_trials=["focal"])
+    assert len(focal_trials) == 1
+    assert focal_trials[0]["experiment_id"] == "fine_focal"
+
+    # Filter single trial by exact experiment ID 'fine_balanced_softmax'
+    bs_trials = get_stage_trials(stage="20", filter_trials=["fine_balanced_softmax"])
+    assert len(bs_trials) == 1
+    assert bs_trials[0]["experiment_id"] == "fine_balanced_softmax"
+
+    # Filter multiple trials by loss names
+    multi_trials = get_stage_trials(stage="20", filter_trials=["focal", "ldam"])
+    assert len(multi_trials) == 2
+    assert {t["experiment_id"] for t in multi_trials} == {"fine_focal", "fine_ldam"}
+
+    # Filter multiple trials comma-separated
+    comma_trials = get_stage_trials(stage="20", filter_trials=["fine_cross_entropy,fine_weighted_ce"])
+    assert len(comma_trials) == 2
+    assert {t["experiment_id"] for t in comma_trials} == {"fine_cross_entropy", "fine_weighted_ce"}
+

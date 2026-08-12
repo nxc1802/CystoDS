@@ -1,0 +1,12 @@
+{
+  "mode": "full",
+  "metadata_csv_sha256": "7988766bf2d17e7607ab2fcd9ad58d20a5fa4d7e107838a3b33b779e4e423f13",
+  "inclusion_manifest_sha256": null,
+  "semantic_manifest_sha256": "fc8ee40c921969d2a7a2d103aae6b01a1ee8b8cecf559f5a6bd484e7e05ba79c",
+  "image_inventory_sha256": "b4cb1f8270fb55be167d839d4a75c3a0ed06692fd7d1e3d8452b4cf9d6906acb",
+  "image_hashes_included": true,
+  "image_duplicate_groups": [],
+  "segmentation_inventory_sha256": "5f4b500943bfe21724f860fd6cfd43eb064a21df9e8c513dde4c1a42fc053d3c",
+  "rows": 8067,
+  "patients": 160
+}
