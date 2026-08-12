@@ -1049,7 +1049,7 @@ def test_stage10_default_batch_size(monkeypatch: pytest.MonkeyPatch) -> None:
 
     monkeypatch.delenv("CYSTODS_BATCH_SIZE", raising=False)
     config = load_config(stage="10")
-    assert config["batch_size"] == 256
+    assert config["batch_size"] == 32
 
     monkeypatch.setenv("CYSTODS_BATCH_SIZE", "64")
     config_64 = load_config(stage="10")

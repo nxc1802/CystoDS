@@ -43,7 +43,7 @@ data:
 runtime:
   device: cuda
   precision: bf16
-  batch_size: 256
+  batch_size: 32
   eval_batch_size: 64
   num_workers: 4
   eval_num_workers: 4
@@ -232,6 +232,9 @@ stages:
     protocol: holdout
 
   "10":
+    epochs: 20
+    scheduler_epochs: 20
+    early_stopping_patience: 5
     binary_loss_weight: 1.0
     coarse_loss_weight: 0.0
     fine_loss_weight: 0.0
@@ -301,7 +304,9 @@ stages:
     binary_coarse_hierarchy_loss_weight: 0.0
     coarse_fine_hierarchy_loss_weight: 0.0
     supervised_contrastive_loss_weight: 0.0
+    use_data_augmentation: false
     epochs: 20
+    scheduler_epochs: 20
     early_stopping_patience: 5
     scientific_gate_mode: report
 

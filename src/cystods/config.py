@@ -873,7 +873,7 @@ PROPOSED_CANONICAL_CONFIG: dict[str, Any] = {
     "fine_inference_prior_tau": 0.0,
     "fine_inference_tau_grid": (0.0, 0.25, 0.5, 0.75, 1.0),
     "fine_inference_calibration_metric": "primary_macro_f1_all_classes",
-    "batch_size": 256,
+    "batch_size": 32,
     "epochs": 25,
     "learning_rate": 3.0e-4,
     "encoder_learning_rate_multiplier": 0.25,
