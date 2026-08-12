@@ -20,6 +20,9 @@ venv/
 .idea/
 .vscode/
 
+# === Agent customizations ===
+.agents/
+
 # === Project: generated artifacts ===
 output/
 tmp/
