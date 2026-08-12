@@ -305,16 +305,34 @@ stages:
     early_stopping_patience: 5
     scientific_gate_mode: report
 
-    # --- Monitor metric ---
-    # fine_macro_f1_all_classes always divides by 22 (full output space),
-    # including classes absent from the validation split. With ~17/22 classes
-    # observable in val, even a perfect classifier is capped at ≈ 17/22 ≈ 0.773.
-    # fine_macro_f1_supported averages only over classes that have at least one
-    # ground-truth sample in val, giving a clean signal for model selection
-    # without the denominator artefact.
-    # Both metrics are still logged; fine_macro_f1_all_classes remains available
-    # in the saved summary for cross-trial bookkeeping.
+    # --- Monitor metric (checkpoint selection) ---
+    # fine_macro_f1_all_classes: denom=22 always → ceiling ≈ 17/22 ≈ 0.773
+    #   even for a perfect classifier when 5 classes are absent from val.
+    # fine_macro_f1_supported: averages only over classes with val support → clean signal.
+    # fine_primary_macro_f1: head classes only (≥ primary_fine_min_train_patients
+    #   train patients) → most reliable signal but ignores rare classes.
+    # Decision: use fine_macro_f1_supported for checkpoint selection.
+    #   All four metric views are logged for paper reporting.
     monitor_metric: fine_macro_f1_supported
+
+    # --- Additional metrics logged per trial (for paper table) ---
+    # Four complementary views of fine-grained performance:
+    #   1. fine_macro_f1_all_classes  — all 22 classes, fixed denom (reproducible across splits)
+    #   2. fine_macro_f1_supported    — classes present in val (unbiased by absent classes)
+    #   3. primary_macro_f1_all_classes — head classes (≥ threshold train patients)
+    #   4. fine_tail_recall           — recall on tail classes (≤ tail_class_max_train_samples)
+    additional_monitor_metrics:
+      - fine_macro_f1_all_classes
+      - fine_macro_f1_supported
+      - primary_macro_f1_all_classes
+      - tail_class_recall
+
+    # --- Primary fine threshold for Stage 20 ---
+    # Base uses primary_fine_min_train_patients: 10.
+    # Val split has only 24 patients (≈ 258 fine-labelled images).
+    # Lowering threshold to 5 keeps more classes in the "primary" group
+    # while still excluding singleton/doubleton patients.
+    primary_fine_min_train_patients: 5
 
     # --- Inference calibration (disabled for Stage 20) ---
     # Base config uses inference_calibration_mode: validation_grid, which finds
