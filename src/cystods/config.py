@@ -172,6 +172,8 @@ def apply_cli_overrides(config: dict, overrides: list[str] | None) -> dict:
     """Apply --set key=value overrides from the CLI."""
     if not overrides:
         return config
+    from cystods.config_schema import BASE_CONFIG
+
     result = copy.deepcopy(config)
     for override in overrides:
         if "=" not in override:
@@ -182,8 +184,17 @@ def apply_cli_overrides(config: dict, overrides: list[str] | None) -> dict:
         key = key.strip()
         value = _coerce_value(raw_value.strip())
         _set_nested(result, key, value)
+
         leaf_key = key.split(".")[-1]
-        result[leaf_key] = value
+        if leaf_key in BASE_CONFIG:
+            result[leaf_key] = value
+        else:
+            parts = key.split(".")
+            if len(parts) >= 2:
+                section_part = parts[-2].replace("_loss", "")
+                prefixed_key = f"{section_part}_{leaf_key}"
+                if prefixed_key in BASE_CONFIG:
+                    result[prefixed_key] = value
     return result
 
 

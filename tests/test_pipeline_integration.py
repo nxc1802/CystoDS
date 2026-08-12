@@ -211,4 +211,18 @@ def test_extract_roi_bags_handles_missing_task_columns() -> None:
     assert skipped == 0
 
 
+def test_cli_override_attention_epochs_maps_to_roi_attention_epochs() -> None:
+    """Verify CLI override evaluation.roi.attention_epochs maps cleanly to roi_attention_epochs without KeyError."""
+    from cystods.config import load_config, normalize_core_config
+
+    config = load_config(
+        stage="10",
+        profile="research",
+        cli_overrides=["evaluation.roi.attention_epochs=1"],
+    )
+    normalized = normalize_core_config(config)
+    assert normalized["roi_attention_epochs"] == 1
+    assert "attention_epochs" not in normalized
+
+
 
