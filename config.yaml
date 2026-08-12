@@ -335,6 +335,15 @@ stages:
           fine_loss: ldam
           ldam_max_margin: 0.5
           ldam_scale: 30.0
+      - experiment_id: fine_balanced_softmax_smoothed
+        task_mode: multitask
+        overrides:
+          fine_loss: balanced_softmax_smoothed
+          # Uses smoothed_log_prior (patient_count-based, alpha=1.0, power=0.5, max_ratio=50)
+          # inherited from base config fine_loss section.
+          # Comparison target: image-frequency balanced_softmax (fine_balanced_softmax)
+          # Scientific question: does patient-aware prior outperform image-frequency prior
+          # on CystoDS where some classes have many images but few patients?
 
   "30":
     task_mode: hierarchical
