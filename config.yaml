@@ -44,7 +44,7 @@ runtime:
   device: cuda
   precision: bf16
   batch_size: 256
-  eval_batch_size: 1024
+  eval_batch_size: 64
   num_workers: 4
   eval_num_workers: 4
   prefetch_factor: 2

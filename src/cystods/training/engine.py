@@ -5,6 +5,7 @@ Extracted from ``cystods.core`` (Step 6 refactor).
 
 from __future__ import annotations
 
+import gc
 import json
 import logging
 import math
@@ -855,6 +856,12 @@ def run_training_suite(
                     data_split_hash,
                     logger,
                 )
+
+                del model
+                del loaders
+                gc.collect()
+                if torch.cuda.is_available():
+                    torch.cuda.empty_cache()
 
             completed_trials.append(trial_name)
 
