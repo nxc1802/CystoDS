@@ -398,6 +398,11 @@ def metric_for_monitor(
             if bundle["coarse"] is not None
             else None
         ),
+        "coarse_macro_f1_supported": (
+            bundle["coarse"]["macro_f1_supported"]
+            if bundle["coarse"] is not None
+            else None
+        ),
         "coarse_macro_f1_all_classes": (
             bundle["coarse"]["macro_f1_all_classes"]
             if bundle["coarse"] is not None
@@ -413,9 +418,26 @@ def metric_for_monitor(
             if bundle["fine"] is not None
             else None
         ),
+        "fine_macro_f1_supported": (
+            bundle["fine"]["macro_f1_supported"]
+            if bundle["fine"] is not None
+            else None
+        ),
         "fine_macro_f1_all_classes": (
             bundle["fine"]["macro_f1_all_classes"]
             if bundle["fine"] is not None
+            else None
+        ),
+        "primary_macro_f1": (
+            bundle["primary_fine"]["macro_f1_supported"]
+            if bundle["primary_fine"] is not None
+            and bundle["primary_fine"]["status"] == "ok"
+            else None
+        ),
+        "primary_macro_f1_supported": (
+            bundle["primary_fine"]["macro_f1_supported"]
+            if bundle["primary_fine"] is not None
+            and bundle["primary_fine"]["status"] == "ok"
             else None
         ),
         "primary_macro_f1_all_classes": (
@@ -424,9 +446,14 @@ def metric_for_monitor(
             and bundle["primary_fine"]["status"] == "ok"
             else None
         ),
+        "tail_class_recall": (
+            bundle["hierarchy"]["tail_class_recall"]
+            if bundle.get("hierarchy") is not None
+            else None
+        ),
         "hierarchical_accuracy": (
             bundle["hierarchy"]["hierarchical_accuracy"]
-            if bundle["hierarchy"] is not None
+            if bundle.get("hierarchy") is not None
             else None
         ),
     }

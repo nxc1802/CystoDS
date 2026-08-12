@@ -262,3 +262,22 @@ def test_split_fingerprint_rejects_nonfinite_identity() -> None:
         split_fingerprint(
             {"train": pd.DataFrame({"pid": ["p1"], "filename": [float("inf")]})}
         )
+
+
+def test_metric_for_monitor_supports_fine_macro_f1_supported() -> None:
+    from cystods.evaluation.metrics import metric_for_monitor
+
+    bundle = {
+        "binary": None,
+        "coarse": None,
+        "fine": {
+            "macro_f1_supported": 0.654,
+            "macro_f1_all_classes": 0.505,
+        },
+        "primary_fine": None,
+        "hierarchy": None,
+    }
+
+    score = metric_for_monitor(bundle, "fine_macro_f1_supported")
+    assert score == pytest.approx(0.654)
+
