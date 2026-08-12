@@ -627,6 +627,40 @@ def load_config(
     # Flatten (flattens merged YAML and applies stage overrides from stages[stage])
     flat = flatten_to_core_config(merged, stage=stage)
 
+    # Re-apply profile overrides on top of stage defaults (so smoke profile forces epochs=1, batch_size=4, etc.)
+    profiles = raw.get("profiles", {})
+    if effective_profile in profiles:
+        prof_dict = profiles[effective_profile]
+        prof_training = prof_dict.get("training", {})
+        if "epochs" in prof_training:
+            flat["epochs"] = prof_training["epochs"]
+        if "scheduler_epochs" in prof_training:
+            flat["scheduler_epochs"] = prof_training["scheduler_epochs"]
+        if "early_stopping_patience" in prof_training:
+            flat["early_stopping_patience"] = prof_training["early_stopping_patience"]
+        if "learning_rate" in prof_training:
+            flat["learning_rate"] = prof_training["learning_rate"]
+        if "use_fused_optimizer" in prof_training:
+            flat["use_fused_optimizer"] = prof_training["use_fused_optimizer"]
+
+        prof_runtime = prof_dict.get("runtime", {})
+        if "batch_size" in prof_runtime:
+            flat["batch_size"] = prof_runtime["batch_size"]
+        if "eval_batch_size" in prof_runtime:
+            flat["eval_batch_size"] = prof_runtime["eval_batch_size"]
+        if "precision" in prof_runtime:
+            flat["precision"] = prof_runtime["precision"]
+        if "device" in prof_runtime:
+            flat["device"] = prof_runtime["device"]
+
+        prof_data = prof_dict.get("data", {})
+        if "image_size" in prof_data:
+            flat["image_size"] = prof_data["image_size"]
+
+        prof_eval = prof_dict.get("evaluation", {})
+        if "bootstrap_iterations" in prof_eval:
+            flat["bootstrap_iterations"] = prof_eval["bootstrap_iterations"]
+
     # Apply CLI overrides on top of flat dict LAST so CLI is ALWAYS highest precedence
     flat = apply_cli_overrides(flat, cli_overrides)
 

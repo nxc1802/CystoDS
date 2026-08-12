@@ -22,11 +22,15 @@ import cystods.stages.stage_60 as stage_60
 
 def test_cli_override_has_highest_precedence() -> None:
     """Verify CLI --set overrides take priority over stage defaults and profile defaults."""
-    # Stage 20 specifies epochs=20 in config.yaml
-    config_default = load_config(stage="20", profile="smoke")
-    assert config_default["epochs"] == 20
+    # Research profile uses stage default epochs=20
+    config_research = load_config(stage="20", profile="research")
+    assert config_research["epochs"] == 20
 
-    # CLI override should override stage default 20 to 3
+    # Smoke profile overrides epochs to 1
+    config_smoke = load_config(stage="20", profile="smoke")
+    assert config_smoke["epochs"] == 1
+
+    # CLI override should override smoke profile default 1 to 3
     config_cli = load_config(
         stage="20",
         profile="smoke",
