@@ -301,10 +301,32 @@ stages:
     binary_coarse_hierarchy_loss_weight: 0.0
     coarse_fine_hierarchy_loss_weight: 0.0
     supervised_contrastive_loss_weight: 0.0
-    monitor_metric: fine_macro_f1_all_classes
     epochs: 20
     early_stopping_patience: 5
     scientific_gate_mode: report
+
+    # --- Monitor metric ---
+    # fine_macro_f1_all_classes always divides by 22 (full output space),
+    # including classes absent from the validation split. With ~17/22 classes
+    # observable in val, even a perfect classifier is capped at ≈ 17/22 ≈ 0.773.
+    # fine_macro_f1_supported averages only over classes that have at least one
+    # ground-truth sample in val, giving a clean signal for model selection
+    # without the denominator artefact.
+    # Both metrics are still logged; fine_macro_f1_all_classes remains available
+    # in the saved summary for cross-trial bookkeeping.
+    monitor_metric: fine_macro_f1_supported
+
+    # --- Inference calibration (disabled for Stage 20) ---
+    # Base config uses inference_calibration_mode: validation_grid, which finds
+    # τ* = argmax_τ F1_primary for each trial independently.  Keeping it on
+    # would make Stage 20 compare "CE + best-τ* vs Focal + best-τ* vs
+    # BalancedSoftmax + best-τ*", not an isolated fine-loss comparison.
+    # Setting fixed / τ=0.0 ensures every trial uses raw (uncalibrated) logits
+    # so the only variable between trials is the fine loss function itself.
+    # Calibration search is deferred to Stage 30 after the winning loss is chosen.
+    fine_inference_calibration_mode: fixed
+    fine_inference_prior_tau: 0.0
+
     trials:
       - experiment_id: fine_cross_entropy
         task_mode: multitask
