@@ -159,3 +159,32 @@ def test_stage_artifact_protocol_mismatch_fails() -> None:
                 artifact_name="selected_backbone.json",
                 expected_protocol_sha256="new_protocol_sha",
             )
+
+
+def test_base_config_has_device_key() -> None:
+    """Verify device key is present in BASE_CONFIG and normalized without KeyError."""
+    from cystods.config_schema import BASE_CONFIG
+    from cystods.config import normalize_core_config, load_config
+
+    assert "device" in BASE_CONFIG
+    config = load_config(stage="10", profile="smoke")
+    assert "device" in config
+    normalized = normalize_core_config(config)
+    assert normalized["device"] == config["device"]
+
+
+def test_normalize_core_config_ignores_section_keys_and_runtime() -> None:
+    """Verify normalize_core_config handles nested CLI section keys like runtime without KeyError."""
+    from cystods.config import load_config, normalize_core_config
+
+    config = load_config(
+        stage="10",
+        profile="smoke",
+        cli_overrides=["runtime.batch_size=32", "runtime.num_workers=4"],
+    )
+    normalized = normalize_core_config(config)
+    assert normalized["batch_size"] == 32
+    assert normalized["num_workers"] == 4
+    assert "runtime" not in normalized
+
+

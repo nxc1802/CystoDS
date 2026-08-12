@@ -761,11 +761,32 @@ def normalize_core_config(
     config: Mapping[str, Any],
 ) -> dict[str, Any]:
     from cystods.config_schema import BASE_CONFIG
-    unknown = set(config) - set(BASE_CONFIG)
+
+    ignored_section_keys = {
+        "project",
+        "paths",
+        "data",
+        "runtime",
+        "model",
+        "training",
+        "evaluation",
+        "checkpoint",
+        "hf",
+        "logging",
+        "stages",
+        "profiles",
+    }
+    clean_config = {
+        k: v
+        for k, v in config.items()
+        if k not in ignored_section_keys and not str(k).startswith("_")
+    }
+
+    unknown = set(clean_config) - set(BASE_CONFIG)
     if unknown:
         raise KeyError(f"Core config contains unknown keys: {sorted(unknown)}")
     normalized = dict(BASE_CONFIG)
-    normalized.update(dict(config))
+    normalized.update(clean_config)
     return normalized
 
 

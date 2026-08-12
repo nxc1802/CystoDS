@@ -84,6 +84,7 @@ BASE_CONFIG: dict[str, Any] = {
     "imagenet_std": (0.229, 0.224, 0.225),
     "batch_size": 32,
     "eval_batch_size": 64,
+    "device": "cuda",
     "num_workers": 4,
     "eval_num_workers": 4,
     "prefetch_factor": 2,

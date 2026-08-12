@@ -758,7 +758,7 @@ def run_training_suite(
             "result_root": Path(stage_config["result_root"]).resolve(),
             "experiment_name": str(stage_config["stage_name"]),
             "protocol_role": role,
-            "protocol_run_dir": protocol_run_dir,
+            "protocol_manifest_dir": protocol_run_dir,
             "protocol_reference_sha256": protocol_hash,
             "evaluation_scope": scope,
         }
@@ -792,6 +792,19 @@ def run_training_suite(
             protocol_hash,
         )
 
+        from cystods.data.sampler import build_dataloaders
+        from cystods.data.splits.protocol import build_all_protocol_splits
+        from cystods.data.manifest import load_and_validate_manifest
+
+        # Load manifest & materialize splits ONCE for the entire training suite
+        raw_frame, audit = load_and_validate_manifest(
+            runtime_config, run_dir, logger
+        )
+
+        units = build_all_protocol_splits(
+            raw_frame, runtime_config, run_dir, logger
+        )
+
         completed_trials = []
         for trial_index, trial in enumerate(trials_spec):
             trial_name = str(
@@ -816,25 +829,15 @@ def run_training_suite(
                 bool(trial_config["deterministic"]),
             )
 
-            # Execution logic delegate to core data loaders & models
-            from cystods.data.sampler import build_dataloaders
-            from cystods.data.splits.protocol import build_all_protocol_splits
-            from cystods.data.manifest import load_and_validate_manifest
-
-            raw_frame, audit = load_and_validate_manifest(
-                trial_config, run_dir, logger
-            )
-
-            units = build_all_protocol_splits(
-                raw_frame, trial_config, run_dir, logger
-            )
-
             for fold_name, split_frames, patient_split in units:
                 fold_dir = run_dir / "runs" / trial_name / fold_name
                 fold_dir.mkdir(parents=True, exist_ok=True)
 
-                loaders = build_dataloaders(
-                    split_frames, trial_config, logger
+                loaders, _ = build_dataloaders(
+                    split_frames,
+                    trial_config,
+                    device,
+                    int(trial_config["seed"]),
                 )
                 model = HierarchicalCystoModel(trial_config).to(device)
 
