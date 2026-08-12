@@ -188,3 +188,27 @@ def test_normalize_core_config_ignores_section_keys_and_runtime() -> None:
     assert "runtime" not in normalized
 
 
+def test_extract_roi_bags_handles_missing_task_columns() -> None:
+    """Verify extract_roi_bags handles single-task prediction DataFrames without KeyError."""
+    import pandas as pd
+    from cystods.evaluation.roi import extract_roi_bags
+
+    # Binary task prediction DataFrame lacking coarse_probs or fine_probs
+    binary_preds = pd.DataFrame(
+        {
+            "pid": ["P1", "P1"],
+            "visit": [1, 1],
+            "lesion": [1, 1],
+            "filename": ["img1.png", "img2.png"],
+            "binary_id": [1, 1],
+            "binary_probs": [[0.1, 0.9], [0.2, 0.8]],
+        }
+    )
+    # Extracting coarse task from binary predictions should return empty without raising KeyError
+    bags, conflicts, skipped = extract_roi_bags(binary_preds, task="coarse", require_features=False)
+    assert bags == []
+    assert conflicts == []
+    assert skipped == 0
+
+
+

@@ -44,6 +44,13 @@ def extract_roi_bags(
 ) -> tuple[list[RoiBag], list[dict[str, Any]], int]:
     if task not in {"binary", "coarse", "fine"}:
         raise ValueError(f"Unknown ROI task: {task}")
+    target_column = f"{task}_id"
+    probability_column = f"{task}_probs"
+    if (
+        target_column not in predictions.columns
+        or probability_column not in predictions.columns
+    ):
+        return [], [], 0
     valid_metadata = ~(
         predictions["visit"].map(is_missing_token)
         | predictions["lesion"].map(is_missing_token)
@@ -59,8 +66,6 @@ def extract_roi_bags(
         + "::"
         + eligible["lesion"].astype(str)
     )
-    target_column = f"{task}_id"
-    probability_column = f"{task}_probs"
     bags: list[RoiBag] = []
     conflicts: list[dict[str, Any]] = []
     for roi_id, group in eligible.groupby("roi_id", sort=True):
@@ -462,6 +467,16 @@ def run_roi_evaluation(
                     )
                 method_metrics[task] = task_metrics
             elif method == "attention":
+                if (
+                    not bag_cache[task].get("train")
+                    or not bag_cache[task].get("val")
+                    or not bag_cache[task].get("test")
+                ):
+                    method_metrics[task] = {
+                        "status": "not_evaluable",
+                        "reason": "missing_bags_for_task",
+                    }
+                    continue
                 mil_metrics, val_pred, test_pred = train_attention_mil(
                     bag_cache[task]["train"],
                     bag_cache[task]["val"],
