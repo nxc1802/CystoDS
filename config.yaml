@@ -232,9 +232,9 @@ stages:
     protocol: holdout
 
   "10":
-    epochs: 20
-    scheduler_epochs: 20
-    early_stopping_patience: 5
+    epochs: 25
+    scheduler_epochs: 25
+    early_stopping_patience: 6
     binary_loss_weight: 1.0
     coarse_loss_weight: 0.0
     fine_loss_weight: 0.0
@@ -305,9 +305,9 @@ stages:
     coarse_fine_hierarchy_loss_weight: 0.0
     supervised_contrastive_loss_weight: 0.0
     use_data_augmentation: false
-    epochs: 20
-    scheduler_epochs: 20
-    early_stopping_patience: 5
+    epochs: 25
+    scheduler_epochs: 25
+    early_stopping_patience: 6
     scientific_gate_mode: report
 
     # --- Monitor metric (checkpoint selection) ---
