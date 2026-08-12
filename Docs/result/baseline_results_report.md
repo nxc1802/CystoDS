@@ -25,7 +25,7 @@
 
 ## 2. Kết quả chính — Image-level (splits metrics)
 
-### 2.1 Binary Classification (Malignant vs. Non-malignant)
+### 2.1 Binary Classification (ROI vs. Non-ROI)
 
 | Backbone | Split | n | Accuracy | F1 | AUROC | MCC |
 |----------|-------|---|----------|----|-------|-----|
@@ -80,7 +80,7 @@
 
 > ROI-level = gom nhóm nhiều ảnh theo vùng (region of interest), dùng 2 chiến lược: mean probability và majority vote.
 
-### 3.1 Binary — ROI Val
+### 3.1 Binary (ROI vs. Non-ROI) — ROI-level Val
 
 | Backbone | [mean] Acc | [mean] F1 | [mean] AUROC | [vote] Acc | [vote] F1 | [vote] AUROC |
 |----------|-----------|----------|-------------|-----------|----------|-------------|
@@ -124,7 +124,7 @@
 - **Epochs:** 11 (early stopping)
 - **Best monitored score:** 0.4715
 - **Fine inference prior tau:** 1.0
-- **Điểm mạnh:** Binary AUROC cao nhất ở ROI-mean (0.967) — phân biệt lành/ác tốt
+- **Điểm mạnh:** Binary AUROC cao nhất ở ROI-mean (0.967) — phân biệt ROI vs Non-ROI tốt
 - **Điểm yếu:** Coarse và fine classification yếu hơn Swin-Tiny đáng kể
 - **Nhận xét:** Thích hợp nếu chỉ cần binary screening
 

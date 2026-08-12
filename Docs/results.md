@@ -34,7 +34,7 @@ The dataset contains images with wide-ranging native resolutions (from $252 \tim
 | Binary Level | Image Count | Median W × H | Aspect Ratio | Median MP | Min Resolution | Max Resolution |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
 | **Non-ROI** | 6,848 | $352 \times 240$ | 1.467 | 0.084 MP | $252 \times 209$ | $1417 \times 1200$ |
-| **ROI** | 1,219 | $640 \times 480$ | 1.442 | 0.307 MP | $257 \times 209$ | $5120 \times 2880$ |
+| **ROI** (Malignant + Non-malignant) | 1,219 | $640 \times 480$ | 1.442 | 0.307 MP | $257 \times 209$ | $5120 \times 2880$ |
 
 #### Layer 2 — Coarse Class Size Distribution
 | Coarse Category | Image Count | Median W × H | Aspect Ratio | Median MP | Top Resolution Mode | Max Resolution |
@@ -69,21 +69,35 @@ The dataset contains images with wide-ranging native resolutions (from $252 \tim
 
 ---
 
-## 3. Paper Baseline Backbones Comparison (Stage 10 Consensus)
+## 3. Paper Baseline Backbones Comparison (Stage 10 — Verified Experimental Results)
 
-Benchmark performance across the four paper backbone architectures on the fixed 70/15/15 hold-out split:
+> [!IMPORTANT]
+> **Source of truth:** `Docs/result/baseline_results_report.md` & Stage 00 protocol artifacts.
+> Các số liệu dưới đây được trích xuất trực tiếp từ kết quả thực nghiệm Stage 10 (2026-08-12).
 
-| Backbone | Params (M) | Image Size | Task Mode | Binary AUROC | Coarse Macro F1 | Fine Macro F1 |
-|---|---|---|---|---|---|---|
-| **Swin-Tiny** | 28.3M | 224×224 | Hierarchical | **0.942** | **0.865** | **0.584** |
-| **ResNet-152** | 60.2M | 224×224 | Multitask | 0.928 | 0.841 | 0.521 |
-| **HRNet-W18** | 21.3M | 224×224 | Multitask | 0.915 | 0.828 | 0.498 |
-| **ResNeXt-50** | 25.0M | 224×224 | Multitask | 0.924 | 0.835 | 0.512 |
+**Dataset split được sử dụng (patient-level, 70/15/15):**
+- Train: 1,553 ảnh — 112 bệnh nhân | Val: 339 ảnh — 24 bệnh nhân | Test: 329 ảnh — 24 bệnh nhân
+- Fine-grained val (có label layer 3): 258 ảnh
+- **Backbone được chọn tự động** (`hierarchical_composite`): `swin_tiny_patch4_window7_224.ms_in1k`
+
+Benchmark performance trên fixed hold-out val split (image-level):
+
+| Backbone | Epochs | Binary AUROC | Binary F1 | Coarse Macro-F1 | Coarse AUROC | Fine Macro-F1 | Fine AUROC | Best Score |
+|---|---|---|---|---|---|---|---|---|
+| **Swin-Tiny** | 13 | **0.900** | **0.861** | **0.632** | **0.897** | **0.443** | **0.874** | **0.5574** |
+| **HRNet-W18** | 11 | **0.917** | **0.865** | 0.555 | 0.840 | 0.324 | 0.789 | 0.4715 |
+| **ResNet-152** | 25 | 0.865 | 0.806 | 0.390 | 0.736 | 0.238 | 0.784 | 0.3184 |
+| **ResNeXt-50-32x4d** | 25 | 0.877 | 0.837 | 0.458 | 0.805 | 0.191 | 0.776 | 0.3248 |
+
+> **Binary task = ROI vs. Non-ROI** (ROI: Malignant + Non-malignant; Non-ROI: Normal mucosa + Anatomical + Foreign bodies).
+> Không phải Malignant vs. Non-malignant — đây là phân biệt clinical hoàn toàn khác.
 
 ---
 
-## 4. Key Experimental Findings
+## 4. Key Experimental Observations (Stage 10)
 
-1. **Hierarchy Matters**: Coarse-Fine hierarchy loss ($\lambda = 0.25$) reduces parent-child prediction inconsistency by over 90%.
-2. **Balanced Softmax for Fine Long-Tail**: Outperforms standard Cross-Entropy on fine macro F1 by $+6.3\%$ absolute points.
-3. **Supervised Contrastive Regularization**: SupCon loss ($\lambda = 0.10$) improves feature embedding quality, resulting in $+1.8\%$ gain on rare fine classes ($<10$ patients).
+1. **Swin-Tiny** thắng tổng thể (best composite score 0.5574), training nhanh nhất (16.6 min, 13 epochs).
+2. **HRNet-W18** có Binary AUROC cao nhất (0.917) — phù hợp nếu chỉ cần ROI screening.
+3. **Overfitting nghêm trọng ở Fine-grained**: gap train→val acc lên đến 0.55–0.68 do long-tail 22 classes.
+4. **Attention-based MIL** chưa evaluate được (`missing_bags_for_task`) — cần xử lý ở stage tiếp theo.
+5. **CNN sâu** (ResNet-152, ResNeXt-50) gặp khó khăn với long-tailed distribution, cần 25 epochs nhưng vẫn thua Swin-Tiny ở mọi metric.
