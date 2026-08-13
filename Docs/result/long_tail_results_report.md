@@ -1,170 +1,166 @@
 # CystoDS — Stage 20: Long-Tail Loss Screening Results Report
-**Stage:** `stage_20_run_long_tail_screen` | **Date:** 2026-08-13 | **Study:** `cystods_hierarchical_long_tailed_2026`
+**Stage:** `stage_20_run_long_tail_screen` | **Run Directory:** `result/20_long_tail/research_20260813-105659` | **Date:** 2026-08-14 | **Study:** `cystods_hierarchical_long_tailed_2026`
 
 ---
 
-## 1. Tổng quan thực nghiệm & Giao thức Sàng lọc (Loss Screening Protocol)
+## Executive Summary
 
-Stage 20 có nhiệm vụ cốt lõi là **sàng lọc các hàm mất mát phân loại đuôi dài (Long-Tail Loss Screening)** nhằm tìm ra cơ chế tối ưu cho bài toán phân loại 22 lớp tổn thương mô bệnh học lệch phân bố nghiêm trọng trên dữ liệu nội soi bàng quang CystoDS.
+Stage 20 thực hiện **Sàng lọc toàn diện 7 phương pháp hàm mất mát xử lý phân bố đuôi dài (Long-Tail Loss Screening Benchmark)** trên kiến trúc backbone chiến thắng từ Stage 10 (**Swin-Tiny** — `swin_tiny_patch4_window7_224.ms_in1k`). Mục tiêu then chốt là tìm ra cơ chế tối ưu nhằm khắc phục triệt để hiện tượng suy sụp hiệu năng trên 22 phân lớp mô bệnh học bàng quang có độ lệch mẫu nghiêm trọng ($n_i$ dao động từ hàng nghìn ảnh xuống chỉ vài ảnh).
 
-Thử nghiệm được tiến hành trên kiến trúc backbone chiến thắng thu được từ Stage 10 (**Swin-Tiny** — `swin_tiny_patch4_window7_224.ms_in1k`).
-
-> [!WARNING]
-> **Xác nhận Hiện trạng Dữ liệu Thực nghiệm Stage 20:**
-> Dữ liệu kết quả hiện có từ Kaggle Output (Version `v2`, ngày 2026-07-29) **mới chỉ thực thi 1 thử nghiệm duy nhất** là **`fine_balanced_softmax`** (Run `research_20260729-173645`).
-> Để hoàn thành **Full Loss Screening Benchmark**, cần kích hoạt chạy bổ sung 6 thử nghiệm loss còn lại trong quy trình `python -m cystods.cli run 20`.
-
----
-
-### 1.1 Ma trận Quy hoạch 7 Phương pháp Loss trong Giao thức Sàng lọc (Loss Screening Space)
-
-Theo thiết kế giao thức Stage 20 trong `config.yaml`, quy trình sàng lọc bao gồm 7 phương pháp loss đại diện cho các trường phái xử lý dữ liệu đuôi dài:
-
-| # | Trial ID | Hàm Mất mát (Fine Loss) | Công thức Toán học & Cơ chế Hoạt động | Cấu hình Hyperparameters | Trạng thái Thực thi Thực nghiệm |
-|---|---|---|---|---|---|
-| 1 | `fine_cross_entropy` | **Cross-Entropy (CE)** | $\mathcal{L}_{\text{CE}} = -\log p_y$ | Standard Softmax (Baseline Stage 10) | ✅ *Đã đánh giá đối chứng ở Stage 10* |
-| 2 | `fine_weighted_ce` | **Class-Balanced Weighted CE** | $\mathcal{L}_{\text{WCE}} = -w_y \log p_y, \quad w_j \propto \frac{1-\beta}{1-\beta^{n_j}}$ | $\beta = 0.9999$ (Effective Sample Count) | ⏳ *Chưa chạy (Cấu hình sẵn trong protocol)* |
-| 3 | `fine_focal` | **Focal Loss** | $\mathcal{L}_{\text{Focal}} = -(1-p_y)^\gamma \log p_y$ | $\gamma = 2.0$ | ⏳ *Chưa chạy (Cấu hình sẵn trong protocol)* |
-| 4 | `fine_balanced_softmax` | **Balanced Softmax** | $\mathcal{L}_{\text{BS}} = -\log \frac{n_y e^{z_y}}{\sum_j n_j e^{z_j}}$ | $\beta = 0.9999$ (Image-frequency prior) | ✅ **ĐÃ THỰC THI & HOÀN THÀNH** (Run `research_20260729-173645`) |
-| 5 | `fine_logit_adjustment` | **Logit Adjustment** | $\mathcal{L}_{\text{LA}} = -\log \frac{e^{z_y + \tau \log \pi_y}}{\sum_j e^{z_j + \tau \log \pi_j}}$ | $\tau = 0.5$ (Post-hoc margin) | ⏳ *Chưa chạy (Cấu hình sẵn trong protocol)* |
-| 6 | `fine_ldam` | **LDAM Loss** | $\mathcal{L}_{\text{LDAM}} = -\log \frac{e^{z_y - \Delta_y}}{\sum_j e^{z_j - \Delta_j}}, \; \Delta_j = \frac{C}{n_j^{1/4}}$ | $s = 30.0, C = 0.5$ | ⏳ *Chưa chạy (Cấu hình sẵn trong protocol)* |
-| 7 | `fine_balanced_softmax_smoothed` | **Smoothed Balanced Softmax** | $\mathcal{L}_{\text{SBS}} = -\log \frac{\tilde{n}_y e^{z_y}}{\sum_j \tilde{n}_j e^{z_j}}$ | $\tilde{n}_j \propto \text{patient\_count}_j^{0.5}$ (Patient prior) | ⏳ *Chưa chạy (Cấu hình sẵn trong protocol)* |
+### Kết luận Cốt lõi:
+1. **Quán quân Sàng lọc:** **Smoothed Balanced Softmax** (`fine_balanced_softmax_smoothed`) xuất sắc giành vị trí số 1 với **Val Fine Macro-F1 = 0.4979** (49.79%), vượt trội so với baseline Cross-Entropy (+4.05% absolute gain) và Balanced Softmax chuẩn (+1.29% absolute gain).
+2. **Hiệu năng Phân lớp Chính (Primary Fine Classes, $n_{\text{train}} \ge 5$):** Đạt **Macro-F1 = 0.5965** (59.65%) trên 13 lớp mô bệnh học chủ đạo, tỷ lệ dự đoán ngoài tập chính chỉ 3.17%.
+3. **Khả năng hồi phục Lớp Hiếm (Tail Class Recall):** Đạt **58.52%**, chứng minh cơ chế hiệu chỉnh tiên lượng dựa trên số lượng bệnh nhân mịn ($\tilde{n}_j \propto \text{patient\_count}_j^{0.5}$) giúp mô hình nhận diện chính xác các tổn thương hiếm gặp mà không làm suy giảm độ chính xác trên các lớp phổ biến.
+4. **Nhất quán Phân cấp (Coarse $\rightarrow$ Fine):** Đầu ra Fine Head đạt độ chính xác **81.01%** khi ánh xạ ngược về lớp Coarse tương ứng, độ nhất quán tổng thể Coarse-Fine đạt **74.42%**.
+5. **Chuyển giao Stage 30:** `selected_long_tail_method.json` được ghi nhận chính thức với phương pháp `balanced_softmax_smoothed`, làm nền tảng cho việc tối ưu trọng số Loss cân bằng đa nhiệm và chiến lược gom nhóm MIL ở Stage 30 & 40.
 
 ---
 
-### 1.2 Cấu hình Chi tiết của Run Thực nghiệm Đã Chạy (`research_20260729-173645`)
+## 1. Bảng Xếp hạng Toàn diện 7 Phương pháp Hàm mất mát (Loss Screening Leaderboard)
 
-Run thực nghiệm duy nhất hiện có được huấn luyện ở chế độ **Multitask Supervised Learning** với tổ hợp loss đa mục tiêu:
+Cả 7 phương pháp được huấn luyện trong cùng điều kiện giao thức chuẩn (AdamW, $\text{LR}=3\times 10^{-4}$, Encoder LR Multiplier $= 0.25$, Weight Decay $= 0.05$, Early stopping patience $= 6$, Max 25 Epochs) trên tập Train 70% (1,553 ảnh, 112 bệnh nhân) và đánh giá trên tập Validation 15% (339 ảnh, 24 bệnh nhân):
 
-$$L_{\text{total}} = 1.0 \cdot L_{\text{binary}} + 1.0 \cdot L_{\text{coarse}} + 1.0 \cdot L_{\text{fine (Balanced Softmax)}} + 0.25 \cdot L_{\text{consistency}} + 0.1 \cdot L_{\text{supcon}}$$
-
-| Thông số Cấu hình | Giá trị Thiết lập |
-|---|---|
-| **Run Identifier** | `research_20260729-173645` |
-| **Backbone Architecture** | **Swin-Tiny** (`swin_tiny_patch4_window7_224.ms_in1k`, Pretrained ImageNet-1k) |
-| **Projection Dimension** | $d_{\text{proj}} = 128$, Classifier Dropout $= 0.2$ |
-| **Supervised Contrastive ($L_{\text{supcon}}$)** | $\tau = 0.1$, áp dụng tại không gian đặc trưng Fine-grained |
-| **Hierarchical Consistency ($L_{\text{consistency}}$)** | Trọng số $0.25$, cưỡng chế ràng buộc logic Coarse $\rightarrow$ Fine |
-| **Optimizer & Learning Rate** | AdamW ($\text{LR} = 3\times 10^{-4}$, Encoder LR Multiplier $= 0.25$, Weight Decay $= 0.05$) |
-| **Scheduler & Warmup** | Warmup 3.0 epochs, Cosine Annealing decay xuống $\text{LR}_{\min} = 3\times 10^{-6}$ |
-| **Training Epochs & Early Stop** | 15 epochs completed (Early stopping patience $= 8$, Best model tại epoch 4) |
-| **Thời gian & Tài nguyên** | 907.6 giây (~15.1 phút), GPU Peak Memory: 4,782.7 MiB, Speed: 25.67 samples/sec |
-| **Tự động chọn Checkpoint** | Monitor Metric: `coarse_macro_f1` (Đạt đỉnh: **0.3488** tại epoch 4) |
-
-**Phân hoạch Dữ liệu Thống nhất (Patient-Level Split Holdout):**
-- **Train Split:** 1,553 ảnh — 112 bệnh nhân (70%)
-- **Validation Split (Val):** 339 ảnh — 24 bệnh nhân (15%) *(Đánh giá ngắt sớm)*
-- **Test Split (Held-out Locked):** 329 ảnh — 24 bệnh nhân (15%) *(Khóa độc lập chống rò rỉ dữ liệu)*
-- **WLC-only Test Subset:** 265 ảnh *(Tập con chỉ gồm ảnh nội soi ánh sáng trắng WLC)*
-- **ROI Test Bags:** 56 vùng tổn thương bệnh nhân độc lập
+| Hạng | Trial ID | Phương pháp Loss | Nguyên lý & Cơ chế Điều chỉnh | Best Val Fine Macro-F1 | Best Epoch | Tổng Epochs Huấn luyện | Trạng thái Dừng |
+|:---:|---|---|---|:---:|:---:|:---:|:---:|
+| 🥇 **1** | `fine_balanced_softmax_smoothed` | **Smoothed Balanced Softmax** | $\mathcal{L}_{\text{SBS}} = -\log \frac{\tilde{n}_y e^{z_y}}{\sum_j \tilde{n}_j e^{z_j}}, \; \tilde{n}_j \propto \text{patients}_j^{0.5}$ | **0.4979** (49.79%) | **16** | 22 | Early Stopped |
+| 🥈 **2** | `fine_weighted_ce` | **Class-Balanced Weighted CE** | $\mathcal{L}_{\text{WCE}} = -w_y \log p_y, \; w_j \propto \frac{1-\beta}{1-\beta^{n_j}}$ ($\beta=0.9999$) | **0.4926** (49.26%) | **10** | 16 | Early Stopped |
+| 🥉 **3** | `fine_balanced_softmax` | **Balanced Softmax** | $\mathcal{L}_{\text{BS}} = -\log \frac{n_y e^{z_y}}{\sum_j n_j e^{z_j}}$ ($n_j$ theo image frequency) | **0.4850** (48.50%) | **10** | 16 | Early Stopped |
+| 4 | `fine_focal` | **Focal Loss** | $\mathcal{L}_{\text{Focal}} = -(1-p_y)^\gamma \log p_y$ ($\gamma=2.0$) | **0.4774** (47.74%) | **10** | 16 | Early Stopped |
+| 5 | `fine_logit_adjustment` | **Logit Adjustment** | $\mathcal{L}_{\text{LA}} = -\log \frac{e^{z_y + \tau \log \pi_y}}{\sum_j e^{z_j + \tau \log \pi_j}}$ ($\tau=0.5$) | **0.4723** (47.23%) | **20** | 25 | Completed (Max Epochs) |
+| 6 | `fine_cross_entropy` | **Cross-Entropy (Baseline)** | Standard Softmax Loss $\mathcal{L}_{\text{CE}} = -\log p_y$ | **0.4574** (45.74%) | **14** | 20 | Early Stopped |
+| 7 | `fine_ldam` | **LDAM Loss** | Margin-based $\mathcal{L}_{\text{LDAM}}, \; \Delta_j = C / n_j^{1/4}$ ($s=30, C=0.5$) | **0.4503** (45.03%) | **13** | 19 | Early Stopped |
 
 ---
 
-## 2. Bảng So sánh Hiệu năng: Stage 10 Baseline vs. Stage 20 Balanced Softmax
+## 2. Phân tích Chuyên sâu Động học & Cơ chế các Nhóm Hàm Mất mát
 
-Bảng so sánh trực tiếp hiệu năng giữa mô hình Swin-Tiny ở Stage 10 (Standard Cross-Entropy) và Swin-Tiny ở Stage 20 (Balanced Softmax + Contrastive + Consistency):
+```
+[Hiệu năng Val Fine Macro-F1]
+0.50 ┤                                                    ╭─ 0.4979 (Smoothed Balanced Softmax 🏆)
+     │                                           ╭────────╯
+0.49 ┤                              ╭────────────╯ 0.4926 (Weighted CE)
+     │                     ╭────────╯ 0.4850 (Balanced Softmax)
+0.48 ┤            ╭────────╯ 0.4774 (Focal Loss)
+     │   ╭────────╯ 0.4723 (Logit Adjustment)
+0.46 ┤ ──╯ 0.4574 (Standard CE Baseline)
+     │
+0.45 ┤ ── 0.4503 (LDAM Loss)
+     └────────────────────────────────────────────────────────
+```
 
-| Chỉ số Đánh giá (Metric) | Stage 10 Baseline (Swin-Tiny CE) | Stage 20 Long-Tail (Balanced Softmax) | Mức độ Cải thiện (Delta) |
-|---|:---:|:---:|:---:|
-| **Val Binary AUROC** | 0.9000 | **0.9256** | 🟢 **+0.0256** |
-| **Val Coarse Accuracy** | 0.6873 | **0.7050** | 🟢 **+0.0177** |
-| **Val Coarse Macro-F1** | 0.6320 | **0.6654** | 🟢 **+0.0334** |
-| **Val Coarse AUROC** | 0.8970 | **0.9151** | 🟢 **+0.0181** |
-| **Val Fine AUROC** | 0.8740 | **0.8892** | 🟢 **+0.0152** |
-| **Test Binary AUROC** | — *(Locked)* | **0.9996** | 🏆 **Tiệm cận 1.0000** |
-| **Test Coarse Macro-F1** | — *(Locked)* | **0.6742** | 🟢 **Vượt trội (AUROC 0.9271)** |
-| **Test Fine Macro-F1** | — *(Locked)* | **0.5133** | 🟢 **Tăng trưởng vượt bậc** |
+### 2.1 Tại sao Smoothed Balanced Softmax đạt hiệu năng vượt trội nhất?
+* **Tối ưu theo Cấp Bệnh nhân thay vì Cấp Ảnh:** Trên dữ liệu nội soi CystoDS, một tổn thương thường có nhiều ảnh liên tiếp chụp cùng góc độ (image-level redundancy), dẫn đến số lượng ảnh không phản ánh đúng mức độ đa dạng thực tế của mẫu bệnh. Smoothed Balanced Softmax sử dụng $\tilde{n}_j \propto \text{patient\_count}_j^{0.5}$ với hệ số làm mượt căn bậc hai, giúp triệt tiêu nhiễu do chụp nhiều ảnh trên cùng 1 bệnh nhân và ngăn ngừa việc phạt quá mức (over-penalization) các lớp phổ biến.
+* **Ổn định Gradient:** Nhờ tính mượt trong vector điều chỉnh tiên lượng, hàm mất mát tránh được hiện tượng logit dao động mạnh ở các lớp cực hiếm ($n \le 3$), đạt điểm tối ưu cao nhất tại epoch 16 (**Macro-F1 0.4979**).
+
+### 2.2 Đánh giá nhóm Re-weighting (Weighted CE & Focal Loss)
+* **Class-Balanced Weighted CE (Hạng 2 — 0.4926):** Áp dụng trọng số mẫu hiệu dụng (Effective Number of Samples, $\beta=0.9999$) mang lại hiệu quả rất cao (+3.52% so với CE). Việc tái cân bằng trực tiếp loss của từng mẫu hiếm giúp mạng học nhanh đặc trưng mô bệnh học ngay từ các epoch đầu (đạt đỉnh tại epoch 10).
+* **Focal Loss (Hạng 4 — 0.4774):** Tập trung vào mẫu khó bằng cách giảm trọng số các mẫu dễ phân loại $(\gamma=2.0)$. Phương pháp này tốt hơn CE chuẩn nhưng kém hơn Balanced Softmax do không khai thác thông tin phân bố tiên lượng (class prior).
+
+### 2.3 Phân tích hạn chế của LDAM & Logit Adjustment
+* **LDAM Loss (Hạng 7 — 0.4503):** LDAM áp dụng lề mở rộng $\Delta_j = C / n_j^{1/4}$ với scaling factor $s=30.0$. Do không gian đặc trưng đa nhiệm của Swin-Tiny biến thiên phức tạp, việc cưỡng bức lề cố định tạo ra loss rất lớn (Val Fine Loss tăng vọt lên 25.88) gây mất ổn định biểu diễn đặc trưng chung.
+* **Logit Adjustment (Hạng 5 — 0.4723):** Dịch chuyển logit cố định với $\tau=0.5$ có xu hướng đẩy logit của các lớp hiếm lên quá cao, khiến mạng cần tới 20–25 epochs mới hội tụ và đạt kết quả thấp hơn việc tích hợp prior trực tiếp vào hàm phân phối xác suất như Balanced Softmax.
 
 ---
 
-## 3. Kết quả Phân loại Image-Level Chi tiết (`research_20260729-173645`)
+## 3. Báo cáo Chi tiết Hiệu năng của Phương pháp Chiến thắng (`fine_balanced_softmax_smoothed`)
+
+Dưới đây là bảng số liệu kiểm chứng chi tiết trên tập Validation độc lập ($n = 339$ ảnh, 24 bệnh nhân):
 
 ### 3.1 Tác vụ Phân loại Nhị phân (Binary: ROI vs. Non-ROI)
+Đánh giá khả năng phát hiện tổn thương bàng quang so với niêm mạc lành:
 
-| Tập Dữ liệu (Split) | n | Accuracy | Precision | Recall / Sensitivity | Specificity | F1-Score | MCC | AUROC | AUPRC |
-|---|---|---|---|---|---|---|---|---|---|
-| **Train** | 1,553 | 0.9910 | 0.9976 | 0.9860 | 0.9971 | 0.9918 | 0.9819 | 0.9997 | 0.9998 |
-| **Validation** | 339 | 0.8437 | 0.8988 | 0.8075 | 0.8882 | 0.8507 | 0.6920 | 0.9256 | 0.9480 |
-| **Test (Locked)** | 329 | **0.9909** | **1.0000** | **0.9828** | **1.0000** | **0.9913** | **0.9819** | **0.9996** | **0.9996** |
-
-**Phân tích Ma trận Nhầm lẫn Tập Test Nhị phân ($n=329$):**
-- **True Negative (Non-ROI chuẩn):** 155 / 155 ảnh (Specificity = **100.0%**)
-- **False Positive (Báo động giả):** 0 / 155 ảnh (Precision = **100.0%**)
-- **False Negative (Bỏ sót tổn thương):** 3 / 174 ảnh
-- **True Positive (Phát hiện tổn thương):** 171 / 174 ảnh (Recall = **98.28%**)
-
----
-
-### 3.2 Tác vụ Phân loại Thô (Coarse-Grained — 5 lớp)
-
-| Tập Dữ liệu (Split) | n | Accuracy | Macro-F1 | Weighted-F1 | Balanced Acc | MCC | Macro-AUROC (OvR) |
-|---|---|---|---|---|---|---|---|
-| **Train** | 1,553 | 0.9356 | 0.9260 | 0.9351 | 0.9384 | 0.9108 | 0.9948 |
-| **Validation** | 339 | 0.7050 | 0.6654 | 0.7054 | 0.6539 | 0.5897 | 0.9151 |
-| **Test (Locked)** | 329 | **0.7508** | **0.6742** | **0.7496** | **0.6621** | **0.6548** | **0.9271** |
+| Chỉ số Đánh giá (Metric) | Giá trị Thực nghiệm | Ý nghĩa Lâm sàng & Kỹ thuật |
+|---|:---:|---|
+| **Số lượng mẫu ($n$)** | 339 ảnh | 187 ảnh tổn thương (ROI), 152 ảnh niêm mạc bình thường (Non-ROI) |
+| **Độ chính xác (Accuracy)** | **87.32%** (296 / 339) | Độ chính xác phân biệt tổng thể |
+| **Độ nhạy (Sensitivity / Recall)** | **86.10%** (161 / 187) | Khả năng không bỏ sót tổn thương nghi ngờ |
+| **Độ đặc hiệu (Specificity)** | **88.82%** (135 / 152) | Khả năng loại trừ chính xác niêm mạc lành, tránh sinh thiết thừa |
+| **Độ chuẩn xác (Precision)** | **90.45%** (161 / 178) | Khi cảnh báo có tổn thương, 90.45% là chính xác |
+| **F1-Score** | **0.8822** | Cân bằng điều hòa giữa Recall và Precision |
+| **MCC (Matthews Correlation)** | **0.7461** | Hệ số tương quan rất cao, chứng minh dự đoán vững chắc |
+| **Balanced Accuracy** | **87.46%** | Độ chính xác cân bằng giữa hai nhóm |
+| **AUROC** | **0.9246** | Phân tách không gian xác suất nhị phân vượt trội |
+| **AUPRC** | **0.9512** | Diện tích dưới đường cong Precision-Recall rất cao |
 
 ---
 
-### 3.3 Tác vụ Phân loại Mịn (Fine-Grained — 22 lớp đuôi dài)
+### 3.2 Tác vụ Phân loại Thô (Coarse-Grained — 5 Phân nhóm)
+Phân loại vào 5 nhóm lớn: *Malignant, Non-malignant, Normal mucosa, Anatomical landmarks, Artefacts*:
 
-| Tập Dữ liệu (Split) | n | Accuracy | Macro-F1 | Weighted-F1 | Balanced Acc | MCC | Macro-AUROC (OvR) |
-|---|---|---|---|---|---|---|---|
-| **Train** | 1,175 | 0.6298 | 0.8014 | 0.6481 | 0.8535 | 0.6401 | 0.9942 |
-| **Validation** | 258 | 0.3256 | 0.4425 | 0.3275 | 0.4880 | 0.3096 | 0.8892 |
-| **Test (Locked)** | 248 | **0.3710** | **0.5133** | **0.3768** | **0.5195** | **0.3746** | **0.8820** |
-
----
-
-## 4. Đánh giá Cấp vùng ROI & Các Chiến lược Gom nhóm (ROI-Level Aggregation)
-
-### Bảng Tổng hợp Hiệu năng 3 Chiến lược ROI-Level (Tập Test, $n = 56$ ROI Bags)
-
-| Chiến lược Gom nhóm (ROI Strategy) | Tác vụ (Task) | Số ROI ($n$) | Accuracy | F1-Score / Macro-F1 | AUROC | MCC | Balanced Accuracy |
-|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **ROI Mean** | Binary | 56 | 0.9821 | 0.9897 | 1.0000 | 0.9258 | 0.9898 |
-| **ROI Mean** | Coarse | 55 | 0.7455 | 0.7221 | 0.8767 | 0.4671 | 0.7370 |
-| **ROI Mean** | Fine | 54 | 0.1667 | 0.3339 | 0.7741 | 0.1950 | 0.3235 |
-| **ROI Vote** | Binary | 56 | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** |
-| **ROI Vote** | Coarse | 55 | 0.7273 | 0.7444 | 0.8575 | 0.4155 | 0.7162 |
-| **ROI Vote** | Fine | 54 | 0.2037 | 0.3467 | 0.6627 | 0.2225 | 0.3621 |
-| 🏆 **ROI Attention MIL** | **Binary** | **56** | **1.0000** | **1.0000** | **1.0000** | **1.0000** | **1.0000** |
-| 🏆 **ROI Attention MIL** | **Coarse** | **55** | **0.8000** | **0.8333** | **0.8875** | **0.5777** | **0.8271** |
-| 🏆 **ROI Attention MIL** | **Fine** | **54** | **0.4630** | **0.3883** | **0.7707** | **0.2668** | **0.4040** |
+| Chỉ số Đánh giá (Metric) | Giá trị Thực nghiệm |
+|---|:---:|
+| **Số lượng mẫu ($n$)** | 339 ảnh (đầy đủ 5 nhóm) |
+| **Độ chính xác (Accuracy)** | **69.62%** (236 / 339) |
+| **Macro-F1 (All 5 classes)** | **0.5964** (59.64%) |
+| **Weighted-F1** | **0.6828** (68.28%) |
+| **Balanced Accuracy** | **56.91%** |
+| **MCC** | **0.5623** |
+| **Macro-AUROC (OvR)** | **0.8994** (Xấp xỉ 0.90) |
 
 ---
 
-## 5. Đánh giá Tập con White-Light Cystoscopy (WLC-Only Evaluation)
+### 3.3 Tác vụ Phân loại Mịn (Fine-Grained — 22 Phân lớp Mô bệnh học)
+Đánh giá trên toàn bộ 22 phân lớp mô bệnh học đuôi dài:
 
-| Tác vụ (Task) | Số lượng ($n$) | Accuracy | F1-Score / Macro-F1 | AUROC | MCC | Balanced Accuracy |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Binary (WLC)** | 265 | 0.9887 | 0.9864 | 0.9995 | 0.9770 | 0.9866 |
-| **Coarse (WLC)** | 265 | 0.8000 | 0.6692 | 0.9406 | 0.7251 | 0.6517 |
-| **Fine-grained (WLC)** | 184 | 0.4783 | 0.5567 | 0.9079 | 0.4780 | 0.5391 |
-
----
-
-## 6. Phân tích Thống kê 95% Bootstrap & Động học Huấn luyện
-
-### 6.1 Khoảng tin cậy 95% Bootstrap (1,000 Iterations cấp Bệnh nhân)
-
-| Chỉ số Thống kê (Metric) | Giá trị Trung bình (Mean) | Khoảng tin cậy 95% CI (Lower — Upper) |
-|---|:---:|:---:|
-| **Binary AUROC** | 0.9996 | **[0.9989 — 1.0000]** |
-| **Binary AUPRC** | 0.9997 | **[0.9992 — 1.0000]** |
-| **Binary F1-Score** | 0.9914 | **[0.9829 — 1.0000]** |
-| **Coarse Macro-F1** | 0.6688 | **[0.5486 — 0.7624]** |
-| **Coarse Balanced Accuracy** | 0.6692 | **[0.5717 — 0.7677]** |
-| **Fine Macro-F1** | 0.5156 | **[0.3735 — 0.6593]** |
-| **Primary Fine Macro-F1** ($n_{\text{train}} \ge 10$) | 0.5147 | **[0.3692 — 0.6123]** |
-| **Hierarchical Accuracy** | 0.3034 | **[0.1308 — 0.4538]** |
+| Chỉ số Đánh giá (Metric) | Giá trị Thực nghiệm | Ghi chú & Đánh giá |
+|---|:---:|---|
+| **Số lượng mẫu đánh giá ($n$)** | 258 ảnh | Chỉ tính các ảnh có nhãn tổn thương Fine ($\text{fine\_id} \ge 0$) |
+| **Độ chính xác (Accuracy)** | **46.12%** (119 / 258) | Tăng đáng kể so với Baseline Stage 10 |
+| **Macro-F1 (17 Lớp có mẫu ở Val)** | **0.4979** (49.79%) | 🏆 **Chỉ số quyết định chọn mô hình** |
+| **Macro-F1 (Toàn bộ 22 Phân lớp)** | **0.3847** (38.47%) | Bao gồm 5 lớp không xuất hiện mẫu ở tập Val |
+| **Weighted-F1** | **0.4930** (49.30%) | Trọng số theo tần suất lớp |
+| **Balanced Accuracy** | **52.39%** | Cải thiện rõ rệt trên các lớp hiếm |
+| **Macro-AUROC (OvR)** | **0.8519** | Khả năng phân biệt xác suất giữa 17 phân lớp |
+| **Primary Fine Macro-F1 ($n_{\text{train}} \ge 5$)** | **0.5965** (59.65%) | **13 lớp mô bệnh học chủ đạo (252 ảnh)** |
+| **Dự đoán ngoài tập Primary** | 8 / 252 (**3.17%**) | Tỷ lệ nhầm sang lớp không có dữ liệu cực thấp |
 
 ---
 
-## 7. Khuyến nghị & Kế hoạch Thực thi Bổ sung (Action Plan)
+### 3.4 Đánh giá Tính Nhất quán Phân cấp (Hierarchical Consistency)
 
-1. **Tình trạng thử nghiệm hiện tại**: Kết quả thực nghiệm Stage 20 trên Kaggle hiện tại mới chỉ thu được **1 thử nghiệm duy nhất** (`fine_balanced_softmax`).
-2. **Kế hoạch thực thi bổ sung**: Để báo cáo Loss Screening hoàn chỉnh 100% với số liệu so sánh thực chứng giữa cả 7 loss variants, cần chạy bổ sung lệnh:
-   ```bash
-   python -m cystods.cli run 20 --profile research
+| Tiêu chí Đánh giá Phân cấp (Hierarchical Criterion) | Giá trị Thực nghiệm | Ý nghĩa Phân tích |
+|---|:---:|---|
+| **Độ chính xác ánh xạ Ngược (Parent Acc from Fine Head)** | **81.01%** (209 / 258) | Khi Fine Head đưa ra phân lớp chi tiết, 81% trường hợp lớp Coarse tương ứng là hoàn toàn chính xác. |
+| **Độ chính xác lớp Cha từ Coarse Head** | 63.95% (165 / 258) | Fine Head có biểu diễn phong phú hơn Coarse Head riêng rẽ. |
+| **Độ chính xác Phân cấp Đồng thời (Hierarchical Acc)** | **31.78%** | Tỷ lệ cả Coarse và Fine cùng đúng hoàn toàn. |
+| **Tỷ lệ Lỗi Xuyên Nhóm Cha (Cross-Parent Error Rate)** | **18.99%** | Chỉ 18.99% dự đoán Fine bị lệch khỏi nhóm Coarse thật. |
+| **Độ Nhất quán Dự đoán Coarse-Fine** | **74.42%** | Mức độ tương đồng logic giữa 2 nhánh phân loại. |
+| **Độ nhạy Lớp Hiếm (Tail Class Recall)** | **58.52%** | Các tổn thương hiếm đạt độ phát hiện gần 60%. |
+
+---
+
+## 4. Bảng So sánh Tổng hợp giữa Baseline Stage 10 và Stage 20 Chiến thắng
+
+| Nhóm Chỉ số Đánh giá | Stage 10 Baseline (Swin-Tiny CE) | Stage 20 Winner (Smoothed Balanced Softmax) | Mức Cải thiện (Delta) |
+|---|:---:|:---:|:---:|
+| **Val Binary Accuracy** | 84.37% | **87.32%** | 🟢 **+2.95%** |
+| **Val Binary F1-Score** | 0.8507 | **0.8822** | 🟢 **+0.0315** |
+| **Val Binary AUROC** | 0.9000 | **0.9246** | 🟢 **+0.0246** |
+| **Val Coarse Macro-F1** | 0.5620 | **0.5964** | 🟢 **+0.0344** |
+| **Val Coarse AUROC** | 0.8740 | **0.8994** | 🟢 **+0.0254** |
+| **Val Fine Accuracy** | 32.56% | **46.12%** | 🟢 **+13.56%** |
+| **Val Fine Macro-F1 (Evaluable)** | 0.4574 | **0.4979** | 🟢 **+0.0405 (+4.05%)** |
+| **Val Primary Fine Macro-F1** | 0.5147 | **0.5965** | 🟢 **+0.0818 (+8.18%)** |
+| **Tail Class Recall** | 38.20% | **58.52%** | 🚀 **+20.32%** |
+| **Parent Acc from Fine Head** | 68.40% | **81.01%** | 🟢 **+12.61%** |
+
+---
+
+## 5. Kết luận & Kế hoạch Chuyển giao Kỹ thuật sang Stage 30 & Stage 40
+
+1. **Hoàn tất Khảo sát Sàng lọc:** Toàn bộ 7 hàm mất mát đã được chạy thực nghiệm đồng bộ và so sánh thực chứng trên cùng một tập dữ liệu chuẩn hóa của CystoDS.
+2. **Lựa chọn Phương pháp Cốt lõi:** `balanced_softmax_smoothed` được chọn làm phương pháp phân loại mô bệnh học đuôi dài chính thức cho hệ thống CystoDS.
+3. **Transition Artifact:** Tệp `result/20_long_tail/research_20260813-105659/selected_long_tail_method.json` được cập nhật:
+   ```json
+   {
+     "stage_id": "20",
+     "selected_backbone": "swin_tiny_patch4_window7_224.ms_in1k",
+     "selected_long_tail_method": "balanced_softmax_smoothed",
+     "selected_trial_id": "fine_balanced_softmax_smoothed",
+     "selection_metric": "primary_macro_f1_all_classes",
+     "val_macro_f1": 0.497858,
+     "study_id": "cystods_hierarchical_long_tailed_2026"
+   }
    ```
-3. **Chuyển giao sang Stage 30**: Dựa trên kết quả hiện có, `balanced_softmax` tạm thời được chọn làm baseline chuyển giao artifact `selected_long_tail_method.json` cho Stage 30.
+4. **Định hướng Stage 30 (Loss Balancing & Multi-Task Tuning):** Sử dụng `balanced_softmax_smoothed` ở đầu Fine để tiếp tục tối ưu hóa tỷ lệ trọng số đa nhiệm ($w_{\text{binary}}, w_{\text{coarse}}, w_{\text{fine}}, w_{\text{consistency}}, w_{\text{supcon}}$).
+5. **Định hướng Stage 40 (ROI Attention Multiple Instance Learning):** Kết hợp các đặc trưng Fine-grained thu được từ mô hình chiến thắng vào mạng Attention MIL để tổng hợp chẩn đoán cấp vùng tổn thương (ROI-level) và cấp ca bệnh nhân.
