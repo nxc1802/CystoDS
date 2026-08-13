@@ -34,6 +34,7 @@ _ENV_OVERRIDES: dict[str, tuple[str, type]] = {
     "CYSTODS_HF_REVISION": ("hf.revision", str),
     "CYSTODS_PROTOCOL_RUN_DIR": ("_protocol_run_dir", str),
     "CYSTODS_EXPECTED_PROTOCOL_SHA256": ("_expected_protocol_sha256", str),
+    "CYSTODS_PROTOCOL_SPLIT_INDEX": ("_protocol_split_index", int),
     "CYSTODS_TORCH_COMPILE": ("runtime.torch_compile", str),
     "CYSTODS_USE_FUSED_OPTIMIZER": ("training.use_fused_optimizer", str),
     "CYSTODS_CHECKPOINT_BACKEND": ("checkpoint.backend", str),
@@ -571,6 +572,9 @@ def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
     flat.setdefault("evaluation_scope", "development")
     flat.setdefault("suite_trial_id", None)
     flat.setdefault("expected_dataset_semantic_sha256", None)
+    flat["protocol_split_index"] = config.get(
+        "protocol_split_index", config.get("_protocol_split_index")
+    )
     flat["filter_models"] = config.get("filter_models")
     flat["filter_trials"] = config.get("filter_trials")
 

@@ -226,6 +226,7 @@ def run(config: dict[str, Any]) -> Path:
             "selection_metric": "primary_macro_f1_all_classes",
             "val_macro_f1": best_val_score if best_val_score >= 0 else None,
             "protocol_sha256": protocol_sha,
+            "protocol_split_index": config.get("protocol_split_index"),
             "study_id": config["study_id"],
         },
     )

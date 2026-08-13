@@ -1,0 +1,323 @@
+filename,image_path,pid,visit,lesion,class,subclass,binary_id,coarse_id,fine_id,modality,json
+beed7045.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/beed7045.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+6117b61f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6117b61f.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+777b8bf3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/777b8bf3.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+4721f0e1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4721f0e1.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f2dd2172.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f2dd2172.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+a0aa95a6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a0aa95a6.png,1232,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0aec08dc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/0aec08dc.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+109b22be.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/109b22be.png,1269,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+b4a974e2.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b4a974e2.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,WLC,0
+24f4c79d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/24f4c79d.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+31230678.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/31230678.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d7db85c7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d7db85c7.png,1519,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+bd4debe3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bd4debe3.png,800,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+258635fc.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/258635fc.png,1026,1,L2,Non-malignant,InflammationNOS,1,1,5,WLC,0
+ba22eac7.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ba22eac7.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+88f6a8ce.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/88f6a8ce.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+5e387b26.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5e387b26.png,1519,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+86eb5d08.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/86eb5d08.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+940021f4.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/940021f4.png,1193,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+aae07443.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/aae07443.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+b2606800.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b2606800.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+60c6c987.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/60c6c987.png,1232,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+9c16562b.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9c16562b.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+4a113a88.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4a113a88.png,159,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+3938e1ec.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3938e1ec.png,1026,1,L2,Non-malignant,InflammationNOS,1,1,5,BLC,0
+464ae121.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/464ae121.png,825,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6575a5a0.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6575a5a0.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4e3d5d0c.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4e3d5d0c.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3d652cbc.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3d652cbc.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+2982c918.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2982c918.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+926d6b87.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/926d6b87.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+8cc1ecf3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8cc1ecf3.png,825,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+bcebe0b5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bcebe0b5.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+bbd005ea.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bbd005ea.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,0
+2716aadb.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2716aadb.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+3b813112.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3b813112.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+28919608.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/28919608.png,1519,1,L1,Non-malignant,InflammationNOS,1,1,5,BLC,0
+b2d48dd7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b2d48dd7.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+150e0edc.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/150e0edc.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+9a54db95.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9a54db95.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+d9d6997e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d9d6997e.png,1519,1,L3,Non-malignant,InflammationNOS,1,1,5,BLC,0
+8ec23e8f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8ec23e8f.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+5b34bcbe.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5b34bcbe.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+f0f7b2c3.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f0f7b2c3.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+888bab52.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/888bab52.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b2bee1c6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b2bee1c6.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+729d29fb.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/729d29fb.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+745f9d54.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/745f9d54.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+10d52764.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/10d52764.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+58732d1b.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/58732d1b.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+3529420e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3529420e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+bde4830d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bde4830d.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a2fa6e28.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a2fa6e28.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b08fc345.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b08fc345.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+adaf8946.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/adaf8946.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+e4217f80.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e4217f80.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+65164b2f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/65164b2f.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3493dae4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3493dae4.png,1193,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+fc0b572d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/fc0b572d.png,1369,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+7e3d258e.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/7e3d258e.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+1ad206d1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1ad206d1.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3838ed11.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3838ed11.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+5132b85d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5132b85d.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+161cfc16.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/161cfc16.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+35d4aafe.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/35d4aafe.png,825,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+5f69e60c.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5f69e60c.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+074b5670.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/074b5670.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+70f9003c.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/70f9003c.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+72dc0c2e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/72dc0c2e.png,1616,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+ad10e803.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ad10e803.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+3f438e15.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3f438e15.png,825,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+86f24c60.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/86f24c60.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+ab2dc7bc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ab2dc7bc.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+46b58fb0.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/46b58fb0.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ae1f5a9d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ae1f5a9d.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+63f3e0e7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/63f3e0e7.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+5cca52b0.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5cca52b0.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+f34a5517.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f34a5517.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3c24bcaa.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3c24bcaa.png,825,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+99dbebc6.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/99dbebc6.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+6e6aaf19.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6e6aaf19.png,1369,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+fafa370e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/fafa370e.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+293d0e95.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/293d0e95.png,825,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+ec3e8ff6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ec3e8ff6.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+44dd60f7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/44dd60f7.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cd5ad301.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cd5ad301.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+3e5b07b8.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3e5b07b8.png,1026,1,L4,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+9fe8ae69.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9fe8ae69.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+877251dc.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/877251dc.png,1232,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+3baa4c4c.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3baa4c4c.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+2a02f0bf.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2a02f0bf.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0a785464.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/0a785464.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+a7755008.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a7755008.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+292d64ea.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/292d64ea.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+37bedf6b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/37bedf6b.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+64fa80d5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/64fa80d5.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d12a4bad.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d12a4bad.png,23,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+d44b169e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d44b169e.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e8c3d6f6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e8c3d6f6.png,1519,1,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+9c017198.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9c017198.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9263f02c.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9263f02c.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+48c73c41.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/48c73c41.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+f0a5be20.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f0a5be20.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+99e0a12b.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/99e0a12b.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+92f78f12.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/92f78f12.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a49decb7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a49decb7.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+27abcc2b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/27abcc2b.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a2230276.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a2230276.png,1026,1,L4,Anatomical landmarks,ResectionBed,0,3,13,BLC,0
+6e0aca81.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6e0aca81.png,818,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+5c5fec6f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5c5fec6f.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6a8d4d5d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6a8d4d5d.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+823bc07e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/823bc07e.png,825,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+31ffa314.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/31ffa314.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+5adaf9ef.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5adaf9ef.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+55b5de58.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/55b5de58.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a29eccd2.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a29eccd2.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+d8fe9929.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d8fe9929.png,1032,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+4f9c8fe1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4f9c8fe1.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f3dbaca2.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f3dbaca2.png,1519,1,L3,Non-malignant,InflammationNOS,1,1,5,WLC,0
+d08bf1da.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d08bf1da.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+e6e05f93.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e6e05f93.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3f77cd6e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3f77cd6e.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+10e2f4fc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/10e2f4fc.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+f61a1be7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f61a1be7.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+e4532484.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e4532484.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a85fbfb5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a85fbfb5.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+30915853.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/30915853.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+fdbf4199.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/fdbf4199.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+b0364fff.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b0364fff.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+a51b73d1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a51b73d1.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+a76d460e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a76d460e.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0a69a145.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/0a69a145.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+9d1b2f96.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9d1b2f96.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ffd009ca.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ffd009ca.png,1022,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+010465a0.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/010465a0.png,159,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+91110767.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/91110767.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+828788fa.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/828788fa.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+80a2578a.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/80a2578a.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+bb105f37.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bb105f37.png,851,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+34ba91c3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/34ba91c3.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+440d8105.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/440d8105.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+69707293.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/69707293.png,804,NA,NA,Anatomical landmarks,ResectionScar,0,3,14,WLC,1
+19f5c5ff.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/19f5c5ff.png,1412,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+efbf2b02.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/efbf2b02.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+ec676ae9.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ec676ae9.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ac4ad35b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ac4ad35b.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8e98bf7b.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8e98bf7b.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+5cfc1eed.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5cfc1eed.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+b00a33ef.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b00a33ef.png,1519,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+060bc9d8.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/060bc9d8.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+5caec65f.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5caec65f.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+4de5671e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4de5671e.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2e5806ae.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2e5806ae.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+13752978.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/13752978.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+f1811e6e.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f1811e6e.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+c7750fd8.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c7750fd8.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+ce9132d4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ce9132d4.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+b0ad41cf.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b0ad41cf.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,BLC,0
+e7c10609.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e7c10609.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+cdb6341c.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cdb6341c.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+19f8fb95.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/19f8fb95.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+8ce9d4e6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8ce9d4e6.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+99620deb.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/99620deb.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cb261d26.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cb261d26.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+1d2ee440.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1d2ee440.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+7160b458.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/7160b458.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+909f151d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/909f151d.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+c1ef703f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c1ef703f.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+02639b8e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/02639b8e.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+3682403e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3682403e.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+29e80787.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/29e80787.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+5662f9d5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5662f9d5.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+edac326d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/edac326d.png,1369,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+7b433139.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/7b433139.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+beea4b23.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/beea4b23.png,1232,1,L2,Non-malignant,BenignNOS,1,1,4,WLC,0
+6eaedd65.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6eaedd65.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+aa472820.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/aa472820.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+17b231b8.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/17b231b8.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+84b63606.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/84b63606.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+ce5b69cd.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ce5b69cd.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+6d00a3ef.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6d00a3ef.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+fe9355f6.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/fe9355f6.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+a1c8dce7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a1c8dce7.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6cb336cc.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6cb336cc.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,BLC,0
+93e738ae.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/93e738ae.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+9487fbda.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9487fbda.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+422d4c75.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/422d4c75.png,1616,1,L4,Malignant,HighGradePapillary,1,0,1,WLC,0
+739cec47.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/739cec47.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d24ad73c.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d24ad73c.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+3f7d0122.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3f7d0122.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b43dedbe.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b43dedbe.png,23,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+5450bf64.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5450bf64.png,1064,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+4d0353ea.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4d0353ea.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6a4961a2.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6a4961a2.png,1232,2,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+a867426a.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a867426a.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+f9c3358f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f9c3358f.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+6f503fdc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6f503fdc.png,825,1,L0,Anatomical landmarks,Diverticulum,0,3,17,WLC,0
+947bef91.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/947bef91.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+e09c7a66.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e09c7a66.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+06e95b62.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/06e95b62.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+db1fc512.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/db1fc512.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a477360d.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a477360d.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+f03e96e5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f03e96e5.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+48258dea.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/48258dea.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+c88eb681.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c88eb681.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c415e47f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c415e47f.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d25a0f1d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d25a0f1d.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+d2090bd5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d2090bd5.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+102a10c1.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/102a10c1.png,1150,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+c52a96da.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c52a96da.png,1616,1,L0,Foreign bodies,BiopsyForcep,0,4,20,WLC,0
+4c6573c9.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4c6573c9.png,1232,1,L2,Non-malignant,BenignNOS,1,1,4,BLC,0
+1860a97b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1860a97b.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+cde560df.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cde560df.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+256b423f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/256b423f.png,631,1,L4,Malignant,LowGradePapillary,1,0,0,WLC,0
+a401c3db.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a401c3db.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+dc6320ca.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/dc6320ca.png,1351,2,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+94b23acb.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/94b23acb.png,1022,1,L0,Anatomical landmarks,Trabeculation,0,3,15,WLC,0
+5e87c5dd.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5e87c5dd.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+f830883d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f830883d.png,1380,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,WLC,0
+f2a002bd.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f2a002bd.png,1351,1,L1,Non-malignant,InflammationNOS,1,1,5,WLC,0
+d7b2f4b1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d7b2f4b1.png,979,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2af95faa.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2af95faa.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,WLC,0
+8deb3376.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8deb3376.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+1bd05f94.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1bd05f94.png,1032,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+85cc880d.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/85cc880d.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+8241b7ff.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8241b7ff.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+ccef3032.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ccef3032.png,1616,1,L4,Malignant,HighGradePapillary,1,0,1,BLC,0
+0042b15b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/0042b15b.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f95242e5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f95242e5.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6f3353a3.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6f3353a3.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+4467175c.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4467175c.png,1616,1,L2,Malignant,HighGradePapillary,1,0,1,BLC,0
+39030ad8.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/39030ad8.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a1d23eac.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a1d23eac.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+dcc8b55d.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/dcc8b55d.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+cec6c50b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cec6c50b.png,631,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+147a1e14.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/147a1e14.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+43b3a3a9.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/43b3a3a9.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+233de240.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/233de240.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+66cd0169.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/66cd0169.png,631,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,0
+1dc3ad02.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1dc3ad02.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+050c9c26.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/050c9c26.png,1032,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+ff92e655.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ff92e655.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+eb9cece1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/eb9cece1.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c1a0a367.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c1a0a367.png,851,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+bfbedef3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bfbedef3.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+55aa726d.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/55aa726d.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+39116288.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/39116288.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d4fe6e37.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d4fe6e37.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+41f81370.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/41f81370.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+a5191daa.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a5191daa.png,1232,2,L0,Anatomical landmarks,ProstaticUrethra,0,3,16,WLC,0
+8f0cefbd.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8f0cefbd.png,1112,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,1
+37aa72d1.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/37aa72d1.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+c1a469a7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c1a469a7.png,1269,1,L2,Malignant,CIS,1,0,2,BLC,0
+cc2e9ad8.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cc2e9ad8.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,BLC,0
+ad85d867.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ad85d867.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+21e942c4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/21e942c4.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+0f49c7ae.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/0f49c7ae.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3dd2b75f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3dd2b75f.png,159,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+ab085e71.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ab085e71.png,1380,1,L1,Non-malignant,UrothelialPapilloma,1,1,8,BLC,0
+174b9080.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/174b9080.png,1269,1,L2,Malignant,CIS,1,0,2,WLC,0
+bb2a5de8.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bb2a5de8.png,825,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+9c93a2f0.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/9c93a2f0.png,818,1,L1,Non-malignant,BenignNOS,1,1,4,WLC,0
+fd6fabfc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/fd6fabfc.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+74a30d59.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/74a30d59.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+66dc42df.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/66dc42df.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+eef01343.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/eef01343.png,1022,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+365b79e4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/365b79e4.png,979,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+6b516306.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6b516306.png,1369,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+98b86378.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/98b86378.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+e53d5ee5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e53d5ee5.png,818,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a6c890f3.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a6c890f3.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+ca50f1d6.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ca50f1d6.png,1026,1,L1,Non-malignant,BenignNOS,1,1,4,BLC,0
+780e6b8d.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/780e6b8d.png,851,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+615508a5.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/615508a5.png,1616,1,L2,Malignant,HighGradePapillary,1,0,1,WLC,0
+6821a966.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/6821a966.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+b37fbc04.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/b37fbc04.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+2a7c825d.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2a7c825d.png,1616,1,L3,Malignant,HighGradePapillary,1,0,1,WLC,0
+1f78f86c.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1f78f86c.png,1616,1,L3,Malignant,HighGradePapillary,1,0,1,BLC,0
+00fa0b74.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/00fa0b74.png,1150,2,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+3181feec.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3181feec.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+4306ea07.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4306ea07.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+ad8e27c5.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ad8e27c5.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+614d2251.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/614d2251.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+28276d4b.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/28276d4b.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+a4694658.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a4694658.png,1064,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+67a8b476.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/67a8b476.png,1616,1,L1,Malignant,HighGradePapillary,1,0,1,WLC,0
+4ce96486.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/4ce96486.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+63f09c0e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/63f09c0e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+e56ec723.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e56ec723.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+cef753b8.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cef753b8.png,1193,1,Multifocal,Malignant,LowGradePapillary,1,0,0,BLC,0
+bb0f4713.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bb0f4713.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+31e313a4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/31e313a4.png,804,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+5869cffb.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5869cffb.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+e2d92d66.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/e2d92d66.png,804,1,Multifocal,Anatomical landmarks,ResectionBed,0,3,13,WLC,0
+461b8674.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/461b8674.png,1026,1,L4,Malignant,LowGradePapillary,1,0,0,BLC,0
+198158bc.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/198158bc.png,1232,2,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+1154b70f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1154b70f.png,1026,NA,NA,Anatomical landmarks,UreteralOrifice,0,3,12,WLC,1
+bab7dddf.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/bab7dddf.png,851,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c3e88b80.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c3e88b80.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+a4de25b7.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/a4de25b7.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+8e6b2b35.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8e6b2b35.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+54aa834f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/54aa834f.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+019adb3b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/019adb3b.png,1269,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,0
+566d5799.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/566d5799.png,979,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+8c38e774.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8c38e774.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+3b1f36e2.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/3b1f36e2.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+495fd7c4.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/495fd7c4.png,804,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+443ffe2b.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/443ffe2b.png,1026,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+ed7ff015.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/ed7ff015.png,825,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+5817c629.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/5817c629.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+c2962e42.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/c2962e42.png,804,1,L1,Malignant,LowGradePapillary,1,0,0,WLC,1
+d68f419c.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/d68f419c.png,1022,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+cb5f6657.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/cb5f6657.png,1412,1,L1,Malignant,LowGradePapillary,1,0,0,BLC,0
+42d53502.bmp,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/42d53502.png,804,1,Multifocal,Malignant,LowGradePapillary,1,0,0,WLC,0
+05a3f5cf.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/05a3f5cf.png,1026,1,L3,Malignant,LowGradePapillary,1,0,0,WLC,1
+2cc1a6dc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/2cc1a6dc.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+8588044e.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/8588044e.png,1026,NA,NA,Foreign bodies,AirBubble,0,4,18,WLC,1
+74c06ecc.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/74c06ecc.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,WLC,0
+130aa722.jpg,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/130aa722.png,800,1,L1,Malignant,HighGradePapillary,1,0,1,BLC,0
+de779204.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/de779204.png,159,1,L2,Malignant,LowGradePapillary,1,0,0,BLC,0
+1a6164d3.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/1a6164d3.png,825,NA,NA,Normal mucosa,NA,0,2,-1,WLC,0
+f4e69e4f.png,/Volumes/WorkSpace/Project/CystoDS/xvdhy-osfstorage-archive/images/f4e69e4f.png,1351,2,L1,Malignant,LowGradePapillary,1,0,0,WLC,0

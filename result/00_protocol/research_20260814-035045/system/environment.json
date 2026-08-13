@@ -1,0 +1,9 @@
+{
+  "python": "3.11.15 (main, Mar  3 2026, 00:52:57) [Clang 21.0.0 (clang-2100.0.123.102)]",
+  "executable": "/Volumes/WorkSpace/Project/CystoDS/.venv/bin/python",
+  "platform": "macOS-26.6-arm64-arm-64bit",
+  "hostname": "192.168.2.11",
+  "torch": "2.13.0",
+  "torchvision": "0.28.0",
+  "timm": "1.0.28"
+}

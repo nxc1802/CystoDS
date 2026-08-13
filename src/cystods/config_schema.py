@@ -60,6 +60,7 @@ BASE_CONFIG: dict[str, Any] = {
     "cv_run_fold_indices": None,
     "normal_mucosa_limit": 540,
     "fixed_split_pids": None,
+    "protocol_split_index": None,
     "protocol_manifest_dir": None,
     "protocol_reference_sha256": None,
     "expected_dataset_semantic_sha256": None,

@@ -1,0 +1,8 @@
+{
+  "protocol_manifest": "/Volumes/WorkSpace/Project/CystoDS/result/00_protocol/research_20260814-035045/protocol_manifest.json",
+  "protocol_sha256": "25155ef58d8f6c29b24e828d9f84f6342855aae7cc70a97658d471f461c0c881",
+  "downstream_environment": {
+    "CYSTODS_PROTOCOL_RUN_DIR": "/Volumes/WorkSpace/Project/CystoDS/result/00_protocol/research_20260814-035045",
+    "CYSTODS_EXPECTED_PROTOCOL_SHA256": "25155ef58d8f6c29b24e828d9f84f6342855aae7cc70a97658d471f461c0c881"
+  }
+}

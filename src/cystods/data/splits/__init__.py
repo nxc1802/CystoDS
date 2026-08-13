@@ -8,6 +8,7 @@ from cystods.data.splits.holdout import (
     patient_label_matrices,
     sample_rows_stratified,
     search_holdout_patient_split,
+    search_top_k_diverse_holdout_splits,
     validate_materialized_splits,
 )
 from cystods.data.splits.cross_validation import (
@@ -26,6 +27,7 @@ __all__ = [
     "patient_label_matrices",
     "allocation_score",
     "search_holdout_patient_split",
+    "search_top_k_diverse_holdout_splits",
     "search_patient_folds",
     "search_train_val_patient_split",
     "fixed_patient_split",

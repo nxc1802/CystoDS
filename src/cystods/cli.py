@@ -58,6 +58,13 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Override config values: --set key=value",
     )
     run_parser.add_argument(
+        "--split",
+        type=int,
+        choices=[0, 1, 2],
+        default=None,
+        help="Protocol split index (0, 1, 2) for Stage >= 10",
+    )
+    run_parser.add_argument(
         "--models",
         "--model",
         nargs="+",
@@ -81,6 +88,7 @@ def _build_parser() -> argparse.ArgumentParser:
     config_sub = config_parser.add_subparsers(dest="config_command")
     show_parser = config_sub.add_parser("show", help="Display resolved config")
     show_parser.add_argument("--stage", type=str, default=None)
+    show_parser.add_argument("--split", type=int, choices=[0, 1, 2], default=None)
     show_parser.add_argument("--profile", type=str, default=None)
     show_parser.add_argument("--config", type=str, default=None)
     show_parser.add_argument(
@@ -101,6 +109,7 @@ def _build_parser() -> argparse.ArgumentParser:
     validate_parser.add_argument("--config", type=str, default=None)
     validate_parser.add_argument("--profile", type=str, default=None)
     validate_parser.add_argument("--stage", type=str, default=None)
+    validate_parser.add_argument("--split", type=int, choices=[0, 1, 2], default=None)
     validate_parser.add_argument(
         "--set",
         dest="overrides",
@@ -129,7 +138,7 @@ def _cmd_stages() -> None:
     for stage_id, description in _STAGE_REGISTRY.items():
         print(f"  Stage {stage_id}  │  {description}")
     print()
-    print("Usage: cystods run <stage> [--profile smoke|research]")
+    print("Usage: cystods run <stage> [--split 0|1|2] [--profile smoke|research]")
     print()
 
 
@@ -137,11 +146,15 @@ def _cmd_config_show(args: argparse.Namespace) -> None:
     """Display the resolved configuration."""
     from cystods.config import show_config
 
+    overrides = list(args.overrides) if args.overrides else []
+    if getattr(args, "split", None) is not None:
+        overrides.append(f"protocol_split_index={args.split}")
+
     output = show_config(
         config_path=args.config,
         profile=args.profile,
         stage=args.stage,
-        cli_overrides=args.overrides,
+        cli_overrides=overrides if overrides else None,
     )
     print(output)
 
@@ -150,17 +163,23 @@ def _cmd_validate(args: argparse.Namespace) -> None:
     """Validate config without running."""
     from cystods.config import load_config
 
+    overrides = list(args.overrides) if args.overrides else []
+    if getattr(args, "split", None) is not None:
+        overrides.append(f"protocol_split_index={args.split}")
+
     try:
         config = load_config(
             config_path=args.config,
             profile=args.profile,
             stage=args.stage,
-            cli_overrides=args.overrides,
+            cli_overrides=overrides if overrides else None,
         )
         print(f"✓ Config loaded successfully ({len(config)} keys)")
         print(f"  profile: {config.get('run_profile', 'research')}")
         if args.stage:
             print(f"  stage: {args.stage}")
+        if config.get("protocol_split_index") is not None:
+            print(f"  split: split_{config['protocol_split_index']}")
         print(f"  data_root: {config.get('data_root', 'N/A')}")
         print(f"  result_root: {config.get('result_root', 'N/A')}")
     except Exception as exc:
@@ -195,11 +214,19 @@ def _cmd_run(args: argparse.Namespace) -> None:
         )
         sys.exit(1)
 
-    from cystods.config import load_config
-
     if args.stage == "all":
         _run_all(args)
         return
+
+    if stage_padded != "00":
+        if args.split is None:
+            print(
+                f"✗ Error: Stage {stage_padded} requires --split {{0, 1, 2}}.",
+                file=sys.stderr,
+            )
+            sys.exit(1)
+
+    from cystods.config import load_config
 
     filter_models = _parse_list_arg(getattr(args, "models", None))
     filter_trials = _parse_list_arg(getattr(args, "trials", None))
@@ -212,11 +239,17 @@ def _cmd_run(args: argparse.Namespace) -> None:
     )
     config["filter_models"] = filter_models
     config["filter_trials"] = filter_trials
+    if stage_padded != "00":
+        config["protocol_split_index"] = args.split
+    else:
+        config["protocol_split_index"] = None
 
     print(f"\n{'='*60}")
     print(f"CystoDS — Stage {stage_padded}")
     print(f"  {_STAGE_REGISTRY[stage_padded]}")
     print(f"  Profile: {config['run_profile']}")
+    if config.get("protocol_split_index") is not None:
+        print(f"  Split: split_{config['protocol_split_index']}")
     if filter_models:
         print(f"  Filter Models: {', '.join(filter_models)}")
     if filter_trials:
@@ -230,7 +263,13 @@ def _cmd_run(args: argparse.Namespace) -> None:
 
 def _run_all(args: argparse.Namespace) -> None:
     """Run all stages in dependency order."""
-    # Stage 00 must run first, then 10-40 can be sequential, then 90
+    if args.split is None:
+        print(
+            "✗ Error: 'cystods run all' requires --split {0, 1, 2}.",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
     order = ["00", "10", "20", "30", "40", "90"]
 
     filter_models = _parse_list_arg(getattr(args, "models", None))
@@ -247,9 +286,15 @@ def _run_all(args: argparse.Namespace) -> None:
         )
         config["filter_models"] = filter_models
         config["filter_trials"] = filter_trials
+        if stage_id != "00":
+            config["protocol_split_index"] = args.split
+        else:
+            config["protocol_split_index"] = None
 
         print(f"\n{'='*60}")
         print(f"CystoDS — Stage {stage_id}: {_STAGE_REGISTRY[stage_id]}")
+        if config.get("protocol_split_index") is not None:
+            print(f"  Split: split_{config['protocol_split_index']}")
         if filter_models:
             print(f"  Filter Models: {', '.join(filter_models)}")
         if filter_trials:

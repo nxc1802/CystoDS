@@ -1098,14 +1098,13 @@ def run_protocol_stage(
             run_dir,
             logger,
         )
-        if len(fixed_units) != 1 or fixed_units[0][0] != "holdout":
+        if not fixed_units:
             raise RuntimeError(
-                "Protocol stage must create exactly one fixed holdout unit."
+                "Protocol stage failed to create any split units."
             )
-        _, fixed_frames, _ = fixed_units[0]
+        unit_names = [unit[0] for unit in fixed_units]
         train_patient_counts = (
-            fixed_frames["train"]
-            .loc[fixed_frames["train"]["fine_id"] >= 0]
+            pd.concat([frames["train"].loc[frames["train"]["fine_id"] >= 0] for _, frames, _ in fixed_units])
             .groupby("fine_id")["pid"]
             .nunique()
         )
@@ -1156,11 +1155,11 @@ def run_protocol_stage(
             "roles": {
                 "fixed_holdout": {
                     "protocol": "holdout",
-                    "units": ["holdout"],
+                    "units": unit_names,
                 },
                 "smoke_holdout": {
                     "protocol": "holdout",
-                    "units": ["holdout"],
+                    "units": unit_names,
                 },
             },
             "split_summaries": split_summaries,
@@ -1186,7 +1185,7 @@ def run_protocol_stage(
             run_dir / "reports" / "run_summary.json",
             {
                 "data_audit": audit,
-                "fixed_holdout_units": ["holdout"],
+                "fixed_holdout_units": unit_names,
                 "protocol_sha256": protocol_hash,
             },
         )

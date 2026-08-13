@@ -1,0 +1,1276 @@
+{
+  "data_audit": {
+    "rows": 8067,
+    "patients": 160,
+    "inclusion_manifest_csv": null,
+    "image_suffix_counts_in_csv": {
+      ".png": 7564,
+      ".tiff": 44,
+      ".bmp": 294,
+      ".jpg": 165
+    },
+    "coarse_image_counts": {
+      "Normal mucosa": 6386,
+      "Malignant": 998,
+      "Foreign bodies": 251,
+      "Non-malignant": 221,
+      "Anatomical landmarks": 211
+    },
+    "coarse_patient_counts": {
+      "Anatomical landmarks": 61,
+      "Foreign bodies": 46,
+      "Malignant": 129,
+      "Non-malignant": 69,
+      "Normal mucosa": 65
+    },
+    "fine_support": [
+      {
+        "subclass": "LowGradePapillary",
+        "images": 493,
+        "patients": 60
+      },
+      {
+        "subclass": "HighGradePapillary",
+        "images": 433,
+        "patients": 67
+      },
+      {
+        "subclass": "CIS",
+        "images": 71,
+        "patients": 16
+      },
+      {
+        "subclass": "PreMalignant",
+        "images": 1,
+        "patients": 1
+      },
+      {
+        "subclass": "BenignNOS",
+        "images": 97,
+        "patients": 33
+      },
+      {
+        "subclass": "InflammationNOS",
+        "images": 80,
+        "patients": 30
+      },
+      {
+        "subclass": "CCG",
+        "images": 13,
+        "patients": 6
+      },
+      {
+        "subclass": "Denuded",
+        "images": 9,
+        "patients": 4
+      },
+      {
+        "subclass": "UrothelialPapilloma",
+        "images": 9,
+        "patients": 3
+      },
+      {
+        "subclass": "SquamousMetaplasia",
+        "images": 5,
+        "patients": 3
+      },
+      {
+        "subclass": "NephrogenicAdenoma",
+        "images": 4,
+        "patients": 2
+      },
+      {
+        "subclass": "BenignRare",
+        "images": 4,
+        "patients": 2
+      },
+      {
+        "subclass": "UreteralOrifice",
+        "images": 99,
+        "patients": 13
+      },
+      {
+        "subclass": "ResectionBed",
+        "images": 33,
+        "patients": 17
+      },
+      {
+        "subclass": "ResectionScar",
+        "images": 30,
+        "patients": 4
+      },
+      {
+        "subclass": "Trabeculation",
+        "images": 21,
+        "patients": 17
+      },
+      {
+        "subclass": "ProstaticUrethra",
+        "images": 15,
+        "patients": 15
+      },
+      {
+        "subclass": "Diverticulum",
+        "images": 13,
+        "patients": 12
+      },
+      {
+        "subclass": "AirBubble",
+        "images": 210,
+        "patients": 21
+      },
+      {
+        "subclass": "ResectionLoop",
+        "images": 17,
+        "patients": 16
+      },
+      {
+        "subclass": "BiopsyForcep",
+        "images": 16,
+        "patients": 15
+      },
+      {
+        "subclass": "Stent",
+        "images": 8,
+        "patients": 6
+      }
+    ],
+    "modality_counts": {
+      "WLC": 7617,
+      "BLC": 450
+    },
+    "bca_counts": {
+      "No": 7070,
+      "Yes": 997
+    },
+    "segmentation_files": 768,
+    "normal_rows_masked_from_fine_loss": 6386,
+    "image_size_statistics": {
+      "total": {
+        "count": 8067,
+        "width_min": 252,
+        "width_max": 5120,
+        "width_mean": 455.25,
+        "width_std": 416.52,
+        "width_median": 352,
+        "height_min": 209,
+        "height_max": 2880,
+        "height_mean": 315.22,
+        "height_std": 278.46,
+        "height_median": 240,
+        "aspect_ratio_median": 1.467,
+        "megapixels_median": 0.084,
+        "megapixels_mean": 0.257,
+        "top_resolution": "352x240",
+        "top_resolutions": [
+          {
+            "resolution": "352x240",
+            "count": 7023
+          },
+          {
+            "resolution": "640x480",
+            "count": 433
+          },
+          {
+            "resolution": "654x480",
+            "count": 138
+          },
+          {
+            "resolution": "1920x1080",
+            "count": 68
+          },
+          {
+            "resolution": "5120x2880",
+            "count": 20
+          }
+        ]
+      },
+      "binary_layers": {
+        "Non-ROI": {
+          "count": 6848,
+          "width_min": 252,
+          "width_max": 1776,
+          "width_mean": 370.09,
+          "width_std": 106.01,
+          "width_median": 352,
+          "height_min": 224,
+          "height_max": 1200,
+          "height_mean": 255.36,
+          "height_std": 89.13,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.103,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 6575
+            },
+            {
+              "resolution": "654x480",
+              "count": 133
+            },
+            {
+              "resolution": "640x480",
+              "count": 22
+            },
+            {
+              "resolution": "1285x960",
+              "count": 2
+            },
+            {
+              "resolution": "1286x965",
+              "count": 2
+            }
+          ]
+        },
+        "ROI": {
+          "count": 1219,
+          "width_min": 257,
+          "width_max": 5120,
+          "width_mean": 933.69,
+          "width_std": 902.96,
+          "width_median": 640,
+          "height_min": 209,
+          "height_max": 2880,
+          "height_mean": 651.47,
+          "height_std": 579.06,
+          "height_median": 480,
+          "aspect_ratio_median": 1.442,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 1.118,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 448
+            },
+            {
+              "resolution": "640x480",
+              "count": 411
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 68
+            },
+            {
+              "resolution": "5120x2880",
+              "count": 20
+            },
+            {
+              "resolution": "654x480",
+              "count": 5
+            }
+          ]
+        }
+      },
+      "coarse_layers": {
+        "Malignant": {
+          "count": 998,
+          "width_min": 257,
+          "width_max": 5120,
+          "width_mean": 890.55,
+          "width_std": 940.25,
+          "width_median": 640,
+          "height_min": 209,
+          "height_max": 2880,
+          "height_mean": 617.15,
+          "height_std": 593.33,
+          "height_median": 480,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 1.095,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 438
+            },
+            {
+              "resolution": "640x480",
+              "count": 292
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 40
+            },
+            {
+              "resolution": "5120x2880",
+              "count": 20
+            },
+            {
+              "resolution": "654x480",
+              "count": 5
+            }
+          ]
+        },
+        "Non-malignant": {
+          "count": 221,
+          "width_min": 352,
+          "width_max": 4236,
+          "width_mean": 1128.49,
+          "width_std": 677.18,
+          "width_median": 640,
+          "height_min": 240,
+          "height_max": 2880,
+          "height_mean": 806.46,
+          "height_std": 480.03,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 1.22,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 119
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 28
+            },
+            {
+              "resolution": "352x240",
+              "count": 10
+            },
+            {
+              "resolution": "934x721",
+              "count": 1
+            },
+            {
+              "resolution": "2400x1668",
+              "count": 1
+            }
+          ]
+        },
+        "Normal mucosa": {
+          "count": 6386,
+          "width_min": 352,
+          "width_max": 1417,
+          "width_mean": 360.47,
+          "width_std": 60.64,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 969,
+          "height_mean": 246.85,
+          "height_std": 49.38,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.091,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 6236
+            },
+            {
+              "resolution": "654x480",
+              "count": 133
+            },
+            {
+              "resolution": "1013x941",
+              "count": 1
+            },
+            {
+              "resolution": "1290x969",
+              "count": 1
+            },
+            {
+              "resolution": "1013x851",
+              "count": 1
+            }
+          ]
+        },
+        "Anatomical landmarks": {
+          "count": 211,
+          "width_min": 252,
+          "width_max": 1776,
+          "width_mean": 545.71,
+          "width_std": 328.06,
+          "width_median": 352,
+          "height_min": 224,
+          "height_max": 1200,
+          "height_mean": 414.73,
+          "height_std": 282.09,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.317,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 129
+            },
+            {
+              "resolution": "640x480",
+              "count": 22
+            },
+            {
+              "resolution": "1285x960",
+              "count": 2
+            },
+            {
+              "resolution": "1018x938",
+              "count": 1
+            },
+            {
+              "resolution": "1022x920",
+              "count": 1
+            }
+          ]
+        },
+        "Foreign bodies": {
+          "count": 251,
+          "width_min": 255,
+          "width_max": 1554,
+          "width_mean": 467.06,
+          "width_std": 291.41,
+          "width_median": 352,
+          "height_min": 227,
+          "height_max": 967,
+          "height_mean": 338.02,
+          "height_std": 240.32,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.226,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 210
+            },
+            {
+              "resolution": "1286x965",
+              "count": 2
+            },
+            {
+              "resolution": "1289x960",
+              "count": 1
+            },
+            {
+              "resolution": "1052x910",
+              "count": 1
+            },
+            {
+              "resolution": "1554x964",
+              "count": 1
+            }
+          ]
+        }
+      },
+      "fine_layers": {
+        "AirBubble": {
+          "count": 210,
+          "width_min": 352,
+          "width_max": 352,
+          "width_mean": 352.0,
+          "width_std": 0.0,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 240,
+          "height_mean": 240.0,
+          "height_std": 0.0,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.084,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 210
+            }
+          ]
+        },
+        "BenignNOS": {
+          "count": 97,
+          "width_min": 352,
+          "width_max": 1920,
+          "width_mean": 1027.71,
+          "width_std": 567.42,
+          "width_median": 640,
+          "height_min": 240,
+          "height_max": 1654,
+          "height_mean": 718.92,
+          "height_std": 363.06,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 0.936,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 58
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 12
+            },
+            {
+              "resolution": "352x240",
+              "count": 5
+            },
+            {
+              "resolution": "1884x1286",
+              "count": 1
+            },
+            {
+              "resolution": "1774x1244",
+              "count": 1
+            }
+          ]
+        },
+        "BenignRare": {
+          "count": 4,
+          "width_min": 1516,
+          "width_max": 1920,
+          "width_mean": 1735.5,
+          "width_std": 186.15,
+          "width_median": 1753,
+          "height_min": 1080,
+          "height_max": 1372,
+          "height_mean": 1202.0,
+          "height_std": 126.63,
+          "height_median": 1178,
+          "aspect_ratio_median": 1.483,
+          "megapixels_median": 2.074,
+          "megapixels_mean": 2.064,
+          "top_resolution": "1920x1080",
+          "top_resolutions": [
+            {
+              "resolution": "1920x1080",
+              "count": 2
+            },
+            {
+              "resolution": "1516x1276",
+              "count": 1
+            },
+            {
+              "resolution": "1586x1372",
+              "count": 1
+            }
+          ]
+        },
+        "BiopsyForcep": {
+          "count": 16,
+          "width_min": 984,
+          "width_max": 1554,
+          "width_mean": 1186.19,
+          "width_std": 166.59,
+          "width_median": 1277,
+          "height_min": 830,
+          "height_max": 965,
+          "height_mean": 943.62,
+          "height_std": 32.69,
+          "height_median": 961,
+          "aspect_ratio_median": 1.328,
+          "megapixels_median": 1.229,
+          "megapixels_mean": 1.123,
+          "top_resolution": "1002x940",
+          "top_resolutions": [
+            {
+              "resolution": "1002x940",
+              "count": 1
+            },
+            {
+              "resolution": "1273x961",
+              "count": 1
+            },
+            {
+              "resolution": "984x934",
+              "count": 1
+            },
+            {
+              "resolution": "1025x935",
+              "count": 1
+            },
+            {
+              "resolution": "1286x963",
+              "count": 1
+            }
+          ]
+        },
+        "CCG": {
+          "count": 13,
+          "width_min": 640,
+          "width_max": 1854,
+          "width_mean": 825.08,
+          "width_std": 434.07,
+          "width_median": 640,
+          "height_min": 480,
+          "height_max": 1264,
+          "height_mean": 597.85,
+          "height_std": 276.46,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 0.613,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 11
+            },
+            {
+              "resolution": "1832x1264",
+              "count": 1
+            },
+            {
+              "resolution": "1854x1228",
+              "count": 1
+            }
+          ]
+        },
+        "CIS": {
+          "count": 71,
+          "width_min": 352,
+          "width_max": 5120,
+          "width_mean": 1471.44,
+          "width_std": 933.18,
+          "width_median": 1464,
+          "height_min": 240,
+          "height_max": 2880,
+          "height_mean": 1005.59,
+          "height_std": 572.81,
+          "height_median": 1080,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 1.678,
+          "megapixels_mean": 1.989,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 23
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 8
+            },
+            {
+              "resolution": "352x240",
+              "count": 2
+            },
+            {
+              "resolution": "1280x1024",
+              "count": 2
+            },
+            {
+              "resolution": "5120x2880",
+              "count": 2
+            }
+          ]
+        },
+        "Denuded": {
+          "count": 9,
+          "width_min": 640,
+          "width_max": 2106,
+          "width_mean": 1346.67,
+          "width_std": 640.1,
+          "width_median": 1786,
+          "height_min": 480,
+          "height_max": 1734,
+          "height_mean": 1114.0,
+          "height_std": 575.68,
+          "height_median": 1364,
+          "aspect_ratio_median": 1.321,
+          "megapixels_median": 2.458,
+          "megapixels_mean": 1.865,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 4
+            },
+            {
+              "resolution": "1786x1644",
+              "count": 1
+            },
+            {
+              "resolution": "1820x1652",
+              "count": 1
+            },
+            {
+              "resolution": "1802x1364",
+              "count": 1
+            },
+            {
+              "resolution": "2046x1734",
+              "count": 1
+            }
+          ]
+        },
+        "Diverticulum": {
+          "count": 13,
+          "width_min": 280,
+          "width_max": 1346,
+          "width_mean": 858.31,
+          "width_std": 310.4,
+          "width_median": 980,
+          "height_min": 232,
+          "height_max": 968,
+          "height_mean": 754.0,
+          "height_std": 285.55,
+          "height_median": 929,
+          "aspect_ratio_median": 1.128,
+          "megapixels_median": 0.935,
+          "megapixels_mean": 0.731,
+          "top_resolution": "1100x868",
+          "top_resolutions": [
+            {
+              "resolution": "1100x868",
+              "count": 1
+            },
+            {
+              "resolution": "1011x956",
+              "count": 1
+            },
+            {
+              "resolution": "535x434",
+              "count": 1
+            },
+            {
+              "resolution": "1048x929",
+              "count": 1
+            },
+            {
+              "resolution": "1346x968",
+              "count": 1
+            }
+          ]
+        },
+        "HighGradePapillary": {
+          "count": 433,
+          "width_min": 257,
+          "width_max": 5120,
+          "width_mean": 1078.41,
+          "width_std": 1153.68,
+          "width_median": 640,
+          "height_min": 209,
+          "height_max": 2880,
+          "height_mean": 736.96,
+          "height_std": 715.16,
+          "height_median": 480,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 1.601,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 162
+            },
+            {
+              "resolution": "640x480",
+              "count": 121
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 26
+            },
+            {
+              "resolution": "5120x2880",
+              "count": 16
+            },
+            {
+              "resolution": "4762x2880",
+              "count": 1
+            }
+          ]
+        },
+        "InflammationNOS": {
+          "count": 80,
+          "width_min": 566,
+          "width_max": 4236,
+          "width_mean": 1301.29,
+          "width_std": 791.72,
+          "width_median": 918,
+          "height_min": 388,
+          "height_max": 2880,
+          "height_mean": 928.54,
+          "height_std": 573.66,
+          "height_median": 718,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.669,
+          "megapixels_mean": 1.639,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 38
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 14
+            },
+            {
+              "resolution": "2034x1972",
+              "count": 1
+            },
+            {
+              "resolution": "975x769",
+              "count": 1
+            },
+            {
+              "resolution": "934x721",
+              "count": 1
+            }
+          ]
+        },
+        "LowGradePapillary": {
+          "count": 493,
+          "width_min": 352,
+          "width_max": 5120,
+          "width_mean": 640.23,
+          "width_std": 592.97,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 2880,
+          "height_mean": 454.0,
+          "height_std": 391.5,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.518,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 274
+            },
+            {
+              "resolution": "640x480",
+              "count": 148
+            },
+            {
+              "resolution": "1920x1080",
+              "count": 6
+            },
+            {
+              "resolution": "654x480",
+              "count": 5
+            },
+            {
+              "resolution": "1654x1190",
+              "count": 2
+            }
+          ]
+        },
+        "NephrogenicAdenoma": {
+          "count": 4,
+          "width_min": 640,
+          "width_max": 640,
+          "width_mean": 640.0,
+          "width_std": 0.0,
+          "width_median": 640,
+          "height_min": 480,
+          "height_max": 480,
+          "height_mean": 480.0,
+          "height_std": 0.0,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 0.307,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 4
+            }
+          ]
+        },
+        "Normal mucosa": {
+          "count": 6386,
+          "width_min": 352,
+          "width_max": 1417,
+          "width_mean": 360.47,
+          "width_std": 60.64,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 969,
+          "height_mean": 246.85,
+          "height_std": 49.38,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.091,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 6236
+            },
+            {
+              "resolution": "654x480",
+              "count": 133
+            },
+            {
+              "resolution": "1013x941",
+              "count": 1
+            },
+            {
+              "resolution": "1290x969",
+              "count": 1
+            },
+            {
+              "resolution": "1013x851",
+              "count": 1
+            }
+          ]
+        },
+        "PreMalignant": {
+          "count": 1,
+          "width_min": 1718,
+          "width_max": 1718,
+          "width_mean": 1718.0,
+          "width_std": 0.0,
+          "width_median": 1718,
+          "height_min": 1600,
+          "height_max": 1600,
+          "height_mean": 1600.0,
+          "height_std": 0.0,
+          "height_median": 1600,
+          "aspect_ratio_median": 1.074,
+          "megapixels_median": 2.749,
+          "megapixels_mean": 2.749,
+          "top_resolution": "1718x1600",
+          "top_resolutions": [
+            {
+              "resolution": "1718x1600",
+              "count": 1
+            }
+          ]
+        },
+        "ProstaticUrethra": {
+          "count": 15,
+          "width_min": 509,
+          "width_max": 1316,
+          "width_mean": 1149.73,
+          "width_std": 202.81,
+          "width_median": 1230,
+          "height_min": 462,
+          "height_max": 967,
+          "height_mean": 916.73,
+          "height_std": 122.68,
+          "height_median": 960,
+          "aspect_ratio_median": 1.275,
+          "megapixels_median": 1.187,
+          "megapixels_mean": 1.076,
+          "top_resolution": "1230x965",
+          "top_resolutions": [
+            {
+              "resolution": "1230x965",
+              "count": 1
+            },
+            {
+              "resolution": "1220x967",
+              "count": 1
+            },
+            {
+              "resolution": "1316x932",
+              "count": 1
+            },
+            {
+              "resolution": "1285x960",
+              "count": 1
+            },
+            {
+              "resolution": "1028x940",
+              "count": 1
+            }
+          ]
+        },
+        "ResectionBed": {
+          "count": 33,
+          "width_min": 268,
+          "width_max": 1776,
+          "width_mean": 685.61,
+          "width_std": 322.69,
+          "width_median": 640,
+          "height_min": 227,
+          "height_max": 1200,
+          "height_mean": 524.15,
+          "height_std": 237.62,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 0.434,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 22
+            },
+            {
+              "resolution": "649x428",
+              "count": 1
+            },
+            {
+              "resolution": "979x934",
+              "count": 1
+            },
+            {
+              "resolution": "992x931",
+              "count": 1
+            },
+            {
+              "resolution": "1054x903",
+              "count": 1
+            }
+          ]
+        },
+        "ResectionLoop": {
+          "count": 17,
+          "width_min": 959,
+          "width_max": 1393,
+          "width_mean": 1193.59,
+          "width_std": 142.0,
+          "width_median": 1285,
+          "height_min": 843,
+          "height_max": 967,
+          "height_mean": 938.59,
+          "height_std": 33.86,
+          "height_median": 960,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 1.219,
+          "megapixels_mean": 1.123,
+          "top_resolution": "1292x963",
+          "top_resolutions": [
+            {
+              "resolution": "1292x963",
+              "count": 1
+            },
+            {
+              "resolution": "959x937",
+              "count": 1
+            },
+            {
+              "resolution": "1032x843",
+              "count": 1
+            },
+            {
+              "resolution": "1286x965",
+              "count": 1
+            },
+            {
+              "resolution": "1289x960",
+              "count": 1
+            }
+          ]
+        },
+        "ResectionScar": {
+          "count": 30,
+          "width_min": 352,
+          "width_max": 352,
+          "width_mean": 352.0,
+          "width_std": 0.0,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 240,
+          "height_mean": 240.0,
+          "height_std": 0.0,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.084,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 30
+            }
+          ]
+        },
+        "SquamousMetaplasia": {
+          "count": 5,
+          "width_min": 640,
+          "width_max": 1524,
+          "width_mean": 816.8,
+          "width_std": 353.6,
+          "width_median": 640,
+          "height_min": 480,
+          "height_max": 1192,
+          "height_mean": 622.4,
+          "height_std": 284.8,
+          "height_median": 480,
+          "aspect_ratio_median": 1.333,
+          "megapixels_median": 0.307,
+          "megapixels_mean": 0.609,
+          "top_resolution": "640x480",
+          "top_resolutions": [
+            {
+              "resolution": "640x480",
+              "count": 4
+            },
+            {
+              "resolution": "1524x1192",
+              "count": 1
+            }
+          ]
+        },
+        "Stent": {
+          "count": 8,
+          "width_min": 255,
+          "width_max": 1087,
+          "width_mean": 505.12,
+          "width_std": 247.23,
+          "width_median": 498,
+          "height_min": 227,
+          "height_max": 941,
+          "height_mean": 423.5,
+          "height_std": 218.9,
+          "height_median": 423,
+          "aspect_ratio_median": 1.192,
+          "megapixels_median": 0.215,
+          "megapixels_mean": 0.268,
+          "top_resolution": "520x449",
+          "top_resolutions": [
+            {
+              "resolution": "520x449",
+              "count": 1
+            },
+            {
+              "resolution": "507x462",
+              "count": 1
+            },
+            {
+              "resolution": "490x400",
+              "count": 1
+            },
+            {
+              "resolution": "255x234",
+              "count": 1
+            },
+            {
+              "resolution": "321x229",
+              "count": 1
+            }
+          ]
+        },
+        "Trabeculation": {
+          "count": 21,
+          "width_min": 252,
+          "width_max": 1395,
+          "width_mean": 890.86,
+          "width_std": 356.69,
+          "width_median": 1010,
+          "height_min": 224,
+          "height_max": 968,
+          "height_mean": 747.48,
+          "height_std": 285.06,
+          "height_median": 938,
+          "aspect_ratio_median": 1.119,
+          "megapixels_median": 0.945,
+          "megapixels_mean": 0.762,
+          "top_resolution": "282x224",
+          "top_resolutions": [
+            {
+              "resolution": "282x224",
+              "count": 1
+            },
+            {
+              "resolution": "619x443",
+              "count": 1
+            },
+            {
+              "resolution": "271x230",
+              "count": 1
+            },
+            {
+              "resolution": "992x863",
+              "count": 1
+            },
+            {
+              "resolution": "956x940",
+              "count": 1
+            }
+          ]
+        },
+        "UreteralOrifice": {
+          "count": 99,
+          "width_min": 352,
+          "width_max": 352,
+          "width_mean": 352.0,
+          "width_std": 0.0,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 240,
+          "height_mean": 240.0,
+          "height_std": 0.0,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 0.084,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 99
+            }
+          ]
+        },
+        "UrothelialPapilloma": {
+          "count": 9,
+          "width_min": 352,
+          "width_max": 2014,
+          "width_mean": 1019.33,
+          "width_std": 748.78,
+          "width_median": 352,
+          "height_min": 240,
+          "height_max": 1440,
+          "height_mean": 730.22,
+          "height_std": 551.76,
+          "height_median": 240,
+          "aspect_ratio_median": 1.467,
+          "megapixels_median": 0.084,
+          "megapixels_mean": 1.156,
+          "top_resolution": "352x240",
+          "top_resolutions": [
+            {
+              "resolution": "352x240",
+              "count": 5
+            },
+            {
+              "resolution": "2014x1436",
+              "count": 1
+            },
+            {
+              "resolution": "1828x1440",
+              "count": 1
+            },
+            {
+              "resolution": "1770x1260",
+              "count": 1
+            },
+            {
+              "resolution": "1802x1236",
+              "count": 1
+            }
+          ]
+        }
+      }
+    },
+    "dataset_fingerprint": {
+      "mode": "full",
+      "metadata_csv_sha256": "7988766bf2d17e7607ab2fcd9ad58d20a5fa4d7e107838a3b33b779e4e423f13",
+      "inclusion_manifest_sha256": null,
+      "semantic_manifest_sha256": "fc8ee40c921969d2a7a2d103aae6b01a1ee8b8cecf559f5a6bd484e7e05ba79c",
+      "image_inventory_sha256": "b4cb1f8270fb55be167d839d4a75c3a0ed06692fd7d1e3d8452b4cf9d6906acb",
+      "image_hashes_included": true,
+      "image_duplicate_groups": [],
+      "segmentation_inventory_sha256": "5f4b500943bfe21724f860fd6cfd43eb064a21df9e8c513dde4c1a42fc053d3c",
+      "rows": 8067,
+      "patients": 160
+    }
+  },
+  "fixed_holdout_units": [
+    "split_0",
+    "split_1",
+    "split_2"
+  ],
+  "protocol_sha256": "25155ef58d8f6c29b24e828d9f84f6342855aae7cc70a97658d471f461c0c881"
+}

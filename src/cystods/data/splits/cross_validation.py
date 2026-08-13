@@ -25,6 +25,7 @@ def search_patient_folds(
         coarse_presence,
         fine_presence,
         image_counts,
+        fine_image_counts,
     ) = patient_label_matrices(frame)
     n_folds = int(config["cv_folds"])
     if n_folds < 2 or n_folds > len(pids):
@@ -50,6 +51,7 @@ def search_patient_folds(
             fine_presence,
             image_counts,
             fractions,
+            fine_image_counts=fine_image_counts,
         )
         if not math.isfinite(score):
             continue
@@ -76,6 +78,7 @@ def search_train_val_patient_split(
         coarse_presence,
         fine_presence,
         image_counts,
+        fine_image_counts,
     ) = patient_label_matrices(frame)
     known = set(all_pids)
     if not allowed_pids <= known:
@@ -101,6 +104,7 @@ def search_train_val_patient_split(
             fine_presence,
             image_counts,
             fractions,
+            fine_image_counts=fine_image_counts,
         )
         if not math.isfinite(score):
             continue

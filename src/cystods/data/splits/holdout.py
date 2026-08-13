@@ -18,19 +18,27 @@ from cystods.taxonomy import COARSE_NAMES, FINE_NAMES
 
 def patient_label_matrices(
     frame: pd.DataFrame,
-) -> tuple[list[str], np.ndarray, np.ndarray, np.ndarray]:
+) -> tuple[list[str], np.ndarray, np.ndarray, np.ndarray, np.ndarray]:
     pids = sorted(frame["pid"].unique().tolist())
     coarse_presence = np.zeros((len(pids), len(COARSE_NAMES)), dtype=np.float64)
     fine_presence = np.zeros((len(pids), len(FINE_NAMES)), dtype=np.float64)
-    image_counts = np.zeros((len(pids), len(COARSE_NAMES)), dtype=np.float64)
+    coarse_image_counts = np.zeros((len(pids), len(COARSE_NAMES)), dtype=np.float64)
+    fine_image_counts = np.zeros((len(pids), len(FINE_NAMES)), dtype=np.float64)
     pid_to_index = {pid: index for index, pid in enumerate(pids)}
+    has_coarse = "coarse_id" in frame.columns
+    has_fine = "fine_id" in frame.columns
     for row in frame.itertuples(index=False):
         index = pid_to_index[str(row.pid)]
-        coarse_presence[index, int(row.coarse_id)] = 1.0
-        image_counts[index, int(row.coarse_id)] += 1.0
-        if int(row.fine_id) >= 0:
-            fine_presence[index, int(row.fine_id)] = 1.0
-    return pids, coarse_presence, fine_presence, image_counts
+        if has_coarse:
+            c_id = int(getattr(row, "coarse_id"))
+            coarse_presence[index, c_id] = 1.0
+            coarse_image_counts[index, c_id] += 1.0
+        if has_fine:
+            f_id = int(getattr(row, "fine_id"))
+            if f_id >= 0:
+                fine_presence[index, f_id] = 1.0
+                fine_image_counts[index, f_id] += 1.0
+    return pids, coarse_presence, fine_presence, coarse_image_counts, fine_image_counts
 
 
 def allocation_score(
@@ -40,10 +48,14 @@ def allocation_score(
     fine_presence: np.ndarray,
     image_counts: np.ndarray,
     target_fractions: Sequence[float],
+    fine_image_counts: np.ndarray | None = None,
 ) -> float:
     global_coarse_presence = coarse_presence.sum(axis=0)
     global_fine_presence = fine_presence.sum(axis=0)
     global_images = image_counts.sum(axis=0)
+    global_fine_images = (
+        fine_image_counts.sum(axis=0) if fine_image_counts is not None else None
+    )
     score = 0.0
     for members, fraction in zip(assignments, target_fractions):
         indices = [pid_to_row[pid] for pid in members]
@@ -83,21 +95,40 @@ def allocation_score(
                 / np.maximum(global_images * fraction, 1.0)
             )
         )
+        if fine_image_counts is not None and global_fine_images is not None:
+            local_fine_images = fine_image_counts[indices].sum(axis=0)
+            eligible_fine_img = global_fine_images >= len(assignments)
+            if eligible_fine_img.any():
+                score += float(
+                    np.mean(
+                        np.abs(
+                            local_fine_images[eligible_fine_img]
+                            - global_fine_images[eligible_fine_img] * fraction
+                        )
+                        / np.maximum(
+                            global_fine_images[eligible_fine_img] * fraction,
+                            1.0,
+                        )
+                    )
+                )
     return score
 
 
-def search_holdout_patient_split(
+def search_top_k_diverse_holdout_splits(
     frame: pd.DataFrame,
     config: Mapping[str, Any],
     seed: int,
+    k: int = 3,
+    max_test_overlap_fraction: float = 0.5,
     allowed_pids: set[str] | None = None,
     forced_test_pids: set[str] | None = None,
-) -> tuple[dict[str, set[str]], float]:
+) -> list[tuple[dict[str, set[str]], float]]:
     (
         all_pids,
         coarse_presence,
         fine_presence,
         image_counts,
+        fine_image_counts,
     ) = patient_label_matrices(frame)
     pid_to_row = {pid: index for index, pid in enumerate(all_pids)}
     eligible = set(all_pids) if allowed_pids is None else set(allowed_pids)
@@ -161,7 +192,8 @@ def search_holdout_patient_split(
 
     remaining = sorted(eligible - forced_train - forced_test)
     rng = np.random.default_rng(seed)
-    best: tuple[float, dict[str, set[str]]] | None = None
+    candidates: list[tuple[float, dict[str, set[str]]]] = []
+
     for _ in range(int(config["split_search_candidates"])):
         permutation = rng.permutation(remaining).tolist()
         train_needed = int(target_counts[0]) - len(forced_train)
@@ -185,17 +217,69 @@ def search_holdout_patient_split(
             fine_presence,
             image_counts,
             fractions,
+            fine_image_counts=fine_image_counts,
         )
         if not math.isfinite(score):
             continue
-        if best is None or score < best[0]:
-            best = (score, {"train": train, "val": val, "test": test})
-    if best is None:
+        candidates.append((score, {"train": train, "val": val, "test": test}))
+
+    if not candidates:
         raise RuntimeError(
             "No valid patient-disjoint split was found. Increase "
             "split_search_candidates or revise split constraints."
         )
-    return best[1], best[0]
+
+    candidates.sort(key=lambda item: item[0])
+
+    # Select top k with pairwise test overlap <= max_test_overlap_fraction
+    max_test_overlap = math.floor(target_counts[2] * max_test_overlap_fraction)
+    selected: list[tuple[dict[str, set[str]], float]] = []
+
+    # Always take the best candidate as split 0
+    best_score, best_split = candidates[0]
+    selected.append((best_split, best_score))
+
+    for score, split in candidates[1:]:
+        if len(selected) >= k:
+            break
+        # Check pairwise test overlap with all already selected splits
+        test_pids = split["test"]
+        overlap_ok = True
+        for sel_split, _ in selected:
+            if len(test_pids & sel_split["test"]) > max_test_overlap:
+                overlap_ok = False
+                break
+        if overlap_ok:
+            selected.append((split, score))
+
+    # If strict constraint didn't yield k candidates (e.g. tiny candidate pool in smoke profile),
+    # fill with next best available candidates
+    if len(selected) < k:
+        for score, split in candidates:
+            if len(selected) >= k:
+                break
+            if not any(split is s[0] for s in selected):
+                selected.append((split, score))
+
+    return selected
+
+
+def search_holdout_patient_split(
+    frame: pd.DataFrame,
+    config: Mapping[str, Any],
+    seed: int,
+    allowed_pids: set[str] | None = None,
+    forced_test_pids: set[str] | None = None,
+) -> tuple[dict[str, set[str]], float]:
+    splits = search_top_k_diverse_holdout_splits(
+        frame=frame,
+        config=config,
+        seed=seed,
+        k=1,
+        allowed_pids=allowed_pids,
+        forced_test_pids=forced_test_pids,
+    )
+    return splits[0][0], splits[0][1]
 
 
 def fixed_patient_split(

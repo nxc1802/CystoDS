@@ -22,6 +22,7 @@ from cystods.data.splits.holdout import (
     fixed_patient_split,
     materialize_split_frames,
     search_holdout_patient_split,
+    search_top_k_diverse_holdout_splits,
     validate_materialized_splits,
 )
 from cystods.infra.serialization import sha256_file, stable_int_seed, write_json
@@ -144,13 +145,46 @@ def load_frozen_protocol_splits(
             if (summary_path.parent / "train.csv").is_file()
         )
         if config["protocol"] == "holdout":
-            unit_dirs = [
-                path
-                for path in discovered_dirs
-                if path.name == "holdout"
-                or path.parent.name == "holdout"
-                or "holdout" in str(path)
-            ]
+            split_idx = config.get("protocol_split_index")
+            if split_idx is not None:
+                target_name = f"split_{int(split_idx)}"
+                unit_dirs = [
+                    path
+                    for path in discovered_dirs
+                    if path.name == target_name
+                    or path.parent.name == target_name
+                    or f"/{target_name}" in str(path)
+                ]
+                if not unit_dirs:
+                    raise FileNotFoundError(
+                        f"Requested protocol split '{target_name}' not found in {protocol_manifest_dir}."
+                    )
+            else:
+                holdout_dirs = [
+                    path
+                    for path in discovered_dirs
+                    if path.name == "holdout"
+                    or path.parent.name == "holdout"
+                    or "holdout" in str(path)
+                ]
+                if holdout_dirs:
+                    unit_dirs = holdout_dirs
+                else:
+                    split_dirs = [
+                        path
+                        for path in discovered_dirs
+                        if path.name.startswith("split_")
+                    ]
+                    if len(split_dirs) == 1:
+                        unit_dirs = split_dirs
+                    elif len(split_dirs) > 1:
+                        raise ValueError(
+                            "Protocol contains multiple splits "
+                            f"({[p.name for p in split_dirs]}). "
+                            "Please specify 'protocol_split_index' (e.g. --split 0)."
+                        )
+                    else:
+                        unit_dirs = discovered_dirs
         else:
             unit_dirs = [
                 path
@@ -316,18 +350,42 @@ def build_all_protocol_splits(
         return output
 
     if config["protocol"] == "holdout":
-        patient_split, score = _search_holdout(
-            frame, config, seed
+        _search_top_k = _get_core_attr(
+            "search_top_k_diverse_holdout_splits",
+            search_top_k_diverse_holdout_splits,
         )
-        split_frames = _materialize(
-            frame, patient_split, config, seed
+        _search_holdout = _get_core_attr(
+            "search_holdout_patient_split",
+            search_holdout_patient_split,
         )
-        _validate(split_frames, config["run_profile"])
-        _save_artifacts(
-            split_frames, patient_split, score, run_dir, "holdout"
+        if (
+            _search_holdout is not search_holdout_patient_split
+            and _search_top_k is search_top_k_diverse_holdout_splits
+        ):
+            patient_split, score = _search_holdout(frame, config, seed)
+            split_frames = _materialize(frame, patient_split, config, seed)
+            _validate(split_frames, config["run_profile"])
+            _save_artifacts(split_frames, patient_split, score, run_dir, "holdout")
+            output.append(("holdout", split_frames, patient_split))
+            return output
+
+        diverse_splits = _search_top_k(
+            frame, config, seed, k=3, max_test_overlap_fraction=0.5
         )
-        logger.info("Selected patient split with score %.6f", score)
-        output.append(("holdout", split_frames, patient_split))
+        for split_idx, (patient_split, score) in enumerate(diverse_splits):
+            split_name = f"split_{split_idx}"
+            split_frames = _materialize(
+                frame,
+                patient_split,
+                config,
+                stable_int_seed(seed, "split", split_idx),
+            )
+            _validate(split_frames, config["run_profile"])
+            _save_artifacts(
+                split_frames, patient_split, score, run_dir, split_name
+            )
+            logger.info("Selected patient split %s with score %.6f", split_name, score)
+            output.append((split_name, split_frames, patient_split))
         return output
 
     folds, score = _search_folds(frame, config, seed)

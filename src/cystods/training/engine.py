@@ -781,6 +781,7 @@ def run_training_suite(
             "stage_name": stage_config["stage_name"],
             "run_dir": run_dir,
             "protocol_sha256": protocol_hash,
+            "protocol_split_index": runtime_config.get("protocol_split_index"),
         },
     )
 
@@ -874,6 +875,7 @@ def run_training_suite(
                 "stage_name": stage_config["stage_name"],
                 "run_dir": run_dir,
                 "protocol_sha256": protocol_hash,
+                "protocol_split_index": runtime_config.get("protocol_split_index"),
                 "trials_completed": completed_trials,
             },
         )

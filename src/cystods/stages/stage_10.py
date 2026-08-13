@@ -141,6 +141,7 @@ def run(config: dict[str, Any]) -> Path:
             "selected_backbone": selected_model,
             "selection_metric": "hierarchical_composite",
             "protocol_sha256": protocol_sha,
+            "protocol_split_index": config.get("protocol_split_index"),
             "study_id": config["study_id"],
         },
     )
