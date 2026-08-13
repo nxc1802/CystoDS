@@ -5,19 +5,14 @@
     "sha256": "decb0aefede37f9e2dabe10f1b8600369c6b1b31864c1960f7085523ba6bdf23"
   },
   {
-    "path": "cystods_split.csv",
-    "bytes": 326003,
-    "sha256": "781b636fa995278a5e87c9f786e1c4dfbcc6b3ca78f6afef4b42489364a0a843"
-  },
-  {
     "path": "logs/training.log",
     "bytes": 1392,
-    "sha256": "781d86d6d8b198593780d67585f6af5fdc4b0838f20944a7b236d08cae2c5a8e"
+    "sha256": "a096b7aee4b547e3e2cb98f28a78205da184cfb2e4e5a9aed3c080a6895dc03f"
   },
   {
     "path": "protocol_manifest.json",
     "bytes": 21585,
-    "sha256": "25155ef58d8f6c29b24e828d9f84f6342855aae7cc70a97658d471f461c0c881"
+    "sha256": "1406a9bc48057d2ac6ae012b2d06ea8960805f818f933481cc8e153e09951c5d"
   },
   {
     "path": "reports/data_audit.json",
@@ -47,17 +42,17 @@
   {
     "path": "reports/protocol_reference.json",
     "bytes": 475,
-    "sha256": "cd63e2b08dc9b1a2f7ee8310a78083aff39b910b728afd4cdd88522c0b9654d1"
+    "sha256": "f964a4d3a309d196a08a71ae2495ac17cc919f040d4ac16bb41c22eb8e3be57a"
   },
   {
     "path": "reports/run_summary.json",
     "bytes": 33263,
-    "sha256": "c98371a5192e4be79019c909b1ab422ff05e27be04b2197e41381ecbd12a03dd"
+    "sha256": "71be1c30081442862d0e70c0c6b6156a89c5ec329837204e0c3f43eaa1c21c5f"
   },
   {
     "path": "run_status.json",
     "bytes": 364,
-    "sha256": "2770dae5b1ff7488f768ff3e12c17d6d9b219f1e312e0bb09bbc7cbca8180061"
+    "sha256": "ed3a3c84f41ec1cab9a29307d051c8f5bcc4465a7e88e47e9d9aa2e2e3a7c7d9"
   },
   {
     "path": "source/core.py",

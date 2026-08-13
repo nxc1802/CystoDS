@@ -111,7 +111,6 @@ def save_split_artifacts(
     if combined_list:
         combined_df = pd.concat(combined_list, ignore_index=True)
         combined_df.to_csv(fold_dir / "cystods_split.csv", index=False)
-        combined_df.to_csv(run_dir / "cystods_split.csv", index=False)
 
     write_json(fold_dir / "summary.json", summary)
     return summary
