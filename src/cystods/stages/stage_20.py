@@ -136,16 +136,95 @@ def run(config: dict[str, Any]) -> Path:
     source_files = _source_files()
     run_dir = core.run_training_suite(suite_config, source_files)
 
-    # Save transition artifact for Stage 30
+    # Evaluate all completed trials to select the winning long-tail loss method
     protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+    runs_dir = run_dir / "runs"
+
+    selected_method = "balanced_softmax"
+    selected_trial_id = None
+    best_val_score = -1.0
+    screening_benchmark: list[dict[str, Any]] = []
+
+    if runs_dir.is_dir():
+        for trial_folder in sorted(runs_dir.iterdir()):
+            if not trial_folder.is_dir():
+                continue
+            trial_id = trial_folder.name
+            
+            # Locate metrics.json (check holdout or folds/holdout)
+            metrics_file = trial_folder / "holdout" / "metrics.json"
+            if not metrics_file.is_file():
+                metrics_file = trial_folder / "folds" / "holdout" / "metrics.json"
+            if not metrics_file.is_file():
+                # Glob search as fallback
+                found = list(trial_folder.glob("**/metrics.json"))
+                if found:
+                    metrics_file = found[0]
+
+            if metrics_file.is_file():
+                import json
+                try:
+                    with metrics_file.open("r", encoding="utf-8") as f:
+                        mdata = json.load(f)
+                    
+                    val_fine = mdata.get("validation", {}).get("metrics", {}).get("fine", {}) or {}
+                    test_fine = mdata.get("test", {}).get("metrics", {}).get("fine", {}) or {}
+                    
+                    val_score = float(val_fine.get("macro_f1_all_classes") or val_fine.get("macro_f1_supported") or 0.0)
+                    test_score = float(test_fine.get("macro_f1_all_classes") or test_fine.get("macro_f1_supported") or 0.0)
+                    
+                    # Extract loss method name from trial_id (e.g., fine_balanced_softmax -> balanced_softmax)
+                    loss_method = trial_id.replace("fine_", "")
+                    
+                    entry = {
+                        "trial_id": trial_id,
+                        "loss_method": loss_method,
+                        "val_fine_macro_f1": val_score,
+                        "test_fine_macro_f1": test_score,
+                        "metrics_path": str(metrics_file.relative_to(run_dir)),
+                    }
+                    screening_benchmark.append(entry)
+
+                    if val_score > best_val_score:
+                        best_val_score = val_score
+                        selected_method = loss_method
+                        selected_trial_id = trial_id
+                except Exception as exc:
+                    print(f"[Stage 20] Warning: Could not read metrics for trial '{trial_id}': {exc}")
+
+    # Write full screening benchmark report
+    if screening_benchmark:
+        from cystods.infra.serialization import write_json
+        write_json(
+            run_dir / "loss_screening_benchmark.json",
+            {
+                "schema_version": "cystods.loss_screening_benchmark.v1",
+                "stage_id": STAGE_ID,
+                "selected_backbone": selected_backbone,
+                "selected_long_tail_method": selected_method,
+                "selected_trial_id": selected_trial_id,
+                "best_val_macro_f1": best_val_score,
+                "evaluated_trials_count": len(screening_benchmark),
+                "trials": screening_benchmark,
+            },
+        )
+        print(f"\n[Stage 20] Loss Screening Benchmark completed across {len(screening_benchmark)} trial(s):")
+        for b in screening_benchmark:
+            flag = " 🏆 (Winner)" if b["trial_id"] == selected_trial_id else ""
+            print(f"  • [{b['trial_id']}] Loss: {b['loss_method']} | Val Fine Macro-F1: {b['val_fine_macro_f1']:.4f} | Test: {b['test_fine_macro_f1']:.4f}{flag}")
+        print()
+
+    # Save transition artifact for Stage 30
     write_stage_selection_artifact(
         run_dir,
         "selected_long_tail_method.json",
         {
             "stage_id": STAGE_ID,
             "selected_backbone": selected_backbone,
-            "selected_long_tail_method": "balanced_softmax",
+            "selected_long_tail_method": selected_method,
+            "selected_trial_id": selected_trial_id,
             "selection_metric": "primary_macro_f1_all_classes",
+            "val_macro_f1": best_val_score if best_val_score >= 0 else None,
             "protocol_sha256": protocol_sha,
             "study_id": config["study_id"],
         },

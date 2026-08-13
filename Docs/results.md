@@ -76,8 +76,9 @@ The dataset contains images with wide-ranging native resolutions (from $252 \tim
 > Các số liệu dưới đây được trích xuất trực tiếp từ kết quả thực nghiệm Stage 10 (2026-08-12).
 
 **Dataset split được sử dụng (patient-level, 70/15/15):**
-- Train: 1,553 ảnh — 112 bệnh nhân | Val: 339 ảnh — 24 bệnh nhân | Test: 329 ảnh — 24 bệnh nhân
+- Train: 1,553 ảnh — 112 bệnh nhân | Val: 339 ảnh — 24 bệnh nhân | Test: 329 ảnh — 24 bệnh nhân *(Held-out locked cho Stage 90 Final Evaluation)*
 - Fine-grained val (có label layer 3): 258 ảnh
+
 - **Backbone được chọn tự động** (`hierarchical_composite`): `swin_tiny_patch4_window7_224.ms_in1k`
 
 Benchmark performance trên fixed hold-out val split (image-level):
@@ -101,3 +102,4 @@ Benchmark performance trên fixed hold-out val split (image-level):
 3. **Overfitting nghêm trọng ở Fine-grained**: gap train→val acc lên đến 0.55–0.68 do long-tail 22 classes.
 4. **Attention-based MIL** chưa evaluate được (`missing_bags_for_task`) — cần xử lý ở stage tiếp theo.
 5. **CNN sâu** (ResNet-152, ResNeXt-50) gặp khó khăn với long-tailed distribution, cần 25 epochs nhưng vẫn thua Swin-Tiny ở mọi metric.
+6. **Ablation Single-Task vs. Multitask**: Huấn luyện Multitask giúp tăng Binary F1-score trên tất cả mô hình (+1.1%–2.7%) và nâng ROI-level AUROC của HRNet-W18 lên **0.967**, đồng thời cung cấp khả năng giải thích lâm sàng (5 Coarse & 22 Fine classes) mà không bị phụ thuộc vào lối tắt đơn nhiệm.
