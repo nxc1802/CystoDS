@@ -1,0 +1,380 @@
+{
+  "fine_cross_entropy": {
+    "loss_method": "cross_entropy",
+    "best_epoch": 14,
+    "total_epochs": 20,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8289085545722714,
+      "precision": 0.8307692307692308,
+      "recall": 0.8663101604278075,
+      "specificity": 0.7828947368421053,
+      "f1": 0.8481675392670157,
+      "mcc": 0.6531694034190048,
+      "auroc": 0.9055199831128624,
+      "auprc": 0.9334180611959698
+    },
+    "coarse": {
+      "accuracy": 0.6607669616519174,
+      "macro_f1": 0.5483296350072127,
+      "weighted_f1": 0.6426190240769563,
+      "balanced_accuracy": 0.5225648284247011,
+      "mcc": 0.49669864326149593,
+      "macro_auroc_ovr": 0.8745666446042153
+    },
+    "fine": {
+      "accuracy": 0.5271317829457365,
+      "macro_f1_evaluable": 0.45770684227193736,
+      "macro_f1_all_22": 0.35368255993740616,
+      "weighted_f1": 0.5382913542652252,
+      "balanced_accuracy": 0.45289711515635517,
+      "mcc": 0.375286630955969,
+      "macro_auroc_ovr": 0.8377192646947013
+    },
+    "primary_fine": {
+      "accuracy": 0.5317460317460317,
+      "macro_f1": 0.5319828339322543,
+      "outside_primary_share": 0.015873015873015872
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.7635658914728682,
+      "parent_acc_from_coarse": 0.6356589147286822,
+      "hierarchical_acc": 0.4186046511627907,
+      "cross_parent_error_rate": 0.2364341085271318,
+      "consistency": 0.7984496124031008,
+      "tail_class_recall": 0.5111111111111111
+    },
+    "losses": {
+      "total_loss": 6.453376710942361,
+      "binary_loss": 1.0907140186051,
+      "coarse_loss": 2.0480207145038256,
+      "fine_loss": 3.3146419194595653,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 6.453376710942361
+    }
+  },
+  "fine_weighted_ce": {
+    "loss_method": "weighted_ce",
+    "best_epoch": 10,
+    "total_epochs": 16,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8377581120943953,
+      "precision": 0.8837209302325582,
+      "recall": 0.8128342245989305,
+      "specificity": 0.868421052631579,
+      "f1": 0.8467966573816156,
+      "mcc": 0.6776883466651957,
+      "auroc": 0.9127849704475092,
+      "auprc": 0.9413697701827561
+    },
+    "coarse": {
+      "accuracy": 0.6873156342182891,
+      "macro_f1": 0.6062057352891826,
+      "weighted_f1": 0.6821274637939891,
+      "balanced_accuracy": 0.5944916858717283,
+      "mcc": 0.5564118561136204,
+      "macro_auroc_ovr": 0.8933818496631638
+    },
+    "fine": {
+      "accuracy": 0.4728682170542636,
+      "macro_f1_evaluable": 0.49252889407668593,
+      "macro_f1_all_22": 0.3805905090592573,
+      "weighted_f1": 0.4848732224742894,
+      "balanced_accuracy": 0.5262045956866364,
+      "mcc": 0.40132629294603733,
+      "macro_auroc_ovr": 0.8389901562117165
+    },
+    "primary_fine": {
+      "accuracy": 0.47619047619047616,
+      "macro_f1": 0.5921478857504231,
+      "outside_primary_share": 0.027777777777777776
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.751937984496124,
+      "parent_acc_from_coarse": 0.6395348837209303,
+      "hierarchical_acc": 0.3643410852713178,
+      "cross_parent_error_rate": 0.24806201550387597,
+      "consistency": 0.7248062015503876,
+      "tail_class_recall": 0.5703703703703704
+    },
+    "losses": {
+      "total_loss": 5.1482018819600786,
+      "binary_loss": 0.8945078843638609,
+      "coarse_loss": 1.579486785912584,
+      "fine_loss": 2.674207168342793,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 5.1482018819600786
+    }
+  },
+  "fine_focal": {
+    "loss_method": "focal",
+    "best_epoch": 10,
+    "total_epochs": 16,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8377581120943953,
+      "precision": 0.8626373626373627,
+      "recall": 0.839572192513369,
+      "specificity": 0.8355263157894737,
+      "f1": 0.8509485094850948,
+      "mcc": 0.6733242025654916,
+      "auroc": 0.9285111173656065,
+      "auprc": 0.9481832398762695
+    },
+    "coarse": {
+      "accuracy": 0.6843657817109144,
+      "macro_f1": 0.5725638047511539,
+      "weighted_f1": 0.6654433596328196,
+      "balanced_accuracy": 0.569017245238052,
+      "mcc": 0.5392476010370648,
+      "macro_auroc_ovr": 0.8954765254959675
+    },
+    "fine": {
+      "accuracy": 0.5542635658914729,
+      "macro_f1_evaluable": 0.4774411150480249,
+      "macro_f1_all_22": 0.36893177071892835,
+      "weighted_f1": 0.5302619920879964,
+      "balanced_accuracy": 0.467877130123356,
+      "mcc": 0.3777848996197544,
+      "macro_auroc_ovr": 0.8613348013525046
+    },
+    "primary_fine": {
+      "accuracy": 0.5595238095238095,
+      "macro_f1": 0.5689094948324157,
+      "outside_primary_share": 0.027777777777777776
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.7325581395348837,
+      "parent_acc_from_coarse": 0.6356589147286822,
+      "hierarchical_acc": 0.4806201550387597,
+      "cross_parent_error_rate": 0.26744186046511625,
+      "consistency": 0.8255813953488372,
+      "tail_class_recall": 0.5259259259259258
+    },
+    "losses": {
+      "total_loss": 3.8756357055146435,
+      "binary_loss": 0.727343579397089,
+      "coarse_loss": 1.535322804014943,
+      "fine_loss": 1.6129693204322748,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 3.8756357055146435
+    }
+  },
+  "fine_balanced_softmax": {
+    "loss_method": "balanced_softmax",
+    "best_epoch": 10,
+    "total_epochs": 16,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8702064896755162,
+      "precision": 0.8864864864864865,
+      "recall": 0.8770053475935828,
+      "specificity": 0.8618421052631579,
+      "f1": 0.8817204301075269,
+      "mcc": 0.737991148779736,
+      "auroc": 0.9402617506332677,
+      "auprc": 0.9589748060933374
+    },
+    "coarse": {
+      "accuracy": 0.7315634218289085,
+      "macro_f1": 0.6256673678140584,
+      "weighted_f1": 0.7136230330619806,
+      "balanced_accuracy": 0.6000073795827511,
+      "mcc": 0.6027013231246783,
+      "macro_auroc_ovr": 0.8955457789174577
+    },
+    "fine": {
+      "accuracy": 0.47674418604651164,
+      "macro_f1_evaluable": 0.48698058944940203,
+      "macro_f1_all_22": 0.3763031827563561,
+      "weighted_f1": 0.4993684157669596,
+      "balanced_accuracy": 0.5140817939230224,
+      "mcc": 0.35035192194283504,
+      "macro_auroc_ovr": 0.8542585913204997
+    },
+    "primary_fine": {
+      "accuracy": 0.4801587301587302,
+      "macro_f1": 0.6027763838328853,
+      "outside_primary_share": 0.07936507936507936
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.7674418604651163,
+      "parent_acc_from_coarse": 0.7131782945736435,
+      "hierarchical_acc": 0.4186046511627907,
+      "cross_parent_error_rate": 0.23255813953488372,
+      "consistency": 0.813953488372093,
+      "tail_class_recall": 0.5851851851851851
+    },
+    "losses": {
+      "total_loss": 5.101119528829524,
+      "binary_loss": 0.6331532701278506,
+      "coarse_loss": 1.4880082730346724,
+      "fine_loss": 2.979958109447738,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 5.101119528829524
+    }
+  },
+  "fine_logit_adjustment": {
+    "loss_method": "logit_adjustment",
+    "best_epoch": 20,
+    "total_epochs": 25,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8495575221238938,
+      "precision": 0.8578947368421053,
+      "recall": 0.8716577540106952,
+      "specificity": 0.8223684210526315,
+      "f1": 0.8647214854111406,
+      "mcc": 0.6954221392798577,
+      "auroc": 0.9170947086968759,
+      "auprc": 0.9277323742247415
+    },
+    "coarse": {
+      "accuracy": 0.7522123893805309,
+      "macro_f1": 0.6729254411496571,
+      "weighted_f1": 0.7415453398672396,
+      "balanced_accuracy": 0.6369644509771898,
+      "mcc": 0.6373420218072988,
+      "macro_auroc_ovr": 0.8818952445045445
+    },
+    "fine": {
+      "accuracy": 0.46511627906976744,
+      "macro_f1_evaluable": 0.47424541269343334,
+      "macro_f1_all_22": 0.36646236435401663,
+      "weighted_f1": 0.5019515641327518,
+      "balanced_accuracy": 0.48249323168636027,
+      "mcc": 0.34637136650026407,
+      "macro_auroc_ovr": 0.8266493380833075
+    },
+    "primary_fine": {
+      "accuracy": 0.46825396825396826,
+      "macro_f1": 0.565108414380334,
+      "outside_primary_share": 0.04365079365079365
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.7829457364341085,
+      "parent_acc_from_coarse": 0.7093023255813954,
+      "hierarchical_acc": 0.38372093023255816,
+      "cross_parent_error_rate": 0.21705426356589147,
+      "consistency": 0.813953488372093,
+      "tail_class_recall": 0.5851851851851851
+    },
+    "losses": {
+      "total_loss": 7.80001305549194,
+      "binary_loss": 1.1732928626305235,
+      "coarse_loss": 2.1652822381978893,
+      "fine_loss": 4.461437900509455,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 7.80001305549194
+    }
+  },
+  "fine_ldam": {
+    "loss_method": "ldam",
+    "best_epoch": 13,
+    "total_epochs": 19,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.855457227138643,
+      "precision": 0.896551724137931,
+      "recall": 0.8342245989304813,
+      "specificity": 0.881578947368421,
+      "f1": 0.8642659279778393,
+      "mcc": 0.712229317664157,
+      "auroc": 0.9425837320574163,
+      "auprc": 0.9537323579526071
+    },
+    "coarse": {
+      "accuracy": 0.7551622418879056,
+      "macro_f1": 0.6680743559587491,
+      "weighted_f1": 0.743155598415714,
+      "balanced_accuracy": 0.6500888574349297,
+      "mcc": 0.6422138049932802,
+      "macro_auroc_ovr": 0.9279915579078649
+    },
+    "fine": {
+      "accuracy": 0.3992248062015504,
+      "macro_f1_evaluable": 0.4494172911116578,
+      "macro_f1_all_22": 0.3472769976771901,
+      "weighted_f1": 0.4093266957083565,
+      "balanced_accuracy": 0.4912952775784634,
+      "mcc": 0.29971261052154785,
+      "macro_auroc_ovr": 0.7920991897007649
+    },
+    "primary_fine": {
+      "accuracy": 0.4007936507936508,
+      "macro_f1": 0.5468835490922183,
+      "outside_primary_share": 0.023809523809523808
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.7945736434108527,
+      "parent_acc_from_coarse": 0.7325581395348837,
+      "hierarchical_acc": 0.3449612403100775,
+      "cross_parent_error_rate": 0.2054263565891473,
+      "consistency": 0.8410852713178295,
+      "tail_class_recall": 0.47407407407407415
+    },
+    "losses": {
+      "total_loss": 23.99559233673906,
+      "binary_loss": 0.5596187255375504,
+      "coarse_loss": 0.9191673906151876,
+      "fine_loss": 22.516805744452462,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 23.99559233673906
+    }
+  },
+  "fine_balanced_softmax_smoothed": {
+    "loss_method": "balanced_softmax_smoothed",
+    "best_epoch": 16,
+    "total_epochs": 22,
+    "best_tau": 0.0,
+    "binary": {
+      "accuracy": 0.8761061946902655,
+      "precision": 0.9096045197740112,
+      "recall": 0.8609625668449198,
+      "specificity": 0.8947368421052632,
+      "f1": 0.8846153846153846,
+      "mcc": 0.7523978386773166,
+      "auroc": 0.9246059667886294,
+      "auprc": 0.9512114056483736
+    },
+    "coarse": {
+      "accuracy": 0.6991150442477876,
+      "macro_f1": 0.5978456862999177,
+      "weighted_f1": 0.6853385907774561,
+      "balanced_accuracy": 0.5703481106453505,
+      "mcc": 0.5659871365820669,
+      "macro_auroc_ovr": 0.8989743790036681
+    },
+    "fine": {
+      "accuracy": 0.45348837209302323,
+      "macro_f1_evaluable": 0.48281215464562,
+      "macro_f1_all_22": 0.3730821194988882,
+      "weighted_f1": 0.48594602379393587,
+      "balanced_accuracy": 0.5027122776081652,
+      "mcc": 0.34858239172766775,
+      "macro_auroc_ovr": 0.8510245340243533
+    },
+    "primary_fine": {
+      "accuracy": 0.45634920634920634,
+      "macro_f1": 0.5761395169785387,
+      "outside_primary_share": 0.027777777777777776
+    },
+    "hierarchy": {
+      "parent_acc_from_fine": 0.8023255813953488,
+      "parent_acc_from_coarse": 0.6434108527131783,
+      "hierarchical_acc": 0.3178294573643411,
+      "cross_parent_error_rate": 0.19767441860465115,
+      "consistency": 0.7403100775193798,
+      "tail_class_recall": 0.5481481481481482
+    },
+    "losses": {
+      "total_loss": 6.785230335584433,
+      "binary_loss": 0.9693932497220054,
+      "coarse_loss": 2.0115417723810425,
+      "fine_loss": 3.804295411855422,
+      "fine_loss_evaluable_share": 0.7610619463751801,
+      "classification_total": 6.785230335584433
+    }
+  }
+}
