@@ -229,4 +229,72 @@ def test_cli_override_attention_epochs_maps_to_roi_attention_epochs() -> None:
     assert "attention_epochs" not in normalized
 
 
+def test_stage_artifact_hierarchical_directory_structure() -> None:
+    """Verify find_and_load_stage_artifact discovers artifacts in unified hierarchical directory layout."""
+    with tempfile.TemporaryDirectory() as tmp_dir:
+        tmp_path = Path(tmp_dir)
+        run_10 = tmp_path / "10_baselines" / "research_20260812-102718"
+        run_10.mkdir(parents=True)
+        write_stage_selection_artifact(
+            run_10,
+            "selected_backbone.json",
+            {
+                "stage_id": "10",
+                "selected_backbone": "swin_tiny_patch4_window7_224.ms_in1k",
+                "protocol_sha256": "sha_stage_10",
+            },
+        )
+
+        run_20 = tmp_path / "20_long_tail" / "research_20260813-105659"
+        run_20.mkdir(parents=True)
+        write_stage_selection_artifact(
+            run_20,
+            "selected_long_tail_method.json",
+            {
+                "stage_id": "20",
+                "selected_backbone": "swin_tiny_patch4_window7_224.ms_in1k",
+                "selected_long_tail_method": "balanced_softmax_smoothed",
+                "protocol_sha256": "sha_stage_20",
+            },
+        )
+
+        loaded_10 = find_and_load_stage_artifact(
+            tmp_path,
+            stage_id="10",
+            artifact_name="selected_backbone.json",
+            expected_protocol_sha256="sha_stage_10",
+        )
+        assert loaded_10["selected_backbone"] == "swin_tiny_patch4_window7_224.ms_in1k"
+
+        loaded_20 = find_and_load_stage_artifact(
+            tmp_path,
+            stage_id="20",
+            artifact_name="selected_long_tail_method.json",
+            expected_protocol_sha256="sha_stage_20",
+        )
+        assert loaded_20["selected_long_tail_method"] == "balanced_softmax_smoothed"
+
+
+def test_stage30_trial_resolution_and_source_files() -> None:
+    """Verify Stage 30 trials resolution, filters, and source files contracts."""
+    import cystods.stages.stage_30 as stage_30
+
+    source_files = stage_30._source_files()
+    assert len(source_files) > 0
+    assert all(f.is_file() for f in source_files)
+
+    trials_research = get_stage_trials(stage="30", profile="research")
+    assert len(trials_research) == 1
+    assert trials_research[0]["task_mode"] == "hierarchical"
+
+    trials_smoke = get_stage_trials(stage="30", profile="smoke")
+    assert len(trials_smoke) >= 0
+
+    base_config = load_config(stage="30", profile="smoke")
+    assert base_config["task_mode"] == "hierarchical"
+    assert base_config["binary_coarse_hierarchy_loss_weight"] == 0.25
+    assert base_config["coarse_fine_hierarchy_loss_weight"] == 0.25
+
+
+
 

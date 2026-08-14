@@ -49,6 +49,16 @@ def run(config: dict[str, Any]) -> Path:
         "CYSTODS_EXPECTED_PROTOCOL_SHA256"
     )
 
+    # Protocol binding auto-discovery
+    if protocol_run_dir is None:
+        auto_dir, auto_sha = core.find_latest_completed_protocol_run(
+            config.get("result_root"), config.get("run_profile")
+        )
+        if auto_dir is not None:
+            protocol_run_dir = auto_dir
+            if expected_sha is None:
+                expected_sha = auto_sha
+
     # HF config
     hf_path_prefix = os.environ.get(
         "CYSTODS_HF_PATH_PREFIX",
@@ -131,7 +141,19 @@ def run(config: dict[str, Any]) -> Path:
 
     # Default to Swin-Tiny unless explicit override / analysis changes it
     selected_model = "swin_tiny_patch4_window7_224.ms_in1k"
+    run_status_file = run_dir / "run_status.json"
     protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+    protocol_split_index = config.get("protocol_split_index")
+    if run_status_file.is_file():
+        try:
+            import json
+            with run_status_file.open("r", encoding="utf-8") as handle:
+                status_data = json.load(handle)
+            protocol_sha = status_data.get("protocol_sha256", protocol_sha)
+            if protocol_split_index is None:
+                protocol_split_index = status_data.get("protocol_split_index")
+        except Exception:
+            pass
 
     write_stage_selection_artifact(
         run_dir,
@@ -141,9 +163,10 @@ def run(config: dict[str, Any]) -> Path:
             "selected_backbone": selected_model,
             "selection_metric": "hierarchical_composite",
             "protocol_sha256": protocol_sha,
-            "protocol_split_index": config.get("protocol_split_index"),
+            "protocol_split_index": protocol_split_index,
             "study_id": config["study_id"],
         },
     )
 
     return run_dir
+

@@ -44,7 +44,15 @@ def run(config: dict[str, Any]) -> Path:
 
     config["hf_path_prefix"] = os.environ.get(
         "CYSTODS_HF_PATH_PREFIX", f"{config['study_id']}/{STAGE_NAME}"
-    )
+    )    # Protocol binding auto-discovery
+    if protocol_run_dir is None:
+        auto_dir, auto_sha = core.find_latest_completed_protocol_run(
+            config.get("result_root"), config.get("run_profile")
+        )
+        if auto_dir is not None:
+            protocol_run_dir = auto_dir
+            if expected_sha is None:
+                expected_sha = auto_sha
 
     filter_models = config.get("filter_models")
     filter_trials = config.get("filter_trials")
@@ -137,60 +145,65 @@ def run(config: dict[str, Any]) -> Path:
     run_dir = core.run_training_suite(suite_config, source_files)
 
     # Evaluate all completed trials to select the winning long-tail loss method
+    run_status_file = run_dir / "run_status.json"
     protocol_sha = config.get("protocol_reference_sha256", expected_sha)
-    runs_dir = run_dir / "runs"
+    protocol_split_index = config.get("protocol_split_index")
+    if run_status_file.is_file():
+        try:
+            import json
+            with run_status_file.open("r", encoding="utf-8") as handle:
+                status_data = json.load(handle)
+            protocol_sha = status_data.get("protocol_sha256", protocol_sha)
+            if protocol_split_index is None:
+                protocol_split_index = status_data.get("protocol_split_index")
+        except Exception:
+            pass
 
+    runs_dir = run_dir / "runs"
     selected_method = "balanced_softmax"
     selected_trial_id = None
     best_val_score = -1.0
     screening_benchmark: list[dict[str, Any]] = []
 
     if runs_dir.is_dir():
+        import pandas as pd
         for trial_folder in sorted(runs_dir.iterdir()):
             if not trial_folder.is_dir():
                 continue
             trial_id = trial_folder.name
-            
-            # Locate metrics.json (check holdout or folds/holdout)
-            metrics_file = trial_folder / "holdout" / "metrics.json"
-            if not metrics_file.is_file():
-                metrics_file = trial_folder / "folds" / "holdout" / "metrics.json"
-            if not metrics_file.is_file():
-                # Glob search as fallback
-                found = list(trial_folder.glob("**/metrics.json"))
-                if found:
-                    metrics_file = found[0]
+            loss_method = trial_id.replace("fine_", "")
 
-            if metrics_file.is_file():
-                import json
-                try:
-                    with metrics_file.open("r", encoding="utf-8") as f:
-                        mdata = json.load(f)
-                    
-                    val_fine = mdata.get("validation", {}).get("metrics", {}).get("fine", {}) or {}
-                    test_fine = mdata.get("test", {}).get("metrics", {}).get("fine", {}) or {}
-                    
-                    val_score = float(val_fine.get("macro_f1_all_classes") or val_fine.get("macro_f1_supported") or 0.0)
-                    test_score = float(test_fine.get("macro_f1_all_classes") or test_fine.get("macro_f1_supported") or 0.0)
-                    
-                    # Extract loss method name from trial_id (e.g., fine_balanced_softmax -> balanced_softmax)
-                    loss_method = trial_id.replace("fine_", "")
-                    
-                    entry = {
-                        "trial_id": trial_id,
-                        "loss_method": loss_method,
-                        "val_fine_macro_f1": val_score,
-                        "test_fine_macro_f1": test_score,
-                        "metrics_path": str(metrics_file.relative_to(run_dir)),
-                    }
-                    screening_benchmark.append(entry)
+            # Look for history.csv or best_model.pt in subdirectories of trial_folder
+            val_scores: list[float] = []
+            for fold_dir in sorted(trial_folder.iterdir()):
+                if not fold_dir.is_dir():
+                    continue
+                history_file = fold_dir / "history.csv"
+                if history_file.is_file():
+                    try:
+                        hdf = pd.read_csv(history_file)
+                        if "monitored_score" in hdf:
+                            val_scores.append(float(hdf["monitored_score"].max()))
+                    except Exception:
+                        pass
 
-                    if val_score > best_val_score:
-                        best_val_score = val_score
-                        selected_method = loss_method
-                        selected_trial_id = trial_id
-                except Exception as exc:
-                    print(f"[Stage 20] Warning: Could not read metrics for trial '{trial_id}': {exc}")
+            val_score = float(max(val_scores)) if val_scores else 0.0
+            entry = {
+                "trial_id": trial_id,
+                "loss_method": loss_method,
+                "val_monitored_score": val_score,
+            }
+            screening_benchmark.append(entry)
+
+            if val_score > best_val_score:
+                best_val_score = val_score
+                selected_method = loss_method
+                selected_trial_id = trial_id
+
+    # If only 1 trial ran or none had history, default appropriately
+    if selected_trial_id is None and screening_benchmark:
+        selected_trial_id = screening_benchmark[0]["trial_id"]
+        selected_method = screening_benchmark[0]["loss_method"]
 
     # Write full screening benchmark report
     if screening_benchmark:
@@ -203,7 +216,7 @@ def run(config: dict[str, Any]) -> Path:
                 "selected_backbone": selected_backbone,
                 "selected_long_tail_method": selected_method,
                 "selected_trial_id": selected_trial_id,
-                "best_val_macro_f1": best_val_score,
+                "best_val_monitored_score": best_val_score,
                 "evaluated_trials_count": len(screening_benchmark),
                 "trials": screening_benchmark,
             },
@@ -211,7 +224,7 @@ def run(config: dict[str, Any]) -> Path:
         print(f"\n[Stage 20] Loss Screening Benchmark completed across {len(screening_benchmark)} trial(s):")
         for b in screening_benchmark:
             flag = " 🏆 (Winner)" if b["trial_id"] == selected_trial_id else ""
-            print(f"  • [{b['trial_id']}] Loss: {b['loss_method']} | Val Fine Macro-F1: {b['val_fine_macro_f1']:.4f} | Test: {b['test_fine_macro_f1']:.4f}{flag}")
+            print(f"  • [{b['trial_id']}] Loss: {b['loss_method']} | Val Monitored Score: {b['val_monitored_score']:.4f}{flag}")
         print()
 
     # Save transition artifact for Stage 30
@@ -226,7 +239,7 @@ def run(config: dict[str, Any]) -> Path:
             "selection_metric": "primary_macro_f1_all_classes",
             "val_macro_f1": best_val_score if best_val_score >= 0 else None,
             "protocol_sha256": protocol_sha,
-            "protocol_split_index": config.get("protocol_split_index"),
+            "protocol_split_index": protocol_split_index,
             "study_id": config["study_id"],
         },
     )

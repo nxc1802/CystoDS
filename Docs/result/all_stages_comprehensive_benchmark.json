@@ -1,0 +1,2446 @@
+{
+  "10_baselines": {
+    "binary_hrnet_w18": {
+      "split_0": {
+        "epoch": 5,
+        "best_monitored_score": 0.92900365887982,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.6966868839432708,
+          "binary_loss": 0.6966868839432708,
+          "classification_total": 0.6966868839432708
+        },
+        "binary": {
+          "accuracy": 0.855457227138643,
+          "precision": 0.845,
+          "recall": 0.9037433155080213,
+          "sensitivity": 0.9037433155080213,
+          "specificity": 0.7960526315789473,
+          "f1": 0.8733850129198967,
+          "mcc": 0.7076061880681475,
+          "auroc": 0.9292323388685617,
+          "auprc": 0.9138785698341892,
+          "balanced_accuracy": 0.8498979735434844
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_1": {
+        "epoch": 6,
+        "best_monitored_score": 0.9647008844089136,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.451765964184802,
+          "binary_loss": 0.451765964184802,
+          "classification_total": 0.451765964184802
+        },
+        "binary": {
+          "accuracy": 0.8865030674846626,
+          "precision": 0.9222222222222223,
+          "recall": 0.8783068783068783,
+          "sensitivity": 0.8783068783068783,
+          "specificity": 0.8978102189781022,
+          "f1": 0.8997289972899729,
+          "mcc": 0.7703813419260517,
+          "auroc": 0.9649326072683737,
+          "auprc": 0.9744322517826196,
+          "balanced_accuracy": 0.8880585486424902
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_2": {
+        "epoch": 10,
+        "best_monitored_score": 0.9789956878564473,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.3370297850931392,
+          "binary_loss": 0.3370297850931392,
+          "classification_total": 0.3370297850931392
+        },
+        "binary": {
+          "accuracy": 0.9294117647058824,
+          "precision": 0.9466666666666667,
+          "recall": 0.8987341772151899,
+          "sensitivity": 0.8987341772151899,
+          "specificity": 0.9560439560439561,
+          "f1": 0.922077922077922,
+          "mcc": 0.8586085543872777,
+          "auroc": 0.9796042565029908,
+          "auprc": 0.9767444843715679,
+          "balanced_accuracy": 0.927389066629573
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      }
+    },
+    "binary_resnet152": {
+      "split_0": {
+        "epoch": 18,
+        "best_monitored_score": 0.8448846045595272,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.9802281921592082,
+          "binary_loss": 0.9802281921592082,
+          "classification_total": 0.9802281921592082
+        },
+        "binary": {
+          "accuracy": 0.7787610619469026,
+          "precision": 0.8111111111111111,
+          "recall": 0.7807486631016043,
+          "sensitivity": 0.7807486631016043,
+          "specificity": 0.7763157894736842,
+          "f1": 0.7956403269754768,
+          "mcc": 0.5551536872117279,
+          "auroc": 0.8393962848297214,
+          "auprc": 0.8535695183049689,
+          "balanced_accuracy": 0.7785322262876442
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_1": {
+        "epoch": 13,
+        "best_monitored_score": 0.8961495384853049,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.7381225144204918,
+          "binary_loss": 0.7381225144204918,
+          "classification_total": 0.7381225144204918
+        },
+        "binary": {
+          "accuracy": 0.8282208588957055,
+          "precision": 0.88,
+          "recall": 0.8148148148148148,
+          "sensitivity": 0.8148148148148148,
+          "specificity": 0.8467153284671532,
+          "f1": 0.8461538461538461,
+          "mcc": 0.6548371741625235,
+          "auroc": 0.8929826594060172,
+          "auprc": 0.9253731176841464,
+          "balanced_accuracy": 0.830765071640984
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_2": {
+        "epoch": 8,
+        "best_monitored_score": 0.9379259980525804,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.36578778063549716,
+          "binary_loss": 0.36578778063549716,
+          "classification_total": 0.36578778063549716
+        },
+        "binary": {
+          "accuracy": 0.8764705882352941,
+          "precision": 0.8625,
+          "recall": 0.8734177215189873,
+          "sensitivity": 0.8734177215189873,
+          "specificity": 0.8791208791208791,
+          "f1": 0.8679245283018868,
+          "mcc": 0.7519635250334876,
+          "auroc": 0.9314230073723745,
+          "auprc": 0.9249831073497201,
+          "balanced_accuracy": 0.8762693003199332
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      }
+    },
+    "binary_resnext50_32x4d": {
+      "split_0": {
+        "epoch": 17,
+        "best_monitored_score": 0.8743315508021391,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.7432610123558382,
+          "binary_loss": 0.7432610123558382,
+          "classification_total": 0.7432610123558382
+        },
+        "binary": {
+          "accuracy": 0.799410029498525,
+          "precision": 0.7819905213270142,
+          "recall": 0.8823529411764706,
+          "sensitivity": 0.8823529411764706,
+          "specificity": 0.6973684210526315,
+          "f1": 0.8291457286432161,
+          "mcc": 0.5947243068353735,
+          "auroc": 0.8672248803827752,
+          "auprc": 0.884665395803395,
+          "balanced_accuracy": 0.789860681114551
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_1": {
+        "epoch": 9,
+        "best_monitored_score": 0.9009964082956785,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.4550173503855255,
+          "binary_loss": 0.4550173503855255,
+          "classification_total": 0.4550173503855255
+        },
+        "binary": {
+          "accuracy": 0.8251533742331288,
+          "precision": 0.84375,
+          "recall": 0.8571428571428571,
+          "sensitivity": 0.8571428571428571,
+          "specificity": 0.781021897810219,
+          "f1": 0.8503937007874016,
+          "mcc": 0.640207838355762,
+          "auroc": 0.9004750318618931,
+          "auprc": 0.9248121223008673,
+          "balanced_accuracy": 0.8190823774765381
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_2": {
+        "epoch": 4,
+        "best_monitored_score": 0.959225900681597,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.3993398186038522,
+          "binary_loss": 0.3993398186038522,
+          "classification_total": 0.3993398186038522
+        },
+        "binary": {
+          "accuracy": 0.8147058823529412,
+          "precision": 0.7294685990338164,
+          "recall": 0.9556962025316456,
+          "sensitivity": 0.9556962025316456,
+          "specificity": 0.6923076923076923,
+          "f1": 0.8273972602739726,
+          "mcc": 0.6622635617240838,
+          "auroc": 0.9500625956322158,
+          "auprc": 0.9463684241779848,
+          "balanced_accuracy": 0.8240019474196689
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      }
+    },
+    "binary_swin_tiny": {
+      "split_0": {
+        "epoch": 2,
+        "best_monitored_score": 0.912872924289333,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.4690773651487356,
+          "binary_loss": 0.4690773651487356,
+          "classification_total": 0.4690773651487356
+        },
+        "binary": {
+          "accuracy": 0.831858407079646,
+          "precision": 0.8611111111111112,
+          "recall": 0.8288770053475936,
+          "sensitivity": 0.8288770053475936,
+          "specificity": 0.8355263157894737,
+          "f1": 0.8446866485013624,
+          "mcc": 0.662124376846879,
+          "auroc": 0.9129256965944272,
+          "auprc": 0.9318990555148955,
+          "balanced_accuracy": 0.8322016605685336
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_1": {
+        "epoch": 4,
+        "best_monitored_score": 0.9779863283512918,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.40063808355594704,
+          "binary_loss": 0.40063808355594704,
+          "classification_total": 0.40063808355594704
+        },
+        "binary": {
+          "accuracy": 0.9049079754601227,
+          "precision": 0.9247311827956989,
+          "recall": 0.91005291005291,
+          "sensitivity": 0.91005291005291,
+          "specificity": 0.8978102189781022,
+          "f1": 0.9173333333333333,
+          "mcc": 0.8055796429763048,
+          "auroc": 0.9779090873981385,
+          "auprc": 0.9844954578025717,
+          "balanced_accuracy": 0.9039315645155062
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      },
+      "split_2": {
+        "epoch": 4,
+        "best_monitored_score": 0.9860724718319656,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 0.38577743102522455,
+          "binary_loss": 0.38577743102522455,
+          "classification_total": 0.38577743102522455
+        },
+        "binary": {
+          "accuracy": 0.9264705882352942,
+          "precision": 0.965034965034965,
+          "recall": 0.8734177215189873,
+          "sensitivity": 0.8734177215189873,
+          "specificity": 0.9725274725274725,
+          "f1": 0.9169435215946844,
+          "mcc": 0.8546835261903805,
+          "auroc": 0.9862637362637362,
+          "auprc": 0.9857656997505098,
+          "balanced_accuracy": 0.9229725970232299
+        },
+        "coarse": null,
+        "fine": null,
+        "primary_fine": null,
+        "hierarchy": null
+      }
+    },
+    "multitask_hrnet_w18": {
+      "split_0": {
+        "epoch": 3,
+        "best_monitored_score": 0.5070741516706928,
+        "fine_inference_prior_tau": 0.25,
+        "losses": {
+          "total_loss": 3.445409434383246,
+          "binary_loss": 0.5154556355117696,
+          "coarse_loss": 1.0574328728833382,
+          "fine_loss": 1.872520941196993,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 3.445409434383246
+        },
+        "binary": {
+          "accuracy": 0.8377581120943953,
+          "precision": 0.8548387096774194,
+          "recall": 0.8502673796791443,
+          "sensitivity": 0.8502673796791443,
+          "specificity": 0.8223684210526315,
+          "f1": 0.8525469168900804,
+          "mcc": 0.6722338671430138,
+          "auroc": 0.888685617787785,
+          "auprc": 0.9058629518330436,
+          "balanced_accuracy": 0.8363179003658879
+        },
+        "coarse": {
+          "accuracy": 0.6283185840707964,
+          "macro_f1_all_classes": 0.5675074925074926,
+          "macro_f1_supported": 0.5675074925074926,
+          "weighted_f1": 0.6320844101817553,
+          "balanced_accuracy": 0.5672485649131084,
+          "mcc": 0.46902995553761606,
+          "macro_auroc_ovr": 0.8564506869119806
+        },
+        "fine": {
+          "accuracy": 0.39147286821705424,
+          "macro_f1_all_classes": 0.2578248941908154,
+          "macro_f1_supported": 0.33365574542340815,
+          "weighted_f1": 0.4169232458877588,
+          "balanced_accuracy": 0.34139305885792093,
+          "mcc": 0.24375638197281949,
+          "macro_auroc_ovr": 0.8196177600379768
+        },
+        "primary_fine": {
+          "accuracy": 0.42016806722689076,
+          "macro_f1_all_classes": 0.5360563696565092,
+          "macro_f1_supported": 0.5360563696565092,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.6976744186046512,
+          "parent_accuracy_from_coarse_head": 0.624031007751938,
+          "hierarchical_accuracy": 0.31007751937984496,
+          "cross_parent_error_rate": 0.3023255813953488,
+          "coarse_fine_prediction_consistency": 0.7635658914728682,
+          "tail_class_recall": 0.37037037037037035
+        }
+      },
+      "split_1": {
+        "epoch": 5,
+        "best_monitored_score": 0.5478043596627762,
+        "fine_inference_prior_tau": 0.25,
+        "losses": {
+          "total_loss": 3.713115332316767,
+          "binary_loss": 0.2999528258856089,
+          "coarse_loss": 1.107648852412686,
+          "fine_loss": 2.3055136306154216,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 3.713115332316767
+        },
+        "binary": {
+          "accuracy": 0.8895705521472392,
+          "precision": 0.8923076923076924,
+          "recall": 0.9206349206349206,
+          "sensitivity": 0.9206349206349206,
+          "specificity": 0.8467153284671532,
+          "f1": 0.90625,
+          "mcc": 0.7725593812957502,
+          "auroc": 0.9619588305719693,
+          "auprc": 0.9737472852637846,
+          "balanced_accuracy": 0.8836751245510369
+        },
+        "coarse": {
+          "accuracy": 0.6932515337423313,
+          "macro_f1_all_classes": 0.5739051018739392,
+          "macro_f1_supported": 0.5739051018739392,
+          "weighted_f1": 0.6829105441781831,
+          "balanced_accuracy": 0.5524820914558222,
+          "mcc": 0.5394655673957052,
+          "macro_auroc_ovr": 0.8621394730575226
+        },
+        "fine": {
+          "accuracy": 0.43673469387755104,
+          "macro_f1_all_classes": 0.36291059574425144,
+          "macro_f1_supported": 0.46964900625726663,
+          "weighted_f1": 0.42016247852114114,
+          "balanced_accuracy": 0.5085900304394204,
+          "mcc": 0.29358561574059266,
+          "macro_auroc_ovr": 0.889014167443888
+        },
+        "primary_fine": {
+          "accuracy": 0.47465437788018433,
+          "macro_f1_all_classes": 0.5932958661755174,
+          "macro_f1_supported": 0.5932958661755174,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7387755102040816,
+          "parent_accuracy_from_coarse_head": 0.6693877551020408,
+          "hierarchical_accuracy": 0.3510204081632653,
+          "cross_parent_error_rate": 0.2612244897959184,
+          "coarse_fine_prediction_consistency": 0.8081632653061225,
+          "tail_class_recall": 0.6111111111111112
+        }
+      },
+      "split_2": {
+        "epoch": 10,
+        "best_monitored_score": 0.4298592320804494,
+        "fine_inference_prior_tau": 0.5,
+        "losses": {
+          "total_loss": 4.4930949098923625,
+          "binary_loss": 0.41247220530229456,
+          "coarse_loss": 1.7364321876974667,
+          "fine_loss": 2.344190441860872,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 4.4930949098923625
+        },
+        "binary": {
+          "accuracy": 0.888235294117647,
+          "precision": 0.9545454545454546,
+          "recall": 0.7974683544303798,
+          "sensitivity": 0.7974683544303798,
+          "specificity": 0.967032967032967,
+          "f1": 0.8689655172413793,
+          "mcc": 0.7823909978261464,
+          "auroc": 0.9648421199054111,
+          "auprc": 0.9678338550684904,
+          "balanced_accuracy": 0.8822506607316734
+        },
+        "coarse": {
+          "accuracy": 0.5882352941176471,
+          "macro_f1_all_classes": 0.49697481374625097,
+          "macro_f1_supported": 0.49697481374625097,
+          "weighted_f1": 0.5866552427649377,
+          "balanced_accuracy": 0.49751560724238325,
+          "mcc": 0.475652913836775,
+          "macro_auroc_ovr": 0.8621278596505901
+        },
+        "fine": {
+          "accuracy": 0.4749034749034749,
+          "macro_f1_all_classes": 0.2661486472008413,
+          "macro_f1_supported": 0.3903513492279006,
+          "weighted_f1": 0.45986931994356106,
+          "balanced_accuracy": 0.4704890013799351,
+          "mcc": 0.3748490021280657,
+          "macro_auroc_ovr": 0.8651731347131852
+        },
+        "primary_fine": {
+          "accuracy": 0.4818181818181818,
+          "macro_f1_all_classes": 0.41987739007235303,
+          "macro_f1_supported": 0.5131834767550981,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7258687258687259,
+          "parent_accuracy_from_coarse_head": 0.47876447876447875,
+          "hierarchical_accuracy": 0.30115830115830117,
+          "cross_parent_error_rate": 0.27413127413127414,
+          "coarse_fine_prediction_consistency": 0.6293436293436293,
+          "tail_class_recall": 0.5714285714285714
+        }
+      }
+    },
+    "multitask_resnet152": {
+      "split_0": {
+        "epoch": 13,
+        "best_monitored_score": 0.30120087129828677,
+        "fine_inference_prior_tau": 0.5,
+        "losses": {
+          "total_loss": 4.207349768782084,
+          "binary_loss": 0.7320506836460755,
+          "coarse_loss": 1.3849239778378017,
+          "fine_loss": 2.0903751589907307,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 4.207349768782084
+        },
+        "binary": {
+          "accuracy": 0.7610619469026548,
+          "precision": 0.7704081632653061,
+          "recall": 0.8074866310160428,
+          "sensitivity": 0.8074866310160428,
+          "specificity": 0.7039473684210527,
+          "f1": 0.7885117493472585,
+          "mcc": 0.5150342832228327,
+          "auroc": 0.8234238671545173,
+          "auprc": 0.8489064371274184,
+          "balanced_accuracy": 0.7557169997185478
+        },
+        "coarse": {
+          "accuracy": 0.5634218289085545,
+          "macro_f1_all_classes": 0.41717395920441114,
+          "macro_f1_supported": 0.41717395920441114,
+          "weighted_f1": 0.543967868099992,
+          "balanced_accuracy": 0.403320933214776,
+          "mcc": 0.3497818226566923,
+          "macro_auroc_ovr": 0.7233535917469904
+        },
+        "fine": {
+          "accuracy": 0.3062015503875969,
+          "macro_f1_all_classes": 0.12131626822677267,
+          "macro_f1_supported": 0.15699752358758814,
+          "weighted_f1": 0.317055536408364,
+          "balanced_accuracy": 0.18360598644305048,
+          "mcc": 0.12558399568737277,
+          "macro_auroc_ovr": 0.758821846843692
+        },
+        "primary_fine": {
+          "accuracy": 0.31092436974789917,
+          "macro_f1_all_classes": 0.21332735336491748,
+          "macro_f1_supported": 0.21332735336491748,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.5891472868217055,
+          "parent_accuracy_from_coarse_head": 0.5155038759689923,
+          "hierarchical_accuracy": 0.21705426356589147,
+          "cross_parent_error_rate": 0.4108527131782946,
+          "coarse_fine_prediction_consistency": 0.7596899224806202,
+          "tail_class_recall": 0.07407407407407407
+        }
+      },
+      "split_1": {
+        "epoch": 17,
+        "best_monitored_score": 0.37186147683388704,
+        "fine_inference_prior_tau": 0.75,
+        "losses": {
+          "total_loss": 4.178500130132663,
+          "binary_loss": 0.8378627695188932,
+          "coarse_loss": 1.364502514798217,
+          "fine_loss": 1.9761348926216546,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 4.178500130132663
+        },
+        "binary": {
+          "accuracy": 0.7760736196319018,
+          "precision": 0.8411764705882353,
+          "recall": 0.7566137566137566,
+          "sensitivity": 0.7566137566137566,
+          "specificity": 0.8029197080291971,
+          "f1": 0.7966573816155988,
+          "mcc": 0.5528795058186414,
+          "auroc": 0.8465415363225582,
+          "auprc": 0.8770609707048318,
+          "balanced_accuracy": 0.7797667323214769
+        },
+        "coarse": {
+          "accuracy": 0.5705521472392638,
+          "macro_f1_all_classes": 0.45861161167374204,
+          "macro_f1_supported": 0.45861161167374204,
+          "weighted_f1": 0.5643191338735098,
+          "balanced_accuracy": 0.4540012199486815,
+          "mcc": 0.37552770232412946,
+          "macro_auroc_ovr": 0.7879272950309556
+        },
+        "fine": {
+          "accuracy": 0.3142857142857143,
+          "macro_f1_all_classes": 0.17550067112682582,
+          "macro_f1_supported": 0.22711851557589224,
+          "weighted_f1": 0.3119872619751675,
+          "balanced_accuracy": 0.23369322961382696,
+          "mcc": 0.15967660170134756,
+          "macro_auroc_ovr": 0.8165634517081413
+        },
+        "primary_fine": {
+          "accuracy": 0.3271889400921659,
+          "macro_f1_all_classes": 0.3347027094293813,
+          "macro_f1_supported": 0.3347027094293813,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.636734693877551,
+          "parent_accuracy_from_coarse_head": 0.5224489795918368,
+          "hierarchical_accuracy": 0.23673469387755103,
+          "cross_parent_error_rate": 0.363265306122449,
+          "coarse_fine_prediction_consistency": 0.689795918367347,
+          "tail_class_recall": 0.2222222222222222
+        }
+      },
+      "split_2": {
+        "epoch": 22,
+        "best_monitored_score": 0.33833394657910076,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 3.559307603275075,
+          "binary_loss": 0.3793911199359333,
+          "coarse_loss": 1.3721678733825684,
+          "fine_loss": 1.8077486318700453,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 3.559307603275075
+        },
+        "binary": {
+          "accuracy": 0.8852941176470588,
+          "precision": 0.9047619047619048,
+          "recall": 0.8417721518987342,
+          "sensitivity": 0.8417721518987342,
+          "specificity": 0.9230769230769231,
+          "f1": 0.8721311475409836,
+          "mcc": 0.770021163056751,
+          "auroc": 0.9395256642092086,
+          "auprc": 0.9421916752291541,
+          "balanced_accuracy": 0.8824245374878287
+        },
+        "coarse": {
+          "accuracy": 0.5647058823529412,
+          "macro_f1_all_classes": 0.4435140168758903,
+          "macro_f1_supported": 0.4435140168758903,
+          "weighted_f1": 0.5423696025932365,
+          "balanced_accuracy": 0.4570912036759031,
+          "mcc": 0.42911783240441415,
+          "macro_auroc_ovr": 0.7940569675251503
+        },
+        "fine": {
+          "accuracy": 0.42084942084942084,
+          "macro_f1_all_classes": 0.16730430543477848,
+          "macro_f1_supported": 0.24537964797100845,
+          "weighted_f1": 0.4143563818631492,
+          "balanced_accuracy": 0.24351418033176037,
+          "mcc": 0.2940459235323501,
+          "macro_auroc_ovr": 0.8170387929519295
+        },
+        "primary_fine": {
+          "accuracy": 0.45454545454545453,
+          "macro_f1_all_classes": 0.30226495492815153,
+          "macro_f1_supported": 0.36943494491218526,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.637065637065637,
+          "parent_accuracy_from_coarse_head": 0.4671814671814672,
+          "hierarchical_accuracy": 0.23166023166023167,
+          "cross_parent_error_rate": 0.36293436293436293,
+          "coarse_fine_prediction_consistency": 0.6293436293436293,
+          "tail_class_recall": 0.14285714285714285
+        }
+      }
+    },
+    "multitask_resnext50_32x4d": {
+      "split_0": {
+        "epoch": 20,
+        "best_monitored_score": 0.3438127604288393,
+        "fine_inference_prior_tau": 1.0,
+        "losses": {
+          "total_loss": 3.5100252804151326,
+          "binary_loss": 0.5761168317808866,
+          "coarse_loss": 1.181598117569555,
+          "fine_loss": 1.7523102556358046,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 3.5100252804151326
+        },
+        "binary": {
+          "accuracy": 0.7905604719764012,
+          "precision": 0.7735849056603774,
+          "recall": 0.8770053475935828,
+          "sensitivity": 0.8770053475935828,
+          "specificity": 0.6842105263157895,
+          "f1": 0.8220551378446115,
+          "mcc": 0.576637328310882,
+          "auroc": 0.8717632986208838,
+          "auprc": 0.9034778694700042,
+          "balanced_accuracy": 0.7806079369546861
+        },
+        "coarse": {
+          "accuracy": 0.6017699115044248,
+          "macro_f1_all_classes": 0.4885042107361556,
+          "macro_f1_supported": 0.4885042107361556,
+          "weighted_f1": 0.5845032581669006,
+          "balanced_accuracy": 0.46426757641195004,
+          "mcc": 0.4010128973137719,
+          "macro_auroc_ovr": 0.7839228440916353
+        },
+        "fine": {
+          "accuracy": 0.32170542635658916,
+          "macro_f1_all_classes": 0.1484115525867575,
+          "macro_f1_supported": 0.19206200922992148,
+          "weighted_f1": 0.32946112760137736,
+          "balanced_accuracy": 0.19514740441341172,
+          "mcc": 0.16209741328193703,
+          "macro_auroc_ovr": 0.7934243517932658
+        },
+        "primary_fine": {
+          "accuracy": 0.31092436974789917,
+          "macro_f1_all_classes": 0.23943021596652878,
+          "macro_f1_supported": 0.23943021596652878,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.6589147286821705,
+          "parent_accuracy_from_coarse_head": 0.6085271317829457,
+          "hierarchical_accuracy": 0.2596899224806202,
+          "cross_parent_error_rate": 0.34108527131782945,
+          "coarse_fine_prediction_consistency": 0.7945736434108527,
+          "tail_class_recall": 0.1111111111111111
+        }
+      },
+      "split_1": {
+        "epoch": 21,
+        "best_monitored_score": 0.3980219747266796,
+        "fine_inference_prior_tau": 0.75,
+        "losses": {
+          "total_loss": 3.373400655992192,
+          "binary_loss": 0.5212644859691339,
+          "coarse_loss": 1.0695818955181566,
+          "fine_loss": 1.782554244702579,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 3.373400655992192
+        },
+        "binary": {
+          "accuracy": 0.8006134969325154,
+          "precision": 0.8604651162790697,
+          "recall": 0.783068783068783,
+          "sensitivity": 0.783068783068783,
+          "specificity": 0.8248175182481752,
+          "f1": 0.8199445983379502,
+          "mcc": 0.6010200475072544,
+          "auroc": 0.8949523037114278,
+          "auprc": 0.9289476619930694,
+          "balanced_accuracy": 0.8039431506584791
+        },
+        "coarse": {
+          "accuracy": 0.588957055214724,
+          "macro_f1_all_classes": 0.46937638532356,
+          "macro_f1_supported": 0.46937638532356,
+          "weighted_f1": 0.5787668862818584,
+          "balanced_accuracy": 0.4501344262460364,
+          "mcc": 0.401726259607212,
+          "macro_auroc_ovr": 0.8405117222971462
+        },
+        "fine": {
+          "accuracy": 0.39591836734693875,
+          "macro_f1_all_classes": 0.19414250117369145,
+          "macro_f1_supported": 0.2512432368130124,
+          "weighted_f1": 0.3818992995038865,
+          "balanced_accuracy": 0.24580135459756658,
+          "mcc": 0.2570107675577702,
+          "macro_auroc_ovr": 0.8570738052020676
+        },
+        "primary_fine": {
+          "accuracy": 0.4147465437788018,
+          "macro_f1_all_classes": 0.36809286453555234,
+          "macro_f1_supported": 0.36809286453555234,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.6816326530612244,
+          "parent_accuracy_from_coarse_head": 0.5102040816326531,
+          "hierarchical_accuracy": 0.27346938775510204,
+          "cross_parent_error_rate": 0.3183673469387755,
+          "coarse_fine_prediction_consistency": 0.6530612244897959,
+          "tail_class_recall": 0.19444444444444445
+        }
+      },
+      "split_2": {
+        "epoch": 24,
+        "best_monitored_score": 0.28441778300735393,
+        "fine_inference_prior_tau": 1.0,
+        "losses": {
+          "total_loss": 3.079499090419096,
+          "binary_loss": 0.2744047173682381,
+          "coarse_loss": 1.1301155917784746,
+          "fine_loss": 1.6749788859311272,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 3.079499090419096
+        },
+        "binary": {
+          "accuracy": 0.8823529411764706,
+          "precision": 0.86875,
+          "recall": 0.879746835443038,
+          "sensitivity": 0.879746835443038,
+          "specificity": 0.8846153846153846,
+          "f1": 0.8742138364779874,
+          "mcc": 0.7637781090682098,
+          "auroc": 0.9596258172207539,
+          "auprc": 0.9565707330808422,
+          "balanced_accuracy": 0.8821811100292113
+        },
+        "coarse": {
+          "accuracy": 0.5676470588235294,
+          "macro_f1_all_classes": 0.42218779491661634,
+          "macro_f1_supported": 0.42218779491661634,
+          "weighted_f1": 0.5392459837385505,
+          "balanced_accuracy": 0.4380923468355163,
+          "mcc": 0.4283195068404609,
+          "macro_auroc_ovr": 0.8176152324589395
+        },
+        "fine": {
+          "accuracy": 0.3938223938223938,
+          "macro_f1_all_classes": 0.1116245179129476,
+          "macro_f1_supported": 0.1637159596056565,
+          "weighted_f1": 0.3877588241070133,
+          "balanced_accuracy": 0.16629752924181115,
+          "mcc": 0.26380763857606093,
+          "macro_auroc_ovr": 0.8372349266034711
+        },
+        "primary_fine": {
+          "accuracy": 0.41818181818181815,
+          "macro_f1_all_classes": 0.1701706506054332,
+          "macro_f1_supported": 0.20798635073997393,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.6872586872586872,
+          "parent_accuracy_from_coarse_head": 0.46332046332046334,
+          "hierarchical_accuracy": 0.22007722007722008,
+          "cross_parent_error_rate": 0.3127413127413127,
+          "coarse_fine_prediction_consistency": 0.6254826254826255,
+          "tail_class_recall": 0.04285714285714286
+        }
+      }
+    },
+    "multitask_swin_tiny": {
+      "split_0": {
+        "epoch": 14,
+        "best_monitored_score": 0.5525498157995217,
+        "fine_inference_prior_tau": 1.0,
+        "losses": {
+          "total_loss": 7.40639715419758,
+          "binary_loss": 0.9496970482632122,
+          "coarse_loss": 2.1282172836033646,
+          "fine_loss": 4.328482941540293,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 7.40639715419758
+        },
+        "binary": {
+          "accuracy": 0.8466076696165191,
+          "precision": 0.8729281767955801,
+          "recall": 0.8449197860962567,
+          "sensitivity": 0.8449197860962567,
+          "specificity": 0.8486842105263158,
+          "f1": 0.8586956521739131,
+          "mcc": 0.691490715424754,
+          "auroc": 0.9185547424711512,
+          "auprc": 0.943937415479484,
+          "balanced_accuracy": 0.8468019983112862
+        },
+        "coarse": {
+          "accuracy": 0.6843657817109144,
+          "macro_f1_all_classes": 0.6109101412740164,
+          "macro_f1_supported": 0.6109101412740164,
+          "weighted_f1": 0.6861909772342163,
+          "balanced_accuracy": 0.6083025145020898,
+          "mcc": 0.5525165983018167,
+          "macro_auroc_ovr": 0.8773078521897029
+        },
+        "fine": {
+          "accuracy": 0.43410852713178294,
+          "macro_f1_all_classes": 0.36239239124634665,
+          "macro_f1_supported": 0.4689783886717427,
+          "weighted_f1": 0.4723836885318559,
+          "balanced_accuracy": 0.4917918606492266,
+          "mcc": 0.323176844383768,
+          "macro_auroc_ovr": 0.8517706385187607
+        },
+        "primary_fine": {
+          "accuracy": 0.42436974789915966,
+          "macro_f1_all_classes": 0.5767791573253004,
+          "macro_f1_supported": 0.5767791573253004,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.748062015503876,
+          "parent_accuracy_from_coarse_head": 0.6627906976744186,
+          "hierarchical_accuracy": 0.37209302325581395,
+          "cross_parent_error_rate": 0.25193798449612403,
+          "coarse_fine_prediction_consistency": 0.7790697674418605,
+          "tail_class_recall": 0.5481481481481482
+        }
+      },
+      "split_1": {
+        "epoch": 18,
+        "best_monitored_score": 0.5868041083885268,
+        "fine_inference_prior_tau": 0.5,
+        "losses": {
+          "total_loss": 7.859669103212883,
+          "binary_loss": 0.8832439191502296,
+          "coarse_loss": 2.3904017707321543,
+          "fine_loss": 4.5860231346879266,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 7.859669103212883
+        },
+        "binary": {
+          "accuracy": 0.8957055214723927,
+          "precision": 0.9015544041450777,
+          "recall": 0.9206349206349206,
+          "sensitivity": 0.9206349206349206,
+          "specificity": 0.8613138686131386,
+          "f1": 0.9109947643979057,
+          "mcc": 0.7853532082378029,
+          "auroc": 0.9480747692426524,
+          "auprc": 0.9567899110032708,
+          "balanced_accuracy": 0.8909743946240296
+        },
+        "coarse": {
+          "accuracy": 0.745398773006135,
+          "macro_f1_all_classes": 0.643108117002766,
+          "macro_f1_supported": 0.643108117002766,
+          "weighted_f1": 0.7306895361188259,
+          "balanced_accuracy": 0.6079895749839945,
+          "mcc": 0.6125457089116658,
+          "macro_auroc_ovr": 0.881265650940394
+        },
+        "fine": {
+          "accuracy": 0.46122448979591835,
+          "macro_f1_all_classes": 0.35272635831143306,
+          "macro_f1_supported": 0.45646940487361926,
+          "weighted_f1": 0.42977424664740443,
+          "balanced_accuracy": 0.5004544232553703,
+          "mcc": 0.3220717575311045,
+          "macro_auroc_ovr": 0.844802499411811
+        },
+        "primary_fine": {
+          "accuracy": 0.5069124423963134,
+          "macro_f1_all_classes": 0.6105650738641673,
+          "macro_f1_supported": 0.6105650738641673,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7795918367346939,
+          "parent_accuracy_from_coarse_head": 0.7306122448979592,
+          "hierarchical_accuracy": 0.42448979591836733,
+          "cross_parent_error_rate": 0.22040816326530613,
+          "coarse_fine_prediction_consistency": 0.8489795918367347,
+          "tail_class_recall": 0.5833333333333334
+        }
+      },
+      "split_2": {
+        "epoch": 14,
+        "best_monitored_score": 0.534397140609929,
+        "fine_inference_prior_tau": 0.75,
+        "losses": {
+          "total_loss": 5.188331446928136,
+          "binary_loss": 0.3106315546176013,
+          "coarse_loss": 1.8267946972566493,
+          "fine_loss": 3.0509051210740035,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 5.188331446928136
+        },
+        "binary": {
+          "accuracy": 0.9323529411764706,
+          "precision": 0.9192546583850931,
+          "recall": 0.9367088607594937,
+          "sensitivity": 0.9367088607594937,
+          "specificity": 0.9285714285714286,
+          "f1": 0.9278996865203761,
+          "mcc": 0.8643339955179615,
+          "auroc": 0.9855682292391155,
+          "auprc": 0.9850710982621705,
+          "balanced_accuracy": 0.9326401446654611
+        },
+        "coarse": {
+          "accuracy": 0.7058823529411765,
+          "macro_f1_all_classes": 0.6188146984325469,
+          "macro_f1_supported": 0.6188146984325469,
+          "weighted_f1": 0.6988798244917431,
+          "balanced_accuracy": 0.6027481090049396,
+          "mcc": 0.6036041597241599,
+          "macro_auroc_ovr": 0.9035713069436497
+        },
+        "fine": {
+          "accuracy": 0.583011583011583,
+          "macro_f1_all_classes": 0.4133151967534119,
+          "macro_f1_supported": 0.6061956219050041,
+          "weighted_f1": 0.5930227441750815,
+          "balanced_accuracy": 0.6005515290053478,
+          "mcc": 0.49751897033329445,
+          "macro_auroc_ovr": 0.8901322876495937
+        },
+        "primary_fine": {
+          "accuracy": 0.5681818181818182,
+          "macro_f1_all_classes": 0.5039838365259024,
+          "macro_f1_supported": 0.6159802446427697,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.833976833976834,
+          "parent_accuracy_from_coarse_head": 0.6640926640926641,
+          "hierarchical_accuracy": 0.42857142857142855,
+          "cross_parent_error_rate": 0.16602316602316602,
+          "coarse_fine_prediction_consistency": 0.7915057915057915,
+          "tail_class_recall": 0.7142857142857143
+        }
+      }
+    }
+  },
+  "20_long_tail": {
+    "fine_balanced_softmax": {
+      "split_2": {
+        "epoch": 15,
+        "best_monitored_score": 0.5641826178120323,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 5.222182683383717,
+          "binary_loss": 0.4398500533664928,
+          "coarse_loss": 1.8770898215910967,
+          "fine_loss": 2.905242760041181,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 5.222182683383717
+        },
+        "binary": {
+          "accuracy": 0.9058823529411765,
+          "precision": 0.8705882352941177,
+          "recall": 0.9367088607594937,
+          "sensitivity": 0.9367088607594937,
+          "specificity": 0.8791208791208791,
+          "f1": 0.9024390243902439,
+          "mcc": 0.8137946846988294,
+          "auroc": 0.9797955209347615,
+          "auprc": 0.9784182890635233,
+          "balanced_accuracy": 0.9079148699401864
+        },
+        "coarse": {
+          "accuracy": 0.7058823529411765,
+          "macro_f1_all_classes": 0.6179851623678098,
+          "macro_f1_supported": 0.6179851623678098,
+          "weighted_f1": 0.6950862297325688,
+          "balanced_accuracy": 0.6001543043073098,
+          "mcc": 0.5996041512267456,
+          "macro_auroc_ovr": 0.9116355541182439
+        },
+        "fine": {
+          "accuracy": 0.5791505791505791,
+          "macro_f1_all_classes": 0.384669966690022,
+          "macro_f1_supported": 0.5641826178120323,
+          "weighted_f1": 0.5940532081631837,
+          "balanced_accuracy": 0.6044626803713479,
+          "mcc": 0.49992265064455976,
+          "macro_auroc_ovr": 0.9106563864256836
+        },
+        "primary_fine": {
+          "accuracy": 0.5650406504065041,
+          "macro_f1_all_classes": 0.4735289952747966,
+          "macro_f1_supported": 0.5524504944872627,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8378378378378378,
+          "parent_accuracy_from_coarse_head": 0.6911196911196911,
+          "hierarchical_accuracy": 0.444015444015444,
+          "cross_parent_error_rate": 0.16216216216216217,
+          "coarse_fine_prediction_consistency": 0.7760617760617761,
+          "tail_class_recall": 0.7142857142857143
+        }
+      },
+      "split_1": {
+        "epoch": 16,
+        "best_monitored_score": 0.46710185892538836,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 7.49613448300976,
+          "binary_loss": 0.6265430395588553,
+          "coarse_loss": 2.308322374074737,
+          "fine_loss": 4.561268876666672,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 7.49613448300976
+        },
+        "binary": {
+          "accuracy": 0.911042944785276,
+          "precision": 0.9705882352941176,
+          "recall": 0.873015873015873,
+          "sensitivity": 0.873015873015873,
+          "specificity": 0.9635036496350365,
+          "f1": 0.9192200557103064,
+          "mcc": 0.8265716521280904,
+          "auroc": 0.9800718340864327,
+          "auprc": 0.9855830777859652,
+          "balanced_accuracy": 0.9182597613254548
+        },
+        "coarse": {
+          "accuracy": 0.7208588957055214,
+          "macro_f1_all_classes": 0.6096179287482767,
+          "macro_f1_supported": 0.6096179287482767,
+          "weighted_f1": 0.7140463177442141,
+          "balanced_accuracy": 0.5909243682228574,
+          "mcc": 0.5915912426904226,
+          "macro_auroc_ovr": 0.8798155819836724
+        },
+        "fine": {
+          "accuracy": 0.4775510204081633,
+          "macro_f1_all_classes": 0.35652485196108724,
+          "macro_f1_supported": 0.4613851025378775,
+          "weighted_f1": 0.4743798718401017,
+          "balanced_accuracy": 0.525262767645758,
+          "mcc": 0.36189005932220625,
+          "macro_auroc_ovr": 0.8700070060252301
+        },
+        "primary_fine": {
+          "accuracy": 0.4854771784232365,
+          "macro_f1_all_classes": 0.5244317915701282,
+          "macro_f1_supported": 0.5244317915701282,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7673469387755102,
+          "parent_accuracy_from_coarse_head": 0.6653061224489796,
+          "hierarchical_accuracy": 0.3795918367346939,
+          "cross_parent_error_rate": 0.23265306122448978,
+          "coarse_fine_prediction_consistency": 0.7673469387755102,
+          "tail_class_recall": 0.5833333333333334
+        }
+      },
+      "split_0": {
+        "epoch": 12,
+        "best_monitored_score": 0.42533282512424664,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 7.602021663238165,
+          "binary_loss": 1.2200334942446345,
+          "coarse_loss": 2.631615532534664,
+          "fine_loss": 3.7503726060411573,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 7.602021663238165
+        },
+        "binary": {
+          "accuracy": 0.8348082595870207,
+          "precision": 0.8700564971751412,
+          "recall": 0.8235294117647058,
+          "sensitivity": 0.8235294117647058,
+          "specificity": 0.8486842105263158,
+          "f1": 0.8461538461538461,
+          "mcc": 0.6692767925329371,
+          "auroc": 0.8994335772586547,
+          "auprc": 0.9282341712802288,
+          "balanced_accuracy": 0.8361068111455108
+        },
+        "coarse": {
+          "accuracy": 0.6607669616519174,
+          "macro_f1_all_classes": 0.546082519495994,
+          "macro_f1_supported": 0.546082519495994,
+          "weighted_f1": 0.6437947223189652,
+          "balanced_accuracy": 0.5250193260384343,
+          "mcc": 0.511674849189303,
+          "macro_auroc_ovr": 0.8724415585482219
+        },
+        "fine": {
+          "accuracy": 0.44573643410852715,
+          "macro_f1_all_classes": 0.32547130955010384,
+          "macro_f1_supported": 0.42119816530013443,
+          "weighted_f1": 0.47271776186835446,
+          "balanced_accuracy": 0.4712733128011628,
+          "mcc": 0.3072824472516901,
+          "macro_auroc_ovr": 0.8641133395340598
+        },
+        "primary_fine": {
+          "accuracy": 0.44841269841269843,
+          "macro_f1_all_classes": 0.5168232418027399,
+          "macro_f1_supported": 0.5168232418027399,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7093023255813954,
+          "parent_accuracy_from_coarse_head": 0.5891472868217055,
+          "hierarchical_accuracy": 0.3372093023255814,
+          "cross_parent_error_rate": 0.29069767441860467,
+          "coarse_fine_prediction_consistency": 0.6937984496124031,
+          "tail_class_recall": 0.5851851851851851
+        }
+      }
+    },
+    "fine_balanced_softmax_smoothed": {
+      "split_2": {
+        "epoch": 19,
+        "best_monitored_score": 0.6273901945467802,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 6.033699865902172,
+          "binary_loss": 0.3427741015658659,
+          "coarse_loss": 2.1990001734565285,
+          "fine_loss": 3.4919256743262794,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 6.033699865902172
+        },
+        "binary": {
+          "accuracy": 0.9411764705882353,
+          "precision": 0.948051948051948,
+          "recall": 0.9240506329113924,
+          "sensitivity": 0.9240506329113924,
+          "specificity": 0.9560439560439561,
+          "f1": 0.9358974358974359,
+          "mcc": 0.8818135253371095,
+          "auroc": 0.9886980108499096,
+          "auprc": 0.9879692983295169,
+          "balanced_accuracy": 0.9400472944776743
+        },
+        "coarse": {
+          "accuracy": 0.6941176470588235,
+          "macro_f1_all_classes": 0.603678067730125,
+          "macro_f1_supported": 0.603678067730125,
+          "weighted_f1": 0.689184670349418,
+          "balanced_accuracy": 0.5937965131407754,
+          "mcc": 0.5949038168088655,
+          "macro_auroc_ovr": 0.9145007432523032
+        },
+        "fine": {
+          "accuracy": 0.5444015444015444,
+          "macro_f1_all_classes": 0.4272812070020951,
+          "macro_f1_supported": 0.6266791036030728,
+          "weighted_f1": 0.5519145853691884,
+          "balanced_accuracy": 0.643114468955634,
+          "mcc": 0.4587414896264455,
+          "macro_auroc_ovr": 0.9019237870189496
+        },
+        "primary_fine": {
+          "accuracy": 0.524390243902439,
+          "macro_f1_all_classes": 0.5033232699565288,
+          "macro_f1_supported": 0.5872104816159502,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8185328185328186,
+          "parent_accuracy_from_coarse_head": 0.6332046332046332,
+          "hierarchical_accuracy": 0.38996138996138996,
+          "cross_parent_error_rate": 0.18146718146718147,
+          "coarse_fine_prediction_consistency": 0.752895752895753,
+          "tail_class_recall": 0.7857142857142857
+        }
+      },
+      "split_1": {
+        "epoch": 16,
+        "best_monitored_score": 0.5720050954066299,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 6.861234931126694,
+          "binary_loss": 0.5829609018161984,
+          "coarse_loss": 2.1719139543779056,
+          "fine_loss": 4.1063600961416045,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 6.861234931126694
+        },
+        "binary": {
+          "accuracy": 0.9171779141104295,
+          "precision": 0.945054945054945,
+          "recall": 0.91005291005291,
+          "sensitivity": 0.91005291005291,
+          "specificity": 0.927007299270073,
+          "f1": 0.9272237196765498,
+          "mcc": 0.832014592470792,
+          "auroc": 0.968756034449465,
+          "auprc": 0.9674967034864902,
+          "balanced_accuracy": 0.9185301046614915
+        },
+        "coarse": {
+          "accuracy": 0.7515337423312883,
+          "macro_f1_all_classes": 0.6734160476223805,
+          "macro_f1_supported": 0.6734160476223805,
+          "weighted_f1": 0.7508367448204059,
+          "balanced_accuracy": 0.660085658545438,
+          "mcc": 0.6409619019031336,
+          "macro_auroc_ovr": 0.9028877340585595
+        },
+        "fine": {
+          "accuracy": 0.5020408163265306,
+          "macro_f1_all_classes": 0.44360196916758005,
+          "macro_f1_supported": 0.5740731365698094,
+          "weighted_f1": 0.48910619667106875,
+          "balanced_accuracy": 0.5925184934654977,
+          "mcc": 0.3752152786382632,
+          "macro_auroc_ovr": 0.879511450411376
+        },
+        "primary_fine": {
+          "accuracy": 0.5062240663900415,
+          "macro_f1_all_classes": 0.6245620727656654,
+          "macro_f1_supported": 0.6245620727656654,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7959183673469388,
+          "parent_accuracy_from_coarse_head": 0.7061224489795919,
+          "hierarchical_accuracy": 0.39591836734693875,
+          "cross_parent_error_rate": 0.20408163265306123,
+          "coarse_fine_prediction_consistency": 0.7877551020408163,
+          "tail_class_recall": 0.6944444444444444
+        }
+      },
+      "split_0": {
+        "epoch": 6,
+        "best_monitored_score": 0.4583122600058033,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.660720037499712,
+          "binary_loss": 0.8946842118702104,
+          "coarse_loss": 1.5161021258627068,
+          "fine_loss": 2.2499335592826912,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 4.660720037499712
+        },
+        "binary": {
+          "accuracy": 0.8023598820058997,
+          "precision": 0.8658536585365854,
+          "recall": 0.7593582887700535,
+          "sensitivity": 0.7593582887700535,
+          "specificity": 0.8552631578947368,
+          "f1": 0.8091168091168092,
+          "mcc": 0.6116589845274057,
+          "auroc": 0.8988179003658879,
+          "auprc": 0.9292042958257841,
+          "balanced_accuracy": 0.8073107233323952
+        },
+        "coarse": {
+          "accuracy": 0.6578171091445427,
+          "macro_f1_all_classes": 0.5864158610175754,
+          "macro_f1_supported": 0.5864158610175754,
+          "weighted_f1": 0.6613840398264903,
+          "balanced_accuracy": 0.6019074406760182,
+          "mcc": 0.5254532571437873,
+          "macro_auroc_ovr": 0.8868880402779016
+        },
+        "fine": {
+          "accuracy": 0.5271317829457365,
+          "macro_f1_all_classes": 0.3484435911525694,
+          "macro_f1_supported": 0.45092700031508987,
+          "weighted_f1": 0.5463447606704861,
+          "balanced_accuracy": 0.5087237829038974,
+          "mcc": 0.4153080046631494,
+          "macro_auroc_ovr": 0.8633926830174687
+        },
+        "primary_fine": {
+          "accuracy": 0.5317460317460317,
+          "macro_f1_all_classes": 0.5540980840671242,
+          "macro_f1_supported": 0.5540980840671242,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7286821705426356,
+          "parent_accuracy_from_coarse_head": 0.6356589147286822,
+          "hierarchical_accuracy": 0.4496124031007752,
+          "cross_parent_error_rate": 0.2713178294573643,
+          "coarse_fine_prediction_consistency": 0.7868217054263565,
+          "tail_class_recall": 0.5111111111111111
+        }
+      }
+    },
+    "fine_cross_entropy": {
+      "split_2": {
+        "epoch": 24,
+        "best_monitored_score": 0.6373527775427181,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 6.30004586612477,
+          "binary_loss": 0.398986557301353,
+          "coarse_loss": 2.4549278736114504,
+          "fine_loss": 3.4461312826941994,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 6.30004586612477
+        },
+        "binary": {
+          "accuracy": 0.9323529411764706,
+          "precision": 0.9141104294478528,
+          "recall": 0.9430379746835443,
+          "sensitivity": 0.9430379746835443,
+          "specificity": 0.9230769230769231,
+          "f1": 0.9283489096573209,
+          "mcc": 0.8646877590083674,
+          "auroc": 0.9823862846014745,
+          "auprc": 0.9750906964281278,
+          "balanced_accuracy": 0.9330574488802337
+        },
+        "coarse": {
+          "accuracy": 0.6794117647058824,
+          "macro_f1_all_classes": 0.5755222884609392,
+          "macro_f1_supported": 0.5755222884609392,
+          "weighted_f1": 0.6675766016373594,
+          "balanced_accuracy": 0.5687586821193378,
+          "mcc": 0.574532431927487,
+          "macro_auroc_ovr": 0.8954820162657373
+        },
+        "fine": {
+          "accuracy": 0.5637065637065637,
+          "macro_f1_all_classes": 0.4304929578951901,
+          "macro_f1_supported": 0.6313896715796121,
+          "weighted_f1": 0.5732058072423959,
+          "balanced_accuracy": 0.6254423663931207,
+          "mcc": 0.4762276712027625,
+          "macro_auroc_ovr": 0.9036468109266661
+        },
+        "primary_fine": {
+          "accuracy": 0.5447154471544715,
+          "macro_f1_all_classes": 0.4981398054861704,
+          "macro_f1_supported": 0.5811631064005321,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8223938223938224,
+          "parent_accuracy_from_coarse_head": 0.6138996138996139,
+          "hierarchical_accuracy": 0.39768339768339767,
+          "cross_parent_error_rate": 0.1776061776061776,
+          "coarse_fine_prediction_consistency": 0.749034749034749,
+          "tail_class_recall": 0.7857142857142857
+        }
+      },
+      "split_1": {
+        "epoch": 9,
+        "best_monitored_score": 0.49758585884913276,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.729811188633456,
+          "binary_loss": 0.4508477033464455,
+          "coarse_loss": 1.4466367096988701,
+          "fine_loss": 2.832326871485798,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 4.729811188633456
+        },
+        "binary": {
+          "accuracy": 0.901840490797546,
+          "precision": 0.8792270531400966,
+          "recall": 0.9629629629629629,
+          "sensitivity": 0.9629629629629629,
+          "specificity": 0.8175182481751825,
+          "f1": 0.9191919191919192,
+          "mcc": 0.8001934365023815,
+          "auroc": 0.9741629011702004,
+          "auprc": 0.9819757941713052,
+          "balanced_accuracy": 0.8902406055690727
+        },
+        "coarse": {
+          "accuracy": 0.6993865030674846,
+          "macro_f1_all_classes": 0.5773013591440578,
+          "macro_f1_supported": 0.5773013591440578,
+          "weighted_f1": 0.688510019388856,
+          "balanced_accuracy": 0.5493147820475982,
+          "mcc": 0.5444316035026162,
+          "macro_auroc_ovr": 0.8874719060829849
+        },
+        "fine": {
+          "accuracy": 0.4897959183673469,
+          "macro_f1_all_classes": 0.38449816365614803,
+          "macro_f1_supported": 0.49758585884913276,
+          "weighted_f1": 0.4667839642440237,
+          "balanced_accuracy": 0.53920202756025,
+          "mcc": 0.34593488027565417,
+          "macro_auroc_ovr": 0.8618145210145426
+        },
+        "primary_fine": {
+          "accuracy": 0.49377593360995853,
+          "macro_f1_all_classes": 0.5378666098971904,
+          "macro_f1_supported": 0.5378666098971904,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7877551020408163,
+          "parent_accuracy_from_coarse_head": 0.689795918367347,
+          "hierarchical_accuracy": 0.4,
+          "cross_parent_error_rate": 0.21224489795918366,
+          "coarse_fine_prediction_consistency": 0.8163265306122449,
+          "tail_class_recall": 0.6111111111111112
+        }
+      },
+      "split_0": {
+        "epoch": 9,
+        "best_monitored_score": 0.45558765552514036,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 5.917783050762165,
+          "binary_loss": 1.0217671772371704,
+          "coarse_loss": 1.8989422103296691,
+          "fine_loss": 2.997073776954043,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 5.917783050762165
+        },
+        "binary": {
+          "accuracy": 0.8082595870206489,
+          "precision": 0.8546511627906976,
+          "recall": 0.786096256684492,
+          "sensitivity": 0.786096256684492,
+          "specificity": 0.8355263157894737,
+          "f1": 0.8189415041782729,
+          "mcc": 0.6183678680658615,
+          "auroc": 0.8902336054038842,
+          "auprc": 0.9246429065515155,
+          "balanced_accuracy": 0.8108112862369828
+        },
+        "coarse": {
+          "accuracy": 0.6460176991150443,
+          "macro_f1_all_classes": 0.5533264984750548,
+          "macro_f1_supported": 0.5533264984750548,
+          "weighted_f1": 0.6379036756120923,
+          "balanced_accuracy": 0.5390514211745634,
+          "mcc": 0.4896153885485081,
+          "macro_auroc_ovr": 0.8797007903364301
+        },
+        "fine": {
+          "accuracy": 0.45348837209302323,
+          "macro_f1_all_classes": 0.3487950644947754,
+          "macro_f1_supported": 0.45138184816970933,
+          "weighted_f1": 0.47228309102333554,
+          "balanced_accuracy": 0.4707594781514614,
+          "mcc": 0.29510206277544393,
+          "macro_auroc_ovr": 0.8589663383261391
+        },
+        "primary_fine": {
+          "accuracy": 0.45634920634920634,
+          "macro_f1_all_classes": 0.5374147508868932,
+          "macro_f1_supported": 0.5374147508868932,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.6976744186046512,
+          "parent_accuracy_from_coarse_head": 0.6007751937984496,
+          "hierarchical_accuracy": 0.36046511627906974,
+          "cross_parent_error_rate": 0.3023255813953488,
+          "coarse_fine_prediction_consistency": 0.7558139534883721,
+          "tail_class_recall": 0.5851851851851851
+        }
+      }
+    },
+    "fine_focal": {
+      "split_2": {
+        "epoch": 13,
+        "best_monitored_score": 0.5863657250754026,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.051571369171143,
+          "binary_loss": 0.44653110469088836,
+          "coarse_loss": 2.0973642545587876,
+          "fine_loss": 1.5076760137782377,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 4.051571369171143
+        },
+        "binary": {
+          "accuracy": 0.9264705882352942,
+          "precision": 0.9079754601226994,
+          "recall": 0.9367088607594937,
+          "sensitivity": 0.9367088607594937,
+          "specificity": 0.9175824175824175,
+          "f1": 0.9221183800623053,
+          "mcc": 0.8528836219304405,
+          "auroc": 0.9782827931562108,
+          "auprc": 0.9747752873411474,
+          "balanced_accuracy": 0.9271456391709556
+        },
+        "coarse": {
+          "accuracy": 0.7235294117647059,
+          "macro_f1_all_classes": 0.6415116600666505,
+          "macro_f1_supported": 0.6415116600666505,
+          "weighted_f1": 0.7106060315586453,
+          "balanced_accuracy": 0.6149269956920229,
+          "mcc": 0.6288638067277745,
+          "macro_auroc_ovr": 0.9018343417974919
+        },
+        "fine": {
+          "accuracy": 0.5907335907335908,
+          "macro_f1_all_classes": 0.3942233339049064,
+          "macro_f1_supported": 0.5781942230605294,
+          "weighted_f1": 0.5914600252962322,
+          "balanced_accuracy": 0.6138214248037238,
+          "mcc": 0.5126682663475772,
+          "macro_auroc_ovr": 0.9082311976305448
+        },
+        "primary_fine": {
+          "accuracy": 0.5772357723577236,
+          "macro_f1_all_classes": 0.4901670147686694,
+          "macro_f1_supported": 0.5718615172301144,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8494208494208494,
+          "parent_accuracy_from_coarse_head": 0.6872586872586872,
+          "hierarchical_accuracy": 0.43243243243243246,
+          "cross_parent_error_rate": 0.15057915057915058,
+          "coarse_fine_prediction_consistency": 0.752895752895753,
+          "tail_class_recall": 0.7142857142857143
+        }
+      },
+      "split_1": {
+        "epoch": 5,
+        "best_monitored_score": 0.47698365837452206,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 3.449567961546541,
+          "binary_loss": 0.46615582722827703,
+          "coarse_loss": 1.4019953582915792,
+          "fine_loss": 1.5814167846199925,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 3.449567961546541
+        },
+        "binary": {
+          "accuracy": 0.8895705521472392,
+          "precision": 0.8558139534883721,
+          "recall": 0.9735449735449735,
+          "sensitivity": 0.9735449735449735,
+          "specificity": 0.7737226277372263,
+          "f1": 0.9108910891089109,
+          "mcc": 0.7783709510295412,
+          "auroc": 0.9538099100142896,
+          "auprc": 0.9638479736877501,
+          "balanced_accuracy": 0.8736338006411
+        },
+        "coarse": {
+          "accuracy": 0.6871165644171779,
+          "macro_f1_all_classes": 0.5150834697609273,
+          "macro_f1_supported": 0.5150834697609273,
+          "weighted_f1": 0.650373547839137,
+          "balanced_accuracy": 0.48672209871502103,
+          "mcc": 0.5136504018982551,
+          "macro_auroc_ovr": 0.8728432366474896
+        },
+        "fine": {
+          "accuracy": 0.46530612244897956,
+          "macro_f1_all_classes": 0.377166644417017,
+          "macro_f1_supported": 0.488098010422022,
+          "weighted_f1": 0.4283023864355413,
+          "balanced_accuracy": 0.5061156351085325,
+          "mcc": 0.32749688408499633,
+          "macro_auroc_ovr": 0.8627469638005988
+        },
+        "primary_fine": {
+          "accuracy": 0.4730290456431535,
+          "macro_f1_all_classes": 0.5537233514463761,
+          "macro_f1_supported": 0.5537233514463761,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7714285714285715,
+          "parent_accuracy_from_coarse_head": 0.6979591836734694,
+          "hierarchical_accuracy": 0.4122448979591837,
+          "cross_parent_error_rate": 0.22857142857142856,
+          "coarse_fine_prediction_consistency": 0.8775510204081632,
+          "tail_class_recall": 0.6111111111111112
+        }
+      },
+      "split_0": {
+        "epoch": 11,
+        "best_monitored_score": 0.42637954645360515,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 5.244300133359116,
+          "binary_loss": 1.0319483371610838,
+          "coarse_loss": 2.389609741250322,
+          "fine_loss": 1.8227422033439344,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 5.244300133359116
+        },
+        "binary": {
+          "accuracy": 0.8407079646017699,
+          "precision": 0.893491124260355,
+          "recall": 0.8074866310160428,
+          "sensitivity": 0.8074866310160428,
+          "specificity": 0.881578947368421,
+          "f1": 0.848314606741573,
+          "mcc": 0.6853861749259369,
+          "auroc": 0.9198564593301435,
+          "auprc": 0.9415667501705871,
+          "balanced_accuracy": 0.8445327891922318
+        },
+        "coarse": {
+          "accuracy": 0.6342182890855457,
+          "macro_f1_all_classes": 0.5212989481169504,
+          "macro_f1_supported": 0.5212989481169504,
+          "weighted_f1": 0.6226807378400722,
+          "balanced_accuracy": 0.5048240695374454,
+          "mcc": 0.48176663202708647,
+          "macro_auroc_ovr": 0.8851824604648172
+        },
+        "fine": {
+          "accuracy": 0.47674418604651164,
+          "macro_f1_all_classes": 0.3294593683698715,
+          "macro_f1_supported": 0.4263591825963043,
+          "weighted_f1": 0.48850997602728924,
+          "balanced_accuracy": 0.431278525122877,
+          "mcc": 0.31930142779485765,
+          "macro_auroc_ovr": 0.8420668312954789
+        },
+        "primary_fine": {
+          "accuracy": 0.4801587301587302,
+          "macro_f1_all_classes": 0.5010011517132031,
+          "macro_f1_supported": 0.5010011517132031,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7248062015503876,
+          "parent_accuracy_from_coarse_head": 0.5658914728682171,
+          "hierarchical_accuracy": 0.3449612403100775,
+          "cross_parent_error_rate": 0.2751937984496124,
+          "coarse_fine_prediction_consistency": 0.6821705426356589,
+          "tail_class_recall": 0.5037037037037037
+        }
+      }
+    },
+    "fine_ldam": {
+      "split_2": {
+        "epoch": 15,
+        "best_monitored_score": 0.5547140582177571,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 26.92922486697926,
+          "binary_loss": 0.4794023072018343,
+          "coarse_loss": 1.5869044528287999,
+          "fine_loss": 24.862917709350587,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 26.92922486697926
+        },
+        "binary": {
+          "accuracy": 0.9058823529411765,
+          "precision": 0.92,
+          "recall": 0.8734177215189873,
+          "sensitivity": 0.8734177215189873,
+          "specificity": 0.9340659340659341,
+          "f1": 0.8961038961038961,
+          "mcc": 0.8111021412885512,
+          "auroc": 0.9746487689525665,
+          "auprc": 0.9742265932786949,
+          "balanced_accuracy": 0.9037418277924607
+        },
+        "coarse": {
+          "accuracy": 0.7058823529411765,
+          "macro_f1_all_classes": 0.6359948246149305,
+          "macro_f1_supported": 0.6359948246149305,
+          "weighted_f1": 0.7058565814573501,
+          "balanced_accuracy": 0.622904570636811,
+          "mcc": 0.6087341846704839,
+          "macro_auroc_ovr": 0.9023829069956516
+        },
+        "fine": {
+          "accuracy": 0.49034749034749037,
+          "macro_f1_all_classes": 0.37821413060301623,
+          "macro_f1_supported": 0.5547140582177571,
+          "weighted_f1": 0.4875665384382828,
+          "balanced_accuracy": 0.5582222610431428,
+          "mcc": 0.3942472298132624,
+          "macro_auroc_ovr": 0.898930284763257
+        },
+        "primary_fine": {
+          "accuracy": 0.4715447154471545,
+          "macro_f1_all_classes": 0.46639887745329006,
+          "macro_f1_supported": 0.5441320236955051,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.749034749034749,
+          "parent_accuracy_from_coarse_head": 0.6525096525096525,
+          "hierarchical_accuracy": 0.4015444015444015,
+          "cross_parent_error_rate": 0.25096525096525096,
+          "coarse_fine_prediction_consistency": 0.7567567567567568,
+          "tail_class_recall": 0.7142857142857143
+        }
+      },
+      "split_1": {
+        "epoch": 9,
+        "best_monitored_score": 0.49812217149504767,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 20.009021021837107,
+          "binary_loss": 0.34673943978511484,
+          "coarse_loss": 0.8825745571610386,
+          "fine_loss": 18.779707177285037,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 20.009021021837107
+        },
+        "binary": {
+          "accuracy": 0.8773006134969326,
+          "precision": 0.9027027027027027,
+          "recall": 0.8835978835978836,
+          "sensitivity": 0.8835978835978836,
+          "specificity": 0.8686131386861314,
+          "f1": 0.893048128342246,
+          "mcc": 0.7494375651263124,
+          "auroc": 0.9552388676476267,
+          "auprc": 0.9699437190283369,
+          "balanced_accuracy": 0.8761055111420075
+        },
+        "coarse": {
+          "accuracy": 0.7085889570552147,
+          "macro_f1_all_classes": 0.6215961136655144,
+          "macro_f1_supported": 0.6215961136655144,
+          "weighted_f1": 0.7008430855204675,
+          "balanced_accuracy": 0.6074988329829761,
+          "mcc": 0.5667026626766208,
+          "macro_auroc_ovr": 0.9045863488526422
+        },
+        "fine": {
+          "accuracy": 0.42448979591836733,
+          "macro_f1_all_classes": 0.388737140522427,
+          "macro_f1_supported": 0.5030715936172585,
+          "weighted_f1": 0.4039360963615092,
+          "balanced_accuracy": 0.5554326993955477,
+          "mcc": 0.2823051307724602,
+          "macro_auroc_ovr": 0.8607304839835448
+        },
+        "primary_fine": {
+          "accuracy": 0.42738589211618255,
+          "macro_f1_all_classes": 0.5373486569016734,
+          "macro_f1_supported": 0.5373486569016734,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7142857142857143,
+          "parent_accuracy_from_coarse_head": 0.689795918367347,
+          "hierarchical_accuracy": 0.3469387755102041,
+          "cross_parent_error_rate": 0.2857142857142857,
+          "coarse_fine_prediction_consistency": 0.7387755102040816,
+          "tail_class_recall": 0.6944444444444444
+        }
+      },
+      "split_0": {
+        "epoch": 7,
+        "best_monitored_score": 0.41813779175765864,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 14.721894255781596,
+          "binary_loss": 0.43311336794785693,
+          "coarse_loss": 0.8980171026381771,
+          "fine_loss": 13.390764014207509,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 14.721894255781596
+        },
+        "binary": {
+          "accuracy": 0.8495575221238938,
+          "precision": 0.8736263736263736,
+          "recall": 0.8502673796791443,
+          "sensitivity": 0.8502673796791443,
+          "specificity": 0.8486842105263158,
+          "f1": 0.8617886178861789,
+          "mcc": 0.6971145933799897,
+          "auroc": 0.9268575851393188,
+          "auprc": 0.9360745466522573,
+          "balanced_accuracy": 0.8494757951027301
+        },
+        "coarse": {
+          "accuracy": 0.6666666666666666,
+          "macro_f1_all_classes": 0.49274911479389766,
+          "macro_f1_supported": 0.49274911479389766,
+          "weighted_f1": 0.6297556939044198,
+          "balanced_accuracy": 0.4806098438794829,
+          "mcc": 0.5038521951152409,
+          "macro_auroc_ovr": 0.906284162633556
+        },
+        "fine": {
+          "accuracy": 0.437984496124031,
+          "macro_f1_all_classes": 0.32028129772871955,
+          "macro_f1_supported": 0.41448167941363706,
+          "weighted_f1": 0.44509087605460074,
+          "balanced_accuracy": 0.427420340694677,
+          "mcc": 0.2524224773644803,
+          "macro_auroc_ovr": 0.8056032931728222
+        },
+        "primary_fine": {
+          "accuracy": 0.44047619047619047,
+          "macro_f1_all_classes": 0.5164453984324908,
+          "macro_f1_supported": 0.5164453984324908,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7170542635658915,
+          "parent_accuracy_from_coarse_head": 0.6162790697674418,
+          "hierarchical_accuracy": 0.3178294573643411,
+          "cross_parent_error_rate": 0.28294573643410853,
+          "coarse_fine_prediction_consistency": 0.6744186046511628,
+          "tail_class_recall": 0.46666666666666656
+        }
+      }
+    },
+    "fine_logit_adjustment": {
+      "split_2": {
+        "epoch": 10,
+        "best_monitored_score": 0.5470211033965582,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 5.371254943398869,
+          "binary_loss": 0.43776454469736886,
+          "coarse_loss": 1.9798555893056533,
+          "fine_loss": 2.9536347838009105,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 5.371254943398869
+        },
+        "binary": {
+          "accuracy": 0.9294117647058824,
+          "precision": 0.9527027027027027,
+          "recall": 0.8924050632911392,
+          "sensitivity": 0.8924050632911392,
+          "specificity": 0.9615384615384616,
+          "f1": 0.9215686274509803,
+          "mcc": 0.8590370894978937,
+          "auroc": 0.9761441090555014,
+          "auprc": 0.976318659091017,
+          "balanced_accuracy": 0.9269717624148004
+        },
+        "coarse": {
+          "accuracy": 0.7147058823529412,
+          "macro_f1_all_classes": 0.608172498739117,
+          "macro_f1_supported": 0.608172498739117,
+          "weighted_f1": 0.6990184031366389,
+          "balanced_accuracy": 0.5922805144663068,
+          "mcc": 0.6245974895066901,
+          "macro_auroc_ovr": 0.8945203991658515
+        },
+        "fine": {
+          "accuracy": 0.5096525096525096,
+          "macro_f1_all_classes": 0.37318512970315365,
+          "macro_f1_supported": 0.547338190231292,
+          "weighted_f1": 0.5053892719697678,
+          "balanced_accuracy": 0.5583858806095375,
+          "mcc": 0.40522610906976514,
+          "macro_auroc_ovr": 0.8851577646657588
+        },
+        "primary_fine": {
+          "accuracy": 0.491869918699187,
+          "macro_f1_all_classes": 0.4564237501851563,
+          "macro_f1_supported": 0.5324943752160157,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8108108108108109,
+          "parent_accuracy_from_coarse_head": 0.6447876447876448,
+          "hierarchical_accuracy": 0.3667953667953668,
+          "cross_parent_error_rate": 0.1891891891891892,
+          "coarse_fine_prediction_consistency": 0.7258687258687259,
+          "tail_class_recall": 0.7142857142857143
+        }
+      },
+      "split_1": {
+        "epoch": 8,
+        "best_monitored_score": 0.4659550980202864,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.277000079125714,
+          "binary_loss": 0.3468144137435164,
+          "coarse_loss": 1.4970420869581538,
+          "fine_loss": 2.4331436230361096,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 4.277000079125714
+        },
+        "binary": {
+          "accuracy": 0.9171779141104295,
+          "precision": 0.945054945054945,
+          "recall": 0.91005291005291,
+          "sensitivity": 0.91005291005291,
+          "specificity": 0.927007299270073,
+          "f1": 0.9272237196765498,
+          "mcc": 0.832014592470792,
+          "auroc": 0.9748773799868691,
+          "auprc": 0.9822702076448224,
+          "balanced_accuracy": 0.9185301046614915
+        },
+        "coarse": {
+          "accuracy": 0.7269938650306749,
+          "macro_f1_all_classes": 0.5874520454957853,
+          "macro_f1_supported": 0.5874520454957853,
+          "weighted_f1": 0.7034275639608092,
+          "balanced_accuracy": 0.5815449389773605,
+          "mcc": 0.588392193053915,
+          "macro_auroc_ovr": 0.9010044178486343
+        },
+        "fine": {
+          "accuracy": 0.5061224489795918,
+          "macro_f1_all_classes": 0.35894861665148325,
+          "macro_f1_supported": 0.4645217391960372,
+          "weighted_f1": 0.46251211632285916,
+          "balanced_accuracy": 0.5045136630503595,
+          "mcc": 0.3784160597613455,
+          "macro_auroc_ovr": 0.8673630245302961
+        },
+        "primary_fine": {
+          "accuracy": 0.5145228215767634,
+          "macro_f1_all_classes": 0.5281469455328283,
+          "macro_f1_supported": 0.5281469455328283,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7877551020408163,
+          "parent_accuracy_from_coarse_head": 0.710204081632653,
+          "hierarchical_accuracy": 0.4489795918367347,
+          "cross_parent_error_rate": 0.21224489795918366,
+          "coarse_fine_prediction_consistency": 0.8081632653061225,
+          "tail_class_recall": 0.5277777777777778
+        }
+      },
+      "split_0": {
+        "epoch": 6,
+        "best_monitored_score": 0.4357110180468237,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.996577144724078,
+          "binary_loss": 0.9401778095239735,
+          "coarse_loss": 1.6067527022685273,
+          "fine_loss": 2.449646342820474,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 4.996577144724078
+        },
+        "binary": {
+          "accuracy": 0.8053097345132744,
+          "precision": 0.8457142857142858,
+          "recall": 0.7914438502673797,
+          "sensitivity": 0.7914438502673797,
+          "specificity": 0.8223684210526315,
+          "f1": 0.8176795580110497,
+          "mcc": 0.6108537093903633,
+          "auroc": 0.8854840979453983,
+          "auprc": 0.9190654810682732,
+          "balanced_accuracy": 0.8069061356600056
+        },
+        "coarse": {
+          "accuracy": 0.6578171091445427,
+          "macro_f1_all_classes": 0.5554774440867607,
+          "macro_f1_supported": 0.5554774440867607,
+          "weighted_f1": 0.649631163612622,
+          "balanced_accuracy": 0.563149993043836,
+          "mcc": 0.5120072918008597,
+          "macro_auroc_ovr": 0.875004689703825
+        },
+        "fine": {
+          "accuracy": 0.4728682170542636,
+          "macro_f1_all_classes": 0.3358679359278267,
+          "macro_f1_supported": 0.4346526229654228,
+          "weighted_f1": 0.48703058481152883,
+          "balanced_accuracy": 0.4755348436113663,
+          "mcc": 0.35111572882263214,
+          "macro_auroc_ovr": 0.8336116753769465
+        },
+        "primary_fine": {
+          "accuracy": 0.47619047619047616,
+          "macro_f1_all_classes": 0.5276780185817557,
+          "macro_f1_supported": 0.5276780185817557,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7054263565891473,
+          "parent_accuracy_from_coarse_head": 0.6395348837209303,
+          "hierarchical_accuracy": 0.40310077519379844,
+          "cross_parent_error_rate": 0.29457364341085274,
+          "coarse_fine_prediction_consistency": 0.7751937984496124,
+          "tail_class_recall": 0.5481481481481482
+        }
+      }
+    },
+    "fine_weighted_ce": {
+      "split_2": {
+        "epoch": 7,
+        "best_monitored_score": 0.5909321985655774,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 3.1764415067784926,
+          "binary_loss": 0.22934479503070607,
+          "coarse_loss": 1.2902410493177525,
+          "fine_loss": 1.6568557206322165,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "classification_total": 3.1764415067784926
+        },
+        "binary": {
+          "accuracy": 0.9235294117647059,
+          "precision": 0.9177215189873418,
+          "recall": 0.9177215189873418,
+          "sensitivity": 0.9177215189873418,
+          "specificity": 0.9285714285714286,
+          "f1": 0.9177215189873418,
+          "mcc": 0.8462929475587704,
+          "auroc": 0.9836555849214077,
+          "auprc": 0.9850124783197731,
+          "balanced_accuracy": 0.9231464737793852
+        },
+        "coarse": {
+          "accuracy": 0.7058823529411765,
+          "macro_f1_all_classes": 0.6076617272863343,
+          "macro_f1_supported": 0.6076617272863343,
+          "weighted_f1": 0.69122988809354,
+          "balanced_accuracy": 0.5955727696711304,
+          "mcc": 0.6117382432816505,
+          "macro_auroc_ovr": 0.9249722494445833
+        },
+        "fine": {
+          "accuracy": 0.5405405405405406,
+          "macro_f1_all_classes": 0.4029083172038028,
+          "macro_f1_supported": 0.5909321985655774,
+          "weighted_f1": 0.5343406372350696,
+          "balanced_accuracy": 0.6083588189374111,
+          "mcc": 0.44748155039775167,
+          "macro_auroc_ovr": 0.9244380847360966
+        },
+        "primary_fine": {
+          "accuracy": 0.5203252032520326,
+          "macro_f1_all_classes": 0.4470116337616826,
+          "macro_f1_supported": 0.5215135727219631,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.8301158301158301,
+          "parent_accuracy_from_coarse_head": 0.6486486486486487,
+          "hierarchical_accuracy": 0.3783783783783784,
+          "cross_parent_error_rate": 0.16988416988416988,
+          "coarse_fine_prediction_consistency": 0.7065637065637066,
+          "tail_class_recall": 0.7857142857142857
+        }
+      },
+      "split_1": {
+        "epoch": 3,
+        "best_monitored_score": 0.4908415925043447,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 3.889756392847541,
+          "binary_loss": 0.4048133002468413,
+          "coarse_loss": 0.9636522107329105,
+          "fine_loss": 2.521290820069108,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "classification_total": 3.889756392847541
+        },
+        "binary": {
+          "accuracy": 0.852760736196319,
+          "precision": 0.8309859154929577,
+          "recall": 0.9365079365079365,
+          "sensitivity": 0.9365079365079365,
+          "specificity": 0.7372262773722628,
+          "f1": 0.8805970149253731,
+          "mcc": 0.698796570080232,
+          "auroc": 0.9487120071061677,
+          "auprc": 0.9652190276252957,
+          "balanced_accuracy": 0.8368671069400997
+        },
+        "coarse": {
+          "accuracy": 0.6779141104294478,
+          "macro_f1_all_classes": 0.47479296066252596,
+          "macro_f1_supported": 0.47479296066252596,
+          "weighted_f1": 0.6318572254188418,
+          "balanced_accuracy": 0.46028800871103853,
+          "mcc": 0.49652944241559754,
+          "macro_auroc_ovr": 0.9008190071005495
+        },
+        "fine": {
+          "accuracy": 0.47346938775510206,
+          "macro_f1_all_classes": 0.3839432080537138,
+          "macro_f1_supported": 0.4968676810106884,
+          "weighted_f1": 0.4576342266257587,
+          "balanced_accuracy": 0.5335176175733451,
+          "mcc": 0.3575544684825733,
+          "macro_auroc_ovr": 0.889481032720129
+        },
+        "primary_fine": {
+          "accuracy": 0.48132780082987553,
+          "macro_f1_all_classes": 0.5649153273258569,
+          "macro_f1_supported": 0.5649153273258569,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.746938775510204,
+          "parent_accuracy_from_coarse_head": 0.6816326530612244,
+          "hierarchical_accuracy": 0.35918367346938773,
+          "cross_parent_error_rate": 0.2530612244897959,
+          "coarse_fine_prediction_consistency": 0.7551020408163265,
+          "tail_class_recall": 0.6111111111111112
+        }
+      },
+      "split_0": {
+        "epoch": 12,
+        "best_monitored_score": 0.4281595687156387,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 7.649711795964424,
+          "binary_loss": 1.2626858991859233,
+          "coarse_loss": 2.5832321313278515,
+          "fine_loss": 3.803793434548167,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "classification_total": 7.649711795964424
+        },
+        "binary": {
+          "accuracy": 0.8082595870206489,
+          "precision": 0.8279569892473119,
+          "recall": 0.8235294117647058,
+          "sensitivity": 0.8235294117647058,
+          "specificity": 0.7894736842105263,
+          "f1": 0.8257372654155496,
+          "mcc": 0.6126367959150516,
+          "auroc": 0.8956339712918661,
+          "auprc": 0.9190533352047998,
+          "balanced_accuracy": 0.8065015479876161
+        },
+        "coarse": {
+          "accuracy": 0.6519174041297935,
+          "macro_f1_all_classes": 0.5082417906921805,
+          "macro_f1_supported": 0.5082417906921805,
+          "weighted_f1": 0.6226190115311149,
+          "balanced_accuracy": 0.4870392751072156,
+          "mcc": 0.48583608940135947,
+          "macro_auroc_ovr": 0.8710692447175745
+        },
+        "fine": {
+          "accuracy": 0.46124031007751937,
+          "macro_f1_all_classes": 0.33087876283151113,
+          "macro_f1_supported": 0.42819604601724975,
+          "weighted_f1": 0.47135361146619026,
+          "balanced_accuracy": 0.435694287282002,
+          "mcc": 0.3000344366634997,
+          "macro_auroc_ovr": 0.803916354775331
+        },
+        "primary_fine": {
+          "accuracy": 0.46825396825396826,
+          "macro_f1_all_classes": 0.5401221651038707,
+          "macro_f1_supported": 0.5401221651038707,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7170542635658915,
+          "parent_accuracy_from_coarse_head": 0.5813953488372093,
+          "hierarchical_accuracy": 0.34108527131782945,
+          "cross_parent_error_rate": 0.28294573643410853,
+          "coarse_fine_prediction_consistency": 0.751937984496124,
+          "tail_class_recall": 0.5222222222222223
+        }
+      }
+    }
+  },
+  "30_proposed": {
+    "proposed_hierarchical_swin": {
+      "split_0": {
+        "epoch": 8,
+        "best_monitored_score": 0.5239579804821204,
+        "fine_inference_prior_tau": 0.25,
+        "losses": {
+          "total_loss": 4.98813239944368,
+          "binary_loss": 0.7107698178924291,
+          "coarse_loss": 1.4919742191084016,
+          "fine_loss": 2.4214512816572613,
+          "fine_loss_evaluable_share": 0.7610619437378064,
+          "binary_coarse_hierarchy_loss": 0.6278733721876566,
+          "coarse_fine_hierarchy_loss": 0.8278750174165124,
+          "classification_total": 4.98813239944368
+        },
+        "binary": {
+          "accuracy": 0.8584070796460177,
+          "precision": 0.8638743455497382,
+          "recall": 0.8823529411764706,
+          "sensitivity": 0.8823529411764706,
+          "specificity": 0.8289473684210527,
+          "f1": 0.873015873015873,
+          "mcc": 0.7132603028613392,
+          "auroc": 0.9328208556149733,
+          "auprc": 0.9520858767096918,
+          "balanced_accuracy": 0.8556501547987616
+        },
+        "coarse": {
+          "accuracy": 0.6873156342182891,
+          "macro_f1_all_classes": 0.5722188074177115,
+          "macro_f1_supported": 0.5722188074177115,
+          "weighted_f1": 0.676866140421526,
+          "balanced_accuracy": 0.5496100313934709,
+          "mcc": 0.5446577082371593,
+          "macro_auroc_ovr": 0.9055963857926267
+        },
+        "fine": {
+          "accuracy": 0.47674418604651164,
+          "macro_f1_all_classes": 0.32563336676527405,
+          "macro_f1_supported": 0.4214078864021194,
+          "weighted_f1": 0.5271369436326118,
+          "balanced_accuracy": 0.47563296545597433,
+          "mcc": 0.38561493064940067,
+          "macro_auroc_ovr": 0.8804160021692391
+        },
+        "primary_fine": {
+          "accuracy": 0.48739495798319327,
+          "macro_f1_all_classes": 0.5618083487780458,
+          "macro_f1_supported": 0.5618083487780458,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7441860465116279,
+          "parent_accuracy_from_coarse_head": 0.6472868217054264,
+          "hierarchical_accuracy": 0.35271317829457366,
+          "cross_parent_error_rate": 0.2558139534883721,
+          "coarse_fine_prediction_consistency": 0.7596899224806202,
+          "tail_class_recall": 0.5481481481481482
+        }
+      },
+      "split_1": {
+        "epoch": 18,
+        "best_monitored_score": 0.6290156654355424,
+        "fine_inference_prior_tau": 0.25,
+        "losses": {
+          "total_loss": 6.453930767035923,
+          "binary_loss": 0.3655432087877777,
+          "coarse_loss": 1.6751633904462944,
+          "fine_loss": 4.0656437961601775,
+          "fine_loss_evaluable_share": 0.751533739405907,
+          "binary_coarse_hierarchy_loss": 0.33763814603258496,
+          "coarse_fine_hierarchy_loss": 1.0526828049150712,
+          "classification_total": 6.453930767035923
+        },
+        "binary": {
+          "accuracy": 0.9233128834355828,
+          "precision": 0.9505494505494505,
+          "recall": 0.9153439153439153,
+          "sensitivity": 0.9153439153439153,
+          "specificity": 0.9343065693430657,
+          "f1": 0.9326145552560647,
+          "mcc": 0.844528976393717,
+          "auroc": 0.9804580388521994,
+          "auprc": 0.9867364049527162,
+          "balanced_accuracy": 0.9248252423434905
+        },
+        "coarse": {
+          "accuracy": 0.754601226993865,
+          "macro_f1_all_classes": 0.682369643417132,
+          "macro_f1_supported": 0.682369643417132,
+          "weighted_f1": 0.7523651009182261,
+          "balanced_accuracy": 0.6691208807827836,
+          "mcc": 0.6393008656930671,
+          "macro_auroc_ovr": 0.91319129250657
+        },
+        "fine": {
+          "accuracy": 0.4857142857142857,
+          "macro_f1_all_classes": 0.4046714995025534,
+          "macro_f1_supported": 0.5236925287680103,
+          "weighted_f1": 0.47959800799605745,
+          "balanced_accuracy": 0.602291845530782,
+          "mcc": 0.38537868144180687,
+          "macro_auroc_ovr": 0.8907001556213926
+        },
+        "primary_fine": {
+          "accuracy": 0.5069124423963134,
+          "macro_f1_all_classes": 0.6763669576461049,
+          "macro_f1_supported": 0.6763669576461049,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.763265306122449,
+          "parent_accuracy_from_coarse_head": 0.7224489795918367,
+          "hierarchical_accuracy": 0.4204081632653061,
+          "cross_parent_error_rate": 0.23673469387755103,
+          "coarse_fine_prediction_consistency": 0.8244897959183674,
+          "tail_class_recall": 0.6944444444444444
+        }
+      },
+      "split_2": {
+        "epoch": 7,
+        "best_monitored_score": 0.47228366735311833,
+        "fine_inference_prior_tau": 0.0,
+        "losses": {
+          "total_loss": 4.41498015908634,
+          "binary_loss": 0.33287447866271525,
+          "coarse_loss": 1.4421527301563937,
+          "fine_loss": 2.358495768378763,
+          "fine_loss_evaluable_share": 0.7617647128946641,
+          "binary_coarse_hierarchy_loss": 0.3197028878857108,
+          "coarse_fine_hierarchy_loss": 0.8061250357066884,
+          "classification_total": 4.41498015908634
+        },
+        "binary": {
+          "accuracy": 0.9117647058823529,
+          "precision": 0.8636363636363636,
+          "recall": 0.9620253164556962,
+          "sensitivity": 0.9620253164556962,
+          "specificity": 0.8681318681318682,
+          "f1": 0.9101796407185628,
+          "mcc": 0.8286026356641804,
+          "auroc": 0.9795868688273752,
+          "auprc": 0.9766551496350087,
+          "balanced_accuracy": 0.9150785922937822
+        },
+        "coarse": {
+          "accuracy": 0.6794117647058824,
+          "macro_f1_all_classes": 0.5814715719063546,
+          "macro_f1_supported": 0.5814715719063546,
+          "weighted_f1": 0.6626096793232343,
+          "balanced_accuracy": 0.5605724027035502,
+          "mcc": 0.564668337352574,
+          "macro_auroc_ovr": 0.9095976816220339
+        },
+        "fine": {
+          "accuracy": 0.5096525096525096,
+          "macro_f1_all_classes": 0.33463538076992644,
+          "macro_f1_supported": 0.49079855846255876,
+          "weighted_f1": 0.5226676180890687,
+          "balanced_accuracy": 0.54532335362092,
+          "mcc": 0.42647741353941704,
+          "macro_auroc_ovr": 0.8980126024214
+        },
+        "primary_fine": {
+          "accuracy": 0.5272727272727272,
+          "macro_f1_all_classes": 0.4231759793959052,
+          "macro_f1_supported": 0.5172150859283285,
+          "weighted_f1": 0.0,
+          "out_of_primary_predictions_share": 0.0
+        },
+        "hierarchy": {
+          "parent_accuracy_from_fine_head": 0.7567567567567568,
+          "parent_accuracy_from_coarse_head": 0.637065637065637,
+          "hierarchical_accuracy": 0.38223938223938225,
+          "cross_parent_error_rate": 0.24324324324324326,
+          "coarse_fine_prediction_consistency": 0.7760617760617761,
+          "tail_class_recall": 0.7142857142857143
+        }
+      }
+    }
+  }
+}

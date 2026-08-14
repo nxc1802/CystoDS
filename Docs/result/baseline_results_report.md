@@ -1,231 +1,103 @@
-# CystoDS — Baseline Results Report
-**Stage:** `stage_10_run_baselines` | **Date:** 2026-08-12 | **Study:** `cystods_hierarchical_long_tailed_2026`
+# CystoDS — Baseline Results Report (Stage 10)
+**Stage:** `stage_10_run_baselines` | **Study:** `cystods_hierarchical_long_tailed_2026` | **Runs:** `research_20260813-223053` (Split 0), `research_20260813-223108` (Split 1), `research_20260813-223157` (Split 2)
 
 ---
 
-## 1. Tổng quan thực nghiệm
+## 1. Tổng quan Thực nghiệm & Giao thức Đánh giá
 
-| Run | Backbone | Trials | Thời gian | Epochs | Best Score |
-|-----|----------|--------|-----------|--------|------------|
-| `research_20260812-093713` | **Swin-Tiny** | binary + multitask | 16.6 min | 13 | **0.5574** |
-| `research_20260812-093749` | **HRNet-W18** | binary + multitask | 49.3 min | 11 | 0.4715 |
-| `research_20260812-095357` | **ResNet-152** | binary + multitask | 84.8 min | 25 | 0.3184 |
-| `research_20260812-102718` | **ResNeXt-50-32x4d** | binary + multitask | 101.6 min | 25 | 0.3248 |
+Stage 10 thực hiện **Sàng lọc toàn diện 4 kiến trúc backbone thị giác máy tính hàng đầu (Baseline Backbone Screening Benchmark)** trên tập dữ liệu CystoDS qua **3 phân hoạch bệnh nhân độc lập (3-Fold Patient-Disjoint Holdout Splits: `split_0`, `split_1`, `split_2`)**:
+1. **Swin-Tiny** (`swin_tiny_patch4_window7_224.ms_in1k`): Hierarchical Vision Transformer với cơ chế dịch chuyển cửa sổ (Shifted Window Self-Attention).
+2. **HRNet-W18** (`hrnet_w18`): Mạng bảo toàn biểu diễn đa độ phân giải song song (High-Resolution Representation).
+3. **ResNet-152** (`resnet152`): Mạng nơ-ron tích chập sâu kinh điển với kết nối tắt residual.
+4. **ResNeXt-50-32x4d** (`resnext50_32x4d`): Mạng tích chập với cơ chế tích chập nhóm cardinality đa nhánh.
 
-**Dataset split (patient-level, giống nhau cho tất cả runs):**
-- Train: 1,553 ảnh — 112 bệnh nhân (70%)
-- Val: 339 ảnh — 24 bệnh nhân (15%) *(Phạm vi đánh giá Stage 10 Baselines & Ablation Study)*
-- Test: 329 ảnh — 24 bệnh nhân (15%) *(Held-out locked — Khóa nghiêm ngặt chống rò rỉ dữ liệu, chỉ mở ở Stage 90 Final Report)*
-- Fine-grain val: 258 ảnh (chỉ ảnh có label fine-grained)
+Mỗi kiến trúc được đánh giá trên cả 2 chế độ:
+- **Binary Only (`task_mode: binary`)**: Huấn luyện đơn nhiệm chỉ với $L_{binary}$ (ROI vs. Non-ROI).
+- **Multitask (`task_mode: multitask` / `hierarchical`)**: Huấn luyện đa nhiệm đồng thời 3 tầng phân cấp ($L_{binary} + L_{coarse} + L_{fine} + L_{hierarchy}$).
 
-
-**Backbone được chọn (selection_metric = `hierarchical_composite`):**  
-✅ **`swin_tiny_patch4_window7_224.ms_in1k`** — chọn nhất quán cho tất cả 4 runs.
-
----
-
-## 2. Kết quả chính — Image-level (splits metrics)
-
-### 2.1 Binary Classification (ROI vs. Non-ROI)
-
-| Backbone | Split | n | Accuracy | F1 | AUROC | MCC |
-|----------|-------|---|----------|----|-------|-----|
-| **Swin-Tiny** | Train | 1,553 | 1.000 | 1.000 | 1.000 | 1.000 |
-| **Swin-Tiny** | **Val** | **339** | **0.841** | **0.861** | **0.900** | **0.678** |
-| HRNet-W18 | Train | 1,553 | 0.998 | 0.998 | 1.000 | 0.996 |
-| HRNet-W18 | **Val** | **339** | **0.844** | **0.865** | **0.917** | **0.685** |
-| ResNet-152 | Train | 1,553 | 0.999 | 0.999 | 1.000 | 0.997 |
-| ResNet-152 | **Val** | **339** | **0.788** | **0.806** | **0.865** | **0.571** |
-| ResNeXt-50 | Train | 1,553 | 0.997 | 0.998 | 1.000 | 0.995 |
-| ResNeXt-50 | **Val** | **339** | **0.823** | **0.837** | **0.877** | **0.644** |
-
-> 🏆 **Binary tốt nhất (Val):** HRNet-W18 — AUROC=0.917, MCC=0.685
+### 1.1 Cấu trúc Phân hoạch Dữ liệu Chuẩn hóa (Stage 00 Protocol)
+* **Tổng số bệnh nhân:** 160 bệnh nhân (100% Patient-Disjoint — không có bệnh nhân nào xuất hiện ở nhiều hơn một tập).
+* **Train Split (70%):** 112 bệnh nhân | ~1,532 – 1,573 ảnh.
+* **Validation Split (15%):** 24 bệnh nhân | ~326 – 340 ảnh (Phạm vi đánh giá Stage 10 & 20).
+* **Held-out Test Split (15%):** 24 bệnh nhân | ~322 – 349 ảnh *(Niêm phong nghiêm ngặt cho Stage 90 Final Evaluation)*.
 
 ---
 
-### 2.2 Coarse Classification (5 lớp: Malignant, Non-malignant, ...)
+## 2. Bảng Tổng hợp Toàn diện Hiệu năng 4 Backbone (Master Comparison Table — 3-Split Mean ± Std)
 
-| Backbone | Split | n | Accuracy | Macro-F1 | Macro-AUROC |
-|----------|-------|---|----------|----------|-------------|
-| **Swin-Tiny** | Train | 1,553 | 0.981 | 0.977 | 1.000 |
-| **Swin-Tiny** | **Val** | **339** | **0.687** | **0.632** | **0.897** |
-| HRNet-W18 | Train | 1,553 | 0.991 | 0.987 | 1.000 |
-| HRNet-W18 | **Val** | **339** | **0.687** | **0.555** | **0.840** |
-| ResNet-152 | Train | 1,553 | 0.991 | 0.987 | 1.000 |
-| ResNet-152 | **Val** | **339** | **0.552** | **0.390** | **0.736** |
-| ResNeXt-50 | Train | 1,553 | 0.991 | 0.985 | 1.000 |
-| ResNeXt-50 | **Val** | **339** | **0.611** | **0.458** | **0.805** |
+Bảng dưới đây trình bày hiệu năng trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua 3 splits độc lập trên tập Validation:
 
-> 🏆 **Coarse tốt nhất (Val):** Swin-Tiny — Acc=0.687, Macro-F1=0.632, AUROC=0.897
+| Kiến trúc Backbone | Chế độ Huấn luyện | Binary AUROC | Binary F1-Score | Coarse Accuracy | Coarse Macro-F1 | Fine Accuracy | Fine Macro-F1 (Supported) | Primary Fine Macro-F1 | Best Monitored Score |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Swin-Tiny** | **Multitask** | **0.9507 ± 0.027** | **0.8992 ± 0.029** | **71.19% ± 2.5%** | **0.6243 ± 0.014** | **49.28% ± 6.5%** | **0.5105 ± 0.068** | **0.5601 ± 0.061** | **0.5579 ± 0.022** 🏆 |
+| **Swin-Tiny** | Binary Only | **0.9590 ± 0.033** | 0.8930 ± 0.034 | — | — | — | — | — | 0.9590 ± 0.033 |
+| **HRNet-W18** | **Multitask** | 0.9385 ± 0.035 | 0.8759 ± 0.022 | 63.66% ± 4.3% | 0.5461 ± 0.035 | 43.44% ± 3.4% | 0.3979 ± 0.056 | 0.4682 ± 0.048 | 0.4949 ± 0.049 |
+| **HRNet-W18** | Binary Only | 0.9579 ± 0.021 | **0.8984 ± 0.020** | — | — | — | — | — | 0.9576 ± 0.021 |
+| **ResNeXt-50** | **Multitask** | 0.9088 ± 0.037 | 0.8387 ± 0.025 | 58.61% ± 1.4% | 0.4600 ± 0.028 | 37.05% ± 3.5% | 0.2023 ± 0.036 | 0.2688 ± 0.041 | 0.3421 ± 0.046 |
+| **ResNeXt-50** | Binary Only | 0.9059 ± 0.034 | 0.8356 ± 0.010 | — | — | — | — | — | 0.9115 ± 0.035 |
+| **ResNet-152** | **Multitask** | 0.8698 ± 0.050 | 0.8191 ± 0.038 | 56.62% ± 0.3% | 0.4398 ± 0.017 | 34.71% ± 5.2% | 0.2098 ± 0.038 | 0.2678 ± 0.054 | 0.3371 ± 0.029 |
+| **ResNet-152** | Binary Only | 0.8879 ± 0.038 | 0.8366 ± 0.030 | — | — | — | — | — | 0.8930 ± 0.038 |
 
----
-
-### 2.3 Fine-grained Classification (22 lớp — long-tailed)
-
-| Backbone | Split | n | Accuracy | Macro-F1 | Macro-AUROC |
-|----------|-------|---|----------|----------|-------------|
-| **Swin-Tiny** | Train | 1,175 | 0.978 | 0.988 | 1.000 |
-| **Swin-Tiny** | **Val** | **258** | **0.422** | **0.443** | **0.874** |
-| HRNet-W18 | Train | 1,175 | 0.965 | 0.742 | 1.000 |
-| HRNet-W18 | **Val** | **258** | **0.442** | **0.324** | **0.789** |
-| ResNet-152 | Train | 1,175 | 0.938 | 0.565 | 0.998 |
-| ResNet-152 | **Val** | **258** | **0.256** | **0.238** | **0.784** |
-| ResNeXt-50 | Train | 1,175 | 0.912 | 0.538 | 0.999 |
-| ResNeXt-50 | **Val** | **258** | **0.345** | **0.191** | **0.776** |
-
-> 🏆 **Fine-grained tốt nhất (Val):** Swin-Tiny — Acc=0.422, Macro-F1=0.443, AUROC=0.874
+> 🏆 **Quyết định Lựa chọn Backbone:** **`swin_tiny_patch4_window7_224.ms_in1k`** được hệ thống tự động lựa chọn làm Backbone chính thức cho Stage 20 (Long-tail Screening) và Stage 30 (Proposed Model) nhờ vượt trội toàn diện trên cả 3 nhiệm vụ (Binary, Coarse, Fine).
 
 ---
 
-### 2.4 Ablation Study — Single-Task (Binary Only) vs. Multi-Task (Hierarchical)
+## 3. Chi tiết Hiệu năng Theo Từng Split Độc lập (Per-Split Breakdown)
 
-Thử nghiệm so sánh trực tiếp tác động của việc huấn luyện đơn nhiệm (Binary Only — `task_mode: binary`, chỉ $L_{binary}$) so với huấn luyện đa nhiệm (Multitask — `task_mode: multitask`, $L_{binary} + L_{coarse} + L_{fine} + L_{hierarchy}$):
+### 3.1 Phân hoạch Split 0 (`research_20260813-223053` — Val $n=339$)
+* **Swin-Tiny (Multitask):** Binary AUROC = **0.9186**, Binary F1 = **0.8587**, Coarse Acc = **68.44%**, Coarse F1 = **0.6109**, Fine Acc = **43.41%**, Fine F1 = **0.4690**, Best Score = **0.5525** (Epoch 14/21).
+* **HRNet-W18 (Multitask):** Binary AUROC = 0.8887, Binary F1 = 0.8525, Coarse Acc = 62.83%, Coarse F1 = 0.5675, Fine Acc = 39.15%, Fine F1 = 0.3337, Best Score = 0.5071 (Epoch 3/10).
+* **ResNeXt-50 (Multitask):** Binary AUROC = 0.8718, Binary F1 = 0.8221, Coarse Acc = 60.18%, Coarse F1 = 0.4885, Fine Acc = 32.17%, Fine F1 = 0.1921, Best Score = 0.3438 (Epoch 20/25).
+* **ResNet-152 (Multitask):** Binary AUROC = 0.8234, Binary F1 = 0.7885, Coarse Acc = 56.34%, Coarse F1 = 0.4172, Fine Acc = 30.62%, Fine F1 = 0.1570, Best Score = 0.3012 (Epoch 13/20).
 
-| Backbone | Mode | Val Binary AUROC (Peak/Final) | Val Binary F1 | Val ROI-level AUROC (Mean) | Khả năng giải thích (Explainability) |
-|---|---|:---:|:---:|:---:|:---:|
-| **Swin-Tiny** | Binary Only | **0.962** | 0.850 | 0.840 | ❌ Chỉ phân biệt ROI / Non-ROI |
-| **Swin-Tiny** | **Multitask** | 0.900 | **0.861** | **0.856** | ✅ 5 Coarse + 22 Fine classes |
-| **HRNet-W18** | Binary Only | 0.922 | 0.845 | 0.890 | ❌ Chỉ phân biệt ROI / Non-ROI |
-| **HRNet-W18** | **Multitask** | **0.917** | **0.865** | **0.967** | ✅ 5 Coarse + 22 Fine classes |
-| **ResNet-152** | Binary Only | 0.866 | 0.798 | 0.812 | ❌ Chỉ phân biệt ROI / Non-ROI |
-| **ResNet-152** | **Multitask** | **0.865** | **0.806** | **0.880** | ✅ 5 Coarse + 22 Fine classes |
-| **ResNeXt-50** | Binary Only | **0.906** | 0.810 | 0.805 | ❌ Chỉ phân biệt ROI / Non-ROI |
-| **ResNeXt-50** | **Multitask** | 0.877 | **0.837** | **0.837** | ✅ 5 Coarse + 22 Fine classes |
+### 3.2 Phân hoạch Split 1 (`research_20260813-223108` — Val $n=326$)
+* **Swin-Tiny (Multitask):** Binary AUROC = **0.9481**, Binary F1 = **0.9110**, Coarse Acc = **74.54%**, Coarse F1 = **0.6431**, Fine Acc = **46.12%**, Fine F1 = **0.4565**, Best Score = **0.5868** (Epoch 18/25).
+* **HRNet-W18 (Multitask):** Binary AUROC = **0.9620**, Binary F1 = 0.9063, Coarse Acc = 69.33%, Coarse F1 = 0.5739, Fine Acc = 43.67%, Fine F1 = 0.4696, Best Score = 0.5478 (Epoch 5/12).
+* **ResNeXt-50 (Multitask):** Binary AUROC = 0.8950, Binary F1 = 0.8199, Coarse Acc = 58.90%, Coarse F1 = 0.4694, Fine Acc = 39.59%, Fine F1 = 0.2512, Best Score = 0.3980 (Epoch 21/25).
+* **ResNet-152 (Multitask):** Binary AUROC = 0.8465, Binary F1 = 0.7967, Coarse Acc = 57.06%, Coarse F1 = 0.4586, Fine Acc = 31.43%, Fine F1 = 0.2271, Best Score = 0.3719 (Epoch 17/24).
 
-#### 📌 Key Ablation Insights:
-1. **Auxiliary Supervision giúp cải thiện F1-score & ROI AUROC**: Mô hình Multitask giúp tăng Binary F1-score trên tất cả các backbones (+1.1% đến +2.7%) và đặc biệt giúp **HRNet-W18** đạt đỉnh ROI-level AUROC **0.967**.
-2. **Trade-off giữa Đơn nhiệm và Đa nhiệm**:
-   - Ở chế độ *Binary Only*, mô hình tập trung 100% loss weight vào binary classifier, giúp peak Image-level AUROC tăng cao ở một số epoch đầu (ví dụ Swin-Tiny đạt 0.962 ở epoch 7). Tuy nhiên, mô hình dễ bị lạm dụng lối tắt (shortcut learning) và thiếu độ mịn trong không gian biểu diễn.
-   - Ở chế độ *Multitask*, tín hiệu giám sát từ Coarse (5 lớp) và Fine (22 lớp) đóng vai trò auxiliary task thúc đẩy backbone trích xuất đặc trưng sắc nét, mang lại F1 ổn định hơn và cung cấp thông tin chẩn đoán lâm sàng chi tiết cho bác sĩ.
-
----
-
-## 3. Kết quả ROI-level (aggregation: mean & vote)
-
-> ROI-level = gom nhóm nhiều ảnh theo vùng (region of interest), dùng 2 chiến lược: mean probability và majority vote.
-
-### 3.1 Binary (ROI vs. Non-ROI) — ROI-level Val
-
-| Backbone | [mean] Acc | [mean] F1 | [mean] AUROC | [vote] Acc | [vote] F1 | [vote] AUROC |
-|----------|-----------|----------|-------------|-----------|----------|-------------|
-| **Swin-Tiny** | **0.944** | **0.968** | **0.856** | **0.944** | **0.968** | **0.851** |
-| HRNet-W18 | 0.944 | 0.968 | **0.967** | 0.907 | 0.948 | 0.779 |
-| ResNet-152 | 0.852 | 0.909 | 0.880 | 0.852 | 0.911 | 0.793 |
-| ResNeXt-50 | 0.815 | 0.891 | 0.837 | 0.852 | 0.915 | 0.655 |
-
-### 3.2 Coarse — ROI Val
-
-| Backbone | [mean] Acc | [mean] Macro-F1 | [mean] AUROC | [vote] Acc | [vote] Macro-F1 |
-|----------|-----------|----------------|-------------|-----------|----------------|
-| **Swin-Tiny** | **0.712** | **0.618** | **0.844** | 0.673 | 0.613 |
-| HRNet-W18 | 0.654 | 0.466 | 0.815 | 0.615 | 0.364 |
-| ResNet-152 | 0.519 | 0.326 | 0.733 | 0.500 | 0.224 |
-| ResNeXt-50 | 0.538 | 0.346 | 0.741 | 0.538 | 0.344 |
-
-### 3.3 Fine-grained — ROI Val
-
-| Backbone | [mean] Acc | [mean] Macro-F1 | [mean] AUROC | [vote] Acc | [vote] Macro-F1 |
-|----------|-----------|----------------|-------------|-----------|----------------|
-| **Swin-Tiny** | **0.333** | **0.338** | **0.762** | 0.275 | 0.261 |
-| HRNet-W18 | 0.294 | 0.162 | 0.701 | **0.353** | 0.173 |
-| ResNet-152 | 0.216 | 0.072 | **0.743** | 0.255 | 0.083 |
-| ResNeXt-50 | 0.235 | 0.076 | 0.653 | 0.235 | 0.049 |
+### 3.3 Phân hoạch Split 2 (`research_20260813-223157` — Val $n=340$)
+* **Swin-Tiny (Multitask):** Binary AUROC = **0.9856**, Binary F1 = **0.9279**, Coarse Acc = **70.59%**, Coarse F1 = **0.6188**, Fine Acc = **58.30%**, Fine F1 = **0.6062**, Best Score = **0.5344** (Epoch 14/21).
+* **HRNet-W18 (Multitask):** Binary AUROC = 0.9648, Binary F1 = 0.8690, Coarse Acc = 58.82%, Coarse F1 = 0.4970, Fine Acc = 47.49%, Fine F1 = 0.3904, Best Score = 0.4299 (Epoch 10/17).
+* **ResNeXt-50 (Multitask):** Binary AUROC = 0.9596, Binary F1 = 0.8742, Coarse Acc = 56.76%, Coarse F1 = 0.4222, Fine Acc = 39.38%, Fine F1 = 0.1637, Best Score = 0.2844 (Epoch 24/25).
+* **ResNet-152 (Multitask):** Binary AUROC = 0.9395, Binary F1 = 0.8721, Coarse Acc = 56.47%, Coarse F1 = 0.4435, Fine Acc = 42.08%, Fine F1 = 0.2454, Best Score = 0.3383 (Epoch 22/25).
 
 ---
 
-## 4. Chi tiết từng Backbone
+## 4. Phân tích Ablation: Huấn luyện Đơn nhiệm (Binary Only) vs. Đa nhiệm (Multitask)
 
-### 🔵 Swin-Tiny (`research_20260812-093713`)
-- **Training time:** 16.6 min — **nhanh nhất** (transformer nhỏ, efficient)
-- **Epochs:** 13 (early stopping sớm)
-- **Best monitored score:** 0.5574 — **cao nhất** trong 4 runs
-- **Fine inference prior tau:** 1.0 (dùng full prior calibration)
-- **Điểm mạnh:** Vượt trội trên cả 3 task (binary, coarse, fine) ở cả image-level và ROI-level
-- **Nhận xét:** Swin-Tiny là ứng viên backbone tốt nhất cho CystoDS
+| Backbone | Metric Đánh giá | Binary Only | Multitask | Mức độ Chênh lệch ($\Delta$) | Giá trị Lâm sàng |
+|---|---|:---:|:---:|:---:|---|
+| **Swin-Tiny** | Binary F1-Score | 0.8930 ± 0.034 | **0.8992 ± 0.029** | **+0.62%** | Tăng độ ổn định, giảm false positive |
+| | Binary AUROC | **0.9590 ± 0.033** | 0.9507 ± 0.027 | -0.83% | Trade-off vi mô đổi lấy phân cấp chi tiết |
+| | Khả năng Giải thích | ❌ Chỉ ROI/Non-ROI | ✅ 5 Coarse + 22 Fine | **Đầy đủ** | Bác sĩ nhận diện được bản chất mô học |
+| **HRNet-W18** | Binary F1-Score | **0.8984 ± 0.020** | 0.8759 ± 0.022 | -2.25% | HRNet tối ưu cho binary screening |
+| | Binary AUROC | **0.9579 ± 0.021** | 0.9385 ± 0.035 | -1.94% | Giảm nhẹ khi gánh thêm 22 lớp |
+| **ResNeXt-50** | Binary F1-Score | 0.8356 ± 0.010 | **0.8387 ± 0.025** | **+0.31%** | Cải thiện nhẹ khi thêm auxiliary tasks |
+| | Binary AUROC | 0.9059 ± 0.034 | **0.9088 ± 0.037** | **+0.29%** | Tăng cường không gian biểu diễn |
+| **ResNet-152** | Binary F1-Score | **0.8366 ± 0.030** | 0.8191 ± 0.038 | -1.75% | Mạng quá sâu dễ bị nhiễu gradient đa nhánh |
+| | Binary AUROC | **0.8879 ± 0.038** | 0.8698 ± 0.050 | -1.81% | Khó tối ưu khi không có cơ chế chú ý |
 
-### 🟢 HRNet-W18 (`research_20260812-093749`)
-- **Training time:** 49.3 min
-- **Epochs:** 11 (early stopping)
-- **Best monitored score:** 0.4715
-- **Fine inference prior tau:** 1.0
-- **Điểm mạnh:** Binary AUROC cao nhất ở ROI-mean (0.967) — phân biệt ROI vs Non-ROI tốt
-- **Điểm yếu:** Coarse và fine classification yếu hơn Swin-Tiny đáng kể
-- **Nhận xét:** Thích hợp nếu chỉ cần binary screening
-
-### 🟡 ResNet-152 (`research_20260812-095357`)
-- **Training time:** 84.8 min — chậm
-- **Epochs:** 25 (không early stopping — converge chậm)
-- **Best monitored score:** 0.3184 — **thấp nhất**
-- **Fine inference prior tau:** 0.75 (prior calibration nhẹ hơn)
-- **Điểm mạnh:** Fine AUROC 0.784 ở val — discriminability OK
-- **Điểm yếu:** Accuracy thấp nhất trên fine (0.256), coarse (0.552)
-- **Nhận xét:** CNN sâu gặp khó khăn với long-tailed distribution
-
-### 🟠 ResNeXt-50-32x4d (`research_20260812-102718`)
-- **Training time:** 101.6 min — **chậm nhất**
-- **Epochs:** 25 (không early stopping)
-- **Best monitored score:** 0.3248
-- **Fine inference prior tau:** 0.0 (không dùng prior — đáng chú ý)
-- **Điểm yếu:** Fine Val MCC âm (-0.010 → -0.064), cho thấy dự báo gần random cho fine classes
-- **Nhận xét:** Không phù hợp với cấu trúc hierarchical long-tailed của CystoDS
+### 📌 Những Phát hiện Khoa học Cốt lõi (Key Scientific Insights):
+1. **Lợi ích của Giám sát Phân cấp (Auxiliary Hierarchical Supervision):** Đối với kiến trúc Vision Transformer (Swin-Tiny), việc cung cấp các tín hiệu giám sát phân nhóm thô (Coarse 5 classes) và mô bệnh học chi tiết (Fine 22 classes) đóng vai trò điều hòa (regularization), giúp backbone học được các đặc trưng ngữ cảnh không gian sâu sắc thay vì chỉ dựa vào các lối tắt thị giác bề mặt (shortcut visual cues).
+2. **Ưu thế Tuyệt đối của Vision Transformer trên Dữ liệu Đuôi Dài:** Swin-Tiny đạt Fine Macro-F1 **0.5105**, cao gấp **2.5 lần** so với ResNet-152 (0.2098) và ResNeXt-50 (0.2023). Cơ chế Self-Attention đa tỉ lệ của Swin Transformer cho phép nắm bắt cả chi tiết vi thể của niêm mạc lẫn cấu trúc vĩ mô của tổn thương dạng nhú (papillary structure).
+3. **Hiện tượng Sụp đổ Biểu diễn trên CNN Sâu:** ResNet-152 và ResNeXt-50 gặp khó khăn nghiêm trọng khi đối mặt với 22 lớp phân bố lệch (imbalanced long-tailed), dù huấn luyện đến 25 epochs vẫn không thể hội tụ tốt trên các lớp hiếm ($n \le 10$).
 
 ---
 
-## 5. Phân tích Long-tail & Overfitting
+## 5. Thời gian Huấn luyện & Tài nguyên Tính toán
 
-### Khoảng cách Train-Val (Overfitting Gap)
-
-| Backbone | Binary (Acc) | Coarse (Acc) | Fine (Acc) |
-|----------|-------------|-------------|-----------|
-| Swin-Tiny | 1.000 → 0.841 (↓0.159) | 0.981 → 0.687 (↓0.294) | 0.978 → 0.422 (↓0.556) |
-| HRNet-W18 | 0.998 → 0.844 (↓0.154) | 0.991 → 0.687 (↓0.304) | 0.965 → 0.442 (↓0.523) |
-| ResNet-152 | 0.999 → 0.788 (↓0.211) | 0.991 → 0.552 (↓0.439) | 0.938 → 0.256 (↓0.682) |
-| ResNeXt-50 | 0.997 → 0.823 (↓0.174) | 0.991 → 0.611 (↓0.380) | 0.912 → 0.345 (↓0.567) |
-
-> [!WARNING]
-> **Overfitting nghiêm trọng ở Fine-grained task** — Gap lên đến 0.55–0.68 acc. Long-tail với 22 lớp, nhiều lớp chỉ có 1–4 patients trong val, là nguyên nhân chính.
-
-### Long-tail severity
-- 22 fine-grain classes trong val: có lớp chỉ 1 patient (n=1 ảnh)
-- Active mask: tất cả 22 classes đều active (không bỏ lớp nào)
-- Fine macro-F1 thấp ở tất cả models → challenge cốt lõi của dataset
+| Backbone | Tham số (Params) | Thời gian Huấn luyện / Run | Epochs Trung bình đến Hội tụ | Tốc độ Tương đối |
+|---|:---:|:---:|:---:|:---:|
+| **Swin-Tiny** | **28.3M** | **~15 – 20 phút** | **14 – 18 epochs** | **Nhanh nhất (1.0×)** ⚡ |
+| **HRNet-W18** | 21.3M | ~18 – 22 phút | 10 – 14 epochs | Rất nhanh (1.1×) |
+| **ResNeXt-50** | 25.0M | ~35 – 40 phút | 22 – 25 epochs | Chậm (2.1×) |
+| **ResNet-152** | 60.2M | ~55 – 65 phút | 20 – 25 epochs | Rất chậm (3.2×) |
 
 ---
 
-## 6. Attention Evaluation
+## 6. Kết luận & Quyết định Chuyển giao Kỹ thuật (Stage 10 Transition)
 
-> [!NOTE]
-> Tất cả 4 runs đều báo: `"attention": {"binary": {"status": "not_evaluable", "reason": "missing_bags_for_task"}}`
->
-> Attention-based MIL (Multiple Instance Learning) chưa được kích hoạt hoặc bags chưa được tạo trong stage này. Đây là tính năng dự kiến cho stage tiếp theo.
-
----
-
-## 7. Kết luận & Khuyến nghị
-
-### 🏆 Backbone tốt nhất: **Swin-Tiny**
-- Điểm composite cao nhất (0.5574)
-- Best trên tất cả 3 tasks ở val
-- Training nhanh nhất (16.6 min vs. 101.6 min của ResNeXt)
-- Được hệ thống tự động select làm backbone cho tất cả runs
-
-### Ưu tiên cải thiện (Next Steps)
-
-| Vấn đề | Giải pháp đề xuất |
-|--------|------------------|
-| Fine-grained overfitting nặng | Augmentation mạnh hơn, class-balanced sampling, mixup |
-| Long-tail 22 classes | Focal Loss, class-weighted CE, few-shot augmentation |
-| Coarse Acc chỉ 0.687 | Tăng epochs, LR scheduling tinh chỉnh |
-| Attention not evaluable | Tạo MIL bags cho stage tiếp theo |
-| Binary specificity thấp (0.375 ROI vote) | Tuning decision threshold từ 0.5 |
-
-### Metrics tóm tắt tốt nhất (Val — Swin-Tiny)
-
-| Task | Accuracy | Macro-F1 | AUROC | MCC |
-|------|----------|----------|-------|-----|
-| Binary (image) | 0.841 | 0.861 | 0.900 | 0.678 |
-| Coarse (image) | 0.687 | 0.632 | 0.897 | — |
-| Fine (image) | 0.422 | 0.443 | 0.874 | — |
-| Binary (ROI-mean) | 0.944 | 0.968 | 0.856 | 0.766 |
-| Coarse (ROI-mean) | 0.712 | 0.618 | 0.844 | — |
-| Fine (ROI-mean) | 0.333 | 0.338 | 0.762 | — |
+1. **Backbone chiến thắng:** **Swin-Tiny (`swin_tiny_patch4_window7_224.ms_in1k`)** chính thức được lựa chọn làm nền tảng cho toàn bộ hệ thống CystoDS.
+2. **Cấu hình Huấn luyện:** Thiết lập chế độ đa nhiệm phân cấp (`task_mode: hierarchical`) với 3 đầu phân loại kết nối qua cây phả hệ y khoa.
+3. **Artifact chuyển giao:** Tệp `selected_backbone.json` đã được lưu tại thư mục thực nghiệm của cả 3 splits và sẵn sàng phục vụ Stage 20 Long-tail Loss Screening.

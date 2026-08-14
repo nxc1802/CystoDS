@@ -46,18 +46,31 @@ def run(config: dict[str, Any]) -> Path:
         "CYSTODS_HF_PATH_PREFIX", f"{config['study_id']}/{STAGE_NAME}"
     )
 
+    filter_models = config.get("filter_models")
+    filter_trials = config.get("filter_trials")
+
+    # Protocol binding auto-discovery
+    if protocol_run_dir is None:
+        auto_dir, auto_sha = core.find_latest_completed_protocol_run(
+            config.get("result_root"), config.get("run_profile")
+        )
+        if auto_dir is not None:
+            protocol_run_dir = auto_dir
+            if expected_sha is None:
+                expected_sha = auto_sha
+
+    from cystods.config import filter_stage_trials
+
     config_path = config.pop("_config_path", None)
-    trials = get_stage_trials(config_path=config_path, stage=STAGE_ID, profile=config.get("run_profile"))
+    trials = get_stage_trials(
+        config_path=config_path,
+        stage=STAGE_ID,
+        profile=config.get("run_profile"),
+        filter_models=filter_models,
+        filter_trials=filter_trials,
+    )
 
-    if not trials:
-        trials = [
-            {
-                "experiment_id": "proposed_hierarchical_swin",
-                "task_mode": "hierarchical",
-            },
-        ]
-
-    if config.get("run_profile") == "smoke":
+    if not trials and config.get("run_profile") == "smoke":
         trials = [
             {
                 "experiment_id": "smoke_proposed_swin_tiny",
@@ -67,6 +80,29 @@ def run(config: dict[str, Any]) -> Path:
                     "supervised_contrastive_loss_weight": 0.0,
                     "monitor_metric": "coarse_macro_f1",
                 },
+            },
+        ]
+        trials = filter_stage_trials(
+            trials,
+            filter_models=filter_models,
+            filter_trials=filter_trials,
+        )
+
+    if not trials and (filter_models or filter_trials):
+        all_trials = get_stage_trials(config_path=config_path, stage=STAGE_ID, profile=config.get("run_profile"))
+        avail_exp = [t.get("experiment_id") for t in all_trials]
+        avail_models = sorted({t.get("overrides", {}).get("model_name", "default") for t in all_trials})
+        raise RuntimeError(
+            f"No trials matched the filters: models={filter_models}, trials={filter_trials}.\n"
+            f"Available models for Stage {STAGE_ID}: {avail_models}\n"
+            f"Available experiment IDs for Stage {STAGE_ID}: {avail_exp}"
+        )
+
+    if not trials:
+        trials = [
+            {
+                "experiment_id": "proposed_hierarchical_swin",
+                "task_mode": "hierarchical",
             },
         ]
 
@@ -107,6 +143,13 @@ def run(config: dict[str, Any]) -> Path:
         t.setdefault("overrides", {})["model_name"] = selected_backbone
         t.setdefault("overrides", {})["fine_loss"] = selected_long_tail
 
+    print(f"Stage {STAGE_ID}: Selected {len(trials)} trial(s) to run (backbone={selected_backbone}, long_tail={selected_long_tail}):")
+    for t in trials:
+        m_name = t.get("overrides", {}).get("model_name", selected_backbone)
+        lt_name = t.get("overrides", {}).get("fine_loss", selected_long_tail)
+        print(f"  • [{t['experiment_id']}] model: {m_name} | fine_loss: {lt_name} | task_mode: {t.get('task_mode')}")
+    print()
+
     suite_config = {
         "schema_version": "cystods.stage.v2",
         "stage_name": STAGE_NAME,
@@ -127,7 +170,21 @@ def run(config: dict[str, Any]) -> Path:
     source_files = _source_files()
     run_dir = core.run_training_suite(suite_config, source_files)
 
+    # Read resolved protocol sha and split index
+    run_status_file = run_dir / "run_status.json"
     protocol_sha = config.get("protocol_reference_sha256", expected_sha)
+    protocol_split_index = config.get("protocol_split_index")
+    if run_status_file.is_file():
+        try:
+            import json
+            with run_status_file.open("r", encoding="utf-8") as handle:
+                status_data = json.load(handle)
+            protocol_sha = status_data.get("protocol_sha256", protocol_sha)
+            if protocol_split_index is None:
+                protocol_split_index = status_data.get("protocol_split_index")
+        except Exception:
+            pass
+
     write_stage_selection_artifact(
         run_dir,
         "proposed_model.json",
@@ -137,8 +194,10 @@ def run(config: dict[str, Any]) -> Path:
             "selected_long_tail_method": selected_long_tail,
             "task_mode": "hierarchical",
             "protocol_sha256": protocol_sha,
+            "protocol_split_index": protocol_split_index,
             "study_id": config["study_id"],
         },
     )
 
     return run_dir
+
