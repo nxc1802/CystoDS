@@ -108,6 +108,7 @@ def run(config: dict[str, Any]) -> Path:
             stage_id="10",
             artifact_name="selected_backbone.json",
             expected_protocol_sha256=expected_sha,
+            expected_split_index=config.get("protocol_split_index"),
         )
         selected_backbone = stage10_artifact.get("selected_backbone", selected_backbone)
     except (FileNotFoundError, ValueError) as exc:

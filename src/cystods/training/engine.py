@@ -702,11 +702,39 @@ def train_model(
             logger,
         )
 
-    write_json(
-        run_dir / "metrics" / fold_dir.name / "summary.json",
-        evaluated_metrics,
-    )
-    return evaluated_metrics, evaluated_splits, best_checkpoint_path
+        trial_name = str(
+            config.get(
+                "suite_trial_id",
+                fold_dir.parent.name
+                if fold_dir.parent.name not in {"runs", "folds"}
+                else fold_dir.name,
+            )
+        )
+        evaluated_metrics["trial_name"] = trial_name
+        evaluated_metrics["fold_name"] = fold_dir.name
+
+        # 1. Save per-trial summary in the trial's fold directory (runs/<trial>/<fold>/summary.json)
+        write_json(
+            fold_dir / "summary.json",
+            evaluated_metrics,
+        )
+
+        # 2. Save per-trial summary in run_dir/metrics/<fold_name>/<trial_name>_summary.json
+        per_trial_metrics_path = (
+            run_dir / "metrics" / fold_dir.name / f"{trial_name}_summary.json"
+        )
+        per_trial_metrics_path.parent.mkdir(parents=True, exist_ok=True)
+        write_json(
+            per_trial_metrics_path,
+            evaluated_metrics,
+        )
+
+        # 3. Save standard summary.json in run_dir/metrics/<fold_name>/summary.json
+        write_json(
+            run_dir / "metrics" / fold_dir.name / "summary.json",
+            evaluated_metrics,
+        )
+        return evaluated_metrics, evaluated_splits, best_checkpoint_path
 
 
 def run_training_suite(
@@ -808,6 +836,7 @@ def run_training_suite(
         )
 
         completed_trials = []
+        suite_trial_results: dict[str, dict[str, Any]] = {}
         for trial_index, trial in enumerate(trials_spec):
             trial_name = str(
                 trial.get("trial_id", trial.get("experiment_id", trial.get("trial_name", f"trial_{trial_index:02d}")))
@@ -831,6 +860,7 @@ def run_training_suite(
                 bool(trial_config["deterministic"]),
             )
 
+            trial_fold_metrics: dict[str, Any] = {}
             for fold_name, split_frames, patient_split in units:
                 fold_dir = run_dir / "runs" / trial_name / fold_name
                 fold_dir.mkdir(parents=True, exist_ok=True)
@@ -844,7 +874,7 @@ def run_training_suite(
                 model = HierarchicalCystoModel(trial_config).to(device)
 
                 data_split_hash = science.split_fingerprint(split_frames)
-                train_model(
+                eval_metrics, evaluated_splits, best_checkpoint_path = train_model(
                     model,
                     loaders,
                     split_frames,
@@ -857,6 +887,7 @@ def run_training_suite(
                     data_split_hash,
                     logger,
                 )
+                trial_fold_metrics[fold_name] = eval_metrics
 
                 del model
                 del loaders
@@ -864,7 +895,21 @@ def run_training_suite(
                 if torch.cuda.is_available():
                     torch.cuda.empty_cache()
 
+            suite_trial_results[trial_name] = trial_fold_metrics
             completed_trials.append(trial_name)
+
+        suite_benchmark = {
+            "schema_version": "cystods.suite_benchmark.v1",
+            "stage_name": stage_config["stage_name"],
+            "study_id": stage_config["study_id"],
+            "run_profile": stage_config["run_profile"],
+            "protocol_sha256": protocol_hash,
+            "protocol_split_index": runtime_config.get("protocol_split_index"),
+            "completed_trials": completed_trials,
+            "trials": suite_trial_results,
+        }
+        write_json(run_dir / "reports" / "suite_benchmark.json", suite_benchmark)
+        write_json(run_dir / "reports" / "suite_summary.json", suite_benchmark)
 
         write_json(
             status_path,

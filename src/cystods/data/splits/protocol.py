@@ -48,7 +48,7 @@ def save_split_artifacts(
         return fn(split_frames, patient_split, score, run_dir, fold_name)
 
     fold_dir = run_dir / "splits" / fold_name
-    fold_dir.mkdir(parents=True, exist_ok=False)
+    fold_dir.mkdir(parents=True, exist_ok=True)
     dataset_fingerprint_path = (
         run_dir / "system" / "dataset_fingerprint.json"
     )

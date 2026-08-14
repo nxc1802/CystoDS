@@ -30,6 +30,7 @@ def find_and_load_stage_artifact(
     stage_id: str,
     artifact_name: str,
     expected_protocol_sha256: str | None = None,
+    expected_split_index: int | None = None,
 ) -> dict[str, Any]:
     """Find and load a stage dependency artifact from previous stage run directories.
 
@@ -94,14 +95,22 @@ def find_and_load_stage_artifact(
             f"Stage {stage_id} artifact '{artifact_name}' found at {candidate_files[0]} but could not be parsed as JSON dict."
         )
 
-    # If expected_protocol_sha256 is supplied, find matching candidate
-    if expected_protocol_sha256:
+    # 1. Match both protocol SHA and split index if provided
+    if expected_protocol_sha256 and expected_split_index is not None:
         for fpath, data in parsed_candidates:
-            artifact_proto_sha = data.get("protocol_sha256")
-            if artifact_proto_sha == expected_protocol_sha256:
+            if (
+                data.get("protocol_sha256") == expected_protocol_sha256
+                and data.get("protocol_split_index") == expected_split_index
+            ):
                 return data
 
-        # If no matching protocol found, raise ValueError using the newest candidate's SHA
+    # 2. Match protocol SHA if provided
+    if expected_protocol_sha256:
+        for fpath, data in parsed_candidates:
+            if data.get("protocol_sha256") == expected_protocol_sha256:
+                return data
+
+        # If no matching protocol found, raise ValueError
         newest_fpath, newest_data = parsed_candidates[0]
         artifact_proto_sha = newest_data.get("protocol_sha256")
         raise ValueError(
@@ -110,6 +119,12 @@ def find_and_load_stage_artifact(
             f"current stage protocol_sha256={expected_protocol_sha256!r}. "
             f"Please re-run stage_{stage_id} on the current protocol split."
         )
+
+    # 3. Match split index if provided
+    if expected_split_index is not None:
+        for fpath, data in parsed_candidates:
+            if data.get("protocol_split_index") == expected_split_index:
+                return data
 
     return parsed_candidates[0][1]
 

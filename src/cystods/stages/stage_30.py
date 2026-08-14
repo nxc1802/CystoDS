@@ -113,7 +113,7 @@ def run(config: dict[str, Any]) -> Path:
     )
 
     selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
-    selected_long_tail = "balanced_softmax"
+    selected_long_tail = "balanced_softmax_smoothed"
 
     try:
         s10_artifact = find_and_load_stage_artifact(
@@ -121,6 +121,7 @@ def run(config: dict[str, Any]) -> Path:
             stage_id="10",
             artifact_name="selected_backbone.json",
             expected_protocol_sha256=expected_sha,
+            expected_split_index=config.get("protocol_split_index"),
         )
         selected_backbone = s10_artifact.get("selected_backbone", selected_backbone)
     except (FileNotFoundError, ValueError) as exc:
@@ -132,6 +133,7 @@ def run(config: dict[str, Any]) -> Path:
             stage_id="20",
             artifact_name="selected_long_tail_method.json",
             expected_protocol_sha256=expected_sha,
+            expected_split_index=config.get("protocol_split_index"),
         )
         selected_long_tail = s20_artifact.get("selected_long_tail_method", selected_long_tail)
     except (FileNotFoundError, ValueError) as exc:

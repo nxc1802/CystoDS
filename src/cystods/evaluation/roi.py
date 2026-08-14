@@ -410,8 +410,14 @@ def run_roi_evaluation(
     fold_name: str,
     logger: logging.Logger,
 ) -> dict[str, Any]:
+    trial_name = str(config.get("suite_trial_id", ""))
     roi_dir = run_dir / "predictions" / fold_name / "roi"
     roi_dir.mkdir(parents=True, exist_ok=True)
+    trial_roi_dir = None
+    if trial_name:
+        trial_roi_dir = run_dir / "predictions" / fold_name / trial_name / "roi"
+        trial_roi_dir.mkdir(parents=True, exist_ok=True)
+
     metrics: dict[str, Any] = {}
     conflict_rows: list[dict[str, Any]] = []
     bag_cache: dict[str, dict[str, list[RoiBag]]] = {}
@@ -433,6 +439,9 @@ def run_roi_evaluation(
 
     conflict_frame = pd.DataFrame(conflict_rows)
     conflict_frame.to_csv(roi_dir / "conflicts.csv", index=False)
+    if trial_roi_dir is not None:
+        conflict_frame.to_csv(trial_roi_dir / "conflicts.csv", index=False)
+
     if conflict_rows and config["roi_conflict_policy"] == "raise":
         raise ValueError(
             f"ROI evaluation found {len(conflict_rows)} task-level target "
@@ -460,6 +469,11 @@ def run_roi_evaluation(
                         aggregated,
                         roi_dir / f"{method}_{task}_{split_name}.csv",
                     )
+                    if trial_roi_dir is not None:
+                        serialize_roi_predictions(
+                            aggregated,
+                            trial_roi_dir / f"{method}_{task}_{split_name}.csv",
+                        )
                     task_metrics[split_name] = compute_roi_task_metrics(
                         aggregated,
                         task,
@@ -494,6 +508,13 @@ def run_roi_evaluation(
                 serialize_roi_predictions(
                     test_pred, roi_dir / f"attention_{task}_test.csv"
                 )
+                if trial_roi_dir is not None:
+                    serialize_roi_predictions(
+                        val_pred, trial_roi_dir / f"attention_{task}_val.csv"
+                    )
+                    serialize_roi_predictions(
+                        test_pred, trial_roi_dir / f"attention_{task}_test.csv"
+                    )
                 method_metrics[task] = {"val": val_pred, "test": mil_metrics}
         metrics[method] = method_metrics
     return metrics

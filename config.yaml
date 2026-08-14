@@ -97,7 +97,7 @@ training:
     supervised_contrastive_label_level: fine
 
   fine_loss:
-    name: balanced_softmax
+    name: balanced_softmax_smoothed
     class_balance_beta: 0.9999
     focal_gamma: 2.0
     focal_use_class_balance: false
@@ -392,7 +392,7 @@ stages:
 
   "30":
     task_mode: hierarchical
-    fine_loss: balanced_softmax
+    fine_loss: balanced_softmax_smoothed
     binary_coarse_hierarchy_loss_weight: 0.25
     coarse_fine_hierarchy_loss_weight: 0.25
     supervised_contrastive_loss_weight: 0.10
