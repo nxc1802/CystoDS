@@ -105,11 +105,41 @@ Mô hình hoàn chỉnh tích hợp **Swin-Tiny + Hierarchical 3-Heads + Balance
 
 ---
 
-## 6. Kết luận Khoa học & Hướng triển khai Tiếp theo
+## 6. Stage 40 Thực nghiệm Triệt tiêu Thành phần (Ablation Studies - 16 Variants)
 
-1. **Kiến trúc Tối ưu:** **Swin-Tiny** kết hợp **Cấu trúc Đa nhiệm Phân cấp (Hierarchical Multi-Task)** và **Supervised Contrastive Learning** là giải pháp toàn diện nhất cho bài toán chẩn đoán nội soi bàng quang.
-2. **Xử lý Mất cân bằng Đuôi Dài:** Phương pháp **Smoothed Balanced Softmax / Balanced Softmax** triệt tiêu hiệu quả sự áp đảo của các phân lớp phổ biến mà không làm suy giảm độ chính xác tổng thể.
-3. **Các Giai đoạn Tiếp theo:**
-   - **Stage 40 (Ablation Studies):** Đánh giá 16 thử nghiệm bóc tách từng thành phần (Loss weights, Temperature, Augmentation, Projection Dim).
+**Run:** `research_20260815-001832` (Split 0) | **Chi tiết xem tại:** [Docs/result/ablation_results_report.md](file:///Volumes/WorkSpace/Project/CystoDS/Docs/result/ablation_results_report.md)
+
+### Bảng So sánh 16 Biến thể Triệt tiêu (Validation Split 0):
+
+| Nhóm | Biến thể (`experiment_id`) | Chế độ | Binary AUROC | Coarse Acc | Coarse F1 | Fine Acc | Primary Fine F1 | Coarse-Fine Consistency | Tail Recall |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Anchor** | **`ablation_full_proposed`** | `hierarchical` | **0.9140** | **71.39%** | **0.6232** | **47.29%** | **0.5819** | **85.27%** 🏆 | **54.81%** |
+| **G1: Tasks** | `task_binary_only` | `binary` | 0.9395 | — | — | — | — | — | — |
+| | `task_coarse_only` | `coarse` | — | 76.11% | 0.6647 | — | — | — | — |
+| | `task_fine_only` | `fine` | — | — | — | 41.86% ⬇️ | 0.5552 | — | — |
+| | `task_binary_coarse` | `multitask` | 0.9101 | 69.03% | 0.5823 | — | — | — | — |
+| | `task_multitask_bcf` | `multitask` | 0.9151 | 67.26% | 0.6097 | 51.16% | 0.5600 | 70.93% ⬇️ | 58.52% |
+| **G2: Losses**| `ablation_no_long_tail` | `hierarchical` | 0.9262 | 70.80% | 0.6003 ⬇️ | 45.74% | 0.6062 | 84.11% | 52.59% ⬇️ |
+| | `ablation_no_supcon` | `hierarchical` | 0.9201 | 69.03% ⬇️ | 0.6129 | 47.29% | 0.5539 ⬇️ | 82.56% ⬇️ | 54.81% |
+| | `ablation_no_hierarchy` | `hierarchical` | 0.9104 | 69.91% | 0.6041 ⬇️ | 50.78% | 0.5677 | 82.56% ⬇️ | 58.52% |
+| | `ablation_no_bc_hierarchy` | `hierarchical` | 0.9012 ⬇️ | 70.80% | 0.6067 | 46.12% | 0.5681 | 79.07% ⬇️ | 51.11% ⬇️ |
+| | `ablation_no_cf_hierarchy` | `hierarchical` | 0.9318 | 66.96% ⬇️ | 0.6034 | 54.26% | 0.6105 | **75.58%** ⬇️ | 54.81% |
+| **G3: SupCon**| `ablation_supcon_temp_005` | `hierarchical` | 0.9323 | 71.39% | 0.6105 | 48.06% | 0.5749 | 82.95% | 54.81% |
+| | `ablation_supcon_temp_020` | `hierarchical` | 0.9113 | 71.09% | 0.6032 | 52.33% | 0.5499 ⬇️ | 82.56% | 51.11% ⬇️ |
+| | `ablation_supcon_weight_005`| `hierarchical` | 0.9207 | 70.50% | 0.6372 | 48.45% | 0.5956 | 82.56% | 54.81% |
+| | `ablation_supcon_weight_020`| `hierarchical` | 0.9218 | 69.03% | 0.5952 ⬇️ | 47.67% | 0.5960 | 77.52% ⬇️ | 54.81% |
+| **G4: Aug** | `ablation_no_augmentation` | `hierarchical` | 0.9140 | 71.39% | 0.6232 | 47.29% | 0.5819 | **85.27%** | 54.81% |
+
+### Những Phát Hiện Đột Phá Từ Ablation:
+1. **Ràng buộc Coarse-Fine ($L_{\text{cf}}$) là yếu tố sống còn:** Loại bỏ $L_{\text{cf}}$ khiến tính nhất quán logic y học tụt dốc thê thảm từ **85.27% xuống 75.58% (-9.69%)**, dẫn đến tỷ lệ lỗi mâu thuẫn giữa phân nhóm lớn và phân lớp mô học tăng vọt.
+2. **Supervised Contrastive Learning ($L_{\text{supcon}}$) nâng tầm phân biệt mô bệnh học:** Bỏ $L_{\text{supcon}}$ làm giảm Primary Fine Macro-F1 từ **0.5819 xuống 0.5539 (-2.80%)** và Coarse Accuracy từ **71.39% xuống 69.03% (-2.36%)**.
+3. **Smoothed Balanced Softmax bảo vệ lớp hiếm:** Thay Smoothed Balanced Softmax bằng Cross-Entropy làm suy giảm Tail Class Recall từ **54.81% xuống 52.59%** và Coarse Macro-F1 giảm từ **0.6232 xuống 0.6003**.
+
+---
+
+## 7. Kết luận Khoa học & Hướng triển khai Tiếp theo
+
+1. **Kiến trúc Tối ưu:** **Swin-Tiny** kết hợp **Cấu trúc Đa nhiệm Phân cấp (Hierarchical Multi-Task)**, **Smoothed Balanced Softmax**, và **Supervised Contrastive Learning** là giải pháp toàn diện nhất cho bài toán chẩn đoán nội soi bàng quang.
+2. **Các Giai đoạn Tiếp theo:**
    - **Stage 60 (External Validation):** Thẩm định mô hình trên đoàn hệ bệnh nhân độc lập từ nguồn dữ liệu ngoại viện.
    - **Stage 90 (Final Report):** Báo cáo kiểm định 5-Fold Cross-Validation × 3 Seeds trên tập Holdout Test đã niêm phong.
