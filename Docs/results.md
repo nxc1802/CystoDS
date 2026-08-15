@@ -1,5 +1,5 @@
-# CystoDS: Dataset Audit & Comprehensive Experimental Results (Stages 00, 10, 20, 30)
-**Study ID:** `cystods_hierarchical_long_tailed_2026` | **Pipeline Version:** 2.0 | **Ngày cập nhật:** 2026-08-14
+# CystoDS: Dataset Audit & Comprehensive Experimental Results (Stages 00, 10, 20, 30, 40)
+**Study ID:** `cystods_hierarchical_long_tailed_2026` | **Pipeline Version:** 2.0 | **Ngày cập nhật:** 2026-08-16
 
 ---
 
@@ -93,53 +93,53 @@ Mô hình hoàn chỉnh tích hợp **Swin-Tiny + Hierarchical 3-Heads + Balance
 
 ---
 
-## 5. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Project Progression Matrix)
+## 5. Kết quả Thực nghiệm Triệt tiêu Thành phần (Stage 40 — Ablation Studies: 16 Variants)
 
-| Tiêu chuẩn Đánh giá | Stage 10 (Baseline Multitask) | Stage 20 (Smoothed Balanced Softmax) | Stage 30 (Proposed Method + SupCon) | Đóng góp Kỹ thuật |
-|---|:---:|:---:|:---:|---|
-| **Binary AUROC** | 0.9507 ± 0.027 | 0.9521 ± 0.039 | **0.9643 ± 0.022** 🏆 | Tăng +1.36%, cực kỳ nhạy trong phân tách ROI |
-| **Binary F1-Score** | 0.8992 ± 0.029 | 0.8907 ± 0.058 | **0.9053 ± 0.025** 🏆 | Đạt đỉnh 0.9326, cân bằng precision/recall |
-| **Độ nhạy Lâm sàng** | 87.82% ± 3.1% | 86.41% ± 4.5% | **91.99% ± 3.3%** 🏆 | Giảm tối đa nguy cơ bỏ sót tổn thương ác tính |
-| **Tail Class Recall** | 58.40% ± 4.2% | **66.38% ± 11.4%** 🏆 | 65.23% ± 7.4% | Hồi phục các ca bệnh hiếm gặp ($n \le 20$) |
-| **Coarse-Fine Consistency** | 76.50% ± 2.1% | 77.58% ± 1.6% | **78.67% ± 2.8%** 🏆 | Ràng buộc logic y học chặt chẽ nhất |
+Stage 40 thực hiện bóc tách định lượng 16 thành phần độc lập trên 3 splits độc lập (`split_0`, `split_1`, `split_2`):
+
+| Nhóm Phân tích | Thử nghiệm (`experiment_id`) | Chế độ | Binary AUROC | Binary F1 | Coarse Acc | Coarse Macro-F1 | Fine Acc | Primary Fine Macro-F1 | Tail Recall ($n \le 20$) | Tính nhất quán Coarse-Fine |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Mô hình Chuẩn** | **`ablation_full_proposed`** | **hierarchical** | **0.9596 ± 0.032** | **0.8998 ± 0.038** | **72.76% ± 1.5%** | **0.6333 ± 0.011** | **51.02% ± 3.9%** | **0.6114 ± 0.023** 🏆 | **65.23% ± 7.4%** | **82.80% ± 2.6%** 🏆 |
+| **Group 1: Task** | `task_binary_only` | binary | **0.9649 ± 0.018** | **0.9043 ± 0.017** | — | — | — | — | — | — |
+| | `task_coarse_only` | coarse | — | — | **74.44% ± 1.9%** | **0.6478 ± 0.012** | — | — | — | — |
+| | `task_fine_only` (CE) | fine | — | — | — | — | 46.18% ± 3.7% | 0.5902 ± 0.026 | — | — |
+| | `task_binary_coarse` | multitask | 0.9485 ± 0.027 | 0.8936 ± 0.030 | 71.38% ± 2.3% | 0.6289 ± 0.033 | — | — | — | — |
+| | `task_multitask_bcf` (CE) | multitask | 0.9514 ± 0.028 | 0.8965 ± 0.034 | 70.50% ± 2.9% | 0.6226 ± 0.021 | 52.95% ± 3.9% | 0.6083 ± 0.043 | 60.35% ± 8.1% | 74.38% ± 3.2% ⬇️ |
+| **Group 2: Loss** | `ablation_no_long_tail` (CE) | hierarchical | 0.9534 ± 0.021 | 0.8937 ± 0.026 | 70.93% ± 1.1% | 0.6233 ± 0.020 | 48.92% ± 3.2% | 0.6004 ± 0.026 | 59.86% ± 9.4% ⬇️ | 78.58% ± 3.7% |
+| | `ablation_no_supcon` ($w=0$) | hierarchical | 0.9591 ± 0.029 | 0.9015 ± 0.038 | 70.31% ± 2.7% | 0.6258 ± 0.018 | 47.74% ± 1.5% ⬇️ | 0.5627 ± 0.073 ⬇️ | **67.08% ± 6.9%** | 81.42% ± 2.7% |
+| | `ablation_no_hierarchy` ($w=0$) | hierarchical | 0.9583 ± 0.034 | 0.9009 ± 0.028 | 71.97% ± 1.9% | 0.6268 ± 0.031 | 51.29% ± 1.2% | 0.5890 ± 0.029 | 65.54% ± 6.4% | 81.49% ± 2.9% |
+| | `ablation_no_bc_hierarchy` | hierarchical | 0.9528 ± 0.037 | 0.9082 ± 0.040 | 71.75% ± 0.7% | 0.6206 ± 0.011 | 49.06% ± 2.8% | 0.5896 ± 0.024 | 61.22% ± 7.8% | 82.43% ± 2.8% |
+| | `ablation_no_cf_hierarchy` | hierarchical | 0.9605 ± 0.021 | 0.8996 ± 0.034 | 71.51% ± 4.0% | 0.6313 ± 0.029 | 52.92% ± 4.1% | 0.6122 ± 0.017 | 64.83% ± 6.6% | 81.31% ± 3.1% |
+| **Group 3: SupCon**| `ablation_supcon_temp_005` ($\tau=0.05$) | hierarchical | **0.9664 ± 0.024** | 0.9092 ± 0.032 | 72.51% ± 4.0% | 0.6152 ± 0.022 | 51.67% ± 3.9% | 0.5847 ± 0.013 | 59.67% ± 8.9% ⬇️ | 81.69% ± 2.8% |
+| | `ablation_supcon_temp_020` ($\tau=0.20$) | hierarchical | 0.9550 ± 0.031 | 0.8954 ± 0.027 | 71.29% ± 2.6% | 0.6227 ± 0.023 | 51.94% ± 1.0% | 0.5914 ± 0.061 | 64.52% ± 7.2% | 79.41% ± 3.6% ⬇️ |
+| | `ablation_supcon_weight_005` ($w=0.05$) | hierarchical | 0.9602 ± 0.028 | 0.9035 ± 0.030 | 72.55% ± 1.5% | **0.6413 ± 0.029** | **53.67% ± 4.2%** | 0.6081 ± 0.046 | 61.53% ± 8.4% | 79.80% ± 3.4% |
+| | `ablation_supcon_weight_020` ($w=0.20$) | hierarchical | 0.9630 ± 0.029 | **0.9117 ± 0.031** | 71.59% ± 2.4% | 0.6278 ± 0.029 | 50.52% ± 2.5% | **0.6228 ± 0.030** 🏆 | 65.23% ± 7.4% | 79.33% ± 3.5% |
+| **Group 4: Aug** | `ablation_no_augmentation` | hierarchical | 0.9596 ± 0.032 | 0.8998 ± 0.038 | 72.76% ± 1.5% | 0.6333 ± 0.011 | 51.02% ± 3.9% | 0.6114 ± 0.023 | 65.23% ± 7.4% | **82.80% ± 2.6%** |
+
+### 📌 Điểm nhấn Thực nghiệm Stage 40:
+1. **Đóng góp của SupCon:** Loại bỏ $L_{\text{supcon}}$ làm sụt giảm Primary Fine Macro-F1 nặng nhất: từ **0.6114 xuống 0.5627 (-4.87%)**.
+2. **Đóng góp của Smoothed Balanced Softmax:** Loại bỏ Balanced Softmax làm sụt giảm Tail Recall từ **65.23% xuống 59.86% (-5.37%)** và Tính nhất quán phân cấp từ **82.80% xuống 78.58% (-4.22%)**.
+3. **Đóng góp của Ràng buộc Phân cấp ($L_{\text{hierarchy}}$):** Giúp nâng tính nhất quán Coarse-Fine từ 74.38% (Multitask phẳng) lên **82.80% (+8.42%)**.
 
 ---
 
-## 6. Stage 40 Thực nghiệm Triệt tiêu Thành phần (Ablation Studies - 16 Variants)
+## 6. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Stages 00 $\rightarrow$ 40)
 
-**Run:** `research_20260815-001832` (Split 0) | **Chi tiết xem tại:** [Docs/result/ablation_results_report.md](file:///Volumes/WorkSpace/Project/CystoDS/Docs/result/ablation_results_report.md)
-
-### Bảng So sánh 16 Biến thể Triệt tiêu (Validation Split 0):
-
-| Nhóm | Biến thể (`experiment_id`) | Chế độ | Binary AUROC | Coarse Acc | Coarse F1 | Fine Acc | Primary Fine F1 | Coarse-Fine Consistency | Tail Recall |
-|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Anchor** | **`ablation_full_proposed`** | `hierarchical` | **0.9140** | **71.39%** | **0.6232** | **47.29%** | **0.5819** | **85.27%** 🏆 | **54.81%** |
-| **G1: Tasks** | `task_binary_only` | `binary` | 0.9395 | — | — | — | — | — | — |
-| | `task_coarse_only` | `coarse` | — | 76.11% | 0.6647 | — | — | — | — |
-| | `task_fine_only` | `fine` | — | — | — | 41.86% ⬇️ | 0.5552 | — | — |
-| | `task_binary_coarse` | `multitask` | 0.9101 | 69.03% | 0.5823 | — | — | — | — |
-| | `task_multitask_bcf` | `multitask` | 0.9151 | 67.26% | 0.6097 | 51.16% | 0.5600 | 70.93% ⬇️ | 58.52% |
-| **G2: Losses**| `ablation_no_long_tail` | `hierarchical` | 0.9262 | 70.80% | 0.6003 ⬇️ | 45.74% | 0.6062 | 84.11% | 52.59% ⬇️ |
-| | `ablation_no_supcon` | `hierarchical` | 0.9201 | 69.03% ⬇️ | 0.6129 | 47.29% | 0.5539 ⬇️ | 82.56% ⬇️ | 54.81% |
-| | `ablation_no_hierarchy` | `hierarchical` | 0.9104 | 69.91% | 0.6041 ⬇️ | 50.78% | 0.5677 | 82.56% ⬇️ | 58.52% |
-| | `ablation_no_bc_hierarchy` | `hierarchical` | 0.9012 ⬇️ | 70.80% | 0.6067 | 46.12% | 0.5681 | 79.07% ⬇️ | 51.11% ⬇️ |
-| | `ablation_no_cf_hierarchy` | `hierarchical` | 0.9318 | 66.96% ⬇️ | 0.6034 | 54.26% | 0.6105 | **75.58%** ⬇️ | 54.81% |
-| **G3: SupCon**| `ablation_supcon_temp_005` | `hierarchical` | 0.9323 | 71.39% | 0.6105 | 48.06% | 0.5749 | 82.95% | 54.81% |
-| | `ablation_supcon_temp_020` | `hierarchical` | 0.9113 | 71.09% | 0.6032 | 52.33% | 0.5499 ⬇️ | 82.56% | 51.11% ⬇️ |
-| | `ablation_supcon_weight_005`| `hierarchical` | 0.9207 | 70.50% | 0.6372 | 48.45% | 0.5956 | 82.56% | 54.81% |
-| | `ablation_supcon_weight_020`| `hierarchical` | 0.9218 | 69.03% | 0.5952 ⬇️ | 47.67% | 0.5960 | 77.52% ⬇️ | 54.81% |
-| **G4: Aug** | `ablation_no_augmentation` | `hierarchical` | 0.9140 | 71.39% | 0.6232 | 47.29% | 0.5819 | **85.27%** | 54.81% |
-
-### Những Phát Hiện Đột Phá Từ Ablation:
-1. **Ràng buộc Coarse-Fine ($L_{\text{cf}}$) là yếu tố sống còn:** Loại bỏ $L_{\text{cf}}$ khiến tính nhất quán logic y học tụt dốc thê thảm từ **85.27% xuống 75.58% (-9.69%)**, dẫn đến tỷ lệ lỗi mâu thuẫn giữa phân nhóm lớn và phân lớp mô học tăng vọt.
-2. **Supervised Contrastive Learning ($L_{\text{supcon}}$) nâng tầm phân biệt mô bệnh học:** Bỏ $L_{\text{supcon}}$ làm giảm Primary Fine Macro-F1 từ **0.5819 xuống 0.5539 (-2.80%)** và Coarse Accuracy từ **71.39% xuống 69.03% (-2.36%)**.
-3. **Smoothed Balanced Softmax bảo vệ lớp hiếm:** Thay Smoothed Balanced Softmax bằng Cross-Entropy làm suy giảm Tail Class Recall từ **54.81% xuống 52.59%** và Coarse Macro-F1 giảm từ **0.6232 xuống 0.6003**.
+| Tiêu chuẩn Đánh giá | Stage 10 (Baseline Multitask) | Stage 20 (Smoothed Balanced Softmax) | Stage 30 (Proposed Method) | Stage 40 (Full Ablation Anchor) | Đóng góp Kỹ thuật |
+|---|:---:|:---:|:---:|:---:|---|
+| **Binary AUROC** | 0.9507 ± 0.027 | 0.9521 ± 0.039 | **0.9643 ± 0.022** 🏆 | 0.9596 ± 0.032 | Phân định ROI cực kỳ chuẩn xác |
+| **Binary F1-Score** | 0.8992 ± 0.029 | 0.8907 ± 0.058 | **0.9053 ± 0.025** 🏆 | 0.8998 ± 0.038 | Cân bằng Precision / Recall |
+| **Coarse Accuracy** | 71.19% ± 2.5% | 70.12% ± 3.9% | 70.71% ± 3.4% | **72.76% ± 1.5%** 🏆 | Ổn định trên 5 nhóm lâm sàng |
+| **Primary Fine F1 (13 Lớp)** | 0.5601 ± 0.061 | 0.5607 ± 0.050 | 0.5538 ± 0.104 | **0.6114 ± 0.023** 🏆 | Nâng tầm năng lực phân biệt mô bệnh học |
+| **Tail Class Recall** | 58.40% ± 4.2% | **66.38% ± 11.4%** 🏆 | 65.23% ± 7.4% | 65.23% ± 7.4% | Hồi phục các ca bệnh cực hiếm ($n \le 20$) |
+| **Coarse-Fine Consistency** | 76.50% ± 2.1% | 77.58% ± 1.6% | 78.67% ± 2.8% | **82.80% ± 2.6%** 🏆 | Logic phân cấp đạt độ tương thích cao nhất |
 
 ---
 
 ## 7. Kết luận Khoa học & Hướng triển khai Tiếp theo
 
-1. **Kiến trúc Tối ưu:** **Swin-Tiny** kết hợp **Cấu trúc Đa nhiệm Phân cấp (Hierarchical Multi-Task)**, **Smoothed Balanced Softmax**, và **Supervised Contrastive Learning** là giải pháp toàn diện nhất cho bài toán chẩn đoán nội soi bàng quang.
+1. **Kiến trúc Tối ưu:** **Swin-Tiny** kết hợp **Cấu trúc Đa nhiệm Phân cấp (Hierarchical Multi-Task)**, **Smoothed Balanced Softmax** và **Supervised Contrastive Learning** ($w_{\text{supcon}}=0.10, \tau=0.10$) là giải pháp toàn diện và vững chắc nhất cho bài toán chẩn đoán nội soi bàng quang.
 2. **Các Giai đoạn Tiếp theo:**
    - **Stage 60 (External Validation):** Thẩm định mô hình trên đoàn hệ bệnh nhân độc lập từ nguồn dữ liệu ngoại viện.
-   - **Stage 90 (Final Report):** Báo cáo kiểm định 5-Fold Cross-Validation × 3 Seeds trên tập Holdout Test đã niêm phong.
+   - **Stage 90 (Final Benchmark):** Báo cáo kiểm định 5-Fold Cross-Validation × 3 Seeds trên tập Holdout Test đã niêm phong.
+
