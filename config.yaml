@@ -467,6 +467,28 @@ stages:
         task_mode: hierarchical
         overrides:
           coarse_fine_hierarchy_loss_weight: 0.0
+      # Group 3: SupCon hyperparameters & projection ablations
+      - experiment_id: ablation_supcon_temp_005
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_temperature: 0.05
+      - experiment_id: ablation_supcon_temp_020
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_temperature: 0.20
+      - experiment_id: ablation_supcon_weight_005
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_loss_weight: 0.05
+      - experiment_id: ablation_supcon_weight_020
+        task_mode: hierarchical
+        overrides:
+          supervised_contrastive_loss_weight: 0.20
+      # Group 4: Augmentation ablation
+      - experiment_id: ablation_no_augmentation
+        task_mode: hierarchical
+        overrides:
+          use_data_augmentation: false
 
   "90":
     protocol: cross_validation

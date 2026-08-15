@@ -843,10 +843,36 @@ def run_training_suite(
             )
 
             trial_config = dict(runtime_config)
-            trial_config["task_mode"] = trial.get(
-                "task_mode",
-                trial_config["task_mode"],
-            )
+            task_mode = str(trial.get("task_mode", trial_config.get("task_mode", "hierarchical")))
+            trial_config["task_mode"] = task_mode
+            if task_mode == "binary":
+                trial_config["binary_loss_weight"] = 1.0
+                trial_config["coarse_loss_weight"] = 0.0
+                trial_config["fine_loss_weight"] = 0.0
+                trial_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+                trial_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+                trial_config["supervised_contrastive_loss_weight"] = 0.0
+            elif task_mode == "coarse":
+                trial_config["binary_loss_weight"] = 0.0
+                trial_config["coarse_loss_weight"] = 1.0
+                trial_config["fine_loss_weight"] = 0.0
+                trial_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+                trial_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+                trial_config["supervised_contrastive_loss_weight"] = 0.0
+            elif task_mode == "fine":
+                trial_config["binary_loss_weight"] = 0.0
+                trial_config["coarse_loss_weight"] = 0.0
+                trial_config["fine_loss_weight"] = 1.0
+                trial_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+                trial_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+                trial_config["supervised_contrastive_loss_weight"] = 0.0
+            elif task_mode == "multitask":
+                trial_config["binary_loss_weight"] = 1.0
+                trial_config["coarse_loss_weight"] = 1.0
+                trial_config["fine_loss_weight"] = 1.0
+                trial_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+                trial_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+                trial_config["supervised_contrastive_loss_weight"] = 0.0
             trial_config.update(trial.get("overrides", {}))
             trial_config["suite_trial_id"] = trial_name
 

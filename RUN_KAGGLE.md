@@ -116,9 +116,22 @@ done
 !python -m cystods run 30 --split 0 --profile research
 ```
 
-### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies)
+### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants)
 ```python
+# Chạy toàn bộ 16 ablations trên Split 0 (~55 - 70 phút):
 !python -m cystods run 40 --split 0 --profile research
+```
+*(Nếu muốn chạy chọn lọc một số ablation: `!python -m cystods run 40 --split 0 --profile research --trials ablation_full_proposed,ablation_no_supcon,ablation_no_hierarchy`)*
+
+#### Chạy Stage 40 duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
+```bash
+%%bash
+for split in 0 1 2; do
+    echo "=========================================================="
+    echo "▶ BẮT ĐẦU STAGE 40 ABLATIONS - SPLIT $split"
+    echo "=========================================================="
+    python -m cystods run 40 --split $split --profile research || exit 1
+done
 ```
 
 ### 🔹 Stage 90: Đánh giá 5-Fold Cross-Validation

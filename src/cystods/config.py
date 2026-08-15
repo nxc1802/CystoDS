@@ -889,7 +889,7 @@ PROPOSED_CANONICAL_CONFIG: dict[str, Any] = {
     "fine_loss_weight": 1.0,
     "binary_coarse_hierarchy_loss_weight": 0.25,
     "coarse_fine_hierarchy_loss_weight": 0.25,
-    "fine_loss": "balanced_softmax",
+    "fine_loss": "balanced_softmax_smoothed",
     "fine_prior_source": "patient_count",
     "fine_prior_smoothing_alpha": 1.0,
     "fine_prior_power": 0.5,
