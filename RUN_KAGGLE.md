@@ -141,6 +141,28 @@ for split in 0 1 2; do
     echo "=========================================================="
     python -m cystods run 30 --split $split --profile research --freeze-stage3 || exit 1
 done
+### 🔹 Phương Pháp Mới: Multi-Stage Decoupled Hierarchical Heads (Stage 2 -> Binary, Stage 3 -> Coarse, Stage 4 -> Fine & SupCon)
+
+Phương pháp này phân tách các đầu phân loại theo độ sâu tầng của Swin Transformer nhằm loại bỏ xung đột gradient (gradient interference) giữa bài toán thô (Binary/Coarse) và bài toán chi tiết (Fine 22 lớp):
+
+#### 1. Kiểm tra nhanh Smoke (chỉ 1 epoch):
+```python
+!python run_multi_stage_hierarchical.py --split 0 --profile smoke
+```
+
+#### 2. Huấn luyện Full Fine-Tuning trên Split 0 (~5-7 phút):
+```python
+!python run_multi_stage_hierarchical.py --split 0 --profile research
+```
+
+#### 3. Huấn luyện kèm Đóng băng Stages 1-2 (Chống Overfit, ~3-4 phút):
+```python
+!python run_multi_stage_hierarchical.py --split 0 --profile research --freeze-stages 2
+```
+
+#### 4. Chạy Multi-Stage duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
+```python
+!python run_multi_stage_hierarchical.py --split all --profile research
 ```
 
 ### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants + Freezing Ablations)
