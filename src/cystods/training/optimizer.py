@@ -21,27 +21,33 @@ def build_optimizer(
 ) -> torch.optim.Optimizer:
     if config["optimizer"] != "adamw":
         raise ValueError("Only optimizer='adamw' is implemented.")
-    encoder_params = list(model.encoder.parameters())
+    encoder_params = [
+        parameter
+        for parameter in model.encoder.parameters()
+        if parameter.requires_grad
+    ]
     head_params = [
         parameter
         for name, parameter in model.named_parameters()
-        if not name.startswith("encoder.")
+        if not name.startswith("encoder.") and parameter.requires_grad
     ]
     fused = bool(config["use_fused_optimizer"])
     if fused and device.type != "cuda":
         raise RuntimeError("Fused AdamW is only enabled for CUDA runs.")
+    param_groups = []
+    if encoder_params:
+        param_groups.append({
+            "params": encoder_params,
+            "lr": float(config["learning_rate"])
+            * float(config["encoder_learning_rate_multiplier"]),
+        })
+    if head_params:
+        param_groups.append({
+            "params": head_params,
+            "lr": float(config["learning_rate"]),
+        })
     return torch.optim.AdamW(
-        [
-            {
-                "params": encoder_params,
-                "lr": float(config["learning_rate"])
-                * float(config["encoder_learning_rate_multiplier"]),
-            },
-            {
-                "params": head_params,
-                "lr": float(config["learning_rate"]),
-            },
-        ],
+        param_groups,
         weight_decay=float(config["weight_decay"]),
         fused=fused,
     )

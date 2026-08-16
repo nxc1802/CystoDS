@@ -64,6 +64,9 @@ model:
   task_mode: hierarchical
   dropout: 0.20
   projection_dim: 128
+  partial_finetune: false
+  freeze_early_layers: false
+  frozen_stages_count: 2
 
 training:
   epochs: 25
@@ -489,6 +492,17 @@ stages:
         task_mode: hierarchical
         overrides:
           use_data_augmentation: false
+      # Group 5: Model capacity & layer freezing ablations
+      - experiment_id: ablation_freeze_stage2
+        task_mode: hierarchical
+        overrides:
+          partial_finetune: true
+          frozen_stages_count: 2
+      - experiment_id: ablation_freeze_stage3
+        task_mode: hierarchical
+        overrides:
+          partial_finetune: true
+          frozen_stages_count: 3
 
   "90":
     protocol: cross_validation

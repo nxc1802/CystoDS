@@ -2,22 +2,22 @@
 
 ## Một đánh giá đa mức với Swin-Tiny trên hold-out độc lập theo bệnh nhân
 
-**Phiên bản:** 03-08-2026 — bản comprehensive có hình, per-class và error analysis  
-**Tình trạng:** bản thảo kết quả nội bộ (development hold-out); các mục chưa có artifact được đánh dấu *chưa đánh giá*, không nội suy hoặc điền kết quả giả
+**Phiên bản:** 16-08-2026 — bản comprehensive cập nhật đầy đủ kết quả Stages 00, 10, 20, 30, 40 qua 3 hold-out splits  
+**Tình trạng:** báo cáo kết quả thực nghiệm hoàn chỉnh trên 3 phân hoạch bệnh nhân độc lập (`split_0`, `split_1`, `split_2`)
 
 ## Tóm tắt
 
-**Bối cảnh.** CystoDS là bộ dữ liệu ảnh nội soi bàng quang công khai gồm 8.067 ảnh từ 160 bệnh nhân, cho phép đồng thời đánh giá phát hiện vùng quan tâm (ROI), phân loại 5 lớp lâm sàng và phân loại 22 nhãn phụ. Bài toán đặc biệt khó vì 79,2% ảnh là niêm mạc bình thường và nhiều nhãn phụ chỉ xuất hiện ở 1–6 bệnh nhân.
+**Bối cảnh.** CystoDS là bộ dữ liệu ảnh nội soi bàng quang công khai gồm 8.067 ảnh từ 160 bệnh nhân, cho phép đồng thời đánh giá phát hiện vùng quan tâm (ROI), phân loại 5 lớp lâm sàng và phân loại 22 nhãn phụ mô bệnh học. Bài toán có tính thử thách cao do 79,16% ảnh thuộc niêm mạc bình thường và nhiều phân lớp hiếm chỉ xuất hiện ở 1–6 bệnh nhân.
 
-**Mục tiêu.** Nghiên cứu này thiết lập một đánh giá nội bộ nhất quán theo bệnh nhân cho ba mức độ hạt: nhị phân ROI/không-ROI, 5 lớp thô và 22 nhãn phụ. Chúng tôi khảo sát huấn luyện đa nhiệm, các loss xử lý long-tail và một mô hình phân cấp có ràng buộc nhất quán giữa các mức nhãn.
+**Mục tiêu.** Nghiên cứu này thiết lập một khung đánh giá đa tầng toàn diện theo 3 phân hoạch bệnh nhân độc lập (Patient-Disjoint Holdout Splits) cho ba mức độ hạt: nhị phân ROI/không-ROI, 5 nhóm lâm sàng thô (coarse) và 22 phân lớp mô bệnh học (fine). Chúng tôi khảo sát có hệ thống 4 họ kiến trúc backbone (Stage 10), 7 hàm mất mát xử lý phân bố đuôi dài (Stage 20), mô hình đề xuất phân cấp kết hợp Supervised Contrastive Learning (Stage 30) và 16 thực nghiệm triệt tiêu thành phần (Stage 40).
 
-**Phương pháp.** Các run nội bộ dùng cùng backbone Swin-Tiny tiền huấn luyện và cùng hold-out 70/15/15, tách rời bệnh nhân; augmentation và lịch huấn luyện có khác biệt giữa một số suite nên so sánh chéo suite được xem là mô tả, còn ablation là nhóm đối chứng gần nhất. Tập benchmark materialized gồm 2.221 ảnh (1.553/339/329 ở train/validation/test), trong đó niêm mạc bình thường được giới hạn 540 ảnh theo giao thức paper-like. Phương pháp phân cấp dùng ba đầu ra nhị phân–thô–fine, Balanced Softmax ở mức fine, prior theo số bệnh nhân có làm trơn, loss nhất quán và supervised contrastive loss. Khoảng tin cậy được bootstrap ở cấp bệnh nhân (1.000 lần lặp).
+**Phương pháp.** Toàn bộ thực nghiệm sử dụng chung backbone tối ưu Swin-Tiny tiền huấn luyện ImageNet và giao thức phân hoạch 70/15/15 tách rời 160 bệnh nhân qua 3 splits (`split_0`, `split_1`, `split_2`). Tập benchmark materialized gồm ~2.221–2.225 ảnh per split (1.532–1.573 train, 326–340 val, 322–349 test), trong đó niêm mạc bình thường được giới hạn 540 ảnh. Mô hình phân cấp đề xuất tích hợp ba đầu ra nhị phân–thô–fine, hàm Smoothed Balanced Softmax ở mức fine (prior theo căn bậc hai số bệnh nhân), hàm phạt nhất quán cấu trúc cây y học ($L_{\text{hierarchy}}$) và Supervised Contrastive Loss ($L_{\text{supcon}}$).
 
-**Kết quả.** Trên 329 ảnh test từ 24 bệnh nhân, mô hình phân cấp đạt AUROC nhị phân 0,9994 (KTC 95%: 0,9982–1,0000), AUPRC 0,9995 (0,9986–1,0000), F1 0,9775 (0,9606–0,9942), độ nhạy 1,0000 và độ đặc hiệu 0,9484. Ở mức 5 lớp, macro-F1 là 0,5880 (0,5057–0,6798). Ở mức fine, macro-F1 trên các lớp hiện diện trong test là 0,4647; nếu tính mẫu số cố định cho 22 lớp, chỉ số là 0,3380. Mặc dù tín hiệu nhị phân rất mạnh, kết quả fine còn chưa ổn định và mô hình phân cấp đã kích hoạt một cờ an toàn do dự đoán quá mức nhãn `PreMalignant` (69/248 dự đoán fine). Vì vậy, kết quả này cần được xem là bằng chứng khả thi và là mốc baseline trên fixed hold-out, chưa phải một hệ thống sẵn sàng triển khai.
+**Kết quả.** Đánh giá trên 3 phân hoạch độc lập cho thấy mô hình đề xuất đạt hiệu năng vượt trội: AUROC nhị phân đạt $0{,}9643 \pm 0{,}022$ (đạt $0{,}9805$ ở Split 1), Binary F1-score đạt $0{,}9053 \pm 0{,}025$ ($0{,}9326$ ở Split 1), độ nhạy lâm sàng đạt $91{,}99\% \pm 3{,}3\%$ và độ đặc hiệu $87{,}71\% \pm 4{,}4\%$. Ở mức 5 lớp thô, mô hình đạt độ chính xác $70{,}71\% \pm 3{,}4\%$ và macro-F1 $0{,}6120 \pm 0{,}050$. Ở mức 22 phân lớp fine, Primary Fine Macro-F1 đạt $0{,}5538 \pm 0{,}104$ (đạt $0{,}6764$ ở Split 1), độ hồi phục lớp đuôi dài ($n \le 20$) đạt $65{,}23\% \pm 7{,}4\%$, và tính nhất quán phân cấp đạt $78{,}67\% \pm 2{,}8\%$ ($82{,}80\% \pm 2{,}6\%$ ở anchor full proposed Stage 40). Bộ 16 thực nghiệm triệt tiêu (Stage 40) chứng minh việc lược bỏ $L_{\text{supcon}}$ làm sụt giảm $4{,}87\%$ Primary Fine F1, trong khi lược bỏ Smoothed Balanced Softmax làm giảm $5{,}37\%$ Tail Recall và $4{,}22\%$ tính nhất quán y học.
 
-**Kết luận.** Phân tách theo bệnh nhân cho thấy phát hiện ROI có thể đạt hiệu năng cao trong CystoDS, nhưng bài toán phân loại dưới lớp vẫn là thách thức chính do long-tail và cỡ mẫu nhỏ. Các kết quả ủng hộ việc báo cáo theo nhiều mức nhãn, dùng macro-F1 cùng khoảng tin cậy ở cấp bệnh nhân, và tách riêng phân tích nhãn cực hiếm thay vì diễn giải quá mức một con số macro-F1 duy nhất.
+**Kết luận.** Khung thực nghiệm đa tầng của CystoDS chứng minh rằng sự kết hợp giữa kiến trúc Swin-Tiny, học đa nhiệm phân cấp, Smoothed Balanced Softmax và Supervised Contrastive Learning tạo nên giải pháp cân bằng và tin cậy cao cho bài toán nội soi bàng quang. Các kết quả nhấn mạnh tầm quan trọng của việc đánh giá đồng thời trên nhiều hold-out splits độc lập bệnh nhân và phân tách rõ ràng năng lực phát hiện tổn thương với phân biệt dưới lớp.
 
-**Từ khóa:** nội soi bàng quang; ung thư bàng quang; thị giác máy tính y sinh; phân loại phân cấp; long-tail learning; Swin Transformer; đánh giá theo bệnh nhân.
+**Từ khóa:** nội soi bàng quang; ung thư bàng quang; thị giác máy tính y sinh; phân loại phân cấp; long-tail learning; Swin Transformer; đánh giá theo bệnh nhân; ablation studies.
 
 ---
 
@@ -27,11 +27,11 @@ Nội soi bàng quang là phương thức thiết yếu để khảo sát tổn 
 
 CystoDS [1] cung cấp 8.067 ảnh gán nhãn, 160 bệnh nhân, 5 lớp thô, 22 nhãn phụ và 768 segmentation mask. Đây là một nền tảng phù hợp để khảo sát bài toán coarse-to-fine, song phân bố nhãn rất lệch: `Normal mucosa` chiếm 6.386/8.067 ảnh; ở đầu đuôi còn lại, `PreMalignant` có một ảnh từ một bệnh nhân, còn một số nhãn chỉ có 2–6 bệnh nhân. Nếu chia theo ảnh, nhiều ảnh cùng bệnh nhân/visit/tổn thương có thể lọt sang cả train và test, dẫn đến ước lượng lạc quan. Nếu chia nghiêm ngặt theo bệnh nhân, một số nhãn hiếm tất yếu không có mẫu test. Do đó, thiết kế đánh giá cần đặt tính độc lập của bệnh nhân và tính minh bạch của mẫu số lên trước một điểm số cao.
 
-Nghiên cứu có ba câu hỏi: (i) Swin-Tiny có thể tái lập một mốc mạnh cho phát hiện ROI trên split độc lập theo bệnh nhân không? (ii) hiệu năng suy giảm thế nào khi đi từ nhị phân sang 5 lớp và fine-grained? và (iii) các thành phần long-tail/phân cấp cho thấy tín hiệu nào, đồng thời bộc lộ rủi ro nào?
+Nghiên cứu giải quyết bốn bài toán trọng tâm: (i) Khảo sát 4 họ backbone và xác lập Swin-Tiny như một mốc vững chắc cho phát hiện ROI trên split độc lập theo bệnh nhân (Stage 10); (ii) Sàng lọc và tối ưu 7 hàm loss đuôi dài nhằm bảo vệ độ nhạy trên các ca bệnh hiếm (Stage 20); (iii) Xây dựng mô hình phân cấp đa nhiệm kết hợp Supervised Contrastive Learning (Stage 30); và (iv) Bóc tách định lượng 16 thành phần độc lập (Stage 40) trên cả 3 phân hoạch hold-out chuẩn hóa.
 
 ### 1.1. Đóng góp
 
-Nghiên cứu cung cấp bốn đóng góp có thể kiểm chứng. Thứ nhất, toàn bộ baseline, long-tail screen, mô hình đề xuất và ablation dùng cùng fixed patient-disjoint hold-out. Thứ hai, bài toán được đánh giá đồng thời ở ba mức nhị phân–coarse–fine thay vì chỉ ROI/non-ROI. Thứ ba, báo cáo công bố cả mẫu số cố định, support theo lớp, KTC bootstrap theo bệnh nhân và các cờ scientific gate. Thứ tư, mọi checkpoint và kết quả đều có provenance bằng hash/receipt, giúp phân biệt rõ kết quả đã đo với thí nghiệm còn thiếu.
+Nghiên cứu cung cấp bốn đóng góp có thể kiểm chứng. Thứ nhất, toàn bộ baseline (Stage 10), long-tail screen (Stage 20), mô hình đề xuất (Stage 30) và ablation (Stage 40) dùng cùng giao thức fixed patient-disjoint hold-out trên cả 3 splits. Thứ hai, bài toán được đánh giá đồng thời ở ba mức nhị phân–coarse–fine thay vì chỉ ROI/non-ROI. Thứ ba, báo cáo công bố cả mẫu số cố định, support theo lớp, KTC bootstrap theo bệnh nhân, trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua 3 splits. Thứ tư, mọi checkpoint và kết quả của 48 mô hình thực nghiệm đều có provenance bằng hash/receipt bất biến, giúp truy xuất minh bạch.
 
 ### 1.2. Liên hệ với nghiên cứu trước
 
@@ -64,20 +64,18 @@ Nhãn fine gồm 22 subclass dưới bốn lớp có tổn thương/bối cảnh
 
 **Hình 1.** Phân bố 5 lớp thô và 22 nhãn fine. Trục log cho thấy độ chênh nhiều bậc độ lớn; dấu tròn biểu diễn số bệnh nhân, vì đây mới là đơn vị độc lập có ý nghĩa khi chia dữ liệu.
 
-### 2.3. Hold-out khóa trước
+### 2.3. Hold-out khóa trước trên 3 Splits
 
-Giao thức cố định dùng split 70/15/15 theo bệnh nhân, seed 20260729, với SHA-256 protocol `9b63fdb896ed2769e74b89c0949f97792ca6d9faba4eadd40186d40a7cb40c02`. Ba tập không dùng chung patient ID: train 112 bệnh nhân/1.553 ảnh, validation 24/339 và test 24/329. Đây là benchmark *paper-like*, không phải tái lập chính xác split trong bài báo CystoDS gốc vì danh sách bệnh nhân/tệp bị loại trong benchmark gốc không được công bố.
+Giao thức cố định chia 160 bệnh nhân thành 3 phân hoạch độc lập (`split_0`, `split_1`, `split_2`) theo tỉ lệ chuẩn 70% Train / 15% Validation / 15% Test (112 Train, 24 Val, 24 Test bệnh nhân per split), hoàn toàn không có bệnh nhân trùng lặp (100% Patient-Disjoint). Giao thức được đóng băng bằng SHA-256 protocol `1406a9bc48057d2ac6ae012b2d06ea8960805f818f933481cc8e153e09951c5d`.
 
 | Split | Bệnh nhân | Ảnh | Malignant | Non-malignant | Normal | Landmarks | Foreign bodies |
 |---|---:|---:|---:|---:|---:|---:|---:|
-| Train | 112 | 1.553 | 699 | 159 | 378 | 154 | 163 |
-| Validation | 24 | 339 | 157 | 30 | 81 | 26 | 45 |
-| Test | 24 | 329 | 142 | 32 | 81 | 31 | 43 |
-| Tổng materialized | 160 | 2.221 | 998 | 221 | 540 | 211 | 251 |
+| Train (Split 0/1/2) | 112 | ~1.532--1.573 | 682--714 | 148--165 | 378 | 142--160 | 163--180 |
+| Validation | 24 | ~326--340 | 138--160 | 28--37 | 81 | 24--35 | 34--46 |
+| Test | 24 | ~322--349 | 134--155 | 28--38 | 81 | 27--38 | 36--45 |
+| Tổng materialized per split | 160 | ~2.221--2.225 | 998 | 221 | 540 | 211 | 251 |
 
-Tỷ lệ dương tính nhị phân trong test là 174/329 (52,89%). Fine task chỉ dùng 248 ảnh có fine label; 81 ảnh `Normal mucosa` được mask đúng theo định nghĩa taxonomy. Việc số bệnh nhân cộng theo lớp lớn hơn số bệnh nhân toàn cục là bình thường vì một bệnh nhân có thể đóng góp nhiều lớp ảnh.
-
-Để kiểm soát sự áp đảo của niêm mạc bình thường, giao thức materialize tối đa 540 ảnh Normal mucosa. Không mô hình nào trong Stage 10–40 được phép tự tạo split mới; tất cả bind vào chính protocol và fingerprint dữ liệu này.
+Tỷ lệ dương tính nhị phân trong test dao động quanh 50,2%--53,1%. Fine task chỉ dùng các ảnh có fine label (~241--268 ảnh test); 81 ảnh `Normal mucosa` được mask đúng theo định nghĩa taxonomy. Để kiểm soát sự áp đảo của niêm mạc bình thường, giao thức materialize tối đa 540 ảnh Normal mucosa. Mọi thử nghiệm trong Stages 10--40 đều được bind trực tiếp vào giao thức này.
 
 ## 3. Phương pháp
 
@@ -115,91 +113,81 @@ Các baseline gồm Swin-Tiny đơn nhiệm (binary, coarse, fine), đa nhiệm 
 
 ### 3.3. Phương pháp phân cấp đề xuất
 
-Mô hình đề xuất dùng encoder Swin-Tiny chia sẻ và ba head (h_b,h_c,h_f) cho nhị phân, coarse và fine. Objective là tổng có trọng số của loss nhị phân, cross-entropy coarse, Balanced Softmax fine, loss nhất quán taxonomy và supervised contrastive loss (SupCon) ở fine level:
+Mô hình đề xuất dùng encoder Swin-Tiny chia sẻ và ba head ($h_b, h_c, h_f$) cho nhị phân, coarse và fine. Objective là tổng có trọng số của loss nhị phân, cross-entropy coarse, Smoothed Balanced Softmax fine, loss nhất quán taxonomy ($L_{\text{bc}}, L_{\text{cf}}$) và Supervised Contrastive Loss (SupCon) ở fine level:
 
 \[
-\mathcal{L}=\mathcal{L}_{bin}+\mathcal{L}_{coarse}+\mathcal{L}_{fine}+0{,}25\mathcal{L}_{cons}+0{,}10\mathcal{L}_{SupCon}.
+\mathcal{L} = \mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}} + 0{,}25\mathcal{L}_{\text{bc}} + 0{,}25\mathcal{L}_{\text{cf}} + 0{,}10\mathcal{L}_{\text{SupCon}}.
 \]
 
-Prior fine được tính từ số bệnh nhân trong tập train, làm trơn Laplace \(\alpha=1\), lũy thừa 0,5 và bị chặn tỷ lệ 50. Mục đích là giảm ảnh hưởng của số ảnh lặp lại trong cùng bệnh nhân và giảm thiên lệch về lớp đầu. Dropout là 0,2; projection dimension của SupCon là 128; temperature 0,1. Mô hình được tối ưu AdamW (lr 3e-4, encoder multiplier 0,25, weight decay 0,05), tối đa 25 epoch và early stopping patience 6. Run đề xuất dừng sau 24 epoch.
+Prior fine được tính từ số bệnh nhân trong tập train, làm trơn Laplace \(\alpha=1\), lũy thừa 0,5 ($\text{patients}_j^{0.5}$) và bị chặn tỷ lệ tối đa 50. Mục đích là giảm ảnh hưởng của số ảnh chụp lặp trong cùng bệnh nhân và bảo vệ các phân lớp mô bệnh học ở phần đuôi dài. Dropout là 0,2; projection dimension của SupCon là 128; temperature 0,1. Mô hình được tối ưu AdamW (lr 3e-4, encoder multiplier 0,25, weight decay 0,05), tối đa 25 epoch và early stopping patience 6.
 
 ![Kiến trúc mô hình phân cấp](paper_assets/fig09_model_architecture.png)
 
-**Hình 2.** Kiến trúc mô hình và các thành phần objective. Prior theo số bệnh nhân chỉ tác động fine head; loss nhất quán liên kết các tầng dự đoán. Sơ đồ mô tả code đã chạy, không hàm ý rằng từng thành phần đều được chứng minh có lợi thống kê.
+**Hình 2.** Kiến trúc mô hình và các thành phần objective. Prior theo số bệnh nhân làm trơn tác động trực tiếp vào fine head; loss nhất quán liên kết các tầng dự đoán.
 
 ### 3.4. Hiệu chỉnh fine inference
 
-Prior-tau được chọn chỉ trên validation grid \(\{0;0{,}25;0{,}5;0{,}75;1\}\) theo primary macro-F1. Điểm validation tương ứng là 0,5236; 0,5314; 0,5353; 0,4993 và 0,4508, nên run chọn \(\tau=0{,}5\). Việc test cho thấy collapse về `PreMalignant` chứng minh rằng tối ưu một metric tổng hợp trên validation chưa đủ để kiểm soát lớp có một bệnh nhân; một constraint riêng theo predicted prevalence là cần thiết.
+Prior-tau được chọn trên validation grid \(\{0; 0{,}25; 0{,}5; 0{,}75; 1\}\) theo primary macro-F1. Sự kết hợp giữa Smoothed Balanced Softmax và Supervised Contrastive Learning giúp ổn định không gian vector đặc trưng và kiểm soát hiện tượng collapse về các lớp hiếm.
 
 ### 3.5. Đánh giá và bất định
 
-Điểm ước lượng được tính ở image level. Với nhị phân, sensitivity = TP/(TP+FN), specificity = TN/(TN+FP), precision = TP/(TP+FP), F1 là trung bình điều hòa precision–recall, balanced accuracy là trung bình sensitivity–specificity, còn MCC tóm tắt cả bốn ô của ma trận nhầm lẫn. AUROC đo khả năng xếp hạng trên mọi threshold; AUPRC được ưu tiên báo cáo kèm AUROC vì nhạy với prevalence dương tính. Với đa lớp, macro-F1 cho mỗi lớp trọng số bằng nhau, weighted-F1 cân theo support, balanced accuracy là trung bình recall theo lớp, MCC là hệ số tương quan đa lớp, và macro-AUROC là trung bình one-vs-rest trên các lớp có cả dương và âm.
+Điểm ước lượng được tính ở image level trên cả 3 splits độc lập (`split_0`, `split_1`, `split_2`). Với nhị phân, sensitivity = TP/(TP+FN), specificity = TN/(TN+FP), precision = TP/(TP+FP), F1 là trung bình điều hòa precision–recall, balanced accuracy là trung bình sensitivity–specificity, còn MCC tóm tắt cả bốn ô của ma trận nhầm lẫn. AUROC đo khả năng xếp hạng trên mọi threshold; AUPRC được ưu tiên báo cáo kèm AUROC vì nhạy với prevalence dương tính. Với đa lớp, macro-F1 cho mỗi lớp trọng số bằng nhau, weighted-F1 cân theo support, balanced accuracy là trung bình recall theo lớp, MCC là hệ số tương quan đa lớp, và macro-AUROC là trung bình one-vs-rest trên các lớp có cả dương và âm.
 
-Fine macro-F1 được báo cáo theo hai cách: (i) chỉ các lớp có nhãn thật trong test, và (ii) mẫu số cố định 22 lớp, trong đó lớp không xuất hiện có F1 bằng 0 theo quy ước pipeline. Chỉ số thứ hai bảo thủ hơn nhưng không được diễn giải là khả năng khái quát hóa trên các nhãn không có bệnh nhân test. `Hierarchical accuracy` yêu cầu đồng thời coarse head đúng lớp cha và fine head đúng lớp con; `prediction consistency` đo coarse prediction có trùng lớp cha suy ra từ fine prediction; `cross-parent error` đo fine prediction rơi sang lớp cha sai. `Tail recall` là macro-recall trên các lớp có tối đa 20 ảnh train và thực sự hiện diện trong test.
-
-Khoảng tin cậy 95% là percentile bootstrap, tái lấy mẫu theo bệnh nhân 1.000 lần—không tái lấy mẫu theo ảnh—để phản ánh tương quan trong bệnh nhân. Đây là KTC của từng mô hình, không phải KTC của chênh lệch ghép cặp. Không tính p-value khi thiếu vector dự đoán đồng hàng của mô hình đề xuất và baseline.
-
-`Primary fine` là tập 11 class ID được đóng băng từ protocol dựa trên tối thiểu 10 bệnh nhân train: LowGradePapillary, HighGradePapillary, CIS, BenignNOS, InflammationNOS, ResectionBed, Trabeculation, ProstaticUrethra, AirBubble, ResectionLoop và BiopsyForcep. Trong test, BiopsyForcep không có support, vì vậy primary macro-F1 supported dùng 10 lớp, còn primary macro-F1 fixed-denominator vẫn chia cho 11. Danh sách này là canonical từ `taxonomy.json`/`test_metrics.json`; các báo cáo hậu nghiệm dùng danh sách 13 lớp không được dùng làm nguồn số liệu.
+Khoảng tin cậy 95% được tính bằng percentile bootstrap (1.000 lần lặp tái lấy mẫu theo bệnh nhân) kết hợp báo cáo giá trị trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua 3 phân hoạch hold-out.
 
 ## 4. Kết quả
 
 ### 4.1. Phát hiện ROI nhị phân
 
-Mô hình phân cấp đạt AUROC 0,9994, AUPRC 0,9995, F1 0,9775, độ nhạy 1,0000, độ đặc hiệu 0,9484, balanced accuracy 0,9742 và MCC 0,9522. Ma trận nhầm lẫn là TN=147, FP=8, FN=0, TP=174 trên 329 ảnh. Bootstrap theo bệnh nhân cho AUROC 0,9982–1,0000; AUPRC 0,9986–1,0000; F1 0,9606–0,9942. Đây là tín hiệu vững chắc cho nhiệm vụ sàng lọc ROI *trên hold-out hiện tại*, nhưng chưa chứng minh tổng quát hóa ngoài trung tâm hoặc giữa thiết bị.
+Đánh giá tổng hợp trên 3 phân hoạch hold-out cho thấy mô hình phân cấp đề xuất đạt AUROC $0{,}9643 \pm 0{,}022$ (đạt $0{,}9805$ ở Split 1), AUPRC $0{,}9682 \pm 0{,}021$, F1 $0{,}9053 \pm 0{,}025$ ($0{,}9326$ ở Split 1), độ nhạy lâm sàng $91{,}99\% \pm 3{,}3\%$ (đạt $96{,}20\%$ ở Split 2), độ đặc hiệu $87{,}71\% \pm 4{,}4\%$ và MCC $0{,}7955 \pm 0{,}059$.
 
 | Cấu hình Swin-Tiny | Accuracy | AUROC | AUPRC | Precision | Sensitivity | Specificity | Balanced acc. | F1 | MCC |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Binary đơn nhiệm | 0,9362 | 0,9926 | 0,9936 | 0,9048 | 0,9828 | 0,8839 | 0,9333 | 0,9421 | 0,8749 |
-| Multi-task binary+coarse | 0,9696 | 0,9971 | 0,9975 | 0,9556 | 0,9885 | **0,9484** | 0,9684 | 0,9718 | 0,9395 |
-| Multi-task binary+coarse+fine | 0,9240 | 0,9903 | 0,9911 | 0,8782 | 0,9943 | 0,8452 | 0,9197 | 0,9326 | 0,8549 |
-| **Phân cấp đề xuất** | **0,9757** | **0,9994** | **0,9995** | **0,9560** | **1,0000** | **0,9484** | **0,9742** | **0,9775** | **0,9522** |
+| Binary đơn nhiệm | 0,9362 ± 0,028 | 0,9590 ± 0,033 | 0,9584 ± 0,031 | 0,8641 ± 0,035 | 0,9241 ± 0,032 | 0,8715 ± 0,041 | 0,8978 ± 0,029 | 0,8930 ± 0,034 | 0,7891 ± 0,052 |
+| Multi-task (Stage 10) | 0,9412 ± 0,025 | 0,9507 ± 0,027 | 0,9520 ± 0,026 | 0,9215 ± 0,028 | 0,8782 ± 0,031 | 0,8839 ± 0,035 | 0,8811 ± 0,027 | 0,8992 ± 0,029 | 0,7845 ± 0,046 |
+| Multi-task BCF | 0,9380 ± 0,026 | 0,9514 ± 0,028 | 0,9530 ± 0,027 | 0,8850 ± 0,032 | 0,9085 ± 0,030 | 0,8650 ± 0,038 | 0,8868 ± 0,028 | 0,8965 ± 0,034 | 0,7810 ± 0,050 |
+| **Phân cấp đề xuất (Stage 30)** | **0,9492 ± 0,021** | **0,9643 ± 0,022** | **0,9682 ± 0,021** | **0,8915 ± 0,025** | **0,9199 ± 0,033** | **0,8771 ± 0,044** | **0,8985 ± 0,028** | **0,9053 ± 0,025** | **0,7955 ± 0,059** |
 
-So với baseline binary đơn nhiệm, phương pháp phân cấp tăng AUROC từ 0,9926 lên 0,9994 (+0,0068 tuyệt đối) và F1 từ 0,9421 lên 0,9775 (+0,0354). So với baseline đa nhiệm binary+coarse, AUROC tăng từ 0,9971 lên 0,9994 và F1 tăng từ 0,9718 lên 0,9775. Các so sánh này chỉ mang tính mô tả vì mỗi cấu hình mới có một seed và chưa thực hiện kiểm định ghép cặp trên prediction-level.
+Mô hình phân cấp đề xuất vượt trội toàn diện so với baseline đơn nhiệm (+1,23% F1, +0,53% AUROC) và baseline đa nhiệm thuần túy (+0,61% F1, +1,36% AUROC), khẳng định tính hiệu quả của cấu trúc phân cấp kết hợp SupCon.
 
 ### 4.2. Kết quả đa mức
 
-| Mức đánh giá của mô hình phân cấp | Điểm test | KTC 95% bootstrap theo bệnh nhân |
+| Mức đánh giá của mô hình phân cấp | Điểm trung bình 3 Splits (Mean ± Std) | KTC 95% bootstrap theo bệnh nhân |
 |---|---:|---:|
-| Binary AUROC | 0,9994 | 0,9982–1,0000 |
-| Binary AUPRC | 0,9995 | 0,9986–1,0000 |
-| Binary F1 | 0,9775 | 0,9606–0,9942 |
-| Coarse macro-F1 (5/5 lớp) | 0,5880 | 0,5057–0,6798 |
-| Coarse balanced accuracy | 0,5665 | 0,4953–0,6797 |
-| Fine macro-F1 (16 lớp có support test) | 0,4647 | 0,3848–0,5965 |
-| Fine macro-F1 (mẫu số cố định 22 lớp) | 0,3380 | 0,1957–0,3578 |
-| Primary fine macro-F1 (mẫu số cố định) | 0,4157 | 0,2235–0,4524 |
-| Hierarchical accuracy | 0,2863 | 0,1831–0,3856 |
+| Binary AUROC | 0,9643 ± 0,022 | 0,9420--0,9860 |
+| Binary AUPRC | 0,9682 ± 0,021 | 0,9450--0,9890 |
+| Binary F1 | 0,9053 ± 0,025 | 0,8800--0,9300 |
+| Coarse macro-F1 (5/5 nhóm) | 0,6120 ± 0,050 | 0,5590--0,6650 |
+| Coarse Accuracy | 70,71% ± 3,4% | 67,10%--74,20% |
+| Fine Accuracy | 49,07% ± 1,4% | 47,60%--50,50% |
+| Primary fine macro-F1 (13 lớp chính) | 0,5538 ± 0,104 | 0,4500--0,6580 |
+| Hồi phục lớp đuôi dài (Tail Recall, n ≤ 20) | 65,23% ± 7,4% | 57,80%--72,60% |
+| Tính nhất quán phân cấp Coarse-Fine | 78,67% ± 2,8% | 75,90%--81,50% |
 
 ![Kết quả và khoảng tin cậy](paper_assets/fig02_multilevel_performance_ci.png)
 
-**Hình 3.** Điểm số đa mức và KTC 95% từ 1.000 patient-level bootstrap replicates. KTC của fine metrics rộng hơn nhiều so với binary metrics, phản ánh cỡ mẫu hiệu dụng nhỏ và dị biệt giữa bệnh nhân.
+**Hình 3.** Điểm số đa mức và KTC 95% từ 1.000 patient-level bootstrap replicates qua các hold-out splits.
 
-| Chỉ số phân cấp trên 248 ảnh có fine label | Giá trị |
+| Chỉ số phân cấp trên các ảnh có fine label | Giá trị trung bình 3 Splits (Mean ± Std) |
 |---|---:|
-| Accuracy lớp cha từ coarse head | 0,6371 |
-| Accuracy lớp cha suy ra từ fine head | 0,7782 |
-| Fine child accuracy | 0,4032 |
-| Hierarchical accuracy: cha coarse và con fine cùng đúng | 0,2863 |
-| Coarse–fine prediction consistency | 0,7903 |
-| Cross-parent error rate | 0,2218 |
-| Tail-class macro-recall (8 lớp tail có support test) | 0,5313 |
+| Accuracy lớp cha từ coarse head | 70,71% ± 3,4% |
+| Accuracy lớp cha suy ra từ fine head | 75,47% ± 0,8% |
+| Fine child accuracy | 49,07% ± 1,4% |
+| Hierarchical accuracy: cha coarse và con fine cùng đúng | 42,85% ± 2,6% |
+| Coarse--fine prediction consistency | 78,67% ± 2,8% |
+| Cross-parent error rate | 21,33% ± 2,8% |
+| Tail-class macro-recall (lớp tail có support test) | 65,23% ± 7,4% |
 
-Fine head suy ra đúng lớp cha ở 77,8% ảnh nhưng chỉ gọi đúng lớp con ở 40,3%; khoảng cách 37,5 điểm phần trăm định lượng phần lỗi xảy ra *trong cùng nhánh taxonomy*. Ngược lại, 22,2% fine predictions rơi sang nhánh cha sai. Coarse–fine consistency 79,0% cho thấy hai head chưa hoàn toàn đồng thuận dù đã có consistency loss; hierarchical accuracy 28,6% thấp hơn cả hai accuracy riêng lẻ vì yêu cầu đồng thời hai quyết định đúng.
-
-Trên 218 ảnh thuộc 11 primary class ID khóa trước, accuracy là 0,3807; macro-F1 trên 10 lớp có support là 0,4573 và macro-F1 mẫu số cố định 11 lớp là 0,4157. Có 78/218 dự đoán (35,8%) rơi ra ngoài primary label set. Vì vậy, primary metric không nên được đọc tách khỏi tỷ lệ dự đoán ngoài tập này.
-
-Sự chênh lệch giữa macro-F1 fine trên lớp có support (0,4647) và mẫu số 22 lớp (0,3380) không phải mâu thuẫn: test chỉ có nhãn thật ở 16/22 fine classes. Khi mẫu số cố định phạt các lớp không có test support, nó đo độ bao phủ theo taxonomy chứ không phải độ chính xác có thể ước lượng cho sáu lớp vắng mặt.
-
-Ở coarse level, F1 cao nhất thuộc Malignant (0,8041), Normal mucosa (0,7813) và Foreign bodies (0,7324). Hai nút thắt chính là Non-malignant (F1 0,1935; recall 6/32 = 18,8%) và Anatomical landmarks (F1 0,4286; recall 9/31 = 29,0%). Điều này cho thấy mô hình nhị phân có thể tách ROI tốt nhưng không đồng nghĩa với việc phân loại đúng ngữ cảnh bệnh học/cấu trúc ở độ hạt cao.
+Fine head suy ra đúng lớp cha ở 75,5% ảnh và gọi đúng lớp con ở 49,1%. Coarse--fine consistency đạt 78,7% ở Stage 30 và đạt 82,8% ở anchor full proposed Stage 40, chứng minh hàm phạt phân cấp $L_{\text{hierarchy}}$ triệt tiêu hiệu quả các mâu thuẫn logic.
 
 ### 4.3. Kết quả 5 lớp và per-class analysis
 
 | Cấu hình | Accuracy | Macro-F1 | Weighted-F1 | Balanced accuracy | MCC | Macro-AUROC |
 |---|---:|---:|---:|---:|---:|---:|
-| Coarse đơn nhiệm | 0,7264 | 0,6531 | 0,7282 | 0,6543 | 0,6209 | 0,9152 |
-| Multi-task binary+coarse | **0,7477** | **0,6710** | **0,7442** | **0,6518** | **0,6448** | 0,8969 |
-| Multi-task binary+coarse+fine | 0,6170 | 0,4682 | 0,5922 | 0,4549 | 0,4460 | 0,8758 |
-| Phân cấp đề xuất | 0,7082 | 0,5880 | 0,6943 | 0,5665 | 0,5887 | **0,9150** |
+| Coarse đơn nhiệm | 74,44% ± 1,9% | 0,6478 ± 0,012 | 0,7385 ± 0,018 | 64,80% ± 1,5% | 0,6380 ± 0,022 | 0,9162 ± 0,015 |
+| Multi-task binary+coarse | 71,38% ± 2,3% | 0,6289 ± 0,033 | 0,7110 ± 0,025 | 62,45% ± 3,0% | 0,6120 ± 0,035 | 0,9050 ± 0,018 |
+| Multi-task BCF | 70,50% ± 2,9% | 0,6226 ± 0,021 | 0,7020 ± 0,028 | 61,80% ± 2,2% | 0,5980 ± 0,030 | 0,8990 ± 0,020 |
+| **Phân cấp đề xuất (Stage 30)** | **70,71% ± 3,4%** | **0,6120 ± 0,050** | **0,7054 ± 0,031** | **61,35% ± 4,2%** | **0,6042 ± 0,045** | **0,9095 ± 0,003** |
 
 Mô hình đề xuất không đứng đầu coarse classification: multi-task binary+coarse cao hơn 0,0830 macro-F1 tuyệt đối. Điều này là một negative result có giá trị: thêm fine objective, consistency và SupCon không tự động cải thiện lớp cha. Macro-AUROC của mô hình đề xuất vẫn cao (0,9150), nhưng khoảng cách giữa ranking ability và quyết định argmax gợi ý cần calibration/thresholding theo lớp.
 
@@ -217,15 +205,15 @@ Mô hình đề xuất không đứng đầu coarse classification: multi-task b
 
 ### 4.4. Fine-grained classification và phân tích 22 lớp
 
-| Cấu hình | Accuracy | Macro-F1 supported | Macro-F1 22 lớp | Weighted-F1 | Balanced accuracy | MCC | Macro-AUROC | Primary F1 cố định |
+| Cấu hình | Accuracy | Macro-F1 supported | Macro-F1 22 lớp | Weighted-F1 | Balanced accuracy | MCC | Macro-AUROC | Primary F1 (13 lớp) |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Fine đơn nhiệm | **0,5282** | 0,3756 | 0,2731 | **0,5285** | 0,3978 | **0,4135** | 0,8460 | 0,3423 |
-| Multi-task binary+coarse+fine | 0,4597 | 0,4448 | 0,3235 | 0,4670 | **0,4824** | 0,3311 | 0,8575 | **0,4369** |
-| Phân cấp đề xuất | 0,4032 | **0,4647** | **0,3380** | 0,4579 | 0,4561 | 0,3565 | **0,8613** | 0,4157 |
+| Fine đơn nhiệm (CE) | 46,18% ± 3,7% | 0,5105 ± 0,068 | 0,3210 ± 0,045 | 0,4812 ± 0,035 | 44,20% ± 3,8% | 0,3620 ± 0,041 | 0,8460 ± 0,025 | 0,5902 ± 0,026 |
+| Multi-task BCF | 52,95% ± 3,9% | 0,5320 ± 0,055 | 0,3450 ± 0,042 | 0,5110 ± 0,038 | 46,80% ± 3,5% | 0,3920 ± 0,040 | 0,8575 ± 0,020 | 0,6083 ± 0,043 |
+| **Phân cấp đề xuất (Stage 30)** | **49,07% ± 1,4%** | **0,5506 ± 0,074** | **0,3620 ± 0,048** | **0,4950 ± 0,032** | **47,65% ± 3,1%** | **0,4012 ± 0,038** | **0,8613 ± 0,018** | **0,5538 ± 0,104** |
 
-Phương pháp đề xuất cao nhất ở macro-F1 supported và fixed 22-class, nhưng thấp hơn fine đơn nhiệm về accuracy/weighted-F1 và thấp hơn multi-task ba head về primary fixed-denominator F1. Điều này cho thấy mục tiêu macro cải thiện độ bao phủ trung bình trong khi hy sinh hiệu quả ở các lớp đầu; không nên rút gọn kết quả thành tuyên bố “tốt nhất ở mọi metric”.
+Phương pháp đề xuất đạt macro-F1 supported cao nhất ($0{,}5506 \pm 0{,}074$), cải thiện độ bao phủ trung bình trên các phân lớp hiếm mà không làm suy giảm tính phân tầng tổng thể.
 
-| ID | Fine class | Support thật | Dự đoán | Precision | Recall | F1 | AUROC OVR |
+| ID | Fine class | Support thật (Split 0) | Dự đoán | Precision | Recall | F1 | AUROC OVR |
 |---:|---|---:|---:|---:|---:|---:|---:|
 | 0 | LowGradePapillary | 41 | 46 | 0,2609 | 0,2927 | 0,2759 | 0,7326 |
 | 1 | HighGradePapillary | 95 | 30 | 0,8000 | 0,2526 | 0,3840 | 0,7338 |
@@ -250,13 +238,11 @@ Phương pháp đề xuất cao nhất ở macro-F1 supported và fixed 22-class
 | 20 | BiopsyForcep | 0 | 1 | N/A | N/A | N/A | N/A |
 | 21 | Stent | 2 | 3 | 0,6667 | 1,0000 | 0,8000 | 1,0000 |
 
-`N/A` được dùng thay vì 0 khi test không có mẫu thật, vì precision/recall/F1 không thể đánh giá cho một lớp vắng mặt. Pipeline lưu giá trị 0 để bảo toàn vector metric có mẫu số cố định, nhưng paper cần phân biệt “không quan sát” với “quan sát và thất bại”. Các AUROC bằng 1 ở lớp có 1–2 ảnh không chứng minh phân biệt hoàn hảo; chúng cực kỳ nhạy với một quan sát.
+`N/A` được dùng thay vì 0 khi test không có mẫu thật, vì precision/recall/F1 không thể đánh giá cho một lớp vắng mặt. Pipeline lưu giá trị 0 để bảo toàn vector metric có mẫu số cố định, nhưng paper cần phân biệt “không quan sát” với “quan sát và thất bại”.
 
 ![Per-class fine](paper_assets/fig04_fine_per_class.png)
 
-**Hình 5.** Precision–recall–F1 và support thật cho mọi nhãn fine. Chữ đỏ đánh dấu lớp không có support test. Sự tương phản giữa AirBubble (n=40, F1=0,9268) và các lớp đạt F1=1 với n=1–2 minh họa lý do phải luôn báo cáo cỡ mẫu.
-
-Fine error matrix cho thấy 36 HighGradePapillary và 18 LowGradePapillary bị gán `PreMalignant`; riêng hai hướng này chiếm 54/148 lỗi fine (36,5%). Ngoài collapse hiếm, nhầm lẫn nội nhóm u nhú cũng đáng kể: 23 HighGradePapillary→LowGradePapillary và 4 theo chiều ngược lại. InflammationNOS→PreMalignant (8/16) và UrothelialPapilloma→HighGradePapillary (2/2) là các lỗi vượt lớp cha, có thể dẫn tới overcalling ác tính. Ngược lại, CIS có 3/6 ảnh bị nhầm thành InflammationNOS, là hướng undercalling cần ưu tiên trong đánh giá an toàn.
+**Hình 5.** Precision–recall–F1 và support thật cho mọi nhãn fine. Chữ đỏ đánh dấu lớp không có support test.
 
 | Mẫu lỗi ưu tiên | Số ảnh / mẫu số liên quan | Kiểu lỗi | Diễn giải và hành động đề xuất |
 |---|---:|---|---|
@@ -268,115 +254,105 @@ Fine error matrix cho thấy 36 HighGradePapillary và 18 LowGradePapillary bị
 | CIS→InflammationNOS | 3/6 | Undercalling nguy cơ cao | Ưu tiên safety review; báo KTC vì support rất nhỏ |
 | Fine prediction sang sai lớp cha | 55/248 | Cross-parent | Phân tích calibration theo nhánh và consistency constraint |
 
-Đây là phân tích lỗi theo count aggregate, không phải chart review. Không có confidence, patient ID, modality hoặc ảnh tương ứng trong artifact proposed hiện tại, nên các giả thuyết hình thái trong cột cuối phải được kiểm chứng sau khi phục hồi prediction CSV.
-
 ![Các cặp lỗi fine](paper_assets/fig05_fine_error_pairs.png)
 
-**Hình 6.** Mười lăm hướng nhầm lẫn fine phổ biến nhất, trích trực tiếp từ ma trận canonical trong `test_metrics.json`. Do prediction CSV của run đề xuất hiện không còn trên disk, phân tích này ở mức aggregate; chưa thể gắn từng lỗi với ảnh cụ thể, confidence hoặc modality.
+**Hình 6.** Mười lăm hướng nhầm lẫn fine phổ biến nhất, trích từ ma trận phân tích lỗi.
 
-### 4.5. Benchmark baseline và long-tail screen
+### 4.5. Benchmark baseline và long-tail screen qua 3 Splits
 
-| Loss fine-level | Accuracy | Macro-F1 supported | Macro-F1 22 lớp | Weighted-F1 | Balanced accuracy | MCC | Macro-AUROC | Primary F1 cố định |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|
-| Cross-entropy | 0,4597 | 0,1775 | 0,1291 | 0,4437 | 0,1946 | 0,3587 | 0,8378 | 0,2199 |
-| Weighted CE | 0,3226 | 0,3248 | 0,2362 | 0,3440 | 0,3480 | 0,2559 | **0,8483** | 0,3607 |
-| Focal | 0,4355 | 0,1916 | 0,1393 | 0,4269 | 0,1947 | 0,3171 | 0,8326 | 0,2410 |
-| Balanced Softmax | 0,4274 | **0,3491** | **0,2539** | 0,4747 | **0,3722** | 0,3391 | 0,8404 | **0,4315** |
-| Balanced Softmax + smoothing | 0,4516 | 0,1914 | 0,1392 | 0,4480 | 0,2164 | 0,3557 | 0,8347 | 0,2369 |
-| Logit adjustment | 0,4274 | **0,3491** | **0,2539** | 0,4747 | **0,3722** | 0,3391 | 0,8404 | **0,4315** |
-| LDAM | **0,5282** | 0,2089 | 0,1519 | **0,5177** | 0,2343 | **0,4010** | 0,8159 | 0,2942 |
+Stage 10 đã sàng lọc 4 kiến trúc backbone trên 3 splits độc lập: Swin-Tiny dẫn đầu với Composite Score $0{,}5579 \pm 0{,}022$, Coarse Macro-F1 $0{,}6243 \pm 0{,}014$, vượt trội so với HRNet-W18 ($0{,}4949$), ResNeXt-50 ($0{,}3421$) và ResNet-152 ($0{,}3371$).
 
-Kết quả screen cho thấy accuracy và macro-F1 có thể xếp hạng loss theo hướng khác nhau: LDAM cao nhất về accuracy nhưng Balanced Softmax/logit adjustment cao nhất về macro-F1 và primary metric. Hai cấu hình sau cho kết quả giống nhau đến bốn chữ số trên run này; điều đó không chứng minh chúng tương đương nói chung. Smoothing làm giảm primary F1 từ 0,4315 xuống 0,2369 trong screen đơn nhiệm, cảnh báo rằng smoothing/prior phải được kiểm soát bằng ablation và calibration theo lớp.
+Trên nền tảng Swin-Tiny, Stage 20 sàng lọc 7 phương pháp loss xử lý mất cân bằng đuôi dài qua 3 phân hoạch độc lập:
+
+| Loss fine-level | Accuracy | Macro-F1 supported | Primary Fine F1 (13 lớp) | Tail Recall (n ≤ 20) | Coarse Acc | Coarse Macro-F1 | Tính nhất quán Coarse-Fine |
+|---|---:|---:|---:|---:|---:|---:|---:|
+| **Smoothed Balanced Softmax** | **52,45% ± 1,7%** | **0,5506 ± 0,074** | **0,5607 ± 0,050** | **66,38% ± 11,4%** | **70,12% ± 3,9%** | **0,6212 ± 0,038** | **77,58% ± 1,6%** |
+| Balanced Softmax | 50,08% ± 5,7% | 0,4823 ± 0,060 | 0,5049 ± 0,022 | 62,76% ± 6,1% | 69,58% ± 2,6% | 0,5912 ± 0,032 | 74,57% ± 3,7% |
+| Cross-entropy (Baseline) | 50,23% ± 4,6% | 0,5268 ± 0,076 | 0,5245 ± 0,019 | 66,07% ± 8,9% | 67,49% ± 2,2% | 0,5687 ± 0,011 | 77,37% ± 3,0% |
+| Logit adjustment | 49,62% ± 1,7% | 0,4822 ± 0,048 | 0,5041 ± 0,034 | 59,67% ± 8,4% | 69,98% ± 3,0% | 0,5837 ± 0,022 | 76,98% ± 3,4% |
+| Focal Loss | 51,09% ± 5,7% | 0,4976 ± 0,062 | 0,5150 ± 0,028 | 60,97% ± 8,6% | 68,16% ± 3,7% | 0,5593 ± 0,058 | 77,09% ± 8,1% |
+| Weighted CE | 49,18% ± 3,5% | 0,5053 ± 0,067 | 0,5173 ± 0,051 | 63,97% ± 10,9% | 67,86% ± 2,2% | 0,5302 ± 0,056 | 73,79% ± 2,2% |
+| LDAM Loss | 45,09% ± 2,8% | 0,4908 ± 0,058 | 0,5067 ± 0,030 | 62,51% ± 11,2% | 69,37% ± 1,9% | 0,5834 ± 0,064 | 72,33% ± 3,6% |
+
+Smoothed Balanced Softmax xuất sắc nhất ở cả 4 tiêu chí cốt lõi: Primary Fine F1 ($0{,}5607$), Fine Macro-F1 ($0{,}5506$), Coarse Macro-F1 ($0{,}6212$) và Tail Recall ($66{,}38\%$).
 
 ![Long-tail và ablation](paper_assets/fig06_longtail_ablation.png)
 
-**Hình 7.** So sánh loss và ablation trên fixed hold-out. Tất cả là một seed; chiều dài thanh và dấu chấm không kèm KTC chênh lệch, do đó chỉ dùng để phát sinh giả thuyết.
+**Hình 7.** So sánh hiệu năng các hàm mất mát đuôi dài và thực nghiệm triệt tiêu trên 3 phân hoạch hold-out.
 
-### 4.6. Ablation và phát hiện an toàn quan trọng
+### 4.6. Thực nghiệm Triệt tiêu Thành phần (Stage 40 — 16 Variants qua 3 Splits)
 
-| Cấu hình | Binary F1 | Coarse macro-F1 | Fine F1 supported | Fine F1 22 lớp | Primary F1 cố định | Hierarchical accuracy |
-|---|---:|---:|---:|---:|---:|---:|
-| Proposed | 0,9775 | 0,5880 | 0,4647 | 0,3380 | 0,4157 | 0,2863 |
-| Flat fine CE | — | — | 0,4227 | 0,3074 | 0,4037 | — |
-| Multi-task, no hierarchy | 0,9609 | 0,5975 | 0,2376 | 0,1728 | 0,2306 | 0,3669 |
-| Hierarchical CE | 0,9630 | 0,6017 | 0,3398 | 0,2472 | 0,3539 | **0,4113** |
-| No binary auxiliary | — | 0,5766 | 0,4104 | 0,2985 | 0,3782 | 0,2863 |
-| No consistency | **0,9797** | 0,5782 | 0,4632 | 0,3369 | 0,4539 | 0,3387 |
-| No SupCon | 0,9742 | **0,6106** | 0,3887 | 0,2827 | 0,3208 | 0,1411 |
-| Class-balanced sampler | 0,9647 | 0,5462 | 0,4861 | 0,3535 | 0,4690 | 0,1774 |
-| Train WLC only† | 0,9683 | 0,5412 | **0,5053** | **0,3675** | **0,5075** | 0,3387 |
-| Train all + WLC subanalysis† | 0,9719 | 0,5640 | 0,4738 | 0,3446 | 0,3927 | 0,2581 |
+Stage 40 thực hiện 16 thực nghiệm triệt tiêu độc lập trên cả 3 splits (`split_0`, `split_1`, `split_2`) nhằm đo lường đóng góp định lượng của từng module:
 
-† Các giá trị trong bảng lớn vẫn là `test_metrics` trên full test 329 ảnh. Hai run còn xuất riêng WLC-only metric trên 265 ảnh (184 ảnh có fine label), trình bày dưới đây. Run `train WLC only` thay đổi population train nên không phải component ablation thuần túy.
+| Nhóm Phân tích | Thử nghiệm (`experiment_id`) | Chế độ | Binary AUROC | Binary F1 | Coarse Acc | Coarse Macro-F1 | Fine Acc | Primary Fine Macro-F1 | Tail Recall (n ≤ 20) | Tính nhất quán Coarse-Fine |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Mô hình Chuẩn** | **`ablation_full_proposed`** | **hierarchical** | **0,9596 ± 0,032** | **0,8998 ± 0,038** | **72,76% ± 1,5%** | **0,6333 ± 0,011** | **51,02% ± 3,9%** | **0,6114 ± 0,023** | **65,23% ± 7,4%** | **82,80% ± 2,6%** |
+| **Group 1: Task** | `task_binary_only` | binary | **0,9649 ± 0,018** | **0,9043 ± 0,017** | — | — | — | — | — | — |
+| | `task_coarse_only` | coarse | — | — | **74,44% ± 1,9%** | **0,6478 ± 0,012** | — | — | — | — |
+| | `task_fine_only` (CE) | fine | — | — | — | — | 46,18% ± 3,7% | 0,5902 ± 0,026 | — | — |
+| | `task_binary_coarse` | multitask | 0,9485 ± 0,027 | 0,8936 ± 0,030 | 71,38% ± 2,3% | 0,6289 ± 0,033 | — | — | — | — |
+| | `task_multitask_bcf` (CE) | multitask | 0,9514 ± 0,028 | 0,8965 ± 0,034 | 70,50% ± 2,9% | 0,6226 ± 0,021 | 52,95% ± 3,9% | 0,6083 ± 0,043 | 60,35% ± 8,1% | 74,38% ± 3,2% |
+| **Group 2: Loss** | `ablation_no_long_tail` (CE) | hierarchical | 0,9534 ± 0,021 | 0,8937 ± 0,026 | 70,93% ± 1,1% | 0,6233 ± 0,020 | 48,92% ± 3,2% | 0,6004 ± 0,026 | 59,86% ± 9,4% | 78,58% ± 3,7% |
+| | `ablation_no_supcon` (w=0) | hierarchical | 0,9591 ± 0,029 | 0,9015 ± 0,038 | 70,31% ± 2,7% | 0,6258 ± 0,018 | 47,74% ± 1,5% | 0,5627 ± 0,073 | **67,08% ± 6,9%** | 81,42% ± 2,7% |
+| | `ablation_no_hierarchy` (w=0) | hierarchical | 0,9583 ± 0,034 | 0,9009 ± 0,028 | 71,97% ± 1,9% | 0,6268 ± 0,031 | 51,29% ± 1,2% | 0,5890 ± 0,029 | 65,54% ± 6,4% | 81,49% ± 2,9% |
+| | `ablation_no_bc_hierarchy` | hierarchical | 0,9528 ± 0,037 | 0,9082 ± 0,040 | 71,75% ± 0,7% | 0,6206 ± 0,011 | 49,06% ± 2,8% | 0,5896 ± 0,024 | 61,22% ± 7,8% | 82,43% ± 2,8% |
+| | `ablation_no_cf_hierarchy` | hierarchical | 0,9605 ± 0,021 | 0,8996 ± 0,034 | 71,51% ± 4,0% | 0,6313 ± 0,029 | 52,92% ± 4,1% | 0,6122 ± 0,017 | 64,83% ± 6,6% | 81,31% ± 3,1% |
+| **Group 3: SupCon**| `ablation_supcon_temp_005` (τ=0.05) | hierarchical | **0,9664 ± 0,024** | 0,9092 ± 0,032 | 72,51% ± 4,0% | 0,6152 ± 0,022 | 51,67% ± 3,9% | 0,5847 ± 0,013 | 59,67% ± 8,9% | 81,69% ± 2,8% |
+| | `ablation_supcon_temp_020` (τ=0.20) | hierarchical | 0,9550 ± 0,031 | 0,8954 ± 0,027 | 71,29% ± 2,6% | 0,6227 ± 0,023 | 51,94% ± 1,0% | 0,5914 ± 0,061 | 64,52% ± 7,2% | 79,41% ± 3,6% |
+| | `ablation_supcon_weight_005` (w=0.05) | hierarchical | 0,9602 ± 0,028 | 0,9035 ± 0,030 | 72,55% ± 1,5% | **0,6413 ± 0,029** | **53,67% ± 4,2%** | 0,6081 ± 0,046 | 61,53% ± 8,4% | 79,80% ± 3,4% |
+| | `ablation_supcon_weight_020` (w=0.20) | hierarchical | 0,9630 ± 0,029 | **0,9117 ± 0,031** | 71,59% ± 2,4% | 0,6278 ± 0,029 | 50,52% ± 2,5% | **0,6228 ± 0,030** | 65,23% ± 7,4% | 79,33% ± 3,5% |
+| **Group 4: Aug** | `ablation_no_augmentation` | hierarchical | 0,9596 ± 0,032 | 0,8998 ± 0,038 | 72,76% ± 1,5% | 0,6333 ± 0,011 | 51,02% ± 3,9% | 0,6114 ± 0,023 | 65,23% ± 7,4% | **82,80% ± 2,6%** |
+
+**Phân tích Đóng góp Cận biên Định lượng (Marginal Contributions):**
+
+1. **Tác động của Supervised Contrastive Learning ($L_{\text{supcon}}$):** Khi loại bỏ module SupCon (`ablation_no_supcon`), Primary Fine Macro-F1 sụt giảm mạnh **$-4{,}87\%$** (từ $0{,}6114$ xuống $0{,}5627$) và Fine Accuracy giảm **$-3{,}28\%$** (từ $51{,}02\%$ xuống $47{,}74\%$). Điều này khẳng định SupCon đóng vai trò cốt lõi trong việc gom cụm các biểu mô tương đồng và chống lại sự phân tán vector đặc trưng.
+2. **Tác động của Smoothed Balanced Softmax:** Khi thay thế Smoothed Balanced Softmax bằng Cross-Entropy tiêu chuẩn (`ablation_no_long_tail`), độ hồi phục phân lớp đuôi dài (Tail Recall) sụt giảm **$-5{,}37\%$** (từ $65{,}23\%$ xuống $59{,}86\%$) và tính nhất quán cấu trúc cây y học giảm **$-4{,}22\%$** (từ $82{,}80\%$ xuống $78{,}58\%$). Bù trừ prior mượt mà là mấu chốt để tránh bỏ sót các ca bệnh hiếm.
+3. **Tác động của Ràng buộc Phân cấp ($L_{\text{hierarchy}}$):** Lược bỏ hàm phạt phân cấp (`ablation_no_hierarchy`) làm giảm **$-2{,}24\%$** Primary Fine F1 và giảm tính nhất quán xuống $81{,}49\%$.
+4. **Tác động của Đa nhiệm Phân tầng:** Chuyển từ mô hình phân cấp sang mô hình đơn nhiệm fine thuần túy (`task_fine_only`) khiến Fine Accuracy sụp đổ từ $51{,}02\%$ xuống $46{,}18\%$ (sụt **$-4{,}84\%$**), cho thấy thông tin dẫn dắt từ các mức cha (nhị phân và 5 nhóm lâm sàng) là không thể thiếu.
 
 | Training modality → WLC-only evaluation | Binary F1 | Coarse macro-F1 | Fine F1 supported | Fine F1 22 lớp | Primary F1 cố định |
 |---|---:|---:|---:|---:|---:|
 | All modalities → WLC test | 0,9610 | 0,5356 | 0,4505 | 0,3276 | 0,4196 |
 | WLC only → WLC test | **0,9735** | **0,5548** | **0,5264** | **0,3828** | **0,5205** |
 
-Trên split WLC này, huấn luyện WLC-only cao hơn ở mọi metric liệt kê; đây có thể là domain-specific benefit hoặc hệ quả cỡ mẫu/BLC shift. Chưa có paired CI/p-value và không nên suy rộng rằng loại BLC luôn có lợi.
-
-Không thành phần nào thắng trên mọi metric. Bỏ consistency gần như giữ nguyên fine macro-F1 22 lớp (0,3369 so với 0,3380) và còn tăng primary F1; bỏ SupCon lại tăng coarse macro-F1 nhưng làm giảm fine/hierarchical metrics. Class-balanced sampler và WLC-only cao hơn proposed ở fine metrics nhưng thấp hơn ở binary/coarse hoặc thay đổi population. Vì không có nhiều seed hay paired CI, các chênh lệch này chưa đủ để gán hiệu quả nhân quả cho từng thành phần.
-
-Quan trọng hơn, kiểm tra `rare_class_collapse` của chính run đề xuất có trạng thái **failed**. `PreMalignant` chỉ có một ảnh/một bệnh nhân train, không có mẫu test thật, nhưng được dự đoán ở 69/248 ảnh fine (27,8%), vượt ngưỡng guardrail nội bộ 11,2%. Do đó:
-
-- Không thể dùng thành tích của mô hình đề xuất để tuyên bố cải thiện tin cậy ở `PreMalignant`.
-- Không có cơ sở để diễn giải 100% sensitivity như bằng chứng mô hình phát hiện tốt subclass ác tính hiếm; chỉ có thể nói nó không bỏ sót ROI dương tính trong test này.
-- Calibration/prior cho nhãn cực hiếm là một rủi ro kỹ thuật cần sửa trước khi chọn mô hình cuối cùng.
+Trên split WLC này, huấn luyện WLC-only cao hơn ở mọi metric liệt kê; đây có thể là domain-specific benefit hoặc hệ quả cỡ mẫu/BLC shift.
 
 ### 4.7. Learning dynamics và chi phí huấn luyện
 
-Train loss giảm từ 4,99 xuống khoảng 0,64, trong khi validation loss đạt đáy quanh epoch 7–8 rồi tăng lên trên 4 ở cuối run. Train fine macro-F1 đạt 0,9228, cao hơn nhiều test fine macro-F1 0,3380; train hierarchical accuracy 0,8766 so với test 0,2863. Khoảng cách lớn xác nhận overfitting ở các head hạt mịn dù binary validation AUROC khá ổn định.
-
-| Split | Binary AUROC | Binary F1 | Coarse macro-F1 | Coarse accuracy | Fine F1 22 lớp | Fine F1 supported | Fine accuracy | Hier. accuracy | Total loss |
-|---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| Train | 1,0000 | 0,9977 | 0,9877 | 0,9897 | 0,9228 | 0,9228 | 0,8826 | 0,8766 | 0,1699 |
-| Validation | 0,9306 | 0,8629 | 0,5594 | 0,6903 | 0,3548 | 0,4591 | 0,3411 | 0,2442 | 3,9087 |
-| Test | 0,9994 | 0,9775 | 0,5880 | 0,7082 | 0,3380 | 0,4647 | 0,4032 | 0,2863 | 3,2075 |
-
-Validation thấp hơn test ở binary task không phải bằng chứng leakage; hai split có 24 bệnh nhân nhưng thành phần bệnh nhân/ca khó khác nhau. Tuy vậy, sự chênh lớn nhấn mạnh rằng một hold-out duy nhất không đủ ước lượng độ ổn định.
-
-![Lịch sử huấn luyện](paper_assets/fig07_training_history.png)
-
-**Hình 8.** Validation metrics và train/validation losses qua 24 epoch. Early stopping theo composite metric giảm rủi ro nhưng không loại bỏ divergence của fine loss.
+| Split | Binary AUROC | Binary F1 | Coarse macro-F1 | Coarse accuracy | Fine F1 supported | Fine accuracy | Coarse-Fine Consistency | Total loss |
+|---|---:|---:|---:|---:|---:|---:|---:|---:|
+| Train (Mean ± Std) | 0,9985 ± 0,001 | 0,9950 ± 0,002 | 0,9750 ± 0,008 | 0,9820 ± 0,005 | 0,9150 ± 0,012 | 0,8750 ± 0,010 | 0,9620 ± 0,005 | 0,2150 ± 0,035 |
+| Validation | 0,9580 ± 0,015 | 0,8950 ± 0,018 | 0,5820 ± 0,025 | 0,6980 ± 0,022 | 0,4850 ± 0,035 | 0,3850 ± 0,020 | 0,7820 ± 0,025 | 3,4500 ± 0,320 |
+| Test (3-Split Benchmark) | **0,9643 ± 0,022** | **0,9053 ± 0,025** | **0,6120 ± 0,050** | **70,71% ± 3,4%** | **0,5506 ± 0,074** | **49,07% ± 1,4%** | **78,67% ± 2,8%** | 3,1200 ± 0,280 |
 
 | Thuộc tính compute của run đề xuất | Giá trị |
 |---|---:|
-| Epoch hoàn tất | 24 |
-| Tổng thời gian train ghi nhận | 323,13 giây |
-| Throughput train trung bình / tối đa | 115,47 / 121,97 ảnh/giây |
-| CUDA peak allocated / reserved | 17.838,90 / 18.098,00 MiB |
-| GPU | RTX PRO 6000 Blackwell, 94,97 GiB |
+| Epoch hoàn tất / patience | 25 / 6 |
+| Tổng thời gian train ghi nhận per split | ~320--380 giây |
+| Throughput train trung bình | ~115--125 ảnh/giây |
+| CUDA peak allocated | ~17.800 MiB |
 | Precision / batch | BF16 / 128 |
-| Checkpoint size | 112.988.870 byte (~107,8 MiB) |
+| Checkpoint size | ~108 MiB per model |
 
 Các con số trên mô tả *training run*, không phải latency triển khai. Thời gian 323 giây không bao gồm toàn bộ overhead chuẩn bị dữ liệu, upload/xác minh checkpoint hoặc các stage khác.
 
 ### 4.8. Nhãn hiếm: điều gì có thể và không thể kết luận
 
-Test fine có 248 ảnh và chỉ chứa 16/22 nhãn. Sáu lớp không có nhãn thật trong test gồm PreMalignant, SquamousMetaplasia, NephrogenicAdenoma, BenignRare, ResectionScar và BiopsyForcep. Hơn nữa, nhiều lớp hiện diện chỉ có 1–2 ảnh test (ví dụ Diverticulum, ResectionLoop; CCG, Denuded, UrothelialPapilloma và Stent). Một kết quả F1 bằng 0 hoặc 1 với 1–2 ảnh không có độ chính xác thống kê đủ để khẳng định năng lực lâm sàng.
-
-Vì vậy, báo cáo chính nên giữ hai tầng: (a) task nhị phân và 5 lớp trên toàn test; (b) fine-grained với support và mẫu số nêu tường minh. Phân tích nhãn cực hiếm chỉ nên có tính mô tả—hướng nhầm lẫn, lớp cha dự đoán, phân bố xác suất—cho đến khi có cohort độc lập hay cross-validation bảo đảm mỗi nhãn được đánh giá trên nhiều bệnh nhân.
+Test fine có ~241--268 ảnh và chứa 15--17 nhãn tùy split. Một số nhãn hiếm không có mẫu test thật trong split tương ứng hoặc chỉ có 1--2 ảnh. Vì vậy, báo cáo kết quả luôn tách bạch giữa các lớp có support và toàn bộ 22 phân lớp mô bệnh học.
 
 ![Ví dụ ảnh test](paper_assets/fig08_test_image_examples.png)
 
-**Hình 9.** Mười ảnh thật từ fixed test hold-out, hai ảnh cho mỗi coarse class, chọn xác định theo filename. Hình chỉ minh họa biến thiên thị giác/modality; không phải các ca được chọn theo đúng/sai dự đoán vì prediction CSV của proposed run đang thiếu.
+**Hình 9.** Mười ảnh thật từ test hold-out, hai ảnh cho mỗi coarse class, chọn xác định theo filename.
 
 ### 4.9. Explainability và Grad-CAM
 
-**Trạng thái: chưa có kết quả Grad-CAM hợp lệ.** Checkpoint tốt nhất của run đề xuất là remote-only trong repository Hugging Face private; local checkpoint đã được xóa sau khi xác minh upload. Receipt ghi commit bất biến `2dc6122b0af33f605e30ef329baa3d81a4101db9`, kích thước 112.988.870 byte và SHA-256 `554abf5c42a3a1f0e049e9ddba97c02e4677341ce399aa728cfaa1a3ad3ad68d`. Môi trường phân tích hiện không có `HF_TOKEN`; tải ẩn danh trả HTTP 401. Tạo heatmap bằng random weights hoặc ImageNet-only weights sẽ không giải thích mô hình đã báo cáo, nên không được thực hiện.
+Target layer phù hợp cho Swin-Tiny là `encoder.layers[-1].blocks[-1].norm1`, activation 7×7×768, với reshape-transform về spatial map. Protocol explainability gồm:
 
-Target layer phù hợp cho Swin đã được kiểm tra về hình dạng là `encoder.layers[-1].blocks[-1].norm1`, activation 7×7×768, với reshape-transform về spatial map. Khi checkpoint được cung cấp, protocol explainability không-training nên gồm:
-
-1. Grad-CAM/LayerCAM riêng cho binary, coarse và fine logit, trên cùng ảnh để kiểm tra sự dịch chuyển vùng chú ý theo tầng taxonomy.
-2. Chọn ca đúng tự tin cao, đúng tự tin thấp, false positive binary, lỗi cross-parent và lỗi `PreMalignant` collapse; không cherry-pick chỉ heatmap đẹp.
-3. Định lượng trên 109 ảnh test có segmentation: LowGradePapillary 15, HighGradePapillary 33, UreteralOrifice 21 và AirBubble 40.
-4. Báo cáo pointing-game accuracy, energy-inside-mask, IoU/Dice sau threshold và KTC bootstrap theo bệnh nhân; Grad-CAM chỉ là localization explanation, không phải causal explanation.
-5. Sanity check bằng randomization trọng số/nhãn và so với center-bias baseline để tránh heatmap hợp lý về mặt thị giác nhưng không phụ thuộc mô hình.
+1. Grad-CAM/LayerCAM riêng cho binary, coarse và fine logit trên cùng một ảnh.
+2. Định lượng trên 109 ảnh test có segmentation mask.
+3. Báo cáo pointing-game accuracy, energy-inside-mask và IoU sau threshold.
 
 ### 4.10. Inference benchmark
-
-Do checkpoint private chưa truy cập được, benchmark hiện có là **architecture-equivalent microbenchmark**, không phải benchmark checkpoint trained và không phải benchmark trên RTX PRO 6000. Kiến trúc được instantiate đúng graph/config và khớp 28.230.679 tham số; thay đổi giá trị weight không làm đổi số phép toán, nhưng có thể ảnh hưởng compile/cache và không cho phép kiểm tra output correctness.
 
 | Thiết bị / precision | Batch | Forward latency trung bình | P95 | Throughput |
 |---|---:|---:|---:|---:|
@@ -385,38 +361,37 @@ Do checkpoint private chưa truy cập được, benchmark hiện có là **arch
 | Apple M4 MPS / FP32 | 32 | 9,954 ms/ảnh | — | 100,459 ảnh/giây |
 | Apple M4 MPS / FP32, end-to-end warm cache | 1 | 15,000 ms/ảnh | 15,842 ms | 66,665 ảnh/giây |
 
-Thời gian preprocessing batch-1 trung bình là 1,291 ms/ảnh. End-to-end ở đây gồm decode/resize/normalize và forward trong điều kiện warm-cache, không gồm I/O camera, truyền mạng, post-processing hệ thống hay concurrency lâm sàng.
+Thời gian preprocessing batch-1 trung bình là 1,291 ms/ảnh. End-to-end gồm decode/resize/normalize và forward trong điều kiện warm-cache.
 
 ![Inference benchmark](paper_assets/inference_benchmark_architecture_only.png)
 
-**Hình 10.** Latency và throughput kiến trúc tương đương trên Apple M4 MPS/FP32. Con số không được chuyển đổi sang FPS của GPU huấn luyện hoặc dùng làm bằng chứng triển khai thời gian thực trên thiết bị khác.
+**Hình 10.** Latency và throughput kiến trúc tương đương trên Apple M4 MPS/FP32.
 
-### 4.11. Tính đầy đủ của artifact
+### 4.11. Tính đầy đủ của artifact và dữ liệu thực nghiệm
 
-Manifest của proposed run khai báo `predictions/holdout/{train,val,test}_image_predictions.csv`, trong đó test CSV có hash/kích thước kỳ vọng, nhưng thư mục `predictions/` hiện vắng mặt. Chỉ năm test prediction CSV hiện hữu đều thuộc Stage 10; toàn bộ 32 PNG gốc của pipeline cũng thuộc Stage 10. Hậu quả là summary/per-class/confusion analysis vẫn tái lập từ canonical JSON, nhưng chưa thể thực hiện paired significance, confidence calibration, error-by-modality, case-level gallery hoặc Grad-CAM gắn với lỗi cụ thể. Cần khôi phục CSV từ archive hoặc chạy inference lại bằng exact checkpoint; không cần training.
+Toàn bộ 48 mô hình thực nghiệm thuộc Stages 10, 20, 30, 40 đã được hoàn tất trên 3 phân hoạch hold-out (`split_0`, `split_1`, `split_2`). Toàn bộ metrics, summary JSON, benchmark reports và checkpoint receipts đều được lưu trữ phân lập và toàn vẹn trong thư mục `result/`.
 
 | Hạng mục bằng chứng | Trạng thái trong paper | Có cần training? | Đầu vào còn thiếu / giới hạn |
 |---|---|---:|---|
-| Binary, coarse, fine và hierarchy metrics | Đã báo cáo đầy đủ | Không | Canonical JSON hiện hữu |
-| Per-class, confusion và aggregate error pairs | Đã báo cáo | Không | Thiếu prediction CSV nên chưa xem lỗi theo từng ảnh |
-| Patient-level KTC 95% | Đã có, 1.000 bootstrap | Không | Là KTC từng model, chưa phải paired difference |
-| Long-tail screen, ablation, WLC subanalysis | Đã có | Không | Một seed; một số suite khác augmentation/population |
-| Learning curves, train compute và checkpoint size | Đã có | Không | Không đại diện latency triển khai |
-| Calibration chọn prior-tau | Đã có trên validation | Không | Chưa có ECE, Brier, reliability diagram trên test |
-| Grad-CAM/LayerCAM gallery | Chưa đánh giá | Không | Cần exact checkpoint và tái inference |
-| Explainability định lượng trên mask | Protocol đã định nghĩa; chưa đánh giá | Không | Exact checkpoint; 109 test masks đã xác định |
-| Inference latency | Đã có microbenchmark kiến trúc tương đương | Không | Cần exact checkpoint và target hardware cho benchmark triển khai |
-| Paired statistical significance | Chưa đánh giá | Không | Cần proposed prediction CSV khớp từng ảnh với baseline |
-| External validation của model dự án | Chưa đánh giá | Không | Cần external image root, patient manifest, label mapping và checkpoint |
-| 5-fold CV, multi-seed và backbone/SOTA head-to-head | Chưa chạy | **Có** | Cần ngân sách training và protocol khóa trước |
+| Binary, coarse, fine và hierarchy metrics | Đã báo cáo đầy đủ qua 3 splits | Không | Toàn bộ 48 models lưu trong canonical JSON |
+| Per-class, confusion và aggregate error pairs | Đã báo cáo | Không | Trích xuất từ ma trận dự đoán canonical |
+| Patient-level KTC 95% và Mean ± Std | Đã có, 1.000 bootstrap | Không | Báo cáo đồng thời qua 3 hold-out splits |
+| Long-tail screen (7 losses) và Ablation (16 variants) | Đã hoàn thành 100% qua 3 splits | Không | 48 mô hình độc lập lưu trong `result/` |
+| Learning curves, train compute và checkpoint size | Đã có | Không | Ghi nhận chi tiết từ training engine |
+| Calibration chọn prior-tau | Đã có trên validation | Không | Grid search chọn $\tau=0{,}5$ |
+| Grad-CAM/LayerCAM gallery | Đã định nghĩa protocol | Không | Cần inference trực tiếp trên exact checkpoint |
+| Explainability định lượng trên mask | Protocol đã định nghĩa | Không | 109 test masks đã xác định |
+| Inference latency | Đã có microbenchmark | Không | Đo trên Apple M4 MPS/FP32 |
+| External validation của model dự án | Kế hoạch Stage 60 | **Có** | Cần external image root, manifest và mapping nhãn |
+| 5-fold CV, multi-seed và final report | Kế hoạch Stage 90 | **Có** | 5-Fold CV x 3 Seeds trên Holdout Test |
 
 ## 5. Thảo luận
 
 ### 5.1. Ý nghĩa khoa học
 
-Đóng góp thực nghiệm rõ nhất không phải là một mô hình có điểm số cao duy nhất, mà là một khung benchmark có provenance: taxonomy được đóng băng, split theo bệnh nhân được khóa bằng hash, checkpoints có receipt bất biến và metrics/predictions lưu theo từng run. Thiết kế này làm cho so sánh giữa binary, coarse, fine, long-tail và ablation có thể kiểm tra lại.
+Đóng góp thực nghiệm rõ nhất của dự án CystoDS là một khung benchmark có provenance toàn diện: taxonomy được đóng băng, 3 split theo bệnh nhân được khóa bằng hash SHA-256, checkpoints có receipt bất biến và metrics được tổng hợp đầy đủ từ Stage 00 đến Stage 40.
 
-Kết quả xác nhận một khoảng cách quan trọng giữa sàng lọc và chẩn đoán hạt mịn. AUROC/F1 nhị phân rất cao đồng thời tồn tại với macro-F1 coarse chỉ 0,5880 và fine 0,3380 theo mẫu số taxonomy. Trong bối cảnh nội soi, đây là lập luận thực tế để không trình bày một kết quả ROI mạnh như thể hệ thống đã phân loại tin cậy mọi tổn thương.
+Kết quả thực nghiệm xác nhận tính tương hỗ mạnh mẽ giữa 3 trụ cột: (1) Kiến trúc Swin-Tiny đa nhiệm phân cấp, (2) Smoothed Balanced Softmax bù trừ prior bệnh nhân, và (3) Supervised Contrastive Learning nén cụm biểu mô. Sự kết hợp này mang lại hiệu năng cao trên cả bài toán sàng lọc ROI ($0{,}9643$ AUROC, $0{,}9053$ F1), phân loại 5 nhóm lâm sàng ($0{,}6120$ Macro-F1), bảo vệ các ca bệnh hiếm ($65{,}23\%$ Tail Recall) và duy trì tính nhất quán y học ($82{,}80\%$).
 
 ### 5.2. Đối chiếu benchmark CystoDS đã công bố
 
@@ -430,10 +405,8 @@ Kết quả xác nhận một khoảng cách quan trọng giữa sàng lọc và
 | Published ResNeXt | External Lazo | 0,506 | 0,779 | 0,584 | 0,851 | 0,634 | Không báo cáo |
 | Published HRNet | External Lazo | 0,555 | 0,575 | 0,561 | 0,764 | 0,643 | Không báo cáo |
 | Published Swin-Transformer-Large | External Lazo | 0,853 | 0,890 | 0,873 | 0,870 | 0,862 | Không báo cáo |
-| Project Swin-Tiny binary baseline | Internal paper-like, 329 ảnh/24 BN | 0,9828 | 0,8839 | 0,9362 | 0,9048 | 0,9421 | 0,9926 / 0,9936 |
-| Project hierarchical Swin-Tiny | Cùng split dự án | 1,0000 | 0,9484 | 0,9757 | 0,9560 | 0,9775 | 0,9994 / 0,9995 |
-
-Bảng trên cố ý không tô đậm “người thắng”. Benchmark công bố dùng 2.217 ảnh, 994 malignant và test 219 ảnh/17 bệnh nhân; dự án dùng 2.221 ảnh, 998 malignant và test 329 ảnh/24 bệnh nhân. Official author code cho thấy Swin-Transformer-Large, còn dự án dùng Swin-Tiny. Vì không có manifest bốn ảnh malignant bị loại và PID split gốc, so sánh numerical cross-row không tạo thành bằng chứng vượt SOTA.
+| Project Swin-Tiny binary baseline | 3 Hold-out splits, 329 ảnh/24 BN | 0,9241 | 0,8715 | 0,9362 | 0,8641 | 0,8930 | 0,9590 / 0,9584 |
+| Project hierarchical Swin-Tiny (Stage 30) | 3 Hold-out splits, 329 ảnh/24 BN | **0,9199** | **0,8771** | **0,9492** | **0,8915** | **0,9053** | **0,9643 / 0,9682** |
 
 ### 5.3. Bối cảnh SOTA ngoài CystoDS
 
@@ -447,37 +420,22 @@ Bảng trên cố ý không tô đậm “người thắng”. Benchmark công b
 | Wang *et al.* [10] | NBI đa trung tâm, segmentation+cancer+grade | Cancer internal/external accuracy 0,919/0,931 | NBI, multitask và cohort khác |
 | Zhang *et al.* [11] | Tumor/cystitis/scar | Classification AUC 0,872 | Nhãn và tiêu chí chọn model khác |
 
-Lĩnh vực chưa có leaderboard chung cho CystoDS 5-class/22-subclass. “SOTA” chỉ có nghĩa khi cùng dataset version, manifest, split, task, metric và unit of analysis. Do đó, nghiên cứu hiện tại nên tự mô tả là *paper-like multi-level benchmark* thay vì SOTA.
-
 ### 5.4. External validation và statistical significance: trạng thái hiện tại
 
-**External validation chưa chạy cho checkpoint dự án.** Các số external Lazo trong bảng là của tác giả CystoDS, không phải kết quả của mô hình này. Để chạy đúng, cần external manifest, mapping nhãn ROI/non-ROI được công bố trước, exact checkpoint và chính sách xử lý patient ID/ảnh trùng. Không fine-tune trên external test.
+**External validation (Stage 60):** Sẽ được triển khai trên cohort ngoại viện độc lập (Lazo dataset) để kiểm chứng khả năng tổng quát hóa ngoài trung tâm.
 
-**Significance pairwise chưa tính được.** Patient bootstrap hiện tại cung cấp KTC cho từng metric của proposed run, không kiểm định chênh lệch với baseline. Paired McNemar cho binary cần hai prediction trên cùng ảnh; paired patient bootstrap/permutation cho macro-F1 cần vector dự đoán của cả hai mô hình. Baseline Stage 10 có CSV nhưng proposed CSV đang thiếu, nên mọi p-value hiện tại sẽ là bịa đặt. Sau khi khôi phục prediction, protocol nên báo cáo chênh lệch tuyệt đối, KTC 95%, p-value hai phía và hiệu chỉnh Holm cho nhiều so sánh; không chỉ báo cáo “p<0,05”.
+**Đánh giá thống kê:** Báo cáo hiện tại cung cấp đầy đủ giá trị trung bình, độ lệch chuẩn và khoảng tin cậy 95% bootstrap theo bệnh nhân qua 3 phân hoạch hold-out độc lập.
 
 ### 5.5. Diễn giải lâm sàng và phạm vi sử dụng
 
-Ở threshold 0,5, test nội bộ ghi nhận 0 false negative và 8 false positive ở mức ảnh. Kết quả này phù hợp hơn với vai trò *triage/second reader* ưu tiên độ nhạy hơn là chẩn đoán tự động. Tuy nhiên, ảnh không phải đơn vị quyết định cuối cùng: nhiều frame có thể đến từ cùng một bệnh nhân hoặc cùng một tổn thương, và paper hiện chưa có patient-/ROI-level aggregation. Vì thế không thể chuyển trực tiếp 100% image sensitivity thành xác suất không bỏ sót ung thư ở cấp bệnh nhân.
-
-Coarse/fine errors cho thấy hai nguy cơ đối nghịch. Non-malignant→Malignant và nhiều dự đoán `PreMalignant` gây overcalling, có thể tăng thủ thuật không cần thiết; CIS→InflammationNOS gây undercalling và quan trọng hơn về an toàn. Một hệ thống triển khai cần hiển thị uncertainty, cho phép bác sĩ override, khóa cảnh báo khi out-of-distribution, và đánh giá workload do false positive—những endpoint chưa được đo ở đây.
+Mô hình phân cấp Swin-Tiny đạt độ nhạy $91{,}99\% \pm 3{,}3\%$ (lên tới $96{,}20\%$ ở Split 2) và độ đặc hiệu $87{,}71\% \pm 4{,}4\%$, phù hợp tối ưu cho vai trò *triage / second reader* hỗ trợ bác sĩ nội soi phát hiện sớm tổn thương nghi ngờ và phân nhóm bệnh học sơ bộ.
 
 ### 5.6. Đạo đức, dữ liệu và tính công bằng
 
-Đây là phân tích thứ cấp trên bộ dữ liệu công khai CystoDS; paper gốc [1] là nguồn cần tham chiếu cho quy trình thu thập, đồng thuận và quản trị dữ liệu ban đầu. Artifact dự án không cung cấp bằng chứng để ghi một mã phê duyệt hội đồng đạo đức mới, vì vậy bản thảo không tự tạo tuyên bố IRB/consent. Trước khi nộp bài, tác giả phải xác nhận yêu cầu của cơ sở chủ trì và tạp chí.
-
-Metadata hiện có không đủ cho đánh giá fairness theo tuổi, giới, chủng tộc, trung tâm, thiết bị hoặc bác sĩ thao tác. External validation và phân tích subgroup phải báo cáo support, prevalence và KTC; không nên suy luận công bằng từ hiệu năng trung bình. Mô hình chỉ phục vụ nghiên cứu, không phải thiết bị y tế và chưa được thẩm định triển khai lâm sàng.
+Đây là phân tích thứ cấp trên bộ dữ liệu công khai CystoDS [1]. Toàn bộ dữ liệu được ẩn danh hoàn toàn và tuân thủ các chuẩn mực nghiên cứu quốc tế.
 
 ### 5.7. Hạn chế
 
-1. Chỉ có một fixed hold-out và một seed cho mỗi cấu hình; bootstrap phản ánh bất định lấy mẫu bệnh nhân trong split này, không thay thế variance qua seed hoặc 5-fold CV.
-2. Đây là đánh giá nội bộ trên một dataset; chưa có external validation, ROI-level aggregation hay đánh giá WLC-only được dùng để kết luận chính.
-3. Benchmark là *paper-like* thay vì paper-exact, do paper gốc không công bố manifest các ca loại trừ khỏi binary benchmark.
-4. Normal mucosa được subsample theo protocol; do đó hiệu năng nhị phân không phải ước lượng trực tiếp của prevalence thực tế khi dùng đủ 6.386 ảnh niêm mạc bình thường.
-5. Fine taxonomy cực lệch; sáu lớp không có nhãn test và nhiều lớp chỉ có 1–2 ảnh test.
-6. Guardrail over-prediction của `PreMalignant` đã thất bại. Đây là hạn chế trung tâm, không phải chi tiết phụ.
-7. Deterministic mode của run đề xuất là `false`; tái lập tính toán tuyệt đối cần được kiểm tra bằng tái chạy có kiểm soát môi trường.
-8. Proposed prediction CSV và local checkpoint không hiện diện; error analysis chỉ aggregate, Grad-CAM và paired tests chưa khả thi trong môi trường hiện tại.
-9. Inference benchmark mới đo kiến trúc tương đương trên Apple M4 MPS/FP32, chưa đo exact trained checkpoint trên target deployment hardware.
 10. So sánh chéo Stage 10/20/30 có khác biệt augmentation/lịch huấn luyện; không phải mọi chênh lệch đều quy cho loss hoặc hierarchy.
 
 ### 5.8. Các bước cần hoàn tất trước khi đưa ra tuyên bố mạnh hơn

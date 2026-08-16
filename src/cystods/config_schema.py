@@ -98,6 +98,9 @@ BASE_CONFIG: dict[str, Any] = {
     "task_mode": "hierarchical",
     "dropout": 0.20,
     "projection_dim": 128,
+    "partial_finetune": False,
+    "freeze_early_layers": False,
+    "frozen_stages_count": 2,
     # Objective weights
     "binary_loss_weight": 1.0,
     "coarse_loss_weight": 1.0,

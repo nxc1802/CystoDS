@@ -417,6 +417,9 @@ def flatten_to_core_config(config: dict, stage: str | None = None) -> dict:
     flat["task_mode"] = model.get("task_mode", "hierarchical")
     flat["dropout"] = model.get("dropout", 0.20)
     flat["projection_dim"] = model.get("projection_dim", 128)
+    flat["partial_finetune"] = model.get("partial_finetune", False)
+    flat["freeze_early_layers"] = model.get("freeze_early_layers", False)
+    flat["frozen_stages_count"] = model.get("frozen_stages_count", 2)
 
     # Training
     flat["epochs"] = training.get("epochs", 25)
@@ -883,6 +886,9 @@ PROPOSED_CANONICAL_CONFIG: dict[str, Any] = {
     "pretrained": True,
     "dropout": 0.20,
     "projection_dim": 128,
+    "partial_finetune": False,
+    "freeze_early_layers": False,
+    "frozen_stages_count": 2,
     "task_mode": "hierarchical",
     "binary_loss_weight": 1.0,
     "coarse_loss_weight": 1.0,

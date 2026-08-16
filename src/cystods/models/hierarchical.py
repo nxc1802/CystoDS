@@ -94,6 +94,115 @@ class HierarchicalCystoModel(nn.Module):
             else None
         )
 
+        # Check if partial finetuning / layer freezing is requested
+        self.partial_finetune = bool(
+            config.get("partial_finetune") or config.get("freeze_early_layers", False)
+        )
+        self.frozen_stages_count = int(config.get("frozen_stages_count", 2))
+        if self.partial_finetune:
+            self.freeze_early_layers(stages_to_freeze=self.frozen_stages_count)
+
+    def freeze_early_layers(self, stages_to_freeze: int = 2) -> dict[str, Any]:
+        """Freeze Patch Embedding + Stage 1 + Stage 2 (or equivalent early stages).
+
+        Only Stage 3, Stage 4 and classification/projection heads remain trainable.
+        """
+        frozen_modules: list[str] = []
+        # Swin Transformer
+        if hasattr(self.encoder, "patch_embed") and hasattr(self.encoder, "layers"):
+            for param in self.encoder.patch_embed.parameters():
+                param.requires_grad = False
+            frozen_modules.append("patch_embed")
+            for idx in range(min(stages_to_freeze, len(self.encoder.layers))):
+                for param in self.encoder.layers[idx].parameters():
+                    param.requires_grad = False
+                frozen_modules.append(f"layers[{idx}]")
+            for idx in range(stages_to_freeze, len(self.encoder.layers)):
+                for param in self.encoder.layers[idx].parameters():
+                    param.requires_grad = True
+            if hasattr(self.encoder, "norm") and self.encoder.norm is not None:
+                for param in self.encoder.norm.parameters():
+                    param.requires_grad = True
+        # ResNet / ResNeXt
+        elif hasattr(self.encoder, "conv1") and hasattr(self.encoder, "layer1"):
+            for attr in ("conv1", "bn1"):
+                if hasattr(self.encoder, attr) and getattr(self.encoder, attr) is not None:
+                    for param in getattr(self.encoder, attr).parameters():
+                        param.requires_grad = False
+                    frozen_modules.append(attr)
+            for idx in range(1, stages_to_freeze + 1):
+                layer_name = f"layer{idx}"
+                if hasattr(self.encoder, layer_name) and getattr(self.encoder, layer_name) is not None:
+                    for param in getattr(self.encoder, layer_name).parameters():
+                        param.requires_grad = False
+                    frozen_modules.append(layer_name)
+            for idx in range(stages_to_freeze + 1, 5):
+                layer_name = f"layer{idx}"
+                if hasattr(self.encoder, layer_name) and getattr(self.encoder, layer_name) is not None:
+                    for param in getattr(self.encoder, layer_name).parameters():
+                        param.requires_grad = True
+        # ConvNeXt
+        elif hasattr(self.encoder, "stem") and hasattr(self.encoder, "stages"):
+            for param in self.encoder.stem.parameters():
+                param.requires_grad = False
+            frozen_modules.append("stem")
+            for idx in range(min(stages_to_freeze, len(self.encoder.stages))):
+                for param in self.encoder.stages[idx].parameters():
+                    param.requires_grad = False
+                frozen_modules.append(f"stages[{idx}]")
+            for idx in range(stages_to_freeze, len(self.encoder.stages)):
+                for param in self.encoder.stages[idx].parameters():
+                    param.requires_grad = True
+            if hasattr(self.encoder, "norm_pre") and self.encoder.norm_pre is not None:
+                for param in self.encoder.norm_pre.parameters():
+                    param.requires_grad = True
+            if hasattr(self.encoder, "head") and self.encoder.head is not None:
+                for param in self.encoder.head.parameters():
+                    param.requires_grad = True
+        else:
+            # Generic fallback: freeze first half of encoder named children
+            children = list(self.encoder.named_children())
+            num_freeze = max(1, min(stages_to_freeze, len(children) // 2))
+            for name, child in children[:num_freeze]:
+                for param in child.parameters():
+                    param.requires_grad = False
+                frozen_modules.append(name)
+            for name, child in children[num_freeze:]:
+                for param in child.parameters():
+                    param.requires_grad = True
+
+        # Always ensure classification and projection heads are trainable
+        for head in (self.binary_head, self.coarse_head, self.fine_head, self.projection_head):
+            if head is not None:
+                for param in head.parameters():
+                    param.requires_grad = True
+
+        total_params = sum(p.numel() for p in self.parameters())
+        trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
+        frozen_params = total_params - trainable_params
+
+        return {
+            "partial_finetune": True,
+            "frozen_modules": frozen_modules,
+            "total_params": total_params,
+            "trainable_params": trainable_params,
+            "frozen_params": frozen_params,
+            "trainable_percentage": (trainable_params / total_params * 100) if total_params else 0.0,
+        }
+
+    def get_parameter_summary(self) -> dict[str, Any]:
+        """Return parameter counts breakdown."""
+        total_params = sum(p.numel() for p in self.parameters())
+        trainable_params = sum(p.numel() for p in self.parameters() if p.requires_grad)
+        frozen_params = total_params - trainable_params
+        return {
+            "total_params": total_params,
+            "trainable_params": trainable_params,
+            "frozen_params": frozen_params,
+            "trainable_percentage": (trainable_params / total_params * 100) if total_params else 0.0,
+            "partial_finetune": getattr(self, "partial_finetune", False),
+        }
+
     def encode(self, images: torch.Tensor) -> torch.Tensor:
         features = self.encoder(images)
         if isinstance(features, (tuple, list)):

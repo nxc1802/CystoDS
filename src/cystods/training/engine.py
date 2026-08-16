@@ -323,6 +323,21 @@ def train_model(
     )
     if fine_loss_fn is not None:
         write_json(fold_dir / "fine_prior_audit.json", fine_loss_fn.prior_audit())
+
+    summary = model.get_parameter_summary() if hasattr(model, "get_parameter_summary") else {}
+    total_params = summary.get("total_params", sum(p.numel() for p in model.parameters()))
+    trainable_params = summary.get("trainable_params", sum(p.numel() for p in model.parameters() if p.requires_grad))
+    frozen_params = summary.get("frozen_params", total_params - trainable_params)
+    logger.info(
+        "Model parameter breakdown: total=%d, trainable=%d (%.2f%%), frozen=%d (%.2f%%), partial_finetune=%s",
+        total_params,
+        trainable_params,
+        summary.get("trainable_percentage", (trainable_params / total_params * 100) if total_params else 0.0),
+        frozen_params,
+        (frozen_params / total_params * 100) if total_params else 0.0,
+        summary.get("partial_finetune", False),
+    )
+
     optimizer = build_optimizer(model, config, device)
     scheduler, total_updates = build_scheduler(
         optimizer, len(loaders["train"]), config

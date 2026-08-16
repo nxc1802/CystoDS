@@ -87,6 +87,26 @@ def run(config: dict[str, Any]) -> Path:
                     "monitor_metric": "coarse_macro_f1",
                 },
             },
+            {
+                "experiment_id": "smoke_ablation_freeze_stage2",
+                "task_mode": "hierarchical",
+                "overrides": {
+                    "pretrained": False,
+                    "partial_finetune": True,
+                    "frozen_stages_count": 2,
+                    "monitor_metric": "coarse_macro_f1",
+                },
+            },
+            {
+                "experiment_id": "smoke_ablation_freeze_stage3",
+                "task_mode": "hierarchical",
+                "overrides": {
+                    "pretrained": False,
+                    "partial_finetune": True,
+                    "frozen_stages_count": 3,
+                    "monitor_metric": "coarse_macro_f1",
+                },
+            },
         ]
         trials = filter_stage_trials(
             trials,

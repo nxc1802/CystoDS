@@ -112,14 +112,44 @@ done
 *(Nếu chỉ muốn test các loss cụ thể: `!python -m cystods run 20 --split 0 --profile research --trials fine_balanced_softmax_smoothed,fine_focal`)*
 
 ### 🔹 Stage 30: Huấn luyện Proposed Method (Hierarchical + SupCon)
+
+#### 1. Huấn luyện toàn bộ (Full Fine-tune — Mặc định):
 ```python
 !python -m cystods run 30 --split 0 --profile research
 ```
 
-### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants)
+#### 2. Option 1: Đóng băng Patch Embedding + Stage 1 + Stage 2 (Chống Overfit):
+```python
+# Đóng băng Patch Embedding + Stage 1 + Stage 2; chỉ fine-tune Stage 3, 4 và các Heads:
+!python -m cystods run 30 --split 0 --profile research --freeze-stages 2
+# (Hoặc dùng cờ tương đương: !python -m cystods run 30 --split 0 --profile research --partial-finetune)
+```
+
+#### 3. Option 2: Đóng băng thêm Stage 3 (Giảm 1 nửa Compute & Thời gian):
+```python
+# Đóng băng Patch Embedding + Stage 1 + Stage 2 + Stage 3; chỉ fine-tune Stage 4 và các Heads (~50% compute reduction):
+!python -m cystods run 30 --split 0 --profile research --freeze-stage3
+# (Hoặc dùng cờ tương đương: !python -m cystods run 30 --split 0 --profile research --freeze-stages 3)
+```
+
+#### 4. Chạy Stage 30 với Freeze Stage 3 duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
+```bash
+%%bash
+for split in 0 1 2; do
+    echo "=========================================================="
+    echo "▶ BẮT ĐẦU STAGE 30 (FREEZE STAGES 1-3, FAST) - SPLIT $split"
+    echo "=========================================================="
+    python -m cystods run 30 --split $split --profile research --freeze-stage3 || exit 1
+done
+```
+
+### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants + Freezing Ablations)
 ```python
 # Chạy toàn bộ 16 ablations trên Split 0 (~55 - 70 phút):
 !python -m cystods run 40 --split 0 --profile research
+
+# Chạy riêng 2 ablation đánh giá ảnh hưởng đóng băng tầng:
+!python -m cystods run 40 --split 0 --profile research --trials ablation_freeze_stage2,ablation_freeze_stage3
 ```
 *(Nếu muốn chạy chọn lọc một số ablation: `!python -m cystods run 40 --split 0 --profile research --trials ablation_full_proposed,ablation_no_supcon,ablation_no_hierarchy`)*
 

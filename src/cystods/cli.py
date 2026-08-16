@@ -82,6 +82,32 @@ def _build_parser() -> argparse.ArgumentParser:
         default=None,
         help="Filter trials by experiment ID(s) or pattern (e.g. binary_swin_tiny, coarse_swin_tiny)",
     )
+    run_parser.add_argument(
+        "--partial-finetune",
+        "--freeze-early-layers",
+        "--freeze-stage2",
+        dest="partial_finetune",
+        action="store_true",
+        default=False,
+        help="Freeze Patch Embedding + Stage 1 + Stage 2; only fine-tune Stage 3, Stage 4 and classification heads",
+    )
+    run_parser.add_argument(
+        "--freeze-stage3",
+        "--freeze-through-stage3",
+        dest="freeze_stage3",
+        action="store_true",
+        default=False,
+        help="Freeze Patch Embedding + Stage 1 + Stage 2 + Stage 3; only fine-tune Stage 4 and classification heads (~50%% compute reduction)",
+    )
+    run_parser.add_argument(
+        "--freeze-stages",
+        "--frozen-stages",
+        type=int,
+        choices=[1, 2, 3],
+        default=None,
+        dest="freeze_stages",
+        help="Explicitly specify number of early backbone stages to freeze (1: Stage 1, 2: Stages 1-2, 3: Stages 1-3)",
+    )
 
     # --- cystods config ---
     config_parser = subparsers.add_parser("config", help="Show resolved config")
@@ -239,6 +265,19 @@ def _cmd_run(args: argparse.Namespace) -> None:
     )
     config["filter_models"] = filter_models
     config["filter_trials"] = filter_trials
+    if getattr(args, "freeze_stage3", False):
+        config["partial_finetune"] = True
+        config["freeze_early_layers"] = True
+        config["frozen_stages_count"] = 3
+    elif getattr(args, "freeze_stages", None) is not None:
+        config["partial_finetune"] = True
+        config["freeze_early_layers"] = True
+        config["frozen_stages_count"] = int(args.freeze_stages)
+    elif getattr(args, "partial_finetune", False):
+        config["partial_finetune"] = True
+        config["freeze_early_layers"] = True
+        config["frozen_stages_count"] = config.get("frozen_stages_count", 2)
+
     if stage_padded != "00":
         config["protocol_split_index"] = args.split
     else:
@@ -250,6 +289,9 @@ def _cmd_run(args: argparse.Namespace) -> None:
     print(f"  Profile: {config['run_profile']}")
     if config.get("protocol_split_index") is not None:
         print(f"  Split: split_{config['protocol_split_index']}")
+    if config.get("partial_finetune"):
+        n_frz = config.get("frozen_stages_count", 2)
+        print(f"  Finetune Mode: Partial (Frozen: PatchEmbed + Stages 1..{n_frz} | Trainable: Stages {n_frz+1}..4 + Heads)")
     if filter_models:
         print(f"  Filter Models: {', '.join(filter_models)}")
     if filter_trials:
