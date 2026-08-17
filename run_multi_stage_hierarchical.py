@@ -1,21 +1,9 @@
 #!/usr/bin/env python3
-"""Launcher script for Multi-Stage Decoupled Hierarchical Heads Experiment.
+"""Launcher script for Decoupled Two-Stage Fine-Tuning Experiment (Stage 35 Replacement).
 
-Usage on Kaggle / Local:
-    # 1. Quick smoke test to verify no bugs:
-    python run_multi_stage_hierarchical.py --split 0 --profile smoke
-
-    # 2. Run research experiment on Split 0:
-    python run_multi_stage_hierarchical.py --split 0 --profile research
-
-    # 3. Run research experiment across all 3 splits:
-    python run_multi_stage_hierarchical.py --split all --profile research
-
-    # 4. Run with Partial Fine-Tuning (Freeze Stages 1-2):
-    python run_multi_stage_hierarchical.py --split 0 --profile research --freeze-stages 2
-
-    # 5. Run with Partial Fine-Tuning (Freeze Stages 1-3, ~50% compute reduction):
-    python run_multi_stage_hierarchical.py --split 0 --profile research --freeze-stages 3
+Upgraded from multi-stage decoupled heads to Decoupled Two-Stage Fine-Tuning:
+  - Phase 1: Representation Learning (Full Network, Natural Distribution + SupCon)
+  - Phase 2: Classifier Alignment (Frozen Backbone, Heads-only with Smoothed Balanced Softmax)
 """
 
 from __future__ import annotations
@@ -28,7 +16,7 @@ src_dir = Path(__file__).resolve().parent / "src"
 if src_dir.is_dir() and str(src_dir) not in sys.path:
     sys.path.insert(0, str(src_dir))
 
-from cystods.experiments.multi_stage_runner import main
+from cystods.experiments.two_stage_runner import main
 
 if __name__ == "__main__":
     main()

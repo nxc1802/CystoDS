@@ -141,28 +141,30 @@ for split in 0 1 2; do
     echo "=========================================================="
     python -m cystods run 30 --split $split --profile research --freeze-stage3 || exit 1
 done
-### 🔹 Phương Pháp Mới: Multi-Stage Decoupled Hierarchical Heads (Stage 2 -> Binary, Stage 3 -> Coarse, Stage 4 -> Fine & SupCon)
+### 🔹 Phương Pháp Mới (Stage 35): Decoupled Two-Stage Fine-Tuning (Representation Learning -> Classifier Alignment)
 
-Phương pháp này phân tách các đầu phân loại theo độ sâu tầng của Swin Transformer nhằm loại bỏ xung đột gradient (gradient interference) giữa bài toán thô (Binary/Coarse) và bài toán chi tiết (Fine 22 lớp):
+Phương pháp này tách rời quá trình học đặc trưng và cân bằng ranh giới phân loại:
+- **Phase 1 (18 epochs):** Mở 100% Backbone + Heads, huấn luyện tự nhiên với `Cross-Entropy` + `SupCon` để học biểu diễn ngữ nghĩa tối ưu không bị méo.
+- **Phase 2 (6 epochs):** Đóng băng 100% Backbone, chỉ nắn các Classifier Heads với `Smoothed Balanced Softmax` (hoặc `cRT`) để giải quyết triệt để mất cân bằng đuôi dài mà không làm vỡ Backbone.
 
-#### 1. Kiểm tra nhanh Smoke (chỉ 1 epoch):
+#### 1. Kiểm tra nhanh Smoke (chỉ 1 epoch mỗi phase):
 ```python
-!python run_multi_stage_hierarchical.py --split 0 --profile smoke
+!python run_two_stage_hierarchical.py --split 0 --profile smoke
 ```
 
-#### 2. Huấn luyện Full Fine-Tuning trên Split 0 (~5-7 phút):
+#### 2. Huấn luyện Decoupled Two-Stage trên Split 0 (~15-18 phút):
 ```python
-!python run_multi_stage_hierarchical.py --split 0 --profile research
+!python run_two_stage_hierarchical.py --split 0 --profile research
 ```
 
-#### 3. Huấn luyện kèm Đóng băng Stages 1-2 (Chống Overfit, ~3-4 phút):
+#### 3. Huấn luyện Decoupled Two-Stage với chiến lược cRT (Class-Balanced Sampler ở Phase 2):
 ```python
-!python run_multi_stage_hierarchical.py --split 0 --profile research --freeze-stages 2
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-strategy crt
 ```
 
-#### 4. Chạy Multi-Stage duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
+#### 4. Chạy Decoupled Two-Stage duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
 ```python
-!python run_multi_stage_hierarchical.py --split all --profile research
+!python run_two_stage_hierarchical.py --split all --profile research
 ```
 
 ### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants + Freezing Ablations)
