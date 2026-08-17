@@ -161,6 +161,18 @@ Thực nghiệm đối sánh trực tiếp giữa việc **Mở cả 3 Heads ở
 > [!IMPORTANT]
 > **Kết luận Khoa học:** Việc mở cả 3 Heads ở Phase 2 gây ra hiện tượng **Negative Transfer** (Nhiễu ngược từ tầng Fine sang tầng Coarse và Binary). Vì vậy, cơ chế **Selective Fine-Only** là chiến lược tối ưu nhất để đạt được điểm cân bằng Pareto.
 
+### 6.3 Bảng Tổng Hợp Thực Nghiệm Triệt Tiêu Decoupled Two-Stage (Table 4 — Ablation Studies)
+
+Tổng hợp toàn diện các biến thể triệt tiêu nhằm bóc tách định lượng từng thành phần trong phương pháp đề xuất:
+
+| Biến Thể Thực Nghiệm / Variant | Chiến Lược Phase 1 | Chiến Lược Phase 2 | Binary AUROC | Coarse Acc | **Fine Macro-F1 (Supp)** | Fine Macro-F1 (All 22) | Tail Recall ($n \le 20$) | Coarse-Fine Consistency |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1. Proposed Full D2S-HFT** | $\text{CE} + \text{SupCon}$ | Selective Fine BSM | $0{,}8907$ | $69{,}03\%$ | **$0{,}4879$** 🏆 | **$0{,}3770$** 🏆 | **$54{,}81\%$** 🏆 | **$77{,}91\%$** 🏆 |
+| **2. Ablation: w/o SupCon (Ablation 1)** | $\text{CE}$ thuần túy | Selective Fine BSM | $0{,}9046$ | $71{,}98\%$ | $0{,}4619$ 🔻 ($-2{,}60\%$) | $0{,}3569$ 🔻 ($-2{,}01\%$) | $51{,}11\%$ 🔻 ($-3{,}70\%$) | $82{,}56\%$ |
+| **3. Ablation: Strategy cRT (Ablation 2)** | $\text{CE} + \text{SupCon}$ | cRT Sampler (Fine Only) | $0{,}8907$ | $69{,}03\%$ | $0{,}4407$ 🔻 ($-4{,}72\%$) | $0{,}3405$ 🔻 ($-3{,}65\%$) | $54{,}81\%$ | $73{,}26\%$ 🔻 ($-4{,}65\%$) |
+| **4. Ablation: All-Heads Alignment** | $\text{CE} + \text{SupCon}$ | Mở cả 3 Heads BSM | $0{,}8936$ | $66{,}67\%$ 🔻 ($-2{,}36\%$) | $0{,}4889$ | $0{,}3778$ | $54{,}81\%$ | $73{,}26\%$ 🔻 ($-4{,}65\%$) |
+| **5. Baseline: 1-Stage End-to-End** | Joint 1-Stage | Không có Phase 2 | $0{,}9333$ | $74{,}04\%$ | $0{,}4396$ 🔻 ($-4{,}83\%$) | $0{,}3397$ 🔻 ($-3{,}73\%$) | $58{,}52\%$ | $85{,}66\%$ |
+
 ---
 
 ## 7. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Stages 00 $\rightarrow$ 35)
