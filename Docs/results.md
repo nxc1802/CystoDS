@@ -146,6 +146,21 @@ Phương pháp đề xuất cốt lõi **Decoupled Two-Stage Hierarchical Fine-T
 | **Coarse Macro-F1 (5 Groups)** | $0{,}5997$ | **$0{,}6474$** 🏆 | $0{,}6170$ | **$0{,}6214 \pm 0{,}024$** | Bảo toàn 100% từ Phase 1 |
 | **Tính nhất quán Coarse-Fine** | $77{,}91\%$ | **$85{,}71\%$** 🏆 | $79{,}92\%$ | **$81{,}18 \pm 4{,}0\%$** 🏆 | Tăng vượt bậc nhờ cầu nối 2-Stage |
 
+### 6.2 Thực Nghiệm Triệt Tiêu: All-Heads vs. Selective Fine-Only Alignment (Split 0)
+
+Thực nghiệm đối sánh trực tiếp giữa việc **Mở cả 3 Heads ở Phase 2** (`all_heads`) và **Khóa Binary & Coarse, chỉ nắn Fine Head** (`fine_only`):
+
+| Tiêu chí / Metric | Phase 1 (Repr. Learning) | Phase 2 (Mở cả 3 Heads: `all_heads`) | **Phase 2 (Selective: `fine_only`)** | Nhận xét & Đánh giá Khoa học |
+|---|:---:|:---:|:---:|---|
+| **Coarse Accuracy** | **69.03%** | 66.67% 🔻 (-2.36%) | **69.03%** 🔒 (Bảo toàn 100%) | `all_heads` làm suy thoái Coarse do over-adjustment |
+| **Coarse Macro-F1** | **0.5997** | 0.5647 🔻 (-3.50%) | **0.5997** 🔒 (Bảo toàn 100%) | `fine_only` bảo toàn nguyên vẹn năng lực phân nhóm |
+| **Binary Specificity** | **85.53%** | 81.58% 🔻 (-3.95%) | **85.53%** 🔒 (Bảo toàn 100%) | `all_heads` làm giảm khả năng nhận diện mô lành |
+| **Tính nhất quán Coarse-Fine** | 77.52% | 73.26% 🔻 (-4.26%) | **77.91%** 🏆 (+0.39%) | `fine_only` tăng tính tương thích phân cấp |
+| **Fine Macro-F1 (Supported)** | 0.4853 | 0.4889 | **0.4879** 🏆 (+4.83% vs Baseline) | Cả hai đều nắn được Fine Head, nhưng `fine_only` an toàn hơn |
+
+> [!IMPORTANT]
+> **Kết luận Khoa học:** Việc mở cả 3 Heads ở Phase 2 gây ra hiện tượng **Negative Transfer** (Nhiễu ngược từ tầng Fine sang tầng Coarse và Binary). Vì vậy, cơ chế **Selective Fine-Only** là chiến lược tối ưu nhất để đạt được điểm cân bằng Pareto.
+
 ---
 
 ## 7. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Stages 00 $\rightarrow$ 35)
