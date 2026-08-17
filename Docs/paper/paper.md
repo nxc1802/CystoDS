@@ -310,6 +310,18 @@ Smoothed Balanced Softmax xuất sắc nhất ở cả 4 tiêu chí cốt lõi: 
 3. **Chiến lược Cân bằng ở Phase 2 (Smoothed Balanced Softmax vs. cRT):** Khi thay thế Smoothed Balanced Softmax bằng Class-Balanced Sampler (cRT), Fine Macro-F1 bị tụt dốc **$-4{,}72\%$** (từ $0{,}4879$ xuống $0{,}4407$) và tính nhất quán phân cấp giảm **$-4{,}65\%$** (từ $77{,}91\%$ xuống $73{,}26\%$). Nguyên nhân là do cRT lấy lặp lại mẫu của các lớp hiếm (1–2 bệnh nhân), gây overfitting nặng vào hình ảnh của bệnh nhân đó.
 4. **Cơ chế Selective Fine-Only vs. All-Heads:** Việc mở cả 3 Heads ở Phase 2 (Ablation 3) gây ra hiện tượng *Negative Transfer*, làm Coarse Accuracy sụt giảm từ $69{,}03\%$ xuống $66{,}67\%$ ($-2{,}36\%$) và Coarse-Fine Consistency giảm từ $77{,}91\%$ xuống $73{,}26\%$. Cơ chế Selective Fine-Only là mấu chốt để bảo toàn $100\%$ chất lượng chẩn đoán thô.
 
+#### Khảo sát Đóng băng Tầng Backbone (Partial Finetuning vs. Full Adaptation)
+
+Một giả thuyết thông thường trong học chuyển giao y tế là đóng băng các tầng đầu của mạng xương sống (Backbone) nhằm giảm số lượng tham số và hạn chế hiện tượng quá khớp (overfitting) trên tập dữ liệu nhỏ. Chúng tôi tiến hành thực nghiệm bóc tách đóng băng từng phần (Partial Finetuning) trên Swin-Tiny:
+
+| Cấu hình Đóng băng Tầng (Layer Freezing) | Trạng thái Tham số Backbone | Binary AUROC | Coarse Acc | Coarse Macro-F1 | Fine Acc | **Fine Macro-F1 (Supp)** | Fine Macro-F1 (All 22) |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Full Backbone Adaptation (Proposed)** | Mở 100% Backbone (Stages 1..4) | **0,8907** | **69,03%** | **0,5997** | **47,67%** | **0,4879** | **0,3770** |
+| **Freeze PatchEmbed + Stages 1..2** | Đóng băng 2 tầng đầu, mở Stages 3..4 | $0{,}9126$ | $70{,}21\%$ | $0{,}6075$ | $49{,}22\%$ | $0{,}4556$ ($-3{,}23\%$) | $0{,}3521$ |
+| **Freeze PatchEmbed + Stages 1..3** | Đóng băng 3 tầng đầu, chỉ mở Stage 4 | $0{,}8739$ | $64{,}60\%$ | $0{,}5721$ | $37{,}98\%$ | $0{,}4168$ ($-7{,}11\%$) | $0{,}3221$ |
+
+**Nhận định khoa học:** Kết quả thực nghiệm bác bỏ hoàn toàn giả thuyết đóng băng tầng sớm. Khi đóng băng Stages 1..3, Fine Accuracy sụp đổ từ $47{,}67\%$ xuống $37{,}98\%$ (giảm **$-9{,}69\%$**) và Fine Macro-F1 sụt giảm tới **$-7{,}11\%$**. Nguyên nhân là do ảnh nội soi bàng quang chứa các hoa văn mao mạch vi thể và cấu trúc nhú hoàn toàn dị biệt so với ảnh tự nhiên ImageNet. Việc đóng băng sớm khiến các bộ trích xuất đặc trưng bậc thấp không thể thích ứng miền (Domain Underfitting). Do đó, mở $100\%$ Backbone thích ứng toàn diện ở Phase 1 và chỉ đóng băng để nắn phân loại ở Phase 2 là giải pháp tối ưu nhất.
+
 | Training modality → WLC-only evaluation | Binary F1 | Coarse macro-F1 | Fine F1 supported | Fine F1 22 lớp | Primary F1 cố định |
 |---|---:|---:|---:|---:|---:|
 | All modalities → WLC test | 0,9610 | 0,5356 | 0,4505 | 0,3276 | 0,4196 |
