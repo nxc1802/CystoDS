@@ -205,6 +205,28 @@ Tất cả các lệnh dưới đây tự động ghi kết quả vào thư mụ
 !python run_two_stage_hierarchical.py --split all --profile research --phase2-target all_heads --ablation-name ablation_all_heads
 ```
 
+#### 4. Ablation 4: Selective Coarse-Only Alignment (Chỉ nắn Coarse Head ở Phase 2)
+```python
+# Chạy trên Split 0 (~12 phút):
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-target coarse_only --ablation-name ablation_target_coarse_only
+
+# Hoặc chạy trên cả 3 Splits (~35 phút):
+!python run_two_stage_hierarchical.py --split all --profile research --phase2-target coarse_only --ablation-name ablation_target_coarse_only
+```
+
+---
+
+### 🔹 Stage 36 (MỚI): Three-Stage Hierarchical Fine-Tuning (3S-HFT)
+Quy trình 3 giai đoạn tuần tự: Phase 1 (Toàn mạng CE+SupCon) $\rightarrow$ Phase 2 (Đóng băng backbone, chỉ nắn Coarse Head) $\rightarrow$ Phase 3 (Đóng băng backbone & coarse, chỉ nắn Fine Head với Smoothed BSM).
+
+```python
+# Chạy trên Split 0 (~15 phút):
+!python run_three_stage_hierarchical.py --split 0 --profile research
+
+# Hoặc chạy trên cả 3 Splits (~45 phút):
+!python run_three_stage_hierarchical.py --split all --profile research
+```
+
 ---
 
 ### 🔹 Stage 40 (Legacy): Thực nghiệm Triệt tiêu 16 Biến Thể 1 Giai đoạn Cũ

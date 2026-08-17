@@ -103,8 +103,8 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         "--phase2-target",
         type=str,
         default="fine_only",
-        choices=["fine_only", "all_heads"],
-        help="Target heads for Phase 2 alignment: 'fine_only' (recommended: locks Binary & Coarse to preserve optimal Phase 1 performance, trains only Fine head) or 'all_heads'. Default: fine_only.",
+        choices=["fine_only", "coarse_only", "all_heads"],
+        help="Target heads for Phase 2 alignment: 'fine_only' (locks Binary & Coarse, trains only Fine head), 'coarse_only' (locks Binary & Fine, trains only Coarse head), or 'all_heads'. Default: fine_only.",
     )
     parser.add_argument(
         "--ablation-name",
@@ -476,9 +476,18 @@ def run_two_stage_single_split(
         freeze_info = model.freeze_for_phase2(
             freeze_binary_head=True,
             freeze_coarse_head=True,
+            freeze_fine_head=False,
             freeze_projection_head=True,
         )
         logger.info("Phase 2 Selective Target: FINE_ONLY (Binary & Coarse heads locked to preserve Phase 1 optimality)")
+    elif phase2_target == "coarse_only":
+        freeze_info = model.freeze_for_phase2(
+            freeze_binary_head=True,
+            freeze_coarse_head=False,
+            freeze_fine_head=True,
+            freeze_projection_head=True,
+        )
+        logger.info("Phase 2 Selective Target: COARSE_ONLY (Binary & Fine heads locked, ONLY Coarse head trainable)")
     else:
         freeze_info = model.freeze_backbone()
         logger.info("Phase 2 Target: ALL_HEADS (Binary, Coarse, and Fine heads all trainable)")
@@ -499,11 +508,24 @@ def run_two_stage_single_split(
     phase2_config["encoder_learning_rate_multiplier"] = 0.0  # 0 LR for encoder
     phase2_config["fine_loss"] = phase2_loss
     phase2_config["supervised_contrastive_loss_weight"] = 0.0  # SupCon not needed for linear probe
-    phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
-    phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
-    phase2_config["binary_loss_weight"] = 1.0
-    phase2_config["coarse_loss_weight"] = 1.0
-    phase2_config["fine_loss_weight"] = 1.0
+    if phase2_target == "fine_only":
+        phase2_config["binary_loss_weight"] = 0.0
+        phase2_config["coarse_loss_weight"] = 0.0
+        phase2_config["fine_loss_weight"] = 1.0
+        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    elif phase2_target == "coarse_only":
+        phase2_config["binary_loss_weight"] = 0.0
+        phase2_config["coarse_loss_weight"] = 1.0
+        phase2_config["fine_loss_weight"] = 0.0
+        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
+        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+    else:
+        phase2_config["binary_loss_weight"] = 1.0
+        phase2_config["coarse_loss_weight"] = 1.0
+        phase2_config["fine_loss_weight"] = 1.0
+        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
+        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
     phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
 

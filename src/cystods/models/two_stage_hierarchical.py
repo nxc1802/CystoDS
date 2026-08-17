@@ -139,9 +139,10 @@ class TwoStageDecoupledHierarchicalModel(nn.Module):
         self,
         freeze_binary_head: bool = True,
         freeze_coarse_head: bool = True,
+        freeze_fine_head: bool = False,
         freeze_projection_head: bool = True,
     ) -> dict[str, Any]:
-        """Freeze modules for Phase 2 Classifier Alignment.
+        """Freeze modules for Phase 2/3 Classifier Alignment.
 
         By default (Selective Fine-Only):
           - 100% Backbone encoder is frozen (requires_grad = False).
@@ -162,7 +163,7 @@ class TwoStageDecoupledHierarchicalModel(nn.Module):
 
         if self.fine_head is not None:
             for param in self.fine_head.parameters():
-                param.requires_grad = True
+                param.requires_grad = not freeze_fine_head
 
         if self.projection_head is not None:
             for param in self.projection_head.parameters():
