@@ -116,15 +116,19 @@ Các baseline gồm Swin-Tiny đơn nhiệm (binary, coarse, fine), đa nhiệm 
 Để giải quyết triệt để sự xung đột giữa việc học biểu diễn ngữ nghĩa tổng quát và việc nắn ranh giới quyết định cho các lớp hiếm (Representation Distortion), chúng tôi đề xuất phương pháp **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)** với cơ chế **Selective Fine-Only Alignment**:
 
 1. **Giai đoạn 1 — General Representation Learning (18 Epochs):** Mở $100\%$ tham số của Backbone Swin-Tiny cùng 3 Classification Heads ($h_b, h_c, h_f$). Mô hình được huấn luyện trên phân phối lấy mẫu tự nhiên (Instance-balanced / Random Sampling) với hàm mục tiêu kết hợp Cross-Entropy, Supervised Contrastive Loss ($L_{\text{supcon}}$) và ràng buộc phân cấp cây y học ($L_{\text{bc}}, L_{\text{cf}}$):
-\[
+
+$$
 \mathcal{L}_{\text{Phase 1}} = \mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}}^{\text{CE}} + 0{,}25\mathcal{L}_{\text{bc}} + 0{,}25\mathcal{L}_{\text{cf}} + 0{,}10\mathcal{L}_{\text{SupCon}}.
-\]
+$$
+
 Mục tiêu của giai đoạn này là học một không gian biểu diễn đặc trưng hình học mạch lạc, phân tách rõ ràng mà không bị méo mó bởi các hệ số bù trừ mất cân bằng nhân tạo.
 
 2. **Giai đoạn 2 — Selective Classifier Alignment (6 Epochs):** Đóng băng $100\%$ Backbone Swin-Tiny và khóa cứng hoàn toàn tham số của Binary Head và Coarse Head (`requires_grad = False`) nhằm bảo toàn nguyên vẹn $100\%$ hiệu năng tối ưu đã học ở Phase 1. Hệ thống chỉ mở duy nhất $16.918$ tham số của `fine_head` để tinh chỉnh ranh giới quyết định với hàm **Smoothed Balanced Softmax**:
-\[
+
+$$
 \mathcal{L}_{\text{Phase 2}} = \mathcal{L}_{\text{fine}}^{\text{BSM}} + 0{,}25\mathcal{L}_{\text{cf}}
-\]
+$$
+
 trong đó log-prior được tính từ số lượng bệnh nhân trong tập huấn luyện theo hàm làm trơn căn bậc hai ($\text{patients}_j^{0{,}5}$), bảo vệ tuyệt đối các phân lớp mô học hiếm ($n \le 20$) mà không làm suy thoái các bài toán chẩn đoán thô ở tầng trên.
 
 ![Kiến trúc mô hình phân cấp hai giai đoạn](paper_assets/fig09_model_architecture.png)
