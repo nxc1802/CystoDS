@@ -192,21 +192,21 @@ def generate_four_way_comparison_table(
     split_index: int,
 ) -> str:
     """Generate 4-way Markdown comparison: Phase 1 vs Phase 2 vs Phase 3 Final."""
-    p1_val = p1_metrics.get("splits", {}).get("val", {})
-    p2_val = p2_metrics.get("splits", {}).get("val", {})
-    p3_val = p3_metrics.get("splits", {}).get("val", {})
+    p1_val = (p1_metrics.get("splits", {}) or {}).get("val", {}) or {}
+    p2_val = (p2_metrics.get("splits", {}) or {}).get("val", {}) or {}
+    p3_val = (p3_metrics.get("splits", {}) or {}).get("val", {}) or {}
 
-    p1_bin = p1_val.get("binary", {})
-    p1_crs = p1_val.get("coarse", {})
-    p1_fin = p1_val.get("fine", {})
-    p1_hrc = p1_val.get("hierarchy", {})
+    p1_bin = (p1_val.get("binary") or {}) if isinstance(p1_val.get("binary"), dict) else {}
+    p1_crs = (p1_val.get("coarse") or {}) if isinstance(p1_val.get("coarse"), dict) else {}
+    p1_fin = (p1_val.get("fine") or {}) if isinstance(p1_val.get("fine"), dict) else {}
+    p1_hrc = (p1_val.get("hierarchy") or {}) if isinstance(p1_val.get("hierarchy"), dict) else {}
 
-    p2_crs = p2_val.get("coarse", {})
+    p2_crs = (p2_val.get("coarse") or {}) if isinstance(p2_val.get("coarse"), dict) else {}
 
-    p3_bin = p3_val.get("binary", {})
-    p3_crs = p3_val.get("coarse", {})
-    p3_fin = p3_val.get("fine", {})
-    p3_hrc = p3_val.get("hierarchy", {})
+    p3_bin = (p3_val.get("binary") or p1_bin) if isinstance(p3_val.get("binary"), dict) else p1_bin
+    p3_crs = (p3_val.get("coarse") or p2_crs) if isinstance(p3_val.get("coarse"), dict) else p2_crs
+    p3_fin = (p3_val.get("fine") or {}) if isinstance(p3_val.get("fine"), dict) else {}
+    p3_hrc = (p3_val.get("hierarchy") or p1_hrc) if isinstance(p3_val.get("hierarchy"), dict) else p1_hrc
 
     delta_crs_acc = (p3_crs.get("accuracy", 0.0) - p1_crs.get("accuracy", 0.0)) * 100
     delta_crs_f1 = p3_crs.get("macro_f1", 0.0) - p1_crs.get("macro_f1", 0.0)
@@ -357,6 +357,7 @@ def run_three_stage_single_split(
     phase1_config["supervised_contrastive_loss_weight"] = supcon_w
     phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
     phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    phase1_config["monitor_metric"] = "fine_macro_f1"
     phase1_config["early_stopping_patience"] = 5 if profile != "smoke" else 1
 
     if profile == "smoke":
@@ -411,6 +412,7 @@ def run_three_stage_single_split(
     phase2_config["fine_loss_weight"] = 0.0
     phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
     phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+    phase2_config["monitor_metric"] = "coarse_macro_f1"
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
     phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
 
@@ -467,6 +469,7 @@ def run_three_stage_single_split(
     phase3_config["fine_loss_weight"] = 1.0
     phase3_config["binary_coarse_hierarchy_loss_weight"] = 0.0
     phase3_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    phase3_config["monitor_metric"] = "fine_macro_f1"
     phase3_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
     phase3_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
 
@@ -522,7 +525,7 @@ def run_three_stage_single_split(
     }
 
     summary_file = run_dir / "three_stage_summary.json"
-    write_json(summary_payload, summary_file)
+    write_json(summary_file, json_ready(summary_payload))
     logger.info("Báo cáo Three-Stage đã lưu tại: %s", summary_file)
 
     close_logger(logger)

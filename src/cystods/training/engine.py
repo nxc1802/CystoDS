@@ -130,13 +130,14 @@ def prediction_rows_from_outputs(
                 logits.softmax(dim=1).detach().float().cpu().numpy()
             )
     if "fine_logits" in outputs:
-        if fine_loss_fn is None:
-            raise ValueError("Fine output requires a configured fine loss.")
         raw_fine_logits = outputs["fine_logits"]
-        calibrated_fine_logits = fine_loss_fn.inference_logits(
-            raw_fine_logits,
-            fine_prior_tau,
-        )
+        if fine_loss_fn is not None:
+            calibrated_fine_logits = fine_loss_fn.inference_logits(
+                raw_fine_logits,
+                fine_prior_tau,
+            )
+        else:
+            calibrated_fine_logits = raw_fine_logits
         logit_arrays["fine"] = (
             raw_fine_logits.detach().float().cpu().numpy()
         )
@@ -318,7 +319,7 @@ def train_model(
             fine_patient_counts,
             config,
         ).to(device)
-        if "fine" in active_tasks
+        if ("fine" in active_tasks or str(config.get("task_mode")) == "hierarchical")
         else None
     )
     if fine_loss_fn is not None:

@@ -247,23 +247,23 @@ def generate_three_way_comparison_table(
     split_index: int,
 ) -> str:
     """Generate 3-way Markdown comparison: Stage 30 Baseline vs Phase 1 vs Phase 2 Final."""
-    s30_val = stage30_metrics.get("splits", {}).get("val", {}) if stage30_metrics else {}
-    s30_bin = s30_val.get("binary", {})
-    s30_crs = s30_val.get("coarse", {})
-    s30_fin = s30_val.get("fine", {})
-    s30_hrc = s30_val.get("hierarchy", {})
+    s30_val = (stage30_metrics.get("splits", {}) or {}).get("val", {}) if stage30_metrics else {}
+    s30_bin = (s30_val.get("binary") or {}) if isinstance(s30_val.get("binary"), dict) else {}
+    s30_crs = (s30_val.get("coarse") or {}) if isinstance(s30_val.get("coarse"), dict) else {}
+    s30_fin = (s30_val.get("fine") or {}) if isinstance(s30_val.get("fine"), dict) else {}
+    s30_hrc = (s30_val.get("hierarchy") or {}) if isinstance(s30_val.get("hierarchy"), dict) else {}
 
-    p1_val = phase1_metrics.get("splits", {}).get("val", {})
-    p1_bin = p1_val.get("binary", {})
-    p1_crs = p1_val.get("coarse", {})
-    p1_fin = p1_val.get("fine", {})
-    p1_hrc = p1_val.get("hierarchy", {})
+    p1_val = (phase1_metrics.get("splits", {}) or {}).get("val", {}) or {}
+    p1_bin = (p1_val.get("binary") or {}) if isinstance(p1_val.get("binary"), dict) else {}
+    p1_crs = (p1_val.get("coarse") or {}) if isinstance(p1_val.get("coarse"), dict) else {}
+    p1_fin = (p1_val.get("fine") or {}) if isinstance(p1_val.get("fine"), dict) else {}
+    p1_hrc = (p1_val.get("hierarchy") or {}) if isinstance(p1_val.get("hierarchy"), dict) else {}
 
-    p2_val = phase2_metrics.get("splits", {}).get("val", {})
-    p2_bin = p2_val.get("binary", {})
-    p2_crs = p2_val.get("coarse", {})
-    p2_fin = p2_val.get("fine", {})
-    p2_hrc = p2_val.get("hierarchy", {})
+    p2_val = (phase2_metrics.get("splits", {}) or {}).get("val", {}) or {}
+    p2_bin = (p2_val.get("binary") or p1_bin) if isinstance(p2_val.get("binary"), dict) else p1_bin
+    p2_crs = (p2_val.get("coarse") or p1_crs) if isinstance(p2_val.get("coarse"), dict) else p1_crs
+    p2_fin = (p2_val.get("fine") or p1_fin) if isinstance(p2_val.get("fine"), dict) else p1_fin
+    p2_hrc = (p2_val.get("hierarchy") or p1_hrc) if isinstance(p2_val.get("hierarchy"), dict) else p1_hrc
 
     rows = [
         ("Binary AUROC", s30_bin.get("auroc"), p1_bin.get("auroc"), p2_bin.get("auroc"), False),
@@ -514,12 +514,14 @@ def run_two_stage_single_split(
         phase2_config["fine_loss_weight"] = 1.0
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.0
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+        phase2_config["monitor_metric"] = "fine_macro_f1"
     elif phase2_target == "coarse_only":
         phase2_config["binary_loss_weight"] = 0.0
         phase2_config["coarse_loss_weight"] = 1.0
         phase2_config["fine_loss_weight"] = 0.0
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+        phase2_config["monitor_metric"] = "coarse_macro_f1"
     else:
         phase2_config["binary_loss_weight"] = 1.0
         phase2_config["coarse_loss_weight"] = 1.0
