@@ -80,6 +80,12 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Fine-level loss function for Phase 1. Default: cross_entropy.",
     )
     parser.add_argument(
+        "--phase1-supcon-weight",
+        type=float,
+        default=None,
+        help="Supervised Contrastive loss weight in Phase 1 (default: 0.10 in research, 0.0 in smoke, or 0.0 to disable for ablation).",
+    )
+    parser.add_argument(
         "--phase2-loss",
         type=str,
         default="balanced_softmax_smoothed",
@@ -308,6 +314,7 @@ def run_two_stage_single_split(
     phase2_target: str,
     phase1_lr: float,
     phase2_lr: float,
+    phase1_supcon_weight: float | None = None,
     tau_norm: float = 0.0,
     dry_run: bool = False,
     compare_baseline: bool = True,
@@ -347,9 +354,11 @@ def run_two_stage_single_split(
     logger.info("CystoDS: Decoupled Two-Stage Fine-Tuning (Phase 1 -> Phase 2)")
     logger.info("=" * 70)
     logger.info("Split: %d | Profile: %s", split_index, profile)
-    logger.info("Phase 1: %d epochs | Fine Loss: %s | LR: %.6f", phase1_epochs, phase1_loss, phase1_lr)
-    logger.info("Phase 2: %d epochs | Fine Loss: %s | Strategy: %s | LR: %.6f | Tau-Norm: %.2f",
-                phase2_epochs, phase2_loss, phase2_strategy, phase2_lr, tau_norm)
+    supcon_w = phase1_supcon_weight if phase1_supcon_weight is not None else float(config.get("supervised_contrastive_loss_weight", 0.10 if profile != "smoke" else 0.0))
+    logger.info("Phase 1: %d epochs | Fine Loss: %s | SupCon Weight: %.2f | LR: %.6f",
+                phase1_epochs, phase1_loss, supcon_w, phase1_lr)
+    logger.info("Phase 2: %d epochs | Fine Loss: %s | Strategy: %s | Target: %s | LR: %.6f | Tau-Norm: %.2f",
+                phase2_epochs, phase2_loss, phase2_strategy, phase2_target, phase2_lr, tau_norm)
     logger.info("Run directory: %s", run_dir)
     logger.info("Protocol directory: %s (SHA: %s)", protocol_dir, protocol_sha[:12])
 
@@ -399,7 +408,7 @@ def run_two_stage_single_split(
     # ══════════════════════════════════════════════════════════════════════
     logger.info("\n" + "=" * 70)
     logger.info("▶ BẮT ĐẦU GIAI ĐOẠN 1: GENERAL REPRESENTATION LEARNING")
-    logger.info("  • Mục tiêu: Học không gian đặc trưng tối ưu qua Natural Distribution + SupCon")
+    logger.info("  • Mục tiêu: Học không gian đặc trưng tối ưu qua Natural Distribution + SupCon (w=%.2f)", supcon_w)
     logger.info("  • Trạng thái Backbone: MỞ 100% (requires_grad = True)")
     logger.info("  • Fine Loss: %s", phase1_loss)
     logger.info("=" * 70)
@@ -409,7 +418,7 @@ def run_two_stage_single_split(
     phase1_config["scheduler_epochs"] = phase1_epochs
     phase1_config["learning_rate"] = phase1_lr
     phase1_config["fine_loss"] = phase1_loss
-    phase1_config["supervised_contrastive_loss_weight"] = 0.10
+    phase1_config["supervised_contrastive_loss_weight"] = supcon_w
     phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
     phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase1_config["early_stopping_patience"] = 5 if profile != "smoke" else 1
@@ -671,6 +680,7 @@ def main(argv: list[str] | None = None) -> None:
             phase2_target=args.phase2_target,
             phase1_lr=args.phase1_lr,
             phase2_lr=args.phase2_lr,
+            phase1_supcon_weight=args.phase1_supcon_weight,
             tau_norm=args.tau_norm,
             dry_run=args.dry_run,
             compare_baseline=args.compare_baseline,
