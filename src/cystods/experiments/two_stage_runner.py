@@ -476,15 +476,11 @@ def run_two_stage_single_split(
     phase2_config["encoder_learning_rate_multiplier"] = 0.0  # 0 LR for encoder
     phase2_config["fine_loss"] = phase2_loss
     phase2_config["supervised_contrastive_loss_weight"] = 0.0  # SupCon not needed for linear probe
-    if phase2_target == "fine_only":
-        phase2_config["binary_loss_weight"] = 0.0
-        phase2_config["coarse_loss_weight"] = 0.0
-        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.0
-        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
-        phase2_config["fine_loss_weight"] = 1.0
-    else:
-        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
-        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
+    phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    phase2_config["binary_loss_weight"] = 1.0
+    phase2_config["coarse_loss_weight"] = 1.0
+    phase2_config["fine_loss_weight"] = 1.0
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
     phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
 
