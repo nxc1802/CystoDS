@@ -94,6 +94,13 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Strategy for Phase 2: 'balanced_softmax', 'crt' (class-balanced sampling), or 'tau_norm'. Default: balanced_softmax.",
     )
     parser.add_argument(
+        "--phase2-target",
+        type=str,
+        default="fine_only",
+        choices=["fine_only", "all_heads"],
+        help="Target heads for Phase 2 alignment: 'fine_only' (recommended: locks Binary & Coarse to preserve optimal Phase 1 performance, trains only Fine head) or 'all_heads'. Default: fine_only.",
+    )
+    parser.add_argument(
         "--tau-norm",
         type=float,
         default=0.0,
@@ -298,6 +305,7 @@ def run_two_stage_single_split(
     phase1_loss: str,
     phase2_loss: str,
     phase2_strategy: str,
+    phase2_target: str,
     phase1_lr: float,
     phase2_lr: float,
     tau_norm: float = 0.0,
@@ -440,8 +448,18 @@ def run_two_stage_single_split(
     logger.info("  • Trạng thái Backbone: ĐÓNG BĂNG 100% (requires_grad = False)")
     logger.info("=" * 70)
 
-    # Freeze 100% Backbone
-    freeze_info = model.freeze_backbone()
+    # Freeze Backbone according to phase2_target
+    if phase2_target == "fine_only":
+        freeze_info = model.freeze_for_phase2(
+            freeze_binary_head=True,
+            freeze_coarse_head=True,
+            freeze_projection_head=True,
+        )
+        logger.info("Phase 2 Selective Target: FINE_ONLY (Binary & Coarse heads locked to preserve Phase 1 optimality)")
+    else:
+        freeze_info = model.freeze_backbone()
+        logger.info("Phase 2 Target: ALL_HEADS (Binary, Coarse, and Fine heads all trainable)")
+
     logger.info(
         "Phase 2 Parameter status: total=%d, trainable=%d (%.2f%%), frozen=%d (%.2f%%)",
         freeze_info["total_params"],
@@ -458,8 +476,15 @@ def run_two_stage_single_split(
     phase2_config["encoder_learning_rate_multiplier"] = 0.0  # 0 LR for encoder
     phase2_config["fine_loss"] = phase2_loss
     phase2_config["supervised_contrastive_loss_weight"] = 0.0  # SupCon not needed for linear probe
-    phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
-    phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+    if phase2_target == "fine_only":
+        phase2_config["binary_loss_weight"] = 0.0
+        phase2_config["coarse_loss_weight"] = 0.0
+        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+        phase2_config["fine_loss_weight"] = 1.0
+    else:
+        phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
+        phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
     phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
 
@@ -647,6 +672,7 @@ def main(argv: list[str] | None = None) -> None:
             phase1_loss=args.phase1_loss,
             phase2_loss=args.phase2_loss,
             phase2_strategy=args.phase2_strategy,
+            phase2_target=args.phase2_target,
             phase1_lr=args.phase1_lr,
             phase2_lr=args.phase2_lr,
             tau_norm=args.tau_norm,

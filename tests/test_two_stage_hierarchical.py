@@ -140,3 +140,44 @@ def test_two_stage_tau_normalization():
     model.tau_normalize_classifiers(tau=1.0)
     row_norms = torch.norm(model.fine_head.weight.data, p=2, dim=1)
     assert torch.allclose(row_norms, torch.ones_like(row_norms), atol=1e-4)
+
+
+def test_two_stage_selective_fine_only_freezing():
+    """Verify Selective Fine-Only freezing: Backbone, Binary & Coarse are frozen, only Fine head trainable."""
+    config = {
+        "model_name": "swin_tiny_patch4_window7_224.ms_in1k",
+        "pretrained": False,
+        "image_size": 64,
+        "dropout": 0.0,
+        "projection_dim": 128,
+        "task_mode": "hierarchical",
+        "binary_loss_weight": 1.0,
+        "coarse_loss_weight": 1.0,
+        "fine_loss_weight": 1.0,
+        "supervised_contrastive_loss_weight": 0.10,
+    }
+    model = TwoStageDecoupledHierarchicalModel(config)
+    summary = model.freeze_for_phase2(freeze_binary_head=True, freeze_coarse_head=True, freeze_projection_head=True)
+
+    assert summary["phase"] == 2
+    assert summary["backbone_frozen"] is True
+    # Only fine head (768 * 22 + 22 = 16918 params) is trainable
+    assert summary["trainable_params"] == (768 * len(FINE_NAMES) + len(FINE_NAMES))
+
+    # Check requires_grad flags
+    assert all(not p.requires_grad for p in model.encoder.parameters())
+    assert all(not p.requires_grad for p in model.binary_head.parameters())
+    assert all(not p.requires_grad for p in model.coarse_head.parameters())
+    assert all(not p.requires_grad for p in model.projection_head.parameters())
+    assert all(p.requires_grad for p in model.fine_head.parameters())
+
+    # Backward pass check
+    dummy_images = torch.randn(2, 3, 64, 64)
+    outputs = model(dummy_images)
+    loss = outputs["fine_logits"].sum()
+    loss.backward()
+
+    assert model.fine_head.weight.grad is not None
+    assert model.binary_head.weight.grad is None
+    assert model.coarse_head.weight.grad is None
+

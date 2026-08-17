@@ -135,28 +135,47 @@ class TwoStageDecoupledHierarchicalModel(nn.Module):
             if frozen_stages > 0:
                 self.freeze_early_layers(stages_to_freeze=frozen_stages)
 
-    def freeze_backbone(self) -> dict[str, Any]:
-        """Freeze 100% of the backbone encoder for Phase 2 Classifier Alignment.
+    def freeze_for_phase2(
+        self,
+        freeze_binary_head: bool = True,
+        freeze_coarse_head: bool = True,
+        freeze_projection_head: bool = True,
+    ) -> dict[str, Any]:
+        """Freeze modules for Phase 2 Classifier Alignment.
 
-        Only binary_head, coarse_head, and fine_head remain trainable.
+        By default (Selective Fine-Only):
+          - 100% Backbone encoder is frozen (requires_grad = False).
+          - Binary Head and Coarse Head are frozen (preserving Phase 1 optimal state).
+          - Projection Head is frozen (requires_grad = False).
+          - ONLY Fine Head is trainable (requires_grad = True).
         """
         for param in self.encoder.parameters():
             param.requires_grad = False
 
-        # Ensure all classification heads are trainable
-        for head in (self.binary_head, self.coarse_head, self.fine_head):
-            if head is not None:
-                for param in head.parameters():
-                    param.requires_grad = True
+        if self.binary_head is not None:
+            for param in self.binary_head.parameters():
+                param.requires_grad = not freeze_binary_head
+
+        if self.coarse_head is not None:
+            for param in self.coarse_head.parameters():
+                param.requires_grad = not freeze_coarse_head
+
+        if self.fine_head is not None:
+            for param in self.fine_head.parameters():
+                param.requires_grad = True
 
         if self.projection_head is not None:
             for param in self.projection_head.parameters():
-                param.requires_grad = False
+                param.requires_grad = not freeze_projection_head
 
         self.backbone_frozen = True
         self.phase = 2
 
         return self.get_parameter_summary()
+
+    def freeze_backbone(self) -> dict[str, Any]:
+        """Freeze 100% of the backbone encoder, keeping all classification heads trainable."""
+        return self.freeze_for_phase2(freeze_binary_head=False, freeze_coarse_head=False)
 
     def unfreeze_backbone(self) -> dict[str, Any]:
         """Unfreeze the backbone encoder (return to Phase 1 state)."""

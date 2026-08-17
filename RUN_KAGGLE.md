@@ -145,14 +145,14 @@ done
 
 Phương pháp này tách rời quá trình học đặc trưng và cân bằng ranh giới phân loại:
 - **Phase 1 (18 epochs):** Mở 100% Backbone + Heads, huấn luyện tự nhiên với `Cross-Entropy` + `SupCon` để học biểu diễn ngữ nghĩa tối ưu không bị méo.
-- **Phase 2 (6 epochs):** Đóng băng 100% Backbone, chỉ nắn các Classifier Heads với `Smoothed Balanced Softmax` (hoặc `cRT`) để giải quyết triệt để mất cân bằng đuôi dài mà không làm vỡ Backbone.
+- **Phase 2 (6 epochs - Selective Fine-Only):** Đóng băng 100% Backbone và khóa cứng `binary_head`, `coarse_head` (bảo toàn 100% hiệu năng đỉnh từ Phase 1), chỉ nắn `fine_head` với `Smoothed Balanced Softmax` để giải quyết triệt để mất cân bằng 22 lớp đuôi dài!
 
 #### 1. Kiểm tra nhanh Smoke (chỉ 1 epoch mỗi phase):
 ```python
 !python run_two_stage_hierarchical.py --split 0 --profile smoke
 ```
 
-#### 2. Huấn luyện Decoupled Two-Stage trên Split 0 (~15-18 phút):
+#### 2. Huấn luyện Decoupled Two-Stage (Fine-Only Alignment) trên Split 0 (~15-18 phút):
 ```python
 !python run_two_stage_hierarchical.py --split 0 --profile research
 ```
@@ -162,7 +162,12 @@ Phương pháp này tách rời quá trình học đặc trưng và cân bằng 
 !python run_two_stage_hierarchical.py --split 0 --profile research --phase2-strategy crt
 ```
 
-#### 4. Chạy Decoupled Two-Stage duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
+#### 4. Huấn luyện mở toàn bộ cả 3 Heads ở Phase 2 (nếu muốn nắn cả Binary & Coarse):
+```python
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-target all_heads
+```
+
+#### 5. Chạy Decoupled Two-Stage duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
 ```python
 !python run_two_stage_hierarchical.py --split all --profile research
 ```
