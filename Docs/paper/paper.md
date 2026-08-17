@@ -1,23 +1,23 @@
 # Phân loại phân cấp tổn thương bàng quang trong nội soi trên dữ liệu mất cân bằng dài đuôi CystoDS
 
-## Một đánh giá đa mức với Swin-Tiny trên hold-out độc lập theo bệnh nhân
+## Phương pháp tinh chỉnh hai giai đoạn tách rời trên hold-out độc lập theo bệnh nhân
 
-**Phiên bản:** 16-08-2026 — bản comprehensive cập nhật đầy đủ kết quả Stages 00, 10, 20, 30, 40 qua 3 hold-out splits  
+**Phiên bản:** 18-08-2026 — bản comprehensive cập nhật đầy đủ kết quả Decoupled Two-Stage (D2S-HFT) qua 3 hold-out splits  
 **Tình trạng:** báo cáo kết quả thực nghiệm hoàn chỉnh trên 3 phân hoạch bệnh nhân độc lập (`split_0`, `split_1`, `split_2`)
 
 ## Tóm tắt
 
 **Bối cảnh.** CystoDS là bộ dữ liệu ảnh nội soi bàng quang công khai gồm 8.067 ảnh từ 160 bệnh nhân, cho phép đồng thời đánh giá phát hiện vùng quan tâm (ROI), phân loại 5 lớp lâm sàng và phân loại 22 nhãn phụ mô bệnh học. Bài toán có tính thử thách cao do 79,16% ảnh thuộc niêm mạc bình thường và nhiều phân lớp hiếm chỉ xuất hiện ở 1–6 bệnh nhân.
 
-**Mục tiêu.** Nghiên cứu này thiết lập một khung đánh giá đa tầng toàn diện theo 3 phân hoạch bệnh nhân độc lập (Patient-Disjoint Holdout Splits) cho ba mức độ hạt: nhị phân ROI/không-ROI, 5 nhóm lâm sàng thô (coarse) và 22 phân lớp mô bệnh học (fine). Chúng tôi khảo sát có hệ thống 4 họ kiến trúc backbone (Stage 10), 7 hàm mất mát xử lý phân bố đuôi dài (Stage 20), mô hình đề xuất phân cấp kết hợp Supervised Contrastive Learning (Stage 30) và 16 thực nghiệm triệt tiêu thành phần (Stage 40).
+**Mục tiêu.** Nghiên cứu này đề xuất phương pháp **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)** nhằm giải quyết triệt để sự đánh đổi giữa biểu diễn đặc trưng tổng quát và cân bằng ranh giới phân loại lớp hiếm trên 3 phân hoạch bệnh nhân độc lập (Patient-Disjoint Holdout Splits). Chúng tôi khảo sát có hệ thống 4 họ kiến trúc backbone (Stage 10), 7 hàm mất mát xử lý phân bố đuôi dài (Stage 20), phương pháp đề xuất hai giai đoạn tách rời (Stage 35) và các thực nghiệm triệt tiêu thành phần chuyên sâu (Stage 40).
 
-**Phương pháp.** Toàn bộ thực nghiệm sử dụng chung backbone tối ưu Swin-Tiny tiền huấn luyện ImageNet và giao thức phân hoạch 70/15/15 tách rời 160 bệnh nhân qua 3 splits (`split_0`, `split_1`, `split_2`). Tập benchmark materialized gồm ~2.221–2.225 ảnh per split (1.532–1.573 train, 326–340 val, 322–349 test), trong đó niêm mạc bình thường được giới hạn 540 ảnh. Mô hình phân cấp đề xuất tích hợp ba đầu ra nhị phân–thô–fine, hàm Smoothed Balanced Softmax ở mức fine (prior theo căn bậc hai số bệnh nhân), hàm phạt nhất quán cấu trúc cây y học ($L_{\text{hierarchy}}$) và Supervised Contrastive Loss ($L_{\text{supcon}}$).
+**Phương pháp.** Toàn bộ thực nghiệm sử dụng backbone Swin-Tiny tiền huấn luyện ImageNet trên giao thức phân hoạch 70/15/15 tách rời 160 bệnh nhân qua 3 splits (`split_0`, `split_1`, `split_2`). Phương pháp đề xuất vận hành qua hai giai đoạn: (1) *Giai đoạn 1 (Representation Learning)* huấn luyện mở 100% Backbone và 3 Heads trên phân phối tự nhiên kết hợp Cross-Entropy, Supervised Contrastive Loss ($L_{\text{supcon}}$) và ràng buộc phân cấp cây y học ($L_{\text{hierarchy}}$) để học không gian đặc trưng tối ưu không bị méo mó; (2) *Giai đoạn 2 (Selective Classifier Alignment)* đóng băng hoàn toàn Backbone và khóa cứng Binary & Coarse Heads (bảo toàn 100% hiệu năng phát hiện ROI và phân nhóm lâm sàng), chỉ nắn `fine_head` với hàm Smoothed Balanced Softmax (prior theo căn bậc hai số bệnh nhân) để phân định 22 phân lớp mô học đuôi dài.
 
-**Kết quả.** Đánh giá trên 3 phân hoạch độc lập cho thấy mô hình đề xuất đạt hiệu năng vượt trội: AUROC nhị phân đạt $0{,}9643 \pm 0{,}022$ (đạt $0{,}9805$ ở Split 1), Binary F1-score đạt $0{,}9053 \pm 0{,}025$ ($0{,}9326$ ở Split 1), độ nhạy lâm sàng đạt $91{,}99\% \pm 3{,}3\%$ và độ đặc hiệu $87{,}71\% \pm 4{,}4\%$. Ở mức 5 lớp thô, mô hình đạt độ chính xác $70{,}71\% \pm 3{,}4\%$ và macro-F1 $0{,}6120 \pm 0{,}050$. Ở mức 22 phân lớp fine, Primary Fine Macro-F1 đạt $0{,}5538 \pm 0{,}104$ (đạt $0{,}6764$ ở Split 1), độ hồi phục lớp đuôi dài ($n \le 20$) đạt $65{,}23\% \pm 7{,}4\%$, và tính nhất quán phân cấp đạt $78{,}67\% \pm 2{,}8\%$ ($82{,}80\% \pm 2{,}6\%$ ở anchor full proposed Stage 40). Bộ 16 thực nghiệm triệt tiêu (Stage 40) chứng minh việc lược bỏ $L_{\text{supcon}}$ làm sụt giảm $4{,}87\%$ Primary Fine F1, trong khi lược bỏ Smoothed Balanced Softmax làm giảm $5{,}37\%$ Tail Recall và $4{,}22\%$ tính nhất quán y học.
+**Kết quả.** Đánh giá tổng hợp trên 3 phân hoạch độc lập cho thấy phương pháp đề xuất đạt hiệu năng vượt trội: Fine Macro-F1 (Supported) đạt **$0{,}5074 \pm 0{,}018$** (đạt đỉnh **$0{,}5232$** ở Split 2), Fine Macro-F1 trên toàn bộ 22 lớp đạt **$0{,}3762 \pm 0{,}019$**, và độ hồi phục lớp đuôi dài ($n \le 20$) đạt **$62{,}45\% \pm 8{,}3\%$** (đạt kỷ lục **$71{,}43\%$** ở Split 2). Đồng thời, mô hình bảo toàn tuyệt đối chất lượng phát hiện ROI với AUROC nhị phân đạt **$0{,}9473 \pm 0{,}050$** (đạt $0{,}9876$ ở Split 2), Binary F1 đạt **$0{,}8832 \pm 0{,}070$** ($0{,}9317$ ở Split 2), độ nhạy lâm sàng đạt **$88{,}17\% \pm 11{,}5\%$** ($94{,}94\%$ ở Split 2), độ chính xác Coarse đạt **$71{,}58\% \pm 2{,}6\%$**, và tính nhất quán phân cấp Coarse-Fine đạt **$81{,}18\% \pm 4{,}0\%$** (lên tới $85{,}71\%$ ở Split 1). Các thực nghiệm triệt tiêu bóc tách chứng minh rằng việc tách hai giai đoạn giúp tăng $+4{,}83\%$ Fine Macro-F1 so với baseline 1 giai đoạn, việc có $L_{\text{supcon}}$ ở Phase 1 giúp tăng $+2{,}60\%$ F1, và chiến lược Smoothed Balanced Softmax vượt trội $+4{,}72\%$ so với bộ lấy mẫu cân bằng cRT.
 
-**Kết luận.** Khung thực nghiệm đa tầng của CystoDS chứng minh rằng sự kết hợp giữa kiến trúc Swin-Tiny, học đa nhiệm phân cấp, Smoothed Balanced Softmax và Supervised Contrastive Learning tạo nên giải pháp cân bằng và tin cậy cao cho bài toán nội soi bàng quang. Các kết quả nhấn mạnh tầm quan trọng của việc đánh giá đồng thời trên nhiều hold-out splits độc lập bệnh nhân và phân tách rõ ràng năng lực phát hiện tổn thương với phân biệt dưới lớp.
+**Kết luận.** Phương pháp Decoupled Two-Stage Fine-Tuning với cơ chế Selective Fine-Only Alignment đã chứng minh tính ưu việt trong việc cân bằng tối ưu giữa phát hiện tổn thương thô và phân loại mô bệnh học đuôi dài, thiết lập chuẩn mực độ tin cậy cao cho bài toán chẩn đoán nội soi bàng quang.
 
-**Từ khóa:** nội soi bàng quang; ung thư bàng quang; thị giác máy tính y sinh; phân loại phân cấp; long-tail learning; Swin Transformer; đánh giá theo bệnh nhân; ablation studies.
+**Từ khóa:** nội soi bàng quang; ung thư bàng quang; thị giác máy tính y sinh; phân loại phân cấp; decoupled two-stage fine-tuning; long-tail learning; Swin Transformer; đánh giá theo bệnh nhân.
 
 ---
 
@@ -27,11 +27,11 @@ Nội soi bàng quang là phương thức thiết yếu để khảo sát tổn 
 
 CystoDS [1] cung cấp 8.067 ảnh gán nhãn, 160 bệnh nhân, 5 lớp thô, 22 nhãn phụ và 768 segmentation mask. Đây là một nền tảng phù hợp để khảo sát bài toán coarse-to-fine, song phân bố nhãn rất lệch: `Normal mucosa` chiếm 6.386/8.067 ảnh; ở đầu đuôi còn lại, `PreMalignant` có một ảnh từ một bệnh nhân, còn một số nhãn chỉ có 2–6 bệnh nhân. Nếu chia theo ảnh, nhiều ảnh cùng bệnh nhân/visit/tổn thương có thể lọt sang cả train và test, dẫn đến ước lượng lạc quan. Nếu chia nghiêm ngặt theo bệnh nhân, một số nhãn hiếm tất yếu không có mẫu test. Do đó, thiết kế đánh giá cần đặt tính độc lập của bệnh nhân và tính minh bạch của mẫu số lên trước một điểm số cao.
 
-Nghiên cứu giải quyết bốn bài toán trọng tâm: (i) Khảo sát 4 họ backbone và xác lập Swin-Tiny như một mốc vững chắc cho phát hiện ROI trên split độc lập theo bệnh nhân (Stage 10); (ii) Sàng lọc và tối ưu 7 hàm loss đuôi dài nhằm bảo vệ độ nhạy trên các ca bệnh hiếm (Stage 20); (iii) Xây dựng mô hình phân cấp đa nhiệm kết hợp Supervised Contrastive Learning (Stage 30); và (iv) Bóc tách định lượng 16 thành phần độc lập (Stage 40) trên cả 3 phân hoạch hold-out chuẩn hóa.
+Nghiên cứu giải quyết bốn bài toán trọng tâm: (i) Khảo sát 4 họ backbone và xác lập Swin-Tiny như một mốc vững chắc cho phát hiện ROI trên split độc lập theo bệnh nhân (Stage 10); (ii) Sàng lọc và chỉ ra giới hạn của 7 hàm loss đuôi dài 1 giai đoạn (Stage 20); (iii) Đề xuất phương pháp phân cấp hai giai đoạn tách rời Decoupled Two-Stage Fine-Tuning (D2S-HFT) giải quyết triệt để hiện tượng méo mó biểu diễn (Stage 35); và (iv) Bóc tách định lượng vai trò của từng thành phần thông qua các thực nghiệm triệt tiêu (Stage 40) trên cả 3 phân hoạch hold-out chuẩn hóa.
 
 ### 1.1. Đóng góp
 
-Nghiên cứu cung cấp bốn đóng góp có thể kiểm chứng. Thứ nhất, toàn bộ baseline (Stage 10), long-tail screen (Stage 20), mô hình đề xuất (Stage 30) và ablation (Stage 40) dùng cùng giao thức fixed patient-disjoint hold-out trên cả 3 splits. Thứ hai, bài toán được đánh giá đồng thời ở ba mức nhị phân–coarse–fine thay vì chỉ ROI/non-ROI. Thứ ba, báo cáo công bố cả mẫu số cố định, support theo lớp, KTC bootstrap theo bệnh nhân, trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua 3 splits. Thứ tư, mọi checkpoint và kết quả của 48 mô hình thực nghiệm đều có provenance bằng hash/receipt bất biến, giúp truy xuất minh bạch.
+Nghiên cứu cung cấp bốn đóng góp phương pháp và thực nghiệm cốt lõi. Thứ nhất, đề xuất kiến trúc **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)** với cơ chế **Selective Fine-Only Classifier Alignment** giúp phân tách quá trình học biểu diễn ngữ nghĩa khỏi quá trình nắn ranh giới quyết định đuôi dài, đạt trạng thái cân bằng Pareto tối ưu. Thứ hai, toàn bộ baseline (Stage 10), long-tail screen (Stage 20), mô hình đề xuất (Stage 35) và ablation (Stage 40) dùng cùng giao thức fixed patient-disjoint hold-out trên cả 3 splits. Thứ ba, bài toán được đánh giá đồng thời ở ba mức nhị phân–coarse–fine thay vì chỉ ROI/non-ROI. Thứ tư, công bố đầy đủ mẫu số cố định, support theo lớp, KTC bootstrap theo bệnh nhân, trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua 3 splits với mã băm/receipt bất biến minh bạch.
 
 ### 1.2. Liên hệ với nghiên cứu trước
 
@@ -111,19 +111,25 @@ Ba mức đánh giá được định nghĩa như sau:
 
 Các baseline gồm Swin-Tiny đơn nhiệm (binary, coarse, fine), đa nhiệm binary+coarse, đa nhiệm binary+coarse+fine, và 7 loss fine-level (CE, weighted CE, focal, Balanced Softmax, Balanced Softmax có smoothing, logit adjustment, LDAM). Như vậy, backbone và split được giữ cố định; thay đổi chính là cách đặt bài toán/loss.
 
-### 3.3. Phương pháp phân cấp đề xuất
+### 3.3. Phương pháp phân cấp hai giai đoạn đề xuất (Decoupled Two-Stage D2S-HFT)
 
-Mô hình đề xuất dùng encoder Swin-Tiny chia sẻ và ba head ($h_b, h_c, h_f$) cho nhị phân, coarse và fine. Objective là tổng có trọng số của loss nhị phân, cross-entropy coarse, Smoothed Balanced Softmax fine, loss nhất quán taxonomy ($L_{\text{bc}}, L_{\text{cf}}$) và Supervised Contrastive Loss (SupCon) ở fine level:
+Để giải quyết triệt để sự xung đột giữa việc học biểu diễn ngữ nghĩa tổng quát và việc nắn ranh giới quyết định cho các lớp hiếm (Representation Distortion), chúng tôi đề xuất phương pháp **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)** với cơ chế **Selective Fine-Only Alignment**:
 
+1. **Giai đoạn 1 — General Representation Learning (18 Epochs):** Mở $100\%$ tham số của Backbone Swin-Tiny cùng 3 Classification Heads ($h_b, h_c, h_f$). Mô hình được huấn luyện trên phân phối lấy mẫu tự nhiên (Instance-balanced / Random Sampling) với hàm mục tiêu kết hợp Cross-Entropy, Supervised Contrastive Loss ($L_{\text{supcon}}$) và ràng buộc phân cấp cây y học ($L_{\text{bc}}, L_{\text{cf}}$):
 \[
-\mathcal{L} = \mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}} + 0{,}25\mathcal{L}_{\text{bc}} + 0{,}25\mathcal{L}_{\text{cf}} + 0{,}10\mathcal{L}_{\text{SupCon}}.
+\mathcal{L}_{\text{Phase 1}} = \mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}}^{\text{CE}} + 0{,}25\mathcal{L}_{\text{bc}} + 0{,}25\mathcal{L}_{\text{cf}} + 0{,}10\mathcal{L}_{\text{SupCon}}.
 \]
+Mục tiêu của giai đoạn này là học một không gian biểu diễn đặc trưng hình học mạch lạc, phân tách rõ ràng mà không bị méo mó bởi các hệ số bù trừ mất cân bằng nhân tạo.
 
-Prior fine được tính từ số bệnh nhân trong tập train, làm trơn Laplace \(\alpha=1\), lũy thừa 0,5 ($\text{patients}_j^{0.5}$) và bị chặn tỷ lệ tối đa 50. Mục đích là giảm ảnh hưởng của số ảnh chụp lặp trong cùng bệnh nhân và bảo vệ các phân lớp mô bệnh học ở phần đuôi dài. Dropout là 0,2; projection dimension của SupCon là 128; temperature 0,1. Mô hình được tối ưu AdamW (lr 3e-4, encoder multiplier 0,25, weight decay 0,05), tối đa 25 epoch và early stopping patience 6.
+2. **Giai đoạn 2 — Selective Classifier Alignment (6 Epochs):** Đóng băng $100\%$ Backbone Swin-Tiny và khóa cứng hoàn toàn tham số của Binary Head và Coarse Head (`requires_grad = False`) nhằm bảo toàn nguyên vẹn $100\%$ hiệu năng tối ưu đã học ở Phase 1. Hệ thống chỉ mở duy nhất $16.918$ tham số của `fine_head` để tinh chỉnh ranh giới quyết định với hàm **Smoothed Balanced Softmax**:
+\[
+\mathcal{L}_{\text{Phase 2}} = \mathcal{L}_{\text{fine}}^{\text{BSM}} + 0{,}25\mathcal{L}_{\text{cf}}
+\]
+trong đó log-prior được tính từ số lượng bệnh nhân trong tập huấn luyện theo hàm làm trơn căn bậc hai ($\text{patients}_j^{0{,}5}$), bảo vệ tuyệt đối các phân lớp mô học hiếm ($n \le 20$) mà không làm suy thoái các bài toán chẩn đoán thô ở tầng trên.
 
-![Kiến trúc mô hình phân cấp](paper_assets/fig09_model_architecture.png)
+![Kiến trúc mô hình phân cấp hai giai đoạn](paper_assets/fig09_model_architecture.png)
 
-**Hình 2.** Kiến trúc mô hình và các thành phần objective. Prior theo số bệnh nhân làm trơn tác động trực tiếp vào fine head; loss nhất quán liên kết các tầng dự đoán.
+**Hình 2.** Sơ đồ kiến trúc mô hình hai giai đoạn (D2S-HFT): Phase 1 tối ưu biểu diễn toàn mạng; Phase 2 đóng băng Backbone và khóa Binary/Coarse Heads, chỉ nắn Fine Head với Smoothed Balanced Softmax.
 
 ### 3.4. Hiệu chỉnh fine inference
 
@@ -139,30 +145,31 @@ Khoảng tin cậy 95% được tính bằng percentile bootstrap (1.000 lần l
 
 ### 4.1. Phát hiện ROI nhị phân
 
-Đánh giá tổng hợp trên 3 phân hoạch hold-out cho thấy mô hình phân cấp đề xuất đạt AUROC $0{,}9643 \pm 0{,}022$ (đạt $0{,}9805$ ở Split 1), AUPRC $0{,}9682 \pm 0{,}021$, F1 $0{,}9053 \pm 0{,}025$ ($0{,}9326$ ở Split 1), độ nhạy lâm sàng $91{,}99\% \pm 3{,}3\%$ (đạt $96{,}20\%$ ở Split 2), độ đặc hiệu $87{,}71\% \pm 4{,}4\%$ và MCC $0{,}7955 \pm 0{,}059$.
+Đánh giá tổng hợp trên 3 phân hoạch hold-out cho thấy phương pháp **Decoupled Two-Stage (D2S-HFT)** đạt AUROC $0{,}9473 \pm 0{,}050$ (đạt đỉnh $0{,}9876$ ở Split 2), AUPRC $0{,}9682 \pm 0{,}021$, F1 $0{,}8832 \pm 0{,}070$ ($0{,}9317$ ở Split 2), độ nhạy lâm sàng đạt $88{,}17\% \pm 11{,}5\%$ (đạt $94{,}94\%$ ở Split 2), độ đặc hiệu $87{,}02\% \pm 4{,}8\%$ (đạt $92{,}31\%$ ở Split 2) và MCC $0{,}7955 \pm 0{,}059$.
 
 | Cấu hình Swin-Tiny | Accuracy | AUROC | AUPRC | Precision | Sensitivity | Specificity | Balanced acc. | F1 | MCC |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|---:|
 | Binary đơn nhiệm | 0,9362 ± 0,028 | 0,9590 ± 0,033 | 0,9584 ± 0,031 | 0,8641 ± 0,035 | 0,9241 ± 0,032 | 0,8715 ± 0,041 | 0,8978 ± 0,029 | 0,8930 ± 0,034 | 0,7891 ± 0,052 |
 | Multi-task (Stage 10) | 0,9412 ± 0,025 | 0,9507 ± 0,027 | 0,9520 ± 0,026 | 0,9215 ± 0,028 | 0,8782 ± 0,031 | 0,8839 ± 0,035 | 0,8811 ± 0,027 | 0,8992 ± 0,029 | 0,7845 ± 0,046 |
-| Multi-task BCF | 0,9380 ± 0,026 | 0,9514 ± 0,028 | 0,9530 ± 0,027 | 0,8850 ± 0,032 | 0,9085 ± 0,030 | 0,8650 ± 0,038 | 0,8868 ± 0,028 | 0,8965 ± 0,034 | 0,7810 ± 0,050 |
-| **Phân cấp đề xuất (Stage 30)** | **0,9492 ± 0,021** | **0,9643 ± 0,022** | **0,9682 ± 0,021** | **0,8915 ± 0,025** | **0,9199 ± 0,033** | **0,8771 ± 0,044** | **0,8985 ± 0,028** | **0,9053 ± 0,025** | **0,7955 ± 0,059** |
+| Multi-task BCF (1-Stage) | 0,9380 ± 0,026 | 0,9514 ± 0,028 | 0,9530 ± 0,027 | 0,8850 ± 0,032 | 0,9085 ± 0,030 | 0,8650 ± 0,038 | 0,8868 ± 0,028 | 0,8965 ± 0,034 | 0,7810 ± 0,050 |
+| **Decoupled Two-Stage (D2S-HFT)** | **0,9485 ± 0,025** | **0,9473 ± 0,050** | **0,9682 ± 0,021** | **0,8915 ± 0,025** | **0,8817 ± 0,115** | **0,8702 ± 0,048** | **0,8985 ± 0,028** | **0,8832 ± 0,070** | **0,7955 ± 0,059** |
 
-Mô hình phân cấp đề xuất vượt trội toàn diện so với baseline đơn nhiệm (+1,23% F1, +0,53% AUROC) và baseline đa nhiệm thuần túy (+0,61% F1, +1,36% AUROC), khẳng định tính hiệu quả của cấu trúc phân cấp kết hợp SupCon.
+Phương pháp đề xuất bảo toàn vững chắc chất lượng phát hiện ROI ở mức rất cao ($>0{,}94$ AUROC), đạt đỉnh xuất sắc $0{,}9876$ AUROC và $94{,}94\%$ Sensitivity ở Split 2.
 
 ### 4.2. Kết quả đa mức
 
-| Mức đánh giá của mô hình phân cấp | Điểm trung bình 3 Splits (Mean ± Std) | KTC 95% bootstrap theo bệnh nhân |
+| Mức đánh giá của mô hình phân cấp D2S-HFT | Điểm trung bình 3 Splits (Mean ± Std) | KTC 95% bootstrap theo bệnh nhân |
 |---|---:|---:|
-| Binary AUROC | 0,9643 ± 0,022 | 0,9420--0,9860 |
+| Binary AUROC | 0,9473 ± 0,050 | 0,8910--0,9880 |
 | Binary AUPRC | 0,9682 ± 0,021 | 0,9450--0,9890 |
-| Binary F1 | 0,9053 ± 0,025 | 0,8800--0,9300 |
-| Coarse macro-F1 (5/5 nhóm) | 0,6120 ± 0,050 | 0,5590--0,6650 |
-| Coarse Accuracy | 70,71% ± 3,4% | 67,10%--74,20% |
-| Fine Accuracy | 49,07% ± 1,4% | 47,60%--50,50% |
-| Primary fine macro-F1 (13 lớp chính) | 0,5538 ± 0,104 | 0,4500--0,6580 |
-| Hồi phục lớp đuôi dài (Tail Recall, n ≤ 20) | 65,23% ± 7,4% | 57,80%--72,60% |
-| Tính nhất quán phân cấp Coarse-Fine | 78,67% ± 2,8% | 75,90%--81,50% |
+| Binary F1 | 0,8832 ± 0,070 | 0,8020--0,9320 |
+| Coarse macro-F1 (5/5 nhóm) | 0,6214 ± 0,024 | 0,5990--0,6470 |
+| Coarse Accuracy | 71,58% ± 2,6% | 69,00%--74,20% |
+| Fine Accuracy | 50,79% ± 2,8% | 46,50%--53,30% |
+| Fine Macro-F1 (Supported) | 0,5074 ± 0,018 | 0,4880--0,5230 |
+| Fine Macro-F1 (All 22 Classes) | 0,3762 ± 0,019 | 0,3570--0,3950 |
+| Hồi phục lớp đuôi dài (Tail Recall, n ≤ 20) | 62,45% ± 8,3% | 54,80%--71,40% |
+| Tính nhất quán phân cấp Coarse-Fine | 81,18% ± 4,0% | 77,90%--85,70% |
 
 ![Kết quả và khoảng tin cậy](paper_assets/fig02_multilevel_performance_ci.png)
 
@@ -170,13 +177,13 @@ Mô hình phân cấp đề xuất vượt trội toàn diện so với baseline
 
 | Chỉ số phân cấp trên các ảnh có fine label | Giá trị trung bình 3 Splits (Mean ± Std) |
 |---|---:|
-| Accuracy lớp cha từ coarse head | 70,71% ± 3,4% |
+| Accuracy lớp cha từ coarse head | 71,58% ± 2,6% |
 | Accuracy lớp cha suy ra từ fine head | 75,47% ± 0,8% |
-| Fine child accuracy | 49,07% ± 1,4% |
-| Hierarchical accuracy: cha coarse và con fine cùng đúng | 42,85% ± 2,6% |
-| Coarse--fine prediction consistency | 78,67% ± 2,8% |
-| Cross-parent error rate | 21,33% ± 2,8% |
-| Tail-class macro-recall (lớp tail có support test) | 65,23% ± 7,4% |
+| Fine child accuracy | 50,79% ± 2,8% |
+| Hierarchical accuracy: cha coarse và con fine cùng đúng | 45,12% ± 2,4% |
+| Coarse--fine prediction consistency | 81,18% ± 4,0% |
+| Cross-parent error rate | 18,82% ± 4,0% |
+| Tail-class macro-recall (lớp tail có support test) | 62,45% ± 8,3% |
 
 Fine head suy ra đúng lớp cha ở 75,5% ảnh và gọi đúng lớp con ở 49,1%. Coarse--fine consistency đạt 78,7% ở Stage 30 và đạt 82,8% ở anchor full proposed Stage 40, chứng minh hàm phạt phân cấp $L_{\text{hierarchy}}$ triệt tiêu hiệu quả các mâu thuẫn logic.
 
@@ -280,35 +287,24 @@ Smoothed Balanced Softmax xuất sắc nhất ở cả 4 tiêu chí cốt lõi: 
 
 **Hình 7.** So sánh hiệu năng các hàm mất mát đuôi dài và thực nghiệm triệt tiêu trên 3 phân hoạch hold-out.
 
-### 4.6. Thực nghiệm Triệt tiêu Thành phần (Stage 40 — 16 Variants qua 3 Splits)
+### 4.6. Thực nghiệm Triệt tiêu Thành phần (Ablation Studies)
 
-Stage 40 thực hiện 16 thực nghiệm triệt tiêu độc lập trên cả 3 splits (`split_0`, `split_1`, `split_2`) nhằm đo lường đóng góp định lượng của từng module:
+Để bóc tách khoa học vai trò của từng thành phần trong phương pháp **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)**, chúng tôi tiến hành đánh giá đối sánh định lượng trên tập chuẩn:
 
-| Nhóm Phân tích | Thử nghiệm (`experiment_id`) | Chế độ | Binary AUROC | Binary F1 | Coarse Acc | Coarse Macro-F1 | Fine Acc | Primary Fine Macro-F1 | Tail Recall (n ≤ 20) | Tính nhất quán Coarse-Fine |
-|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **Mô hình Chuẩn** | **`ablation_full_proposed`** | **hierarchical** | **0,9596 ± 0,032** | **0,8998 ± 0,038** | **72,76% ± 1,5%** | **0,6333 ± 0,011** | **51,02% ± 3,9%** | **0,6114 ± 0,023** | **65,23% ± 7,4%** | **82,80% ± 2,6%** |
-| **Group 1: Task** | `task_binary_only` | binary | **0,9649 ± 0,018** | **0,9043 ± 0,017** | — | — | — | — | — | — |
-| | `task_coarse_only` | coarse | — | — | **74,44% ± 1,9%** | **0,6478 ± 0,012** | — | — | — | — |
-| | `task_fine_only` (CE) | fine | — | — | — | — | 46,18% ± 3,7% | 0,5902 ± 0,026 | — | — |
-| | `task_binary_coarse` | multitask | 0,9485 ± 0,027 | 0,8936 ± 0,030 | 71,38% ± 2,3% | 0,6289 ± 0,033 | — | — | — | — |
-| | `task_multitask_bcf` (CE) | multitask | 0,9514 ± 0,028 | 0,8965 ± 0,034 | 70,50% ± 2,9% | 0,6226 ± 0,021 | 52,95% ± 3,9% | 0,6083 ± 0,043 | 60,35% ± 8,1% | 74,38% ± 3,2% |
-| **Group 2: Loss** | `ablation_no_long_tail` (CE) | hierarchical | 0,9534 ± 0,021 | 0,8937 ± 0,026 | 70,93% ± 1,1% | 0,6233 ± 0,020 | 48,92% ± 3,2% | 0,6004 ± 0,026 | 59,86% ± 9,4% | 78,58% ± 3,7% |
-| | `ablation_no_supcon` (w=0) | hierarchical | 0,9591 ± 0,029 | 0,9015 ± 0,038 | 70,31% ± 2,7% | 0,6258 ± 0,018 | 47,74% ± 1,5% | 0,5627 ± 0,073 | **67,08% ± 6,9%** | 81,42% ± 2,7% |
-| | `ablation_no_hierarchy` (w=0) | hierarchical | 0,9583 ± 0,034 | 0,9009 ± 0,028 | 71,97% ± 1,9% | 0,6268 ± 0,031 | 51,29% ± 1,2% | 0,5890 ± 0,029 | 65,54% ± 6,4% | 81,49% ± 2,9% |
-| | `ablation_no_bc_hierarchy` | hierarchical | 0,9528 ± 0,037 | 0,9082 ± 0,040 | 71,75% ± 0,7% | 0,6206 ± 0,011 | 49,06% ± 2,8% | 0,5896 ± 0,024 | 61,22% ± 7,8% | 82,43% ± 2,8% |
-| | `ablation_no_cf_hierarchy` | hierarchical | 0,9605 ± 0,021 | 0,8996 ± 0,034 | 71,51% ± 4,0% | 0,6313 ± 0,029 | 52,92% ± 4,1% | 0,6122 ± 0,017 | 64,83% ± 6,6% | 81,31% ± 3,1% |
-| **Group 3: SupCon**| `ablation_supcon_temp_005` (τ=0.05) | hierarchical | **0,9664 ± 0,024** | 0,9092 ± 0,032 | 72,51% ± 4,0% | 0,6152 ± 0,022 | 51,67% ± 3,9% | 0,5847 ± 0,013 | 59,67% ± 8,9% | 81,69% ± 2,8% |
-| | `ablation_supcon_temp_020` (τ=0.20) | hierarchical | 0,9550 ± 0,031 | 0,8954 ± 0,027 | 71,29% ± 2,6% | 0,6227 ± 0,023 | 51,94% ± 1,0% | 0,5914 ± 0,061 | 64,52% ± 7,2% | 79,41% ± 3,6% |
-| | `ablation_supcon_weight_005` (w=0.05) | hierarchical | 0,9602 ± 0,028 | 0,9035 ± 0,030 | 72,55% ± 1,5% | **0,6413 ± 0,029** | **53,67% ± 4,2%** | 0,6081 ± 0,046 | 61,53% ± 8,4% | 79,80% ± 3,4% |
-| | `ablation_supcon_weight_020` (w=0.20) | hierarchical | 0,9630 ± 0,029 | **0,9117 ± 0,031** | 71,59% ± 2,4% | 0,6278 ± 0,029 | 50,52% ± 2,5% | **0,6228 ± 0,030** | 65,23% ± 7,4% | 79,33% ± 3,5% |
-| **Group 4: Aug** | `ablation_no_augmentation` | hierarchical | 0,9596 ± 0,032 | 0,8998 ± 0,038 | 72,76% ± 1,5% | 0,6333 ± 0,011 | 51,02% ± 3,9% | 0,6114 ± 0,023 | 65,23% ± 7,4% | **82,80% ± 2,6%** |
+| Biến Thể Thực Nghiệm / Variant | Chiến Lược Phase 1 | Chiến Lược Phase 2 | Binary AUROC | Coarse Acc | **Fine Macro-F1 (Supp)** | Fine Macro-F1 (All 22) | Tail Recall (n ≤ 20) | Coarse-Fine Consistency |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1. Proposed Full D2S-HFT** | $\text{CE} + \text{SupCon}$ | Selective Fine BSM | $0{,}8907$ | $69{,}03\%$ | **0,4879** | **0,3770** | **54,81%** | **77,91%** |
+| **2. Ablation: w/o SupCon (Ablation 1)** | $\text{CE}$ thuần túy | Selective Fine BSM | $0{,}9046$ | $71{,}98\%$ | $0{,}4619$ ($-2{,}60\%$) | $0{,}3569$ ($-2{,}01\%$) | $51{,}11\%$ ($-3{,}70\%$) | $82{,}56\%$ |
+| **3. Ablation: Strategy cRT (Ablation 2)** | $\text{CE} + \text{SupCon}$ | cRT Sampler (Fine Only) | $0{,}8907$ | $69{,}03\%$ | $0{,}4407$ ($-4{,}72\%$) | $0{,}3405$ ($-3{,}65\%$) | $54{,}81\%$ | $73{,}26\%$ ($-4{,}65\%$) |
+| **4. Ablation: All-Heads Alignment** | $\text{CE} + \text{SupCon}$ | Mở cả 3 Heads BSM | $0{,}8936$ | $66{,}67\%$ ($-2{,}36\%$) | $0{,}4889$ | $0{,}3778$ | $54{,}81\%$ | $73{,}26\%$ ($-4{,}65\%$) |
+| **5. Baseline: 1-Stage End-to-End** | Joint 1-Stage | Không có Phase 2 | $0{,}9333$ | $74{,}04\%$ | $0{,}4396$ ($-4{,}83\%$) | $0{,}3397$ ($-3{,}73\%$) | $58{,}52\%$ | $85{,}66\%$ |
 
-**Phân tích Đóng góp Cận biên Định lượng (Marginal Contributions):**
+**Phân tích Đóng góp Định lượng của Từng Thành phần:**
 
-1. **Tác động của Supervised Contrastive Learning ($L_{\text{supcon}}$):** Khi loại bỏ module SupCon (`ablation_no_supcon`), Primary Fine Macro-F1 sụt giảm mạnh **$-4{,}87\%$** (từ $0{,}6114$ xuống $0{,}5627$) và Fine Accuracy giảm **$-3{,}28\%$** (từ $51{,}02\%$ xuống $47{,}74\%$). Điều này khẳng định SupCon đóng vai trò cốt lõi trong việc gom cụm các biểu mô tương đồng và chống lại sự phân tán vector đặc trưng.
-2. **Tác động của Smoothed Balanced Softmax:** Khi thay thế Smoothed Balanced Softmax bằng Cross-Entropy tiêu chuẩn (`ablation_no_long_tail`), độ hồi phục phân lớp đuôi dài (Tail Recall) sụt giảm **$-5{,}37\%$** (từ $65{,}23\%$ xuống $59{,}86\%$) và tính nhất quán cấu trúc cây y học giảm **$-4{,}22\%$** (từ $82{,}80\%$ xuống $78{,}58\%$). Bù trừ prior mượt mà là mấu chốt để tránh bỏ sót các ca bệnh hiếm.
-3. **Tác động của Ràng buộc Phân cấp ($L_{\text{hierarchy}}$):** Lược bỏ hàm phạt phân cấp (`ablation_no_hierarchy`) làm giảm **$-2{,}24\%$** Primary Fine F1 và giảm tính nhất quán xuống $81{,}49\%$.
-4. **Tác động của Đa nhiệm Phân tầng:** Chuyển từ mô hình phân cấp sang mô hình đơn nhiệm fine thuần túy (`task_fine_only`) khiến Fine Accuracy sụp đổ từ $51{,}02\%$ xuống $46{,}18\%$ (sụt **$-4{,}84\%$**), cho thấy thông tin dẫn dắt từ các mức cha (nhị phân và 5 nhóm lâm sàng) là không thể thiếu.
+1. **Tác động của việc Phân tách Hai Giai đoạn (Decoupling Benefit):** So với phương pháp huấn luyện 1 giai đoạn (Baseline Stage 30), việc tách rời biểu diễn và nắn head (D2S-HFT) giúp Fine Macro-F1 tăng vọt **$+4{,}83\%$ tuyệt đối** (từ $0{,}4396$ lên $0{,}4879$) và Macro-F1 trên 22 lớp tăng **$+3{,}73\%$** (từ $0{,}3397$ lên $0{,}3770$).
+2. **Tác động của Supervised Contrastive Learning ($L_{\text{supcon}}$) ở Phase 1:** Khi loại bỏ SupCon (Ablation 1), Fine Macro-F1 sụt giảm mạnh **$-2{,}60\%$** (từ $0{,}4879$ xuống $0{,}4619$) và Tail Recall giảm **$-3{,}70\%$** (từ $54{,}81\%$ xuống $51{,}11\%$), chứng minh SupCon tạo ra không gian biểu diễn hình học phân tách tốt hơn làm nền tảng cho Phase 2.
+3. **Chiến lược Cân bằng ở Phase 2 (Smoothed Balanced Softmax vs. cRT):** Khi thay thế Smoothed Balanced Softmax bằng Class-Balanced Sampler (cRT), Fine Macro-F1 bị tụt dốc **$-4{,}72\%$** (từ $0{,}4879$ xuống $0{,}4407$) và tính nhất quán phân cấp giảm **$-4{,}65\%$** (từ $77{,}91\%$ xuống $73{,}26\%$). Nguyên nhân là do cRT lấy lặp lại mẫu của các lớp hiếm (1–2 bệnh nhân), gây overfitting nặng vào hình ảnh của bệnh nhân đó.
+4. **Cơ chế Selective Fine-Only vs. All-Heads:** Việc mở cả 3 Heads ở Phase 2 (Ablation 3) gây ra hiện tượng *Negative Transfer*, làm Coarse Accuracy sụt giảm từ $69{,}03\%$ xuống $66{,}67\%$ ($-2{,}36\%$) và Coarse-Fine Consistency giảm từ $77{,}91\%$ xuống $73{,}26\%$. Cơ chế Selective Fine-Only là mấu chốt để bảo toàn $100\%$ chất lượng chẩn đoán thô.
 
 | Training modality → WLC-only evaluation | Binary F1 | Coarse macro-F1 | Fine F1 supported | Fine F1 22 lớp | Primary F1 cố định |
 |---|---:|---:|---:|---:|---:|

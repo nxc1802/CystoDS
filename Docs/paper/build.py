@@ -24,7 +24,7 @@ TITLE = (
     "Phân loại phân cấp tổn thương bàng quang trong nội soi "
     "trên dữ liệu mất cân bằng dài đuôi CystoDS"
 )
-SUBTITLE = "Một đánh giá đa mức với Swin-Tiny trên hold-out độc lập theo bệnh nhân"
+SUBTITLE = "Phương pháp tinh chỉnh hai giai đoạn tách rời trên hold-out độc lập theo bệnh nhân"
 
 TABLE_CAPTIONS = [
     "Kết quả kiểm định các thuộc tính dữ liệu CystoDS.",
