@@ -107,6 +107,12 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Target heads for Phase 2 alignment: 'fine_only' (recommended: locks Binary & Coarse to preserve optimal Phase 1 performance, trains only Fine head) or 'all_heads'. Default: fine_only.",
     )
     parser.add_argument(
+        "--ablation-name",
+        type=str,
+        default=None,
+        help="Optional ablation experiment name (e.g. ablation_no_supcon, ablation_crt, ablation_all_heads). When set, results are organized into result/40_ablations/two_stage/.",
+    )
+    parser.add_argument(
         "--tau-norm",
         type=float,
         default=0.0,
@@ -315,6 +321,7 @@ def run_two_stage_single_split(
     phase1_lr: float,
     phase2_lr: float,
     phase1_supcon_weight: float | None = None,
+    ablation_name: str | None = None,
     tau_norm: float = 0.0,
     dry_run: bool = False,
     compare_baseline: bool = True,
@@ -343,15 +350,22 @@ def run_two_stage_single_split(
     # Setup run directory
     result_root = Path(config.get("result_root", "./result")).resolve()
     run_timestamp = time.strftime("%Y%m%d-%H%M%S")
-    run_name = f"two_stage_split{split_index}_{profile}_{run_timestamp}"
-    run_dir = result_root / "35_two_stage_decoupled" / run_name
+    if ablation_name:
+        run_name = f"{ablation_name}_split{split_index}_{profile}_{run_timestamp}"
+        run_dir = result_root / "40_ablations" / "two_stage" / run_name
+    else:
+        run_name = f"two_stage_split{split_index}_{profile}_{run_timestamp}"
+        run_dir = result_root / "35_two_stage_decoupled" / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     for sub in ("logs", "reports", "system", "splits", "runs", "phase1", "phase2"):
         (run_dir / sub).mkdir(parents=True, exist_ok=True)
 
     logger = setup_logger(run_dir / "logs" / "training.log")
     logger.info("=" * 70)
-    logger.info("CystoDS: Decoupled Two-Stage Fine-Tuning (Phase 1 -> Phase 2)")
+    if ablation_name:
+        logger.info("CystoDS Ablation: %s (Phase 1 -> Phase 2)", ablation_name)
+    else:
+        logger.info("CystoDS: Decoupled Two-Stage Fine-Tuning (Phase 1 -> Phase 2)")
     logger.info("=" * 70)
     logger.info("Split: %d | Profile: %s", split_index, profile)
     supcon_w = phase1_supcon_weight if phase1_supcon_weight is not None else float(config.get("supervised_contrastive_loss_weight", 0.10 if profile != "smoke" else 0.0))
@@ -681,6 +695,7 @@ def main(argv: list[str] | None = None) -> None:
             phase1_lr=args.phase1_lr,
             phase2_lr=args.phase2_lr,
             phase1_supcon_weight=args.phase1_supcon_weight,
+            ablation_name=args.ablation_name,
             tau_norm=args.tau_norm,
             dry_run=args.dry_run,
             compare_baseline=args.compare_baseline,

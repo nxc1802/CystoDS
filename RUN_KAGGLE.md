@@ -172,7 +172,42 @@ Phương pháp này tách rời quá trình học đặc trưng và cân bằng 
 !python run_two_stage_hierarchical.py --split all --profile research
 ```
 
-### 🔹 Stage 40: Thực nghiệm Triệt tiêu (Ablation Studies — 16 Variants + Freezing Ablations)
+---
+
+### 🔹 Stage 40: Thực nghiệm Triệt tiêu cho Phương pháp Hai Giai đoạn (Two-Stage Ablation Studies)
+
+Tất cả các lệnh dưới đây tự động ghi kết quả vào thư mục `result/40_ablations/two_stage/`:
+
+#### 1. Ablation 1: Two-Stage KHÔNG CÓ SupCon (Đánh giá vai trò của Contrastive Loss ở Phase 1)
+```python
+# Chạy trên Split 0 (~15 phút):
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase1-supcon-weight 0.0 --ablation-name ablation_no_supcon
+
+# Hoặc chạy trên cả 3 Splits (~45 phút):
+!python run_two_stage_hierarchical.py --split all --profile research --phase1-supcon-weight 0.0 --ablation-name ablation_no_supcon
+```
+
+#### 2. Ablation 2: Chiến lược cRT (Class-Balanced Sampling ở Phase 2 thay vì Smoothed Balanced Softmax)
+```python
+# Chạy trên Split 0 (~15 phút):
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-strategy crt --ablation-name ablation_strategy_crt
+
+# Hoặc chạy trên cả 3 Splits (~45 phút):
+!python run_two_stage_hierarchical.py --split all --profile research --phase2-strategy crt --ablation-name ablation_strategy_crt
+```
+
+#### 3. Ablation 3: Mở cả 3 Heads ở Phase 2 (Đánh giá ảnh hưởng của việc khóa Binary & Coarse)
+```python
+# Chạy trên Split 0 (~15 phút):
+!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-target all_heads --ablation-name ablation_all_heads
+
+# Hoặc chạy trên cả 3 Splits (~45 phút):
+!python run_two_stage_hierarchical.py --split all --profile research --phase2-target all_heads --ablation-name ablation_all_heads
+```
+
+---
+
+### 🔹 Stage 40 (Legacy): Thực nghiệm Triệt tiêu 16 Biến Thể 1 Giai đoạn Cũ
 ```python
 # Chạy toàn bộ 16 ablations trên Split 0 (~55 - 70 phút):
 !python -m cystods run 40 --split 0 --profile research
