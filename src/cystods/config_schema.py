@@ -193,7 +193,21 @@ BASE_CONFIG: dict[str, Any] = {
     "external_path_column": "path",
     "external_binary_label_column": "binary_label",
     "external_patient_id_column": "patient_id",
-    # Verification and model checkpointing
+    # Multi-stage and decoupled fine-tuning parameters
+    "training_paradigm": "joint_1stage",
+    "phase1_loss": "cross_entropy",
+    "phase2_loss": "balanced_softmax_smoothed",
+    "phase3_loss": "balanced_softmax_smoothed",
+    "phase1_epochs": 25,
+    "phase2_epochs": 10,
+    "phase3_epochs": 10,
+    "phase1_lr": 3.0e-4,
+    "phase2_lr": 1.0e-3,
+    "phase3_lr": 1.0e-3,
+    "phase1_supcon_weight": 0.10,
+    "phase2_target": "fine_only",
+    "phase2_strategy": "linear_probe",
+    "ablation_name": None,
     "checkpoint_backend": "local",  # local | huggingface
     "save_last_checkpoint": False,
     "save_epoch_checkpoints": False,

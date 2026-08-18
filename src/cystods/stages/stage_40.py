@@ -1,17 +1,27 @@
-"""Stage 40 — Ablation studies: 16 component ablations.
+"""Stage 40 — Comprehensive Ablation Studies: 8 component, paradigm, strategy & freezing variants.
 
-Thin orchestrator that delegates to ``cystods.core.run_training_suite``.
+Orchestrates:
+- 1-Stage ablations (Joint baseline, w/o SupCon, w/o Hierarchy, Layer Freezing) via ``cystods.core.run_training_suite``
+- 2-Stage ablations (2-Stage Decoupled, cRT strategy, All-Heads alignment) via ``cystods.experiments.two_stage_runner``
 """
 
 from __future__ import annotations
 
+import gc
+import json
 import os
 from pathlib import Path
 from typing import Any
 
+import torch
+
 import cystods.core as core
 from cystods.config import filter_stage_trials, get_stage_trials
-
+from cystods.experiments.artifacts import (
+    find_and_load_stage_artifact,
+    write_stage_selection_artifact,
+)
+from cystods.experiments.two_stage_runner import run_two_stage_single_split
 
 STAGE_ID = "40"
 STAGE_NAME = "stage_40_run_ablations"
@@ -68,52 +78,6 @@ def run(config: dict[str, Any]) -> Path:
         filter_trials=filter_trials,
     )
 
-    if not trials and config.get("run_profile") == "smoke":
-        trials = [
-            {
-                "experiment_id": "smoke_ablation_no_supcon",
-                "task_mode": "hierarchical",
-                "overrides": {
-                    "pretrained": False,
-                    "supervised_contrastive_loss_weight": 0.0,
-                    "monitor_metric": "coarse_macro_f1",
-                },
-            },
-            {
-                "experiment_id": "smoke_ablation_full_proposed",
-                "task_mode": "hierarchical",
-                "overrides": {
-                    "pretrained": False,
-                    "monitor_metric": "coarse_macro_f1",
-                },
-            },
-            {
-                "experiment_id": "smoke_ablation_freeze_stage2",
-                "task_mode": "hierarchical",
-                "overrides": {
-                    "pretrained": False,
-                    "partial_finetune": True,
-                    "frozen_stages_count": 2,
-                    "monitor_metric": "coarse_macro_f1",
-                },
-            },
-            {
-                "experiment_id": "smoke_ablation_freeze_stage3",
-                "task_mode": "hierarchical",
-                "overrides": {
-                    "pretrained": False,
-                    "partial_finetune": True,
-                    "frozen_stages_count": 3,
-                    "monitor_metric": "coarse_macro_f1",
-                },
-            },
-        ]
-        trials = filter_stage_trials(
-            trials,
-            filter_models=filter_models,
-            filter_trials=filter_trials,
-        )
-
     if not trials and (filter_models or filter_trials):
         all_trials = get_stage_trials(config_path=config_path, stage=STAGE_ID, profile=config.get("run_profile"))
         avail_exp = [t.get("experiment_id") for t in all_trials]
@@ -123,12 +87,6 @@ def run(config: dict[str, Any]) -> Path:
             f"Available models for Stage {STAGE_ID}: {avail_models}\n"
             f"Available experiment IDs for Stage {STAGE_ID}: {avail_exp}"
         )
-
-    # Try loading selected backbone & long-tail method from Stage 10 & 20/30 artifacts
-    from cystods.experiments.artifacts import (
-        find_and_load_stage_artifact,
-        write_stage_selection_artifact,
-    )
 
     selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
     selected_long_tail = "balanced_softmax_smoothed"
@@ -159,50 +117,89 @@ def run(config: dict[str, Any]) -> Path:
 
     config["model_name"] = selected_backbone
     config["fine_loss"] = selected_long_tail
+
+    # Split trials into 1-stage suite trials and 2-stage decoupled trials
+    one_stage_trials: list[dict[str, Any]] = []
+    two_stage_trials: list[dict[str, Any]] = []
+
     for t in trials:
-        t.setdefault("overrides", {}).setdefault("model_name", selected_backbone)
-        t.setdefault("overrides", {}).setdefault("fine_loss", selected_long_tail)
+        t_overrides = t.setdefault("overrides", {})
+        t_overrides.setdefault("model_name", selected_backbone)
+        t_overrides.setdefault("fine_loss", selected_long_tail)
+        if t_overrides.get("training_paradigm") == "two_stage":
+            two_stage_trials.append(t)
+        else:
+            one_stage_trials.append(t)
 
-    print(f"Stage {STAGE_ID}: Selected {len(trials)} trial(s) to run (backbone={selected_backbone}, default_fine_loss={selected_long_tail}):")
-    for t in trials:
-        m_name = t.get("overrides", {}).get("model_name", selected_backbone)
-        lt_name = t.get("overrides", {}).get("fine_loss", selected_long_tail)
-        print(f"  • [{t['experiment_id']}] model: {m_name} | fine_loss: {lt_name} | task_mode: {t.get('task_mode')}")
-    print()
+    print(f"\nStage {STAGE_ID}: Executing {len(trials)} total ablation trial(s):")
+    print(f"  • Single-Stage Suite Trials ({len(one_stage_trials)}): {[t['experiment_id'] for t in one_stage_trials]}")
+    print(f"  • Two-Stage Decoupled Trials ({len(two_stage_trials)}): {[t['experiment_id'] for t in two_stage_trials]}\n")
 
-    suite_config = {
-        "schema_version": "cystods.stage.v2",
-        "stage_name": STAGE_NAME,
-        "study_id": config["study_id"],
-        "run_profile": config["run_profile"],
-        "data_root": config["data_root"],
-        "result_root": config["result_root"],
-        "protocol_run_dir": protocol_run_dir,
-        "protocol_role": "fixed_holdout",
-        "evaluation_scope": config.get("evaluation_scope", "development"),
-        "expected_protocol_sha256": expected_sha,
-        "seeds": (config["seed"],),
-        "fold_ids": None,
-        "base_config": config,
-        "trials": tuple(trials),
-    }
+    run_dir: Path | None = None
 
-    source_files = _source_files()
-    run_dir = core.run_training_suite(suite_config, source_files)
+    # 1. Execute single-stage trials via core.run_training_suite
+    if one_stage_trials:
+        suite_config = {
+            "schema_version": "cystods.stage.v2",
+            "stage_name": STAGE_NAME,
+            "study_id": config["study_id"],
+            "run_profile": config["run_profile"],
+            "data_root": config["data_root"],
+            "result_root": config["result_root"],
+            "protocol_run_dir": protocol_run_dir,
+            "protocol_role": "fixed_holdout",
+            "evaluation_scope": config.get("evaluation_scope", "development"),
+            "expected_protocol_sha256": expected_sha,
+            "seeds": (config["seed"],),
+            "fold_ids": None,
+            "base_config": config,
+            "trials": tuple(one_stage_trials),
+        }
+        source_files = _source_files()
+        run_dir = core.run_training_suite(suite_config, source_files)
 
-    run_status_file = run_dir / "run_status.json"
+    # 2. Execute two-stage trials via two_stage_runner
+    if two_stage_trials:
+        split_idx = config.get("protocol_split_index", 0)
+        profile = config.get("run_profile", "research")
+        result_root = Path(config.get("result_root", "./result")).resolve()
+        
+        for t in two_stage_trials:
+            t_id = t["experiment_id"]
+            t_ov = t.get("overrides", {})
+            p1_eps = 1 if profile == "smoke" else int(t_ov.get("phase1_epochs", 25))
+            p2_eps = 1 if profile == "smoke" else int(t_ov.get("phase2_epochs", 10))
+            p1_loss = str(t_ov.get("phase1_loss", "cross_entropy"))
+            p2_loss = str(t_ov.get("phase2_loss", selected_long_tail))
+            p2_strat = str(t_ov.get("phase2_strategy", "linear_probe"))
+            p2_tgt = str(t_ov.get("phase2_target", "fine_only"))
+            sup_w = 0.0 if profile == "smoke" else float(t_ov.get("phase1_supcon_weight", 0.10))
+
+            print(f"\n▶ Running Two-Stage Ablation Trial: {t_id} (Split {split_idx}, Target={p2_tgt}, Strategy={p2_strat})")
+            run_two_stage_single_split(
+                split_index=int(split_idx) if split_idx is not None else 0,
+                base_config=config,
+                profile=profile,
+                phase1_epochs=p1_eps,
+                phase2_epochs=p2_eps,
+                phase1_loss=p1_loss,
+                phase2_loss=p2_loss,
+                phase2_strategy=p2_strat,
+                phase1_lr=float(t_ov.get("phase1_lr", 0.0003)),
+                phase2_lr=float(t_ov.get("phase2_lr", 0.001)),
+                phase1_supcon_weight=sup_w,
+                phase2_target=p2_tgt,
+                ablation_name=t_id,
+            )
+            gc.collect()
+            if torch.cuda.is_available():
+                torch.cuda.empty_cache()
+
+    if run_dir is None:
+        run_dir = Path(config["result_root"]) / "40_ablations"
+
     protocol_sha = config.get("protocol_reference_sha256", expected_sha)
     protocol_split_index = config.get("protocol_split_index")
-    if run_status_file.is_file():
-        try:
-            import json
-            with run_status_file.open("r", encoding="utf-8") as handle:
-                status_data = json.load(handle)
-            protocol_sha = status_data.get("protocol_sha256", protocol_sha)
-            if protocol_split_index is None:
-                protocol_split_index = status_data.get("protocol_split_index")
-        except Exception:
-            pass
 
     write_stage_selection_artifact(
         run_dir,
