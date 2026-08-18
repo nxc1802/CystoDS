@@ -289,7 +289,7 @@ def run_three_stage_single_split(
         run_dir = resolved_result_root / "40_ablations" / "three_stage" / run_name
     else:
         run_name = f"three_stage_split{split_index}_{profile}_{run_timestamp}"
-        run_dir = resolved_result_root / "36_three_stage_decoupled" / run_name
+        run_dir = resolved_result_root / "30_proposed" / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
     for sub in ("logs", "reports", "system", "splits", "runs", "phase1", "phase2", "phase3"):
         (run_dir / sub).mkdir(parents=True, exist_ok=True)
