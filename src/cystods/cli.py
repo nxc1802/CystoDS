@@ -132,13 +132,13 @@ def _build_parser() -> argparse.ArgumentParser:
     # --- cystods run-remaining ---
     remaining_parser = subparsers.add_parser(
         "run-remaining",
-        help="Run all remaining pipeline stages (30 -> 35 -> 36 -> 40 -> 90) sequentially",
+        help="Run all remaining pipeline stages (30 -> 35 -> 36 -> 40) sequentially",
     )
     remaining_parser.add_argument(
         "--from-stage",
         type=str,
         default="30",
-        help="Stage to start execution from (30, 35, 36, 40, 90). Default: 30",
+        help="Stage to start execution from (30, 35, 36, 40). Default: 30",
     )
     remaining_parser.add_argument(
         "--profile",
@@ -468,8 +468,8 @@ def _import_stage(stage_id: str):
 
 
 def _cmd_run_remaining(args: argparse.Namespace) -> None:
-    """Run all remaining stages (30 -> 35 -> 36 -> 40 -> 90) sequentially."""
-    all_stages = ["30", "35", "36", "40", "90"]
+    """Run all remaining stages (30 -> 35 -> 36 -> 40) sequentially."""
+    all_stages = ["30", "35", "36", "40"]
     start_stage = str(args.from_stage).zfill(2)
     if start_stage not in all_stages:
         print(

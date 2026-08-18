@@ -258,14 +258,16 @@ Quy trình 3 giai đoạn tuần tự: Phase 1 (Toàn mạng CE+SupCon) $\righta
 
 ---
 
-## ⚡ 6. CHẠY TOÀN BỘ CÁC GIAI ĐOẠN CÒN LẠI (Stage 30 -> 35 -> 36 -> 40 -> 90)
+## ⚡ 6. CHẠY TOÀN BỘ CÁC GIAI ĐOẠN CÒN LẠI (Stage 30 -> 35 -> 36 -> 40)
 
-Nếu bạn muốn chạy toàn bộ các phase còn lại chỉ với **1 Cell duy nhất**:
+Nếu bạn muốn chạy toàn bộ các phase còn lại chỉ với **1 Cell duy nhất** trên cả 3 splits:
 
 ```python
-# Chạy toàn bộ Stage 30 -> 35 -> 36 -> 40 -> 90:
+# Chạy toàn bộ Stage 30 -> 35 -> 36 -> 40 (3 Splits, 1 Seed/split):
 !python -m cystods run-remaining --profile research
 ```
+
+*(Hoặc bắt đầu từ Stage 36: `!python -m cystods run-remaining --from-stage 36 --profile research`)*
 
 ---
 
