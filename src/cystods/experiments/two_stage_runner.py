@@ -64,13 +64,13 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         "--phase1-epochs",
         type=int,
         default=None,
-        help="Max epochs for Phase 1 representation learning (default: 18 in research, 1 in smoke).",
+        help="Max epochs for Phase 1 representation learning (default: 25 in research, 1 in smoke).",
     )
     parser.add_argument(
         "--phase2-epochs",
         type=int,
         default=None,
-        help="Max epochs for Phase 2 classifier alignment (default: 6 in research, 1 in smoke).",
+        help="Max epochs for Phase 2 classifier alignment (default: 10 in research, 1 in smoke).",
     )
     parser.add_argument(
         "--phase1-loss",
@@ -435,7 +435,7 @@ def run_two_stage_single_split(
     phase1_config["supervised_contrastive_loss_weight"] = supcon_w
     phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
     phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
-    phase1_config["early_stopping_patience"] = 5 if profile != "smoke" else 1
+    phase1_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase1_config["fine_inference_calibration_mode"] = "fixed"
@@ -533,7 +533,7 @@ def run_two_stage_single_split(
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
+    phase2_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
 
     if phase2_strategy == "crt":
         phase2_config["sampler"] = "class_balanced"
@@ -692,11 +692,11 @@ def main(argv: list[str] | None = None) -> None:
     # Determine default epochs
     p1_epochs = args.phase1_epochs
     if p1_epochs is None:
-        p1_epochs = 18 if args.profile != "smoke" else 1
+        p1_epochs = 25 if args.profile != "smoke" else 1
 
     p2_epochs = args.phase2_epochs
     if p2_epochs is None:
-        p2_epochs = 6 if args.profile != "smoke" else 1
+        p2_epochs = 10 if args.profile != "smoke" else 1
 
     splits_to_run = [0, 1, 2] if str(args.split).lower() == "all" else [int(args.split)]
 

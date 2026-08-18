@@ -64,19 +64,19 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         "--phase1-epochs",
         type=int,
         default=None,
-        help="Number of epochs for Phase 1 (default: 18 in research, 1 in smoke).",
+        help="Number of epochs for Phase 1 (default: 25 in research, 1 in smoke).",
     )
     parser.add_argument(
         "--phase2-epochs",
         type=int,
         default=None,
-        help="Number of epochs for Phase 2 Coarse Alignment (default: 5 in research, 1 in smoke).",
+        help="Number of epochs for Phase 2 Coarse Alignment (default: 10 in research, 1 in smoke).",
     )
     parser.add_argument(
         "--phase3-epochs",
         type=int,
         default=None,
-        help="Number of epochs for Phase 3 Fine Alignment (default: 6 in research, 1 in smoke).",
+        help="Number of epochs for Phase 3 Fine Alignment (default: 10 in research, 1 in smoke).",
     )
     parser.add_argument(
         "--phase1-loss",
@@ -366,7 +366,7 @@ def run_three_stage_single_split(
     phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
     phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase1_config["monitor_metric"] = "fine_macro_f1"
-    phase1_config["early_stopping_patience"] = 5 if profile != "smoke" else 1
+    phase1_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase1_config["fine_inference_calibration_mode"] = "fixed"
@@ -423,7 +423,7 @@ def run_three_stage_single_split(
     phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
     phase2_config["monitor_metric"] = "coarse_macro_f1"
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase2_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
+    phase2_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase2_config["fine_inference_calibration_mode"] = "fixed"
@@ -480,7 +480,7 @@ def run_three_stage_single_split(
     phase3_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase3_config["monitor_metric"] = "fine_macro_f1"
     phase3_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase3_config["early_stopping_patience"] = 4 if profile != "smoke" else 1
+    phase3_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase3_config["fine_inference_calibration_mode"] = "fixed"
@@ -560,9 +560,9 @@ def main(argv: Sequence[str] | None = None) -> None:
         p3_epochs = args.phase3_epochs if args.phase3_epochs is not None else 1
         supcon_w = args.phase1_supcon_weight if args.phase1_supcon_weight is not None else 0.0
     else:
-        p1_epochs = args.phase1_epochs if args.phase1_epochs is not None else 18
-        p2_epochs = args.phase2_epochs if args.phase2_epochs is not None else 5
-        p3_epochs = args.phase3_epochs if args.phase3_epochs is not None else 6
+        p1_epochs = args.phase1_epochs if args.phase1_epochs is not None else 25
+        p2_epochs = args.phase2_epochs if args.phase2_epochs is not None else 10
+        p3_epochs = args.phase3_epochs if args.phase3_epochs is not None else 10
         supcon_w = args.phase1_supcon_weight if args.phase1_supcon_weight is not None else 0.10
 
     # Build cli_overrides list for load_config
