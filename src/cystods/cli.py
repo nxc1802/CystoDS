@@ -17,12 +17,9 @@ _STAGE_REGISTRY: dict[str, str] = {
     "00": "Prepare protocol — data audit + freeze patient-disjoint split",
     "10": "Run baselines — binary/coarse/fine/multitask across 4 backbones",
     "20": "Long-tail loss screen — 7 fine-only loss variants on Swin-Tiny",
-    "30": "1-Stage Proposed Baseline — hierarchical + balanced-softmax + SupCon",
-    "35": "2-Stage Decoupled Fine-Tuning (2S-HFT: Rep CE+SupCon -> Head SBS)",
-    "36": "3-Stage Sequential Fine-Tuning (3S-HFT: Rep CE+SupCon -> Coarse SBS -> Fine SBS) [Proposed Method]",
-    "40": "Ablation studies — Loss components, Layer freezing, Multi-stage variations",
+    "30": "Proposed Method (3S-HFT) — Sequential 3-Stage Hierarchical Fine-Tuning",
+    "40": "Ablation studies — 8 Component, Paradigm, Strategy & Freezing Variants",
     "60": "External validation — evaluation-only on external cohort",
-    "90": "Cross-validation — 5-fold × 3 seeds final report",
 }
 
 
@@ -132,13 +129,13 @@ def _build_parser() -> argparse.ArgumentParser:
     # --- cystods run-remaining ---
     remaining_parser = subparsers.add_parser(
         "run-remaining",
-        help="Run all remaining pipeline stages (30 -> 35 -> 36 -> 40) sequentially",
+        help="Run all remaining pipeline stages (30 -> 40) sequentially",
     )
     remaining_parser.add_argument(
         "--from-stage",
         type=str,
         default="30",
-        help="Stage to start execution from (30, 35, 36, 40). Default: 30",
+        help="Stage to start execution from (30, 40). Default: 30",
     )
     remaining_parser.add_argument(
         "--profile",
@@ -468,8 +465,8 @@ def _import_stage(stage_id: str):
 
 
 def _cmd_run_remaining(args: argparse.Namespace) -> None:
-    """Run all remaining stages (30 -> 35 -> 36 -> 40) sequentially."""
-    all_stages = ["30", "35", "36", "40"]
+    """Run all remaining stages (30 -> 40) sequentially."""
+    all_stages = ["30", "40"]
     start_stage = str(args.from_stage).zfill(2)
     if start_stage not in all_stages:
         print(

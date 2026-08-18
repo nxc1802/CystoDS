@@ -1,205 +1,85 @@
-"""Stage 30 — Proposed method: hierarchical + balanced-softmax + SupCon.
+"""Stage 30 — Proposed Method: Three-Stage Sequential Hierarchical Fine-Tuning (3S-HFT).
 
-Thin orchestrator that delegates to ``cystods.core.run_training_suite``.
+Orchestrates the main proposed method of the CystoDS study:
+- Phase 1: Representation Learning (Full network with CE + SupCon + Hierarchical Consistency)
+- Phase 2: Selective Coarse Classifier Alignment (Frozen backbone, Coarse-only Smoothed Balanced Softmax)
+- Phase 3: Selective Fine Classifier Alignment (Frozen backbone & coarse, Fine-only Smoothed Balanced Softmax)
 """
 
 from __future__ import annotations
 
-import os
+import gc
 from pathlib import Path
 from typing import Any
 
-import cystods.core as core
-from cystods.config import get_stage_trials
+import torch
 
+from cystods.experiments.three_stage_runner import run_three_stage_single_split
 
 STAGE_ID = "30"
 STAGE_NAME = "stage_30_run_proposed_method"
 
 
-def _source_files() -> tuple[Path, ...]:
-    pkg_dir = Path(__file__).resolve().parent.parent
-    return tuple(
-        path for path in (pkg_dir / "core.py", pkg_dir / "hf.py", pkg_dir / "science.py")
-        if path.is_file()
-    )
-
-
-def run(config: dict[str, Any]) -> Path:
-    """Execute Stage 30 with the given resolved config."""
+def run(config: dict[str, Any]) -> dict[str, Any]:
+    """Execute Stage 30 (3S-HFT Proposed Method) with the resolved config."""
     config = dict(config)
-    config["stage_name"] = STAGE_NAME
-    config["experiment_name"] = STAGE_NAME
-    config["evaluation_scope"] = "development"
+    profile = str(config.get("run_profile", "research"))
+    result_root = Path(config.get("result_root", "./result")).resolve()
 
-    protocol_run_dir = config.get("protocol_manifest_dir")
-    if protocol_run_dir is None:
-        env_val = os.environ.get("CYSTODS_PROTOCOL_RUN_DIR")
-        if env_val:
-            protocol_run_dir = Path(env_val).expanduser().resolve()
+    # Determine default epochs & hyperparameters
+    if profile == "smoke":
+        p1_epochs = int(config.get("phase1_epochs", 1))
+        p2_epochs = int(config.get("phase2_epochs", 1))
+        p3_epochs = int(config.get("phase3_epochs", 1))
+        supcon_w = float(config.get("phase1_supcon_weight", 0.0))
+    else:
+        p1_epochs = int(config.get("phase1_epochs", 25))
+        p2_epochs = int(config.get("phase2_epochs", 10))
+        p3_epochs = int(config.get("phase3_epochs", 10))
+        supcon_w = float(config.get("phase1_supcon_weight", 0.10))
 
-    expected_sha = config.get("expected_protocol_sha256") or os.environ.get(
-        "CYSTODS_EXPECTED_PROTOCOL_SHA256"
-    )
+    p1_loss = str(config.get("phase1_loss", "cross_entropy"))
+    p2_loss = str(config.get("phase2_loss", "balanced_softmax_smoothed"))
+    p3_loss = str(config.get("phase3_loss", "balanced_softmax_smoothed"))
+    p1_lr = float(config.get("phase1_lr", 0.0003))
+    p2_lr = float(config.get("phase2_lr", 0.001))
+    p3_lr = float(config.get("phase3_lr", 0.001))
 
-    config["hf_path_prefix"] = os.environ.get(
-        "CYSTODS_HF_PATH_PREFIX", f"{config['study_id']}/{STAGE_NAME}"
-    )
+    split_arg = config.get("protocol_split_index")
+    if split_arg is None or str(split_arg).lower() == "all":
+        split_indices = [0, 1, 2]
+    elif isinstance(split_arg, (list, tuple)):
+        split_indices = [int(s) for s in split_arg]
+    else:
+        split_indices = [int(split_arg)]
 
-    filter_models = config.get("filter_models")
-    filter_trials = config.get("filter_trials")
-
-    # Protocol binding auto-discovery
-    if protocol_run_dir is None:
-        auto_dir, auto_sha = core.find_latest_completed_protocol_run(
-            config.get("result_root"), config.get("run_profile")
+    results: list[dict[str, Any]] = []
+    for s_idx in split_indices:
+        res = run_three_stage_single_split(
+            split_index=s_idx,
+            base_config=config,
+            profile=profile,
+            phase1_epochs=p1_epochs,
+            phase2_epochs=p2_epochs,
+            phase3_epochs=p3_epochs,
+            phase1_loss=p1_loss,
+            phase2_loss=p2_loss,
+            phase3_loss=p3_loss,
+            phase1_lr=p1_lr,
+            phase2_lr=p2_lr,
+            phase3_lr=p3_lr,
+            supcon_w=supcon_w,
+            result_root=result_root,
         )
-        if auto_dir is not None:
-            protocol_run_dir = auto_dir
-            if expected_sha is None:
-                expected_sha = auto_sha
+        results.append(res)
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
-    from cystods.config import filter_stage_trials
-
-    config_path = config.pop("_config_path", None)
-    trials = get_stage_trials(
-        config_path=config_path,
-        stage=STAGE_ID,
-        profile=config.get("run_profile"),
-        filter_models=filter_models,
-        filter_trials=filter_trials,
-    )
-
-    if not trials and config.get("run_profile") == "smoke":
-        trials = [
-            {
-                "experiment_id": "smoke_proposed_swin_tiny",
-                "task_mode": "hierarchical",
-                "overrides": {
-                    "pretrained": False,
-                    "supervised_contrastive_loss_weight": 0.0,
-                    "monitor_metric": "coarse_macro_f1",
-                },
-            },
-        ]
-        trials = filter_stage_trials(
-            trials,
-            filter_models=filter_models,
-            filter_trials=filter_trials,
-        )
-
-    if not trials and (filter_models or filter_trials):
-        all_trials = get_stage_trials(config_path=config_path, stage=STAGE_ID, profile=config.get("run_profile"))
-        avail_exp = [t.get("experiment_id") for t in all_trials]
-        avail_models = sorted({t.get("overrides", {}).get("model_name", "default") for t in all_trials})
-        raise RuntimeError(
-            f"No trials matched the filters: models={filter_models}, trials={filter_trials}.\n"
-            f"Available models for Stage {STAGE_ID}: {avail_models}\n"
-            f"Available experiment IDs for Stage {STAGE_ID}: {avail_exp}"
-        )
-
-    if not trials:
-        trials = [
-            {
-                "experiment_id": "proposed_hierarchical_swin",
-                "task_mode": "hierarchical",
-            },
-        ]
-
-    # Try loading selected backbone & long-tail method from Stage 10 & 20 artifacts
-    from cystods.experiments.artifacts import (
-        find_and_load_stage_artifact,
-        write_stage_selection_artifact,
-    )
-
-    selected_backbone = "swin_tiny_patch4_window7_224.ms_in1k"
-    selected_long_tail = "balanced_softmax_smoothed"
-
-    try:
-        s10_artifact = find_and_load_stage_artifact(
-            config["result_root"],
-            stage_id="10",
-            artifact_name="selected_backbone.json",
-            expected_protocol_sha256=expected_sha,
-            expected_split_index=config.get("protocol_split_index"),
-        )
-        selected_backbone = s10_artifact.get("selected_backbone", selected_backbone)
-    except (FileNotFoundError, ValueError) as exc:
-        print(f"[Stage 30] Notice: Could not load Stage 10 artifact ({exc}). Defaulting backbone to {selected_backbone}.")
-
-    try:
-        s20_artifact = find_and_load_stage_artifact(
-            config["result_root"],
-            stage_id="20",
-            artifact_name="selected_long_tail_method.json",
-            expected_protocol_sha256=expected_sha,
-            expected_split_index=config.get("protocol_split_index"),
-        )
-        selected_long_tail = s20_artifact.get("selected_long_tail_method", selected_long_tail)
-    except (FileNotFoundError, ValueError) as exc:
-        print(f"[Stage 30] Notice: Could not load Stage 20 artifact ({exc}). Defaulting long-tail to {selected_long_tail}.")
-
-    config["model_name"] = selected_backbone
-    config["fine_loss"] = selected_long_tail
-    for t in trials:
-        t.setdefault("overrides", {})["model_name"] = selected_backbone
-        t.setdefault("overrides", {})["fine_loss"] = selected_long_tail
-
-    print(f"Stage {STAGE_ID}: Selected {len(trials)} trial(s) to run (backbone={selected_backbone}, long_tail={selected_long_tail}):")
-    for t in trials:
-        m_name = t.get("overrides", {}).get("model_name", selected_backbone)
-        lt_name = t.get("overrides", {}).get("fine_loss", selected_long_tail)
-        print(f"  • [{t['experiment_id']}] model: {m_name} | fine_loss: {lt_name} | task_mode: {t.get('task_mode')}")
-    print()
-
-    suite_config = {
-        "schema_version": "cystods.stage.v2",
+    return {
+        "stage": STAGE_ID,
         "stage_name": STAGE_NAME,
-        "study_id": config["study_id"],
-        "run_profile": config["run_profile"],
-        "data_root": config["data_root"],
-        "result_root": config["result_root"],
-        "protocol_run_dir": protocol_run_dir,
-        "protocol_role": "fixed_holdout",
-        "evaluation_scope": config.get("evaluation_scope", "development"),
-        "expected_protocol_sha256": expected_sha,
-        "seeds": (config["seed"],),
-        "fold_ids": None,
-        "base_config": config,
-        "trials": tuple(trials),
+        "profile": profile,
+        "splits": split_indices,
+        "results": results,
     }
-
-    source_files = _source_files()
-    run_dir = core.run_training_suite(suite_config, source_files)
-
-    # Read resolved protocol sha and split index
-    run_status_file = run_dir / "run_status.json"
-    protocol_sha = config.get("protocol_reference_sha256", expected_sha)
-    protocol_split_index = config.get("protocol_split_index")
-    if run_status_file.is_file():
-        try:
-            import json
-            with run_status_file.open("r", encoding="utf-8") as handle:
-                status_data = json.load(handle)
-            protocol_sha = status_data.get("protocol_sha256", protocol_sha)
-            if protocol_split_index is None:
-                protocol_split_index = status_data.get("protocol_split_index")
-        except Exception:
-            pass
-
-    write_stage_selection_artifact(
-        run_dir,
-        "proposed_model.json",
-        {
-            "stage_id": STAGE_ID,
-            "selected_backbone": selected_backbone,
-            "selected_long_tail_method": selected_long_tail,
-            "task_mode": "hierarchical",
-            "protocol_sha256": protocol_sha,
-            "protocol_split_index": protocol_split_index,
-            "study_id": config["study_id"],
-        },
-    )
-
-    return run_dir
-

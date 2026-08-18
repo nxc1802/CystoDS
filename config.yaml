@@ -404,55 +404,35 @@ stages:
         task_mode: hierarchical
 
   "40":
-    epochs: 20
-    scheduler_epochs: 20
-    early_stopping_patience: 5
+    epochs: 25
+    scheduler_epochs: 25
+    early_stopping_patience: 6
     trials:
-      # Group 1: Task formulation ablations
-      - experiment_id: task_binary_only
-        task_mode: binary
-        overrides:
-          binary_loss_weight: 1.0
-          coarse_loss_weight: 0.0
-          fine_loss_weight: 0.0
-          monitor_metric: binary_auroc
-      - experiment_id: task_coarse_only
-        task_mode: coarse
-        overrides:
-          binary_loss_weight: 0.0
-          coarse_loss_weight: 1.0
-          fine_loss_weight: 0.0
-          monitor_metric: coarse_macro_f1
-      - experiment_id: task_fine_only
-        task_mode: fine
-        overrides:
-          binary_loss_weight: 0.0
-          coarse_loss_weight: 0.0
-          fine_loss_weight: 1.0
-          fine_loss: cross_entropy
-          monitor_metric: fine_macro_f1
-      - experiment_id: task_binary_coarse
-        task_mode: multitask
-        overrides:
-          binary_loss_weight: 1.0
-          coarse_loss_weight: 1.0
-          fine_loss_weight: 0.0
-          monitor_metric: coarse_macro_f1
-      - experiment_id: task_multitask_bcf
-        task_mode: multitask
-        overrides:
-          binary_loss_weight: 1.0
-          coarse_loss_weight: 1.0
-          fine_loss_weight: 1.0
-          fine_loss: cross_entropy
-          monitor_metric: hierarchical_composite
-      # Group 2: Proposed method objective & loss ablations
-      - experiment_id: ablation_full_proposed
-        task_mode: hierarchical
-      - experiment_id: ablation_no_long_tail
+      # Group 1: Training Paradigm & Strategy Ablations
+      - experiment_id: ablation_1stage_joint
         task_mode: hierarchical
         overrides:
-          fine_loss: cross_entropy
+          fine_loss: balanced_softmax_smoothed
+          supervised_contrastive_loss_weight: 0.10
+          binary_coarse_hierarchy_loss_weight: 0.25
+          coarse_fine_hierarchy_loss_weight: 0.25
+      - experiment_id: ablation_2stage_decoupled
+        task_mode: hierarchical
+        overrides:
+          training_paradigm: two_stage
+          phase2_target: fine_only
+          phase2_loss: balanced_softmax_smoothed
+      - experiment_id: ablation_strategy_crt
+        task_mode: hierarchical
+        overrides:
+          training_paradigm: two_stage
+          phase2_strategy: crt
+      - experiment_id: ablation_target_all_heads
+        task_mode: hierarchical
+        overrides:
+          training_paradigm: two_stage
+          phase2_target: all_heads
+      # Group 2: Phase 1 Objective & Loss Component Ablations
       - experiment_id: ablation_no_supcon
         task_mode: hierarchical
         overrides:
@@ -462,37 +442,7 @@ stages:
         overrides:
           binary_coarse_hierarchy_loss_weight: 0.0
           coarse_fine_hierarchy_loss_weight: 0.0
-      - experiment_id: ablation_no_bc_hierarchy
-        task_mode: hierarchical
-        overrides:
-          binary_coarse_hierarchy_loss_weight: 0.0
-      - experiment_id: ablation_no_cf_hierarchy
-        task_mode: hierarchical
-        overrides:
-          coarse_fine_hierarchy_loss_weight: 0.0
-      # Group 3: SupCon hyperparameters & projection ablations
-      - experiment_id: ablation_supcon_temp_005
-        task_mode: hierarchical
-        overrides:
-          supervised_contrastive_temperature: 0.05
-      - experiment_id: ablation_supcon_temp_020
-        task_mode: hierarchical
-        overrides:
-          supervised_contrastive_temperature: 0.20
-      - experiment_id: ablation_supcon_weight_005
-        task_mode: hierarchical
-        overrides:
-          supervised_contrastive_loss_weight: 0.05
-      - experiment_id: ablation_supcon_weight_020
-        task_mode: hierarchical
-        overrides:
-          supervised_contrastive_loss_weight: 0.20
-      # Group 4: Augmentation ablation
-      - experiment_id: ablation_no_augmentation
-        task_mode: hierarchical
-        overrides:
-          use_data_augmentation: false
-      # Group 5: Model capacity & layer freezing ablations
+      # Group 3: Backbone Freezing & Feature Plasticity Ablations
       - experiment_id: ablation_freeze_stage2
         task_mode: hierarchical
         overrides:
