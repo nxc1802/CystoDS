@@ -181,78 +181,90 @@ Tất cả các lệnh dưới đây tự động ghi kết quả vào thư mụ
 #### 1. Ablation 1: Two-Stage KHÔNG CÓ SupCon (Đánh giá vai trò của Contrastive Loss ở Phase 1)
 ```python
 # Chạy trên Split 0 (~15 phút):
-!python run_two_stage_hierarchical.py --split 0 --profile research --phase1-supcon-weight 0.0 --ablation-name ablation_no_supcon
+!python -m cystods run 35 --split 0 --profile research --set phase1_supcon_weight=0.0
 
 # Hoặc chạy trên cả 3 Splits (~45 phút):
-!python run_two_stage_hierarchical.py --split all --profile research --phase1-supcon-weight 0.0 --ablation-name ablation_no_supcon
+!python -m cystods run 35 --split all --profile research --set phase1_supcon_weight=0.0
 ```
 
 #### 2. Ablation 2: Chiến lược cRT (Class-Balanced Sampling ở Phase 2 thay vì Smoothed Balanced Softmax)
 ```python
 # Chạy trên Split 0 (~15 phút):
-!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-strategy crt --ablation-name ablation_strategy_crt
+!python -m cystods run 35 --split 0 --profile research --set phase2_strategy=crt
 
 # Hoặc chạy trên cả 3 Splits (~45 phút):
-!python run_two_stage_hierarchical.py --split all --profile research --phase2-strategy crt --ablation-name ablation_strategy_crt
+!python -m cystods run 35 --split all --profile research --set phase2_strategy=crt
 ```
 
 #### 3. Ablation 3: Mở cả 3 Heads ở Phase 2 (Đánh giá ảnh hưởng của việc khóa Binary & Coarse)
 ```python
 # Chạy trên Split 0 (~15 phút):
-!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-target all_heads --ablation-name ablation_all_heads
+!python -m cystods run 35 --split 0 --profile research --set phase2_target=all_heads
 
 # Hoặc chạy trên cả 3 Splits (~45 phút):
-!python run_two_stage_hierarchical.py --split all --profile research --phase2-target all_heads --ablation-name ablation_all_heads
+!python -m cystods run 35 --split all --profile research --set phase2_target=all_heads
 ```
 
 #### 4. Ablation 4: Selective Coarse-Only Alignment (Chỉ nắn Coarse Head ở Phase 2)
 ```python
 # Chạy trên Split 0 (~12 phút):
-!python run_two_stage_hierarchical.py --split 0 --profile research --phase2-target coarse_only --ablation-name ablation_target_coarse_only
+!python -m cystods run 35 --split 0 --profile research --set phase2_target=coarse_only
 
 # Hoặc chạy trên cả 3 Splits (~35 phút):
-!python run_two_stage_hierarchical.py --split all --profile research --phase2-target coarse_only --ablation-name ablation_target_coarse_only
+!python -m cystods run 35 --split all --profile research --set phase2_target=coarse_only
+```
+
+### 🔹 Stage 35: Decoupled Two-Stage Fine-Tuning (2S-HFT)
+Quy trình 2 giai đoạn: Phase 1 (Rep CE+SupCon) $\rightarrow$ Phase 2 (Đóng băng backbone, chỉ nắn Fine Head với Smoothed BSM).
+
+```python
+# Chạy trên Split 0 (~12 phút):
+!python -m cystods run 35 --split 0 --profile research
+
+# Hoặc chạy trên cả 3 Splits (~35 phút):
+!python -m cystods run 35 --split all --profile research
 ```
 
 ---
 
-### 🔹 Stage 36 (MỚI): Three-Stage Hierarchical Fine-Tuning (3S-HFT)
-Quy trình 3 giai đoạn tuần tự: Phase 1 (Toàn mạng CE+SupCon) $\rightarrow$ Phase 2 (Đóng băng backbone, chỉ nắn Coarse Head) $\rightarrow$ Phase 3 (Đóng băng backbone & coarse, chỉ nắn Fine Head với Smoothed BSM).
+### 🔹 Stage 36: Three-Stage Hierarchical Fine-Tuning (3S-HFT) — [Proposed Method]
+Quy trình 3 giai đoạn tuần tự: Phase 1 (Toàn mạng CE+SupCon) $\rightarrow$ Phase 2 (Đóng băng backbone, nắn Coarse Head với SBS) $\rightarrow$ Phase 3 (Đóng băng backbone & coarse, nắn Fine Head với SBS).
 
 ```python
 # Chạy trên Split 0 (~15 phút):
-!python run_three_stage_hierarchical.py --split 0 --profile research
+!python -m cystods run 36 --split 0 --profile research
 
 # Hoặc chạy trên cả 3 Splits (~45 phút):
-!python run_three_stage_hierarchical.py --split all --profile research
+!python -m cystods run 36 --split all --profile research
 ```
 
 ---
 
-### 🔹 Stage 40 (Legacy): Thực nghiệm Triệt tiêu 16 Biến Thể 1 Giai đoạn Cũ
+### 🔹 Stage 40: Thực nghiệm Bóc Tách (Ablation Studies)
 ```python
-# Chạy toàn bộ 16 ablations trên Split 0 (~55 - 70 phút):
+# Chạy trên Split 0 (~55 - 70 phút):
 !python -m cystods run 40 --split 0 --profile research
 
-# Chạy riêng 2 ablation đánh giá ảnh hưởng đóng băng tầng:
-!python -m cystods run 40 --split 0 --profile research --trials ablation_freeze_stage2,ablation_freeze_stage3
-```
-*(Nếu muốn chạy chọn lọc một số ablation: `!python -m cystods run 40 --split 0 --profile research --trials ablation_full_proposed,ablation_no_supcon,ablation_no_hierarchy`)*
-
-#### Chạy Stage 40 duyệt qua cả 3 Splits (`split_0`, `split_1`, `split_2`):
-```bash
-%%bash
-for split in 0 1 2; do
-    echo "=========================================================="
-    echo "▶ BẮT ĐẦU STAGE 40 ABLATIONS - SPLIT $split"
-    echo "=========================================================="
-    python -m cystods run 40 --split $split --profile research || exit 1
-done
+# Hoặc chạy trên cả 3 Splits:
+!python -m cystods run 40 --split all --profile research
 ```
 
-### 🔹 Stage 90: Đánh giá 5-Fold Cross-Validation
+---
+
+### 🔹 Stage 90: Đánh giá 5-Fold Cross-Validation × 3 Seeds
 ```python
 !python -m cystods run 90 --profile research
+```
+
+---
+
+## ⚡ 6. CHẠY TOÀN BỘ CÁC GIAI ĐOẠN CÒN LẠI (Stage 30 -> 35 -> 36 -> 40 -> 90)
+
+Nếu bạn muốn chạy toàn bộ các phase còn lại chỉ với **1 Cell duy nhất**:
+
+```python
+# Chạy toàn bộ Stage 30 -> 35 -> 36 -> 40 -> 90:
+!python -m cystods run-remaining --profile research
 ```
 
 ---

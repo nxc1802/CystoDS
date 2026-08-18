@@ -825,6 +825,10 @@ def make_run_directory(config: Mapping[str, Any]) -> Path:
         stage_prefix = "20_long_tail"
     elif "stage_30" in exp_name:
         stage_prefix = "30_proposed"
+    elif "stage_35" in exp_name:
+        stage_prefix = "35_two_stage_decoupled"
+    elif "stage_36" in exp_name:
+        stage_prefix = "36_three_stage_decoupled"
     elif "stage_40" in exp_name:
         stage_prefix = "40_ablations"
     elif "stage_60" in exp_name:

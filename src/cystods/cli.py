@@ -17,8 +17,10 @@ _STAGE_REGISTRY: dict[str, str] = {
     "00": "Prepare protocol — data audit + freeze patient-disjoint split",
     "10": "Run baselines — binary/coarse/fine/multitask across 4 backbones",
     "20": "Long-tail loss screen — 7 fine-only loss variants on Swin-Tiny",
-    "30": "Proposed method — hierarchical + balanced-softmax + SupCon",
-    "40": "Ablation studies — 16 component ablations",
+    "30": "1-Stage Proposed Baseline — hierarchical + balanced-softmax + SupCon",
+    "35": "2-Stage Decoupled Fine-Tuning (2S-HFT: Rep CE+SupCon -> Head SBS)",
+    "36": "3-Stage Sequential Fine-Tuning (3S-HFT: Rep CE+SupCon -> Coarse SBS -> Fine SBS) [Proposed Method]",
+    "40": "Ablation studies — Loss components, Layer freezing, Multi-stage variations",
     "60": "External validation — evaluation-only on external cohort",
     "90": "Cross-validation — 5-fold × 3 seeds final report",
 }
@@ -59,10 +61,9 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     run_parser.add_argument(
         "--split",
-        type=int,
-        choices=[0, 1, 2],
-        default=None,
-        help="Protocol split index (0, 1, 2) for Stage >= 10",
+        type=str,
+        default="all",
+        help="Protocol split index ('0', '1', '2', or 'all'). Default: all",
     )
     run_parser.add_argument(
         "--models",
@@ -128,6 +129,59 @@ def _build_parser() -> argparse.ArgumentParser:
     # --- cystods stages ---
     subparsers.add_parser("stages", help="List available pipeline stages")
 
+    # --- cystods run-remaining ---
+    remaining_parser = subparsers.add_parser(
+        "run-remaining",
+        help="Run all remaining pipeline stages (30 -> 35 -> 36 -> 40 -> 90) sequentially",
+    )
+    remaining_parser.add_argument(
+        "--from-stage",
+        type=str,
+        default="30",
+        help="Stage to start execution from (30, 35, 36, 40, 90). Default: 30",
+    )
+    remaining_parser.add_argument(
+        "--profile",
+        type=str,
+        default=None,
+        help="Run profile: research (default) or smoke",
+    )
+    remaining_parser.add_argument(
+        "--split",
+        type=str,
+        default="all",
+        help="Protocol split index ('0', '1', '2', or 'all'). Default: all",
+    )
+    remaining_parser.add_argument(
+        "--config",
+        type=str,
+        default=None,
+        help="Path to config.yaml (default: ./config.yaml)",
+    )
+    remaining_parser.add_argument(
+        "--set",
+        dest="overrides",
+        action="append",
+        default=[],
+        help="Override config values: --set key=value",
+    )
+    remaining_parser.add_argument(
+        "--models",
+        "--model",
+        nargs="+",
+        dest="models",
+        default=None,
+        help="Filter trials by model backbone(s)",
+    )
+    remaining_parser.add_argument(
+        "--trials",
+        "--trial",
+        nargs="+",
+        dest="trials",
+        default=None,
+        help="Filter trials by experiment ID(s)",
+    )
+
     # --- cystods validate ---
     validate_parser = subparsers.add_parser(
         "validate", help="Validate config without running"
@@ -135,7 +189,7 @@ def _build_parser() -> argparse.ArgumentParser:
     validate_parser.add_argument("--config", type=str, default=None)
     validate_parser.add_argument("--profile", type=str, default=None)
     validate_parser.add_argument("--stage", type=str, default=None)
-    validate_parser.add_argument("--split", type=int, choices=[0, 1, 2], default=None)
+    validate_parser.add_argument("--split", type=str, default=None)
     validate_parser.add_argument(
         "--set",
         dest="overrides",
@@ -228,8 +282,16 @@ def _parse_list_arg(values: list[str] | None) -> list[str] | None:
 
 def _cmd_run(args: argparse.Namespace) -> None:
     """Run a pipeline stage."""
-    stage = args.stage.lstrip("0") or "0"
-    # Normalize: "0" -> "00", "1" -> "10" etc
+    # Handle comma-separated list of stages (e.g. "30,35,36,40,90")
+    if "," in str(args.stage):
+        stage_list = [s.strip().zfill(2) for s in args.stage.split(",") if s.strip()]
+        print(f"\n🚀 Running {len(stage_list)} stages in sequence: {', '.join(stage_list)}\n")
+        for st in stage_list:
+            sub_args = argparse.Namespace(**vars(args))
+            sub_args.stage = st
+            _cmd_run(sub_args)
+        return
+
     stage_padded = args.stage.zfill(2)
 
     if stage_padded not in _STAGE_REGISTRY and args.stage != "all":
@@ -244,63 +306,106 @@ def _cmd_run(args: argparse.Namespace) -> None:
         _run_all(args)
         return
 
-    if stage_padded != "00":
-        if args.split is None:
-            print(
-                f"✗ Error: Stage {stage_padded} requires --split {{0, 1, 2}}.",
-                file=sys.stderr,
-            )
-            sys.exit(1)
-
     from cystods.config import load_config
 
     filter_models = _parse_list_arg(getattr(args, "models", None))
     filter_trials = _parse_list_arg(getattr(args, "trials", None))
 
-    config = load_config(
-        config_path=args.config,
-        profile=args.profile,
-        stage=stage_padded,
-        cli_overrides=args.overrides,
-    )
-    config["filter_models"] = filter_models
-    config["filter_trials"] = filter_trials
-    if getattr(args, "freeze_stage3", False):
-        config["partial_finetune"] = True
-        config["freeze_early_layers"] = True
-        config["frozen_stages_count"] = 3
-    elif getattr(args, "freeze_stages", None) is not None:
-        config["partial_finetune"] = True
-        config["freeze_early_layers"] = True
-        config["frozen_stages_count"] = int(args.freeze_stages)
-    elif getattr(args, "partial_finetune", False):
-        config["partial_finetune"] = True
-        config["freeze_early_layers"] = True
-        config["frozen_stages_count"] = config.get("frozen_stages_count", 2)
+    split_str = str(getattr(args, "split", "all")).strip().lower()
 
-    if stage_padded != "00":
-        config["protocol_split_index"] = args.split
-    else:
+    # Stages 35 and 36 natively handle multi-split iteration
+    if stage_padded in ("35", "36"):
+        config = load_config(
+            config_path=args.config,
+            profile=args.profile,
+            stage=stage_padded,
+            cli_overrides=args.overrides,
+        )
+        config["filter_models"] = filter_models
+        config["filter_trials"] = filter_trials
+        config["protocol_split_index"] = split_str
+
+        print(f"\n{'='*60}")
+        print(f"CystoDS — Stage {stage_padded}")
+        print(f"  {_STAGE_REGISTRY[stage_padded]}")
+        print(f"  Profile: {config['run_profile']}")
+        print(f"  Split: {split_str}")
+        print(f"{'='*60}\n")
+
+        stage_module = _import_stage(stage_padded)
+        result = stage_module.run(config)
+        print(f"\n✓ Stage {stage_padded} completed: {result}\n")
+        return
+
+    # Stages 00 and 90 do not take split arguments
+    if stage_padded in ("00", "90", "60"):
+        config = load_config(
+            config_path=args.config,
+            profile=args.profile,
+            stage=stage_padded,
+            cli_overrides=args.overrides,
+        )
+        config["filter_models"] = filter_models
+        config["filter_trials"] = filter_trials
         config["protocol_split_index"] = None
 
-    print(f"\n{'='*60}")
-    print(f"CystoDS — Stage {stage_padded}")
-    print(f"  {_STAGE_REGISTRY[stage_padded]}")
-    print(f"  Profile: {config['run_profile']}")
-    if config.get("protocol_split_index") is not None:
-        print(f"  Split: split_{config['protocol_split_index']}")
-    if config.get("partial_finetune"):
-        n_frz = config.get("frozen_stages_count", 2)
-        print(f"  Finetune Mode: Partial (Frozen: PatchEmbed + Stages 1..{n_frz} | Trainable: Stages {n_frz+1}..4 + Heads)")
-    if filter_models:
-        print(f"  Filter Models: {', '.join(filter_models)}")
-    if filter_trials:
-        print(f"  Filter Trials: {', '.join(filter_trials)}")
-    print(f"{'='*60}\n")
+        print(f"\n{'='*60}")
+        print(f"CystoDS — Stage {stage_padded}")
+        print(f"  {_STAGE_REGISTRY[stage_padded]}")
+        print(f"  Profile: {config['run_profile']}")
+        print(f"{'='*60}\n")
 
-    stage_module = _import_stage(stage_padded)
-    result = stage_module.run(config)
-    print(f"\n✓ Stage {stage_padded} completed: {result}\n")
+        stage_module = _import_stage(stage_padded)
+        result = stage_module.run(config)
+        print(f"\n✓ Stage {stage_padded} completed: {result}\n")
+        return
+
+    # For standard stages (10, 20, 30, 40): resolve splits
+    if split_str == "all":
+        split_list = [0, 1, 2]
+    else:
+        split_list = [int(s.strip()) for s in split_str.split(",") if s.strip()]
+
+    for s_idx in split_list:
+        config = load_config(
+            config_path=args.config,
+            profile=args.profile,
+            stage=stage_padded,
+            cli_overrides=args.overrides,
+        )
+        config["filter_models"] = filter_models
+        config["filter_trials"] = filter_trials
+        config["protocol_split_index"] = s_idx
+        if getattr(args, "freeze_stage3", False):
+            config["partial_finetune"] = True
+            config["freeze_early_layers"] = True
+            config["frozen_stages_count"] = 3
+        elif getattr(args, "freeze_stages", None) is not None:
+            config["partial_finetune"] = True
+            config["freeze_early_layers"] = True
+            config["frozen_stages_count"] = int(args.freeze_stages)
+        elif getattr(args, "partial_finetune", False):
+            config["partial_finetune"] = True
+            config["freeze_early_layers"] = True
+            config["frozen_stages_count"] = config.get("frozen_stages_count", 2)
+
+        print(f"\n{'='*60}")
+        print(f"CystoDS — Stage {stage_padded} (Split {s_idx})")
+        print(f"  {_STAGE_REGISTRY[stage_padded]}")
+        print(f"  Profile: {config['run_profile']}")
+        print(f"  Split: split_{s_idx}")
+        if config.get("partial_finetune"):
+            n_frz = config.get("frozen_stages_count", 2)
+            print(f"  Finetune Mode: Partial (Frozen: PatchEmbed + Stages 1..{n_frz} | Trainable: Stages {n_frz+1}..4 + Heads)")
+        if filter_models:
+            print(f"  Filter Models: {', '.join(filter_models)}")
+        if filter_trials:
+            print(f"  Filter Trials: {', '.join(filter_trials)}")
+        print(f"{'='*60}\n")
+
+        stage_module = _import_stage(stage_padded)
+        result = stage_module.run(config)
+        print(f"\n✓ Stage {stage_padded} (Split {s_idx}) completed: {result}\n")
 
 
 def _run_all(args: argparse.Namespace) -> None:
@@ -362,6 +467,39 @@ def _import_stage(stage_id: str):
         sys.exit(1)
 
 
+def _cmd_run_remaining(args: argparse.Namespace) -> None:
+    """Run all remaining stages (30 -> 35 -> 36 -> 40 -> 90) sequentially."""
+    all_stages = ["30", "35", "36", "40", "90"]
+    start_stage = str(args.from_stage).zfill(2)
+    if start_stage not in all_stages:
+        print(
+            f"✗ Unknown start stage: {args.from_stage}. Available: {', '.join(all_stages)}",
+            file=sys.stderr,
+        )
+        sys.exit(1)
+
+    idx = all_stages.index(start_stage)
+    stages_to_run = all_stages[idx:]
+
+    print("\n" + "=" * 70)
+    print(f"🚀 CYSTODS PIPELINE: CHẠY CÁC GIAI ĐOẠN CÒN LẠI ({' -> '.join(stages_to_run)})")
+    print(f"  • Profile  : {args.profile or 'research'}")
+    print(f"  • Split    : {args.split}")
+    print(f"  • Start at : Stage {start_stage}")
+    print("=" * 70 + "\n")
+
+    for st in stages_to_run:
+        sub_args = argparse.Namespace(**vars(args))
+        sub_args.stage = st
+        if st in ("00", "90"):
+            sub_args.split = None
+        _cmd_run(sub_args)
+
+    print("\n" + "=" * 70)
+    print("🎉 HOÀN THÀNH TOÀN BỘ CÁC GIAI ĐOẠN CÒN LẠI CỦA DỰ ÁN CYSTODS!")
+    print("=" * 70 + "\n")
+
+
 def _cmd_migrate_results(args: argparse.Namespace) -> None:
     """Migrate legacy result directories to the unified structure."""
     from cystods.migrate import migrate_result_directory
@@ -404,6 +542,8 @@ def main(argv: list[str] | None = None) -> None:
         _cmd_validate(args)
     elif args.command == "run":
         _cmd_run(args)
+    elif args.command == "run-remaining":
+        _cmd_run_remaining(args)
     elif args.command == "migrate-results":
         _cmd_migrate_results(args)
     else:
