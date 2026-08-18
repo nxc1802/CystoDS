@@ -423,7 +423,7 @@ def run_three_stage_single_split(
     phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
     phase2_config["monitor_metric"] = "coarse_macro_f1"
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase2_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
+    phase2_config["early_stopping_patience"] = 3 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase2_config["fine_inference_calibration_mode"] = "fixed"
@@ -480,7 +480,7 @@ def run_three_stage_single_split(
     phase3_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase3_config["monitor_metric"] = "fine_macro_f1"
     phase3_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase3_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
+    phase3_config["early_stopping_patience"] = 3 if profile != "smoke" else 1
 
     if profile == "smoke":
         phase3_config["fine_inference_calibration_mode"] = "fixed"

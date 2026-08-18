@@ -533,7 +533,7 @@ def run_two_stage_single_split(
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
-    phase2_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
+    phase2_config["early_stopping_patience"] = 3 if profile != "smoke" else 1
 
     if phase2_strategy == "crt":
         phase2_config["sampler"] = "class_balanced"
