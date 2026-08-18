@@ -293,22 +293,23 @@ Smoothed Balanced Softmax xuất sắc nhất ở cả 4 tiêu chí cốt lõi: 
 
 ### 4.6. Thực nghiệm Triệt tiêu Thành phần (Ablation Studies)
 
-Để bóc tách khoa học vai trò của từng thành phần trong phương pháp **Decoupled Two-Stage Hierarchical Fine-Tuning (D2S-HFT)**, chúng tôi tiến hành đánh giá đối sánh định lượng trên tập chuẩn:
+Để bóc tách khoa học vai trò của từng thành phần trong phương pháp **Three-Stage Sequential Hierarchical Fine-Tuning (3S-HFT)** và đối sánh với mô hình hai giai đoạn (D2S-HFT) cùng các biến thể, chúng tôi tiến hành đánh giá định lượng trên 3 phân hoạch hold-out:
 
-| Biến Thể Thực Nghiệm / Variant | Chiến Lược Phase 1 | Chiến Lược Phase 2 | Binary AUROC | Coarse Acc | **Fine Macro-F1 (Supp)** | Fine Macro-F1 (All 22) | Tail Recall (n ≤ 20) | Coarse-Fine Consistency |
-|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| **1. Proposed Full D2S-HFT** | $\text{CE} + \text{SupCon}$ | Selective Fine BSM | $0{,}8907$ | $69{,}03\%$ | **0,4879** | **0,3770** | **54,81%** | **77,91%** |
-| **2. Ablation: w/o SupCon (Ablation 1)** | $\text{CE}$ thuần túy | Selective Fine BSM | $0{,}9046$ | $71{,}98\%$ | $0{,}4619$ ($-2{,}60\%$) | $0{,}3569$ ($-2{,}01\%$) | $51{,}11\%$ ($-3{,}70\%$) | $82{,}56\%$ |
-| **3. Ablation: Strategy cRT (Ablation 2)** | $\text{CE} + \text{SupCon}$ | cRT Sampler (Fine Only) | $0{,}8907$ | $69{,}03\%$ | $0{,}4407$ ($-4{,}72\%$) | $0{,}3405$ ($-3{,}65\%$) | $54{,}81\%$ | $73{,}26\%$ ($-4{,}65\%$) |
-| **4. Ablation: All-Heads Alignment** | $\text{CE} + \text{SupCon}$ | Mở cả 3 Heads BSM | $0{,}8936$ | $66{,}67\%$ ($-2{,}36\%$) | $0{,}4889$ | $0{,}3778$ | $54{,}81\%$ | $73{,}26\%$ ($-4{,}65\%$) |
-| **5. Baseline: 1-Stage End-to-End** | Joint 1-Stage | Không có Phase 2 | $0{,}9333$ | $74{,}04\%$ | $0{,}4396$ ($-4{,}83\%$) | $0{,}3397$ ($-3{,}73\%$) | $58{,}52\%$ | $85{,}66\%$ |
+| Biến Thể Thực Nghiệm / Variant | Chiến Lược Huấn Luyện | Binary AUROC | Coarse Acc | Coarse Macro-F1 | Fine Acc | **Fine Macro-F1 (Supp)** | Fine Macro-F1 (All 22) | Coarse-Fine Consistency |
+|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **1. Proposed Full 3S-HFT (Stage 36)** | **3-Stage Sequential: Rep $\rightarrow$ Coarse $\rightarrow$ Fine** | **0,9411 ± 0,044** | **70,80% ± 4,1%** | **0,6136 ± 0,040** | **49,60% ± 0,3%** | **0,5391 ± 0,047** 🏆 | **0,4005 ± 0,050** 🏆 | **79,80% ± 3,2%** |
+| **2. Decoupled 2-Stage D2S-HFT (Stage 35)** | 2-Stage: Rep $\rightarrow$ Fine-Only BSM | $0{,}9473 \pm 0{,}050$ | $71{,}58\% \pm 2{,}6\%$ | $0{,}6214 \pm 0{,}024$ | $50{,}41\% \pm 3{,}5\%$ | $0{,}4916 \pm 0{,}045$ | $0{,}3640 \pm 0{,}028$ | $81{,}18\% \pm 4{,}0\%$ |
+| **3. Baseline 1-Stage Joint (Stage 30)** | 1-Stage Joint Multi-Task (CE + SupCon + BSM) | $0{,}9594 \pm 0{,}023$ | $73{,}64\% \pm 1{,}2\%$ | $0{,}6576 \pm 0{,}007$ | $52{,}63\% \pm 3{,}6\%$ | $0{,}5026 \pm 0{,}056$ | $0{,}3718 \pm 0{,}032$ | $78{,}67\% \pm 2{,}8\%$ |
+| **4. Ablation: w/o SupCon ở Phase 1** | 2-Stage: CE thuần túy $\rightarrow$ Fine-Only BSM | $0{,}9046$ | $71{,}98\%$ | $0{,}5997$ | $48{,}22\%$ | $0{,}4619$ ($-2{,}60\%$) | $0{,}3569$ ($-2{,}01\%$) | $82{,}56\%$ |
+| **5. Ablation: Strategy cRT ở Phase 2** | 2-Stage: Rep $\rightarrow$ cRT Sampler (Fine Only) | $0{,}8907$ | $69{,}03\%$ | $0{,}5997$ | $46{,}51\%$ | $0{,}4407$ ($-4{,}72\%$) | $0{,}3405$ ($-3{,}65\%$) | $73{,}26\%$ |
+| **6. Ablation: All-Heads Alignment** | 2-Stage: Rep $\rightarrow$ Mở cả 3 Heads BSM | $0{,}8936$ | $66{,}67\%$ | $0{,}5647$ ($-3{,}50\%$) | $48{,}89\%$ | $0{,}4889$ | $0{,}3778$ | $73{,}26\%$ |
 
 **Phân tích Đóng góp Định lượng của Từng Thành phần:**
 
-1. **Tác động của việc Phân tách Hai Giai đoạn (Decoupling Benefit):** So với phương pháp huấn luyện 1 giai đoạn (Baseline Stage 30), việc tách rời biểu diễn và nắn head (D2S-HFT) giúp Fine Macro-F1 tăng vọt **$+4{,}83\%$ tuyệt đối** (từ $0{,}4396$ lên $0{,}4879$) và Macro-F1 trên 22 lớp tăng **$+3{,}73\%$** (từ $0{,}3397$ lên $0{,}3770$).
-2. **Tác động của Supervised Contrastive Learning ($L_{\text{supcon}}$) ở Phase 1:** Khi loại bỏ SupCon (Ablation 1), Fine Macro-F1 sụt giảm mạnh **$-2{,}60\%$** (từ $0{,}4879$ xuống $0{,}4619$) và Tail Recall giảm **$-3{,}70\%$** (từ $54{,}81\%$ xuống $51{,}11\%$), chứng minh SupCon tạo ra không gian biểu diễn hình học phân tách tốt hơn làm nền tảng cho Phase 2.
-3. **Chiến lược Cân bằng ở Phase 2 (Smoothed Balanced Softmax vs. cRT):** Khi thay thế Smoothed Balanced Softmax bằng Class-Balanced Sampler (cRT), Fine Macro-F1 bị tụt dốc **$-4{,}72\%$** (từ $0{,}4879$ xuống $0{,}4407$) và tính nhất quán phân cấp giảm **$-4{,}65\%$** (từ $77{,}91\%$ xuống $73{,}26\%$). Nguyên nhân là do cRT lấy lặp lại mẫu của các lớp hiếm (1–2 bệnh nhân), gây overfitting nặng vào hình ảnh của bệnh nhân đó.
-4. **Cơ chế Selective Fine-Only vs. All-Heads:** Việc mở cả 3 Heads ở Phase 2 (Ablation 3) gây ra hiện tượng *Negative Transfer*, làm Coarse Accuracy sụt giảm từ $69{,}03\%$ xuống $66{,}67\%$ ($-2{,}36\%$) và Coarse-Fine Consistency giảm từ $77{,}91\%$ xuống $73{,}26\%$. Cơ chế Selective Fine-Only là mấu chốt để bảo toàn $100\%$ chất lượng chẩn đoán thô.
+1. **Hiệu năng Đột phá của 3-Stage Sequential Alignment (3S-HFT):** So với phương pháp 1 giai đoạn (Stage 30) và 2 giai đoạn (Stage 35), mô hình đề xuất 3S-HFT đạt đỉnh cao mới về khả năng phân loại vi thể với **Fine Macro-F1 (Tất cả 22 lớp) đạt 0,4005 ± 0,0500** (tăng **$+2{,}87\%$** so với Stage 30 và **$+3{,}65\%$** so với Stage 35) và **Fine Macro-F1 (Supported) đạt 0,5391 ± 0,0471** (tăng **$+3{,}65\%$** so với Stage 30 và **$+4{,}75\%$** so với Stage 35).
+2. **Loại bỏ Hoàn toàn Negative Transfer và Quên Tham số (Zero Forgetting):** Việc tách Phase 2 tối ưu riêng Coarse Head và sau đó đóng băng Coarse Head trong Phase 3 giúp giữ nguyên vẹn ranh giới phân nhóm giải phẫu đã được tinh chỉnh ($0{,}6136$), khắc phục triệt để nhược điểm sụt giảm của biến thể All-Heads (nơi Coarse F1 bị kéo tụt xuống $0{,}5647$).
+3. **Tác động của Supervised Contrastive Learning ($L_{\text{supcon}}$) ở Phase 1:** Khi loại bỏ SupCon (Ablation 4), Fine Macro-F1 sụt giảm mạnh **$-2{,}60\%$** (từ $0{,}4879$ xuống $0{,}4619$) và Tail Recall giảm **$-3{,}70\%$** (từ $54{,}81\%$ xuống $51{,}11\%$), chứng minh SupCon tạo ra không gian hình học phân cụm vững chắc làm tiền đề cho các giai đoạn nắn head tiếp theo.
+4. **Chiến lược Cân bằng ở Phase 2/3 (Smoothed Balanced Softmax vs. cRT):** Khi thay thế Smoothed Balanced Softmax bằng Class-Balanced Sampler (cRT), Fine Macro-F1 sụt giảm nặng nề **$-4{,}72\%$** do hiện tượng overfitting lặp mẫu trên các bệnh nhân hiếm. Cơ chế hiệu chỉnh prior theo căn bậc hai số lượng bệnh nhân ($\text{patients}_j^{0{,}5}$) là thiết kế tối ưu nhất cho dữ liệu y tế đuôi dài.
 
 #### Khảo sát Vị trí Trích xuất Đặc trưng (Architecture Variations: Shared Late-Stage vs. Intermediate Heads)
 

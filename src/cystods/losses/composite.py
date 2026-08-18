@@ -11,12 +11,18 @@ from typing import Any
 import torch
 import torch.nn.functional as F
 
-from cystods.losses.classification import FineLongTailLoss
+from cystods.losses.classification import CoarseLongTailLoss, FineLongTailLoss
 from cystods.losses.hierarchy import (
     binary_coarse_hierarchy_loss,
     coarse_fine_hierarchy_loss,
 )
 from cystods.models.factory import active_tasks_from_config
+
+
+def active_coarse_loss_name(config: Mapping[str, Any]) -> str:
+    if float(config.get("coarse_loss_weight", 1.0)) == 0:
+        return "cross_entropy"
+    return str(config.get("coarse_loss", "cross_entropy"))
 
 
 def active_fine_loss_name(config: Mapping[str, Any]) -> str:
@@ -32,6 +38,7 @@ def compute_multitask_loss(
     fine_targets: torch.Tensor,
     fine_loss_fn: FineLongTailLoss | None,
     config: Mapping[str, Any],
+    coarse_loss_fn: CoarseLongTailLoss | None = None,
 ) -> tuple[torch.Tensor, dict[str, torch.Tensor]]:
     active_tasks = active_tasks_from_config(config)
     expected_output_keys = {"features"} | {
@@ -61,9 +68,14 @@ def compute_multitask_loss(
         components["binary_loss"] = binary_loss
         total = total + float(config["binary_loss_weight"]) * binary_loss
     if "coarse" in active_tasks:
-        coarse_loss = F.cross_entropy(
-            outputs["coarse_logits"], coarse_targets
-        )
+        if coarse_loss_fn is not None:
+            coarse_loss = coarse_loss_fn(
+                outputs["coarse_logits"], coarse_targets
+            )
+        else:
+            coarse_loss = F.cross_entropy(
+                outputs["coarse_logits"], coarse_targets
+            )
         components["coarse_loss"] = coarse_loss
         total = total + float(config["coarse_loss_weight"]) * coarse_loss
     if "fine" in active_tasks:

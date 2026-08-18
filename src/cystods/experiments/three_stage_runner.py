@@ -92,6 +92,13 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Supervised Contrastive loss weight in Phase 1 (default: 0.10 in research, 0.0 in smoke).",
     )
     parser.add_argument(
+        "--phase2-loss",
+        type=str,
+        default="balanced_softmax_smoothed",
+        choices=["balanced_softmax_smoothed", "balanced_softmax", "cross_entropy", "logit_adjustment", "focal", "weighted_ce"],
+        help="Coarse-level loss function for Phase 2. Default: balanced_softmax_smoothed.",
+    )
+    parser.add_argument(
         "--phase3-loss",
         type=str,
         default="balanced_softmax_smoothed",
@@ -243,6 +250,7 @@ def run_three_stage_single_split(
     phase2_epochs: int,
     phase3_epochs: int,
     phase1_loss: str,
+    phase2_loss: str,
     phase3_loss: str,
     phase1_lr: float,
     phase2_lr: float,
@@ -293,7 +301,7 @@ def run_three_stage_single_split(
     logger.info("  • Split Index       : %d", split_index)
     logger.info("  • Profile           : %s", profile)
     logger.info("  • Phase 1 (Rep)     : %d epochs (lr=%.1e, loss=%s, supcon=%.2f)", phase1_epochs, phase1_lr, phase1_loss, supcon_w)
-    logger.info("  • Phase 2 (Coarse)  : %d epochs (lr=%.1e, Coarse Only)", phase2_epochs, phase2_lr)
+    logger.info("  • Phase 2 (Coarse)  : %d epochs (lr=%.1e, loss=%s)", phase2_epochs, phase2_lr, phase2_loss)
     logger.info("  • Phase 3 (Fine)    : %d epochs (lr=%.1e, loss=%s)", phase3_epochs, phase3_lr, phase3_loss)
     logger.info("  • Run Directory     : %s", run_dir)
     logger.info("  • Protocol Directory: %s (SHA: %s)", protocol_dir, protocol_sha[:12])
@@ -406,6 +414,7 @@ def run_three_stage_single_split(
     phase2_config["scheduler_epochs"] = phase2_epochs
     phase2_config["learning_rate"] = phase2_lr
     phase2_config["encoder_learning_rate_multiplier"] = 0.0
+    phase2_config["coarse_loss"] = phase2_loss
     phase2_config["supervised_contrastive_loss_weight"] = 0.0
     phase2_config["binary_loss_weight"] = 0.0
     phase2_config["coarse_loss_weight"] = 1.0
@@ -597,6 +606,7 @@ def main(argv: Sequence[str] | None = None) -> None:
             phase2_epochs=p2_epochs,
             phase3_epochs=p3_epochs,
             phase1_loss=args.phase1_loss,
+            phase2_loss=args.phase2_loss,
             phase3_loss=args.phase3_loss,
             phase1_lr=args.phase1_lr,
             phase2_lr=args.phase2_lr,

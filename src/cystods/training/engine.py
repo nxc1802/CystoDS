@@ -48,8 +48,9 @@ from cystods.training.runtime import (
     resolve_precision,
     seed_everything,
 )
-from cystods.losses.classification import FineLongTailLoss
+from cystods.losses.classification import CoarseLongTailLoss, FineLongTailLoss
 from cystods.losses.composite import (
+    active_coarse_loss_name,
     active_fine_loss_name,
     compute_multitask_loss,
 )
@@ -189,6 +190,7 @@ def evaluate_model(
     amp_dtype: torch.dtype | None,
     include_features: bool = False,
     fine_prior_tau: float = 0.0,
+    coarse_loss_fn: CoarseLongTailLoss | None = None,
 ) -> tuple[dict[str, Any], pd.DataFrame, dict[str, float]]:
     model.eval()
     active_tasks = active_tasks_from_config(config)
@@ -215,6 +217,7 @@ def evaluate_model(
                 fine_targets,
                 fine_loss_fn,
                 config,
+                coarse_loss_fn=coarse_loss_fn,
             )
             batch_size = len(images)
             total_samples += batch_size
@@ -296,6 +299,35 @@ def train_model(
     logger: logging.Logger,
 ) -> tuple[dict[str, Any], dict[str, pd.DataFrame], Path]:
     active_tasks = active_tasks_from_config(config)
+    coarse_counts = (
+        optimization_train_frame["coarse_id"]
+        .value_counts()
+        .reindex(range(len(COARSE_NAMES)), fill_value=0)
+        .to_numpy(dtype=np.int64)
+    )
+    coarse_patient_counts = np.zeros(len(COARSE_NAMES), dtype=np.int64)
+    valid_coarse_train = optimization_train_frame.loc[
+        optimization_train_frame["coarse_id"] >= 0
+    ]
+    if not valid_coarse_train.empty:
+        for coarse_id, group in valid_coarse_train.groupby(
+            "coarse_id", sort=False
+        ):
+            coarse_patient_counts[int(coarse_id)] = group["pid"].nunique()
+
+    coarse_loss_fn = (
+        CoarseLongTailLoss(
+            active_coarse_loss_name(config),
+            coarse_counts,
+            coarse_patient_counts,
+            config,
+        ).to(device)
+        if ("coarse" in active_tasks or str(config.get("task_mode")) == "hierarchical")
+        else None
+    )
+    if coarse_loss_fn is not None:
+        write_json(fold_dir / "coarse_prior_audit.json", coarse_loss_fn.prior_audit())
+
     fine_counts = (
         optimization_train_frame["fine_id"]
         .value_counts()
@@ -431,6 +463,7 @@ def train_model(
                     fine_targets_one,
                     fine_loss_fn,
                     config,
+                    coarse_loss_fn=coarse_loss_fn,
                 )
                 supcon_weight = float(
                     config["supervised_contrastive_loss_weight"]
@@ -563,6 +596,7 @@ def train_model(
             amp_dtype,
             include_features=False,
             fine_prior_tau=selected_fine_tau,
+            coarse_loss_fn=coarse_loss_fn,
         )
         calibration_audit = None
         if "fine" in active_tasks:
@@ -704,6 +738,7 @@ def train_model(
             amp_dtype,
             include_features="attention" in config["roi_aggregations"],
             fine_prior_tau=best_fine_tau,
+            coarse_loss_fn=coarse_loss_fn,
         )
         evaluated_splits[name] = predictions
         evaluated_metrics["splits"][name] = metrics

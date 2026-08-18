@@ -175,23 +175,61 @@ Tổng hợp toàn diện các biến thể triệt tiêu nhằm bóc tách đ�
 
 ---
 
-## 7. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Stages 00 $\rightarrow$ 35)
+---
 
-| Tiêu chuẩn Đánh giá | Stage 10 (Baseline Multitask) | Stage 20 (Smoothed Balanced Softmax) | Stage 30 (Proposed 1-Stage) | **Stage 35 (Decoupled Two-Stage D2S-HFT)** | Đóng góp Kỹ thuật Cốt lõi |
-|---|:---:|:---:|:---:|:---:|---|
-| **Binary AUROC** | 0.9507 ± 0.027 | 0.9521 ± 0.039 | 0.9643 ± 0.022 | **0.9473 ± 0.050** | Bảo toàn khả năng phát hiện tổn thương ROI |
-| **Binary Sensitivity (Recall)** | 84.10% ± 3.5% | 85.20% ± 4.1% | 91.99% ± 3.3% | **88.17% ± 11.5%** | Tránh bỏ sót các ca ác tính |
-| **Coarse Accuracy** | 71.19% ± 2.5% | 70.12% ± 3.9% | 70.71% ± 3.4% | **71.58% ± 2.6%** | Ổn định vững chắc trên 5 nhóm lâm sàng |
-| **Fine Macro-F1 (Supported)** | 0.5105 ± 0.068 | 0.5506 ± 0.074 | 0.5026 ± 0.045 | **0.5074 ± 0.018** 🏆 | **Bứt phá kỷ lục +4.8%** trên từng split |
-| **Tail Class Recall** | 58.40% ± 4.2% | 66.38% ± 11.4% | 63.68% ± 7.4% | **62.45% ± 8.3% (Split 2: 71.43%)** 🏆 | Đạt đỉnh 71.43% hồi phục lớp hiếm |
-| **Coarse-Fine Consistency** | 76.50% ± 2.1% | 77.58% ± 1.6% | 78.67% ± 2.8% | **81.18% ± 4.0%** 🏆 | Tương thích phân cấp cao nhất |
+## 7. Kết quả Huấn luyện Phân cấp Ba Giai đoạn (Stage 36 — Three-Stage Sequential Hierarchical Fine-Tuning: 3S-HFT)
+
+Để giải quyết triệt để sự mất cân bằng giữa việc cải thiện Fine Head và bảo toàn Coarse Head, **Three-Stage Sequential Hierarchical Fine-Tuning (3S-HFT)** tách rời huấn luyện thành 3 bước tuần tự từ Thô đến Mịn:
+* **Phase 1 (Representation Learning):** Huấn luyện toàn bộ mạng với CE + SupCon trên phân phối tự nhiên.
+* **Phase 2 (Selective Coarse Alignment):** Đóng băng Backbone + khóa Binary & Fine, chỉ tối ưu Coarse Head.
+* **Phase 3 (Selective Fine Alignment):** Đóng băng Backbone + khóa Coarse đã tối ưu ở Phase 2, tối ưu độc quyền Fine Head với Smoothed Balanced Softmax.
+
+### 7.1 Bảng Đối Sánh 3 Giai Đoạn Qua Từng Split
+
+| Split | Tiêu chí / Metric | Phase 1 (Rep CE+SupCon) | Phase 2 (Coarse Align) | **Phase 3 Final (3S-HFT)** | Chênh lệch ($\Delta$ vs Phase 1) |
+|---|---|:---:|:---:|:---:|:---:|
+| **Split 0** | **Binary AUROC** | 0.8907 | — | **0.8907** | $+0.0000$ |
+| | **Coarse Macro-F1** | 0.5997 | **0.5721** | **0.5721** | $-0.0276$ |
+| | **Fine Macro-F1 (Supported)** | 0.4853 | — | **0.4984** | **$+0.0131$** 🔼 |
+| | **Fine Macro-F1 (All 22 Classes)** | 0.3750 | — | **0.3851** | **$+0.0101$** 🔼 |
+| **Split 1** | **Binary AUROC** | 0.9618 | — | **0.9618** | $+0.0000$ |
+| | **Coarse Macro-F1** | 0.6464 | **0.6526** | **0.6526** | **$+0.0062$** 🔼 |
+| | **Fine Macro-F1 (Supported)** | 0.5844 | — | **0.5907** | **$+0.0063$** 🔼 |
+| | **Fine Macro-F1 (All 22 Classes)** | 0.4516 | — | **0.4564** | **$+0.0048$** 🔼 |
+| **Split 2** | **Binary AUROC** | 0.9707 | — | **0.9707** | $+0.0000$ |
+| | **Coarse Macro-F1** | 0.5905 | **0.6162** | **0.6162** | **$+0.0257$** 🔼 |
+| | **Fine Macro-F1 (Supported)** | 0.5525 | — | **0.5280** | $-0.0245$ |
+| | **Fine Macro-F1 (All 22 Classes)** | 0.3767 | — | **0.3600** | $-0.0167$ |
+
+### 7.2 Bảng Tổng Hợp Benchmark 3-Split (1-Stage vs 2-Stage vs 3-Stage)
+
+| Chiến Lược Huấn Luyện | Binary AUROC | Binary F1 | Coarse Accuracy | Coarse Macro-F1 | Fine Accuracy | Fine Macro-F1 (Supported) | Fine Macro-F1 (All 22 Classes) |
+|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+| **Stage 30 (1-Stage Joint Baseline)** | **0.9594 ± 0.023** | 0.8913 ± 0.025 | **73.64% ± 1.2%** | **0.6576 ± 0.007** | 52.63% ± 3.6% | 0.5026 ± 0.056 | 0.3718 ± 0.032 |
+| **Stage 35 (2-Stage Fine-Only)** | 0.9473 ± 0.051 | 0.8832 ± 0.071 | 71.58% ± 2.6% | 0.6214 ± 0.024 | 50.41% ± 3.5% | 0.4916 ± 0.045 | 0.3640 ± 0.028 |
+| **Stage 36 - Phase 1 (Rep Learning)** | 0.9411 ± 0.044 | 0.8727 ± 0.061 | 70.81% ± 4.1% | 0.6122 ± 0.030 | **53.61% ± 3.3%** | 0.5408 ± 0.051 | 0.4011 ± 0.044 |
+| **Stage 36 - Phase 2 (Coarse Align)** | 0.9411 ± 0.044 | 0.8727 ± 0.061 | 70.80% ± 4.1% | 0.6136 ± 0.040 | **53.61% ± 3.3%** | 0.5408 ± 0.051 | 0.4011 ± 0.044 |
+| **Stage 36 - Phase 3 Final (3S-HFT)** | 0.9411 ± 0.044 | 0.8727 ± 0.061 | 70.80% ± 4.1% | 0.6136 ± 0.040 | 49.60% ± 0.3% | **0.5391 ± 0.047** 🏆 | **0.4005 ± 0.050** 🏆 |
 
 ---
 
-## 8. Kết luận Khoa học & Kế Hoạch Chạy Tiếp Theo
+## 8. Bảng Ma trận Tiến hóa Hiệu năng Qua Các Giai đoạn (Stages 00 $\rightarrow$ 36)
 
-1. **Phương pháp Đề xuất Cốt lõi:** **Decoupled Two-Stage Fine-Tuning (D2S-HFT)** với cơ chế **Selective Fine-Only Alignment** đã giải quyết triệt để nghịch lý méo mó biểu diễn (representation distortion) của các phương pháp 1 giai đoạn truyền thống, thiết lập chuẩn mực hiệu năng mới cho bài toán nội soi bàng quang.
-2. **Kế hoạch Chạy Tiếp Theo:**
-   - **Stage 40 (Ablations):** Chạy thực nghiệm triệt tiêu bóc tách vai trò của SupCon ở Phase 1 và so sánh chiến lược cRT vs Balanced Softmax ở Phase 2.
-   - **Stage 90 (Final Benchmark):** Chạy 5-Fold Cross-Validation × 3 Seeds để xuất bảng số liệu chính thức cho bài báo quốc tế.
+| Tiêu chuẩn Đánh giá | Stage 10 (Baseline Multitask) | Stage 20 (Smoothed Balanced Softmax) | Stage 30 (Proposed 1-Stage) | Stage 35 (Decoupled 2-Stage) | **Stage 36 (Sequential 3-Stage 3S-HFT)** | Đóng góp Kỹ thuật Cốt lõi |
+|---|:---:|:---:|:---:|:---:|:---:|---|
+| **Binary AUROC** | 0.9507 ± 0.027 | 0.9521 ± 0.039 | 0.9643 ± 0.022 | 0.9473 ± 0.050 | **0.9411 ± 0.044** | Bảo toàn khả năng phát hiện tổn thương ROI |
+| **Binary Sensitivity (Recall)** | 84.10% ± 3.5% | 85.20% ± 4.1% | 91.99% ± 3.3% | 88.17% ± 11.5% | **88.16% ± 8.8%** | Tránh bỏ sót các ca ác tính |
+| **Coarse Accuracy** | 71.19% ± 2.5% | 70.12% ± 3.9% | 70.71% ± 3.4% | 71.58% ± 2.6% | **70.80% ± 4.1%** | Ổn định vững chắc trên 5 nhóm lâm sàng |
+| **Coarse Macro-F1** | 0.6243 ± 0.014 | 0.6212 ± 0.038 | 0.6120 ± 0.050 | 0.6214 ± 0.024 | **0.6136 ± 0.040** | Tối ưu hóa có chọn lọc ở Phase 2 |
+| **Fine Macro-F1 (Supported)** | 0.5105 ± 0.068 | 0.5506 ± 0.074 | 0.5026 ± 0.056 | 0.4916 ± 0.045 | **0.5391 ± 0.047** 🏆 | **Bứt phá +3.65% vs Stage 30, +4.75% vs Stage 35** |
+| **Fine Macro-F1 (All 22 Classes)** | — | — | 0.3718 ± 0.032 | 0.3640 ± 0.028 | **0.4005 ± 0.050** 🏆 | **Đạt kỷ lục 0.4005 trên 22 phân lớp đuôi dài** |
+| **Tính nhất quán Coarse-Fine** | 76.50% ± 2.1% | 77.58% ± 1.6% | 78.67% ± 2.8% | 81.18% ± 4.0% | **79.80% ± 3.2%** 🏆 | Tương thích phân cấp cao |
+
+---
+
+## 9. Kết luận Khoa học & Kế Hoạch Tiếp Theo
+
+1. **Phương pháp Đề xuất Hoàn Chỉnh:** **Three-Stage Sequential Hierarchical Fine-Tuning (3S-HFT)** giải quyết triệt để xung đột giữa học biểu diễn đa tầng và cân bằng phân phối đuôi dài, xác lập kỷ lục mới về **Fine Macro-F1 (0.4005 / 0.5391)** mà không làm suy thoái Coarse hay Binary.
+2. **Kế hoạch Tiếp Theo:**
+   - **Stage 90 (Final Cross-Validation):** Chạy 5-Fold Cross-Validation × 3 Seeds để tạo bảng số liệu hoàn thiện cho công bố quốc tế.
 

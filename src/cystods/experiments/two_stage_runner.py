@@ -512,6 +512,7 @@ def run_two_stage_single_split(
         phase2_config["binary_loss_weight"] = 0.0
         phase2_config["coarse_loss_weight"] = 0.0
         phase2_config["fine_loss_weight"] = 1.0
+        phase2_config["fine_loss"] = phase2_loss
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.0
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
         phase2_config["monitor_metric"] = "fine_macro_f1"
@@ -519,6 +520,7 @@ def run_two_stage_single_split(
         phase2_config["binary_loss_weight"] = 0.0
         phase2_config["coarse_loss_weight"] = 1.0
         phase2_config["fine_loss_weight"] = 0.0
+        phase2_config["coarse_loss"] = phase2_loss
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.0
         phase2_config["monitor_metric"] = "coarse_macro_f1"
@@ -526,6 +528,8 @@ def run_two_stage_single_split(
         phase2_config["binary_loss_weight"] = 1.0
         phase2_config["coarse_loss_weight"] = 1.0
         phase2_config["fine_loss_weight"] = 1.0
+        phase2_config["coarse_loss"] = phase2_loss
+        phase2_config["fine_loss"] = phase2_loss
         phase2_config["binary_coarse_hierarchy_loss_weight"] = 0.25
         phase2_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase2_config["warmup_epochs"] = 0.5 if profile != "smoke" else 0.0
