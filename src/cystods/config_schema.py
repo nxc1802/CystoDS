@@ -107,6 +107,9 @@ BASE_CONFIG: dict[str, Any] = {
     "fine_loss_weight": 1.0,
     "binary_coarse_hierarchy_loss_weight": 0.25,
     "coarse_fine_hierarchy_loss_weight": 0.25,
+    "hierarchy_schedule": "fixed",  # fixed | two_phase | warmup | method_a | method_b
+    "hierarchy_warmup_epochs": 10,
+    "phase3_hierarchy_weight": 0.25,
     "supervised_contrastive_loss_weight": 0.10,
     "supervised_contrastive_temperature": 0.10,
     "supervised_contrastive_label_level": "fine",

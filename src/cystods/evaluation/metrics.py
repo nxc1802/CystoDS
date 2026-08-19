@@ -278,6 +278,40 @@ def compute_metrics_bundle(
                 dtype=np.int64,
             )
             true_coarse = coarse_targets[valid_fine]
+
+            # Compute Fine-to-Coarse Marginalization Probabilities (N, 5)
+            num_coarse_classes = len(COARSE_NAMES)
+            valid_fine_probs = fine_probs[valid_fine]
+            fine_to_coarse_probs = np.zeros((len(valid_fine_probs), num_coarse_classes), dtype=np.float32)
+            for f_idx, c_idx in enumerate(FINE_PARENT_ID):
+                if 0 <= c_idx < num_coarse_classes:
+                    fine_to_coarse_probs[:, c_idx] += valid_fine_probs[:, f_idx]
+
+            # Compute Ensemble Metrics across coarse head weights: [0.0, 0.25, 0.5, 0.75, 1.0]
+            ensemble_accuracies: dict[str, float] = {}
+            ensemble_macro_f1s: dict[str, float] = {}
+            best_ens_lambda = 1.0
+            best_ens_acc = -1.0
+            best_ens_f1 = -1.0
+
+            for coarse_w in (0.0, 0.25, 0.5, 0.75, 1.0):
+                w_coarse = float(coarse_w)
+                w_fine = 1.0 - w_coarse
+                blended_probs = w_coarse * coarse_probs[valid_fine] + w_fine * fine_to_coarse_probs
+                blended_pred = blended_probs.argmax(axis=1)
+
+                ens_acc = float(accuracy_score(true_coarse, blended_pred))
+                ens_f1 = float(f1_score(true_coarse, blended_pred, average="macro", zero_division=0))
+
+                key_suffix = f"{coarse_w:.2f}".replace(".", "_")
+                ensemble_accuracies[f"parent_accuracy_ensemble_coarse_weight_{key_suffix}"] = ens_acc
+                ensemble_macro_f1s[f"parent_macro_f1_ensemble_coarse_weight_{key_suffix}"] = ens_f1
+
+                if ens_acc > best_ens_acc:
+                    best_ens_acc = ens_acc
+                    best_ens_f1 = ens_f1
+                    best_ens_lambda = coarse_w
+
             hierarchy = {
                 "parent_accuracy_from_coarse_head": float(
                     accuracy_score(true_coarse, coarse_pred)
@@ -285,6 +319,14 @@ def compute_metrics_bundle(
                 "parent_accuracy_from_fine_head": float(
                     accuracy_score(true_coarse, predicted_parent)
                 ),
+                "parent_accuracy_from_fine_marginalization": float(
+                    ensemble_accuracies["parent_accuracy_ensemble_coarse_weight_0_00"]
+                ),
+                "best_ensemble_coarse_weight": best_ens_lambda,
+                "best_ensemble_parent_accuracy": best_ens_acc,
+                "best_ensemble_parent_macro_f1": best_ens_f1,
+                **ensemble_accuracies,
+                **ensemble_macro_f1s,
                 "child_accuracy": float(
                     accuracy_score(fine_targets[valid_fine], fine_pred)
                 ),

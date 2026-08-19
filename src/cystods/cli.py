@@ -106,6 +106,21 @@ def _build_parser() -> argparse.ArgumentParser:
         dest="freeze_stages",
         help="Explicitly specify number of early backbone stages to freeze (1: Stage 1, 2: Stages 1-2, 3: Stages 1-3)",
     )
+    run_parser.add_argument(
+        "--hierarchy-schedule",
+        dest="hierarchy_schedule",
+        type=str,
+        choices=["fixed", "two_phase", "warmup", "method_a", "method_b"],
+        default=None,
+        help="Hierarchy loss schedule: 'two_phase' (Method A: w=0 in Phase 1, active in Phase 2/3) or 'warmup' (Method B: gradual linear ramp in Phase 1)",
+    )
+    run_parser.add_argument(
+        "--hierarchy-warmup-epochs",
+        dest="hierarchy_warmup_epochs",
+        type=int,
+        default=None,
+        help="Number of epochs for hierarchy loss warmup (Method B).",
+    )
 
     # --- cystods config ---
     config_parser = subparsers.add_parser("config", help="Show resolved config")
@@ -385,6 +400,10 @@ def _cmd_run(args: argparse.Namespace) -> None:
             config["partial_finetune"] = True
             config["freeze_early_layers"] = True
             config["frozen_stages_count"] = config.get("frozen_stages_count", 2)
+        if getattr(args, "hierarchy_schedule", None) is not None:
+            config["hierarchy_schedule"] = args.hierarchy_schedule
+        if getattr(args, "hierarchy_warmup_epochs", None) is not None:
+            config["hierarchy_warmup_epochs"] = args.hierarchy_warmup_epochs
 
         print(f"\n{'='*60}")
         print(f"CystoDS — Stage {stage_padded} (Split {s_idx})")

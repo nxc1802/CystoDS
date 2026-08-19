@@ -425,6 +425,16 @@ def train_model(
         epoch_start = time.perf_counter()
         epoch_samples = 0
         running: dict[str, torch.Tensor] = {}
+
+        # Dynamic epoch config for hierarchy schedule (e.g. Method B: warmup)
+        epoch_config = dict(config)
+        h_sched = str(config.get("hierarchy_schedule", "fixed")).lower()
+        if h_sched in ("warmup", "method_b", "curriculum"):
+            warmup_ep = int(config.get("hierarchy_warmup_epochs", 0)) or max(1, int(config["epochs"]) // 2)
+            ramp = min(1.0, float(epoch + 1) / float(warmup_ep))
+            epoch_config["binary_coarse_hierarchy_loss_weight"] = float(config.get("binary_coarse_hierarchy_loss_weight", 0.25)) * ramp
+            epoch_config["coarse_fine_hierarchy_loss_weight"] = float(config.get("coarse_fine_hierarchy_loss_weight", 0.25)) * ramp
+
         for batch_index, batch in enumerate(loaders["train"]):
             images_one = move_images(batch["image"], device, config)
             has_second_view = "image_view_2" in batch
@@ -462,7 +472,7 @@ def train_model(
                     coarse_targets_one,
                     fine_targets_one,
                     fine_loss_fn,
-                    config,
+                    epoch_config,
                     coarse_loss_fn=coarse_loss_fn,
                 )
                 supcon_weight = float(

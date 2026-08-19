@@ -178,6 +178,19 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Path to dataset archive directory.",
     )
     parser.add_argument(
+        "--hierarchy-schedule",
+        type=str,
+        default=None,
+        choices=["fixed", "two_phase", "warmup", "method_a", "method_b"],
+        help="Hierarchy loss schedule: 'two_phase' (Method A: w=0 in Phase 1, active in Phase 2/3) or 'warmup' (Method B: gradual linear ramp in Phase 1).",
+    )
+    parser.add_argument(
+        "--hierarchy-warmup-epochs",
+        type=int,
+        default=None,
+        help="Number of epochs for hierarchy loss warmup (Method B).",
+    )
+    parser.add_argument(
         "--dry-run",
         action="store_true",
         help="Validate configuration without executing training.",
@@ -220,6 +233,13 @@ def generate_four_way_comparison_table(
     delta_fin_f1 = p3_fin.get("macro_f1_supported", 0.0) - p1_fin.get("macro_f1_supported", 0.0)
     delta_all_f1 = p3_fin.get("macro_f1_all_classes", 0.0) - p1_fin.get("macro_f1_all_classes", 0.0)
 
+    # Coarse-Fine Ensemble Hierarchy Metrics
+    ens_p3_acc = p3_hrc.get("best_ensemble_parent_accuracy", p3_crs.get("accuracy", 0.0))
+    ens_p3_w = p3_hrc.get("best_ensemble_coarse_weight", 1.0)
+    ens_0_00 = p3_hrc.get("parent_accuracy_ensemble_coarse_weight_0_00", p3_hrc.get("parent_accuracy_from_fine_head", 0.0))
+    ens_0_50 = p3_hrc.get("parent_accuracy_ensemble_coarse_weight_0_50", 0.0)
+    ens_1_00 = p3_hrc.get("parent_accuracy_ensemble_coarse_weight_1_00", p3_crs.get("accuracy", 0.0))
+
     lines = [
         "================================================================================",
         f"### 📊 Bảng Đối Sánh Three-Stage Hierarchical Fine-Tuning (Split {split_index})",
@@ -236,7 +256,11 @@ def generate_four_way_comparison_table(
         f"| **Fine Macro-F1 (Supported)** | {p1_fin.get('macro_f1_supported', 0.0):.4f} | — | **{p3_fin.get('macro_f1_supported', 0.0):.4f}** | {delta_fin_f1:+.4f} |",
         f"| **Fine Macro-F1 (All 22 Classes)** | {p1_fin.get('macro_f1_all_classes', 0.0):.4f} | — | **{p3_fin.get('macro_f1_all_classes', 0.0):.4f}** | {delta_all_f1:+.4f} |",
         f"| **Tail Class Recall (n <= 20)** | {p1_fin.get('tail_class_macro_recall', 0.0)*100:.2f}% | — | **{p3_fin.get('tail_class_macro_recall', 0.0)*100:.2f}%** | {(p3_fin.get('tail_class_macro_recall', 0.0) - p1_fin.get('tail_class_macro_recall', 0.0))*100:+.2f}% |",
-        f"| **Coarse-Fine Consistency** | {p1_hrc.get('coarse_fine_consistency', 0.0)*100:.2f}% | — | **{p3_hrc.get('coarse_fine_consistency', 0.0)*100:.2f}%** | {(p3_hrc.get('coarse_fine_consistency', 0.0) - p1_hrc.get('coarse_fine_consistency', 0.0))*100:+.2f}% |",
+        f"| **Coarse-Fine Consistency** | {p1_hrc.get('coarse_fine_prediction_consistency', p1_hrc.get('coarse_fine_consistency', 0.0))*100:.2f}% | — | **{p3_hrc.get('coarse_fine_prediction_consistency', p3_hrc.get('coarse_fine_consistency', 0.0))*100:.2f}%** | {(p3_hrc.get('coarse_fine_prediction_consistency', 0.0) - p1_hrc.get('coarse_fine_prediction_consistency', 0.0))*100:+.2f}% |",
+        f"| **Parent Acc (Coarse Head w=1.0)** | {p1_hrc.get('parent_accuracy_from_coarse_head', 0.0)*100:.2f}% | — | **{ens_1_00*100:.2f}%** | {(ens_1_00 - p1_hrc.get('parent_accuracy_from_coarse_head', 0.0))*100:+.2f}% |",
+        f"| **Parent Acc (Fine Head w=0.0)** | {p1_hrc.get('parent_accuracy_from_fine_head', 0.0)*100:.2f}% | — | **{ens_0_00*100:.2f}%** | {(ens_0_00 - p1_hrc.get('parent_accuracy_from_fine_head', 0.0))*100:+.2f}% |",
+        f"| **Parent Acc (Ensemble 50/50 w=0.5)** | {p1_hrc.get('parent_accuracy_ensemble_coarse_weight_0_50', 0.0)*100:.2f}% | — | **{ens_0_50*100:.2f}%** | — |",
+        f"| **🏆 Best Ensemble Parent Acc** | — | — | **{ens_p3_acc*100:.2f}%** (λ={ens_p3_w}) | — |",
         "================================================================================",
     ]
     return "\n".join(lines)
@@ -363,10 +387,28 @@ def run_three_stage_single_split(
     phase1_config["learning_rate"] = phase1_lr
     phase1_config["fine_loss"] = phase1_loss
     phase1_config["supervised_contrastive_loss_weight"] = supcon_w
-    phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
-    phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
     phase1_config["monitor_metric"] = "fine_macro_f1"
     phase1_config["early_stopping_patience"] = 6 if profile != "smoke" else 1
+
+    # Configure hierarchy schedule across phases (Method A: two_phase vs Method B: warmup vs fixed)
+    h_sched = str(config.get("hierarchy_schedule", "fixed")).lower()
+    if h_sched in ("two_phase", "method_a", "phase2_3_only"):
+        phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.0
+        phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.0
+        phase1_config["hierarchy_schedule"] = "two_phase"
+        logger.info("  • Hierarchy Schedule: Method A (Two-Phase: w=0 in Phase 1, active in Phase 2 & 3)")
+    elif h_sched in ("warmup", "method_b", "curriculum"):
+        warmup_ep = int(config.get("hierarchy_warmup_epochs", 0)) or max(1, phase1_epochs // 2)
+        phase1_config["hierarchy_schedule"] = "warmup"
+        phase1_config["hierarchy_warmup_epochs"] = warmup_ep
+        phase1_config["binary_coarse_hierarchy_loss_weight"] = 0.25
+        phase1_config["coarse_fine_hierarchy_loss_weight"] = 0.25
+        logger.info("  • Hierarchy Schedule: Method B (Curriculum Warmup: 0.0 -> 0.25 across %d epochs)", warmup_ep)
+    else:
+        phase1_config["binary_coarse_hierarchy_loss_weight"] = float(config.get("binary_coarse_hierarchy_loss_weight", 0.25))
+        phase1_config["coarse_fine_hierarchy_loss_weight"] = float(config.get("coarse_fine_hierarchy_loss_weight", 0.25))
+        phase1_config["hierarchy_schedule"] = "fixed"
+        logger.info("  • Hierarchy Schedule: Fixed (w=0.25 across all phases)")
 
     if profile == "smoke":
         phase1_config["fine_inference_calibration_mode"] = "fixed"
@@ -587,6 +629,10 @@ def main(argv: Sequence[str] | None = None) -> None:
         cli_overrides.append(f"paths.result_root={args.result_root}")
     if args.data_root is not None:
         cli_overrides.append(f"paths.data_root={args.data_root}")
+    if args.hierarchy_schedule is not None:
+        cli_overrides.append(f"training.hierarchy_schedule={args.hierarchy_schedule}")
+    if args.hierarchy_warmup_epochs is not None:
+        cli_overrides.append(f"training.hierarchy_warmup_epochs={args.hierarchy_warmup_epochs}")
 
     base_config = load_config(
         stage="30",
