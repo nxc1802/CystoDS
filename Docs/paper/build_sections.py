@@ -129,23 +129,46 @@ def transform_tables_1col(tex: str) -> str:
             cap = f"Bảng {idx+1}."
             cap = re.sub(r"(?<!\\)%", r"\%", cap)
 
-            new_tex = (
-                f"\\begin{{table}}[htbp]\n"
-                f"\\centering\n"
-                f"\\caption{{{cap}}}\n"
-                f"\\label{{tab:sec_table{idx+1}}}\n"
-                f"\\vspace{{3pt}}\n"
-                f"\\adjustbox{{max width=\\textwidth}}{{\n"
-                f"\\begin{{tabular}}{{{align_str}}}\n"
-                f"\\toprule\n"
-                f"{header_str}\n"
-                f"\\midrule\n"
-                f"{body_raw}\n"
-                f"\\bottomrule\n"
-                f"\\end{{tabular}}\n"
-                f"}}\n"
-                f"\\end{{table}}"
-            )
+            if num_cols >= 8:
+                new_tex = (
+                    f"\\clearpage\n"
+                    f"\\begin{{landscape}}\n"
+                    f"\\begin{{table}}[p]\n"
+                    f"\\centering\n"
+                    f"\\caption{{{cap}}}\n"
+                    f"\\label{{tab:sec_table{idx+1}}}\n"
+                    f"\\vspace{{4pt}}\n"
+                    f"\\adjustbox{{max width=0.98\\linewidth}}{{\n"
+                    f"\\begin{{tabular}}{{{align_str}}}\n"
+                    f"\\toprule\n"
+                    f"{header_str}\n"
+                    f"\\midrule\n"
+                    f"{body_raw}\n"
+                    f"\\bottomrule\n"
+                    f"\\end{{tabular}}\n"
+                    f"}}\n"
+                    f"\\end{{table}}\n"
+                    f"\\end{{landscape}}\n"
+                    f"\\clearpage"
+                )
+            else:
+                new_tex = (
+                    f"\\begin{{table}}[htbp]\n"
+                    f"\\centering\n"
+                    f"\\caption{{{cap}}}\n"
+                    f"\\label{{tab:sec_table{idx+1}}}\n"
+                    f"\\vspace{{3pt}}\n"
+                    f"\\adjustbox{{max width=\\textwidth}}{{\n"
+                    f"\\begin{{tabular}}{{{align_str}}}\n"
+                    f"\\toprule\n"
+                    f"{header_str}\n"
+                    f"\\midrule\n"
+                    f"{body_raw}\n"
+                    f"\\bottomrule\n"
+                    f"\\end{{tabular}}\n"
+                    f"}}\n"
+                    f"\\end{{table}}"
+                )
             replacements.append((b_start, b_end, new_tex))
 
     replacements.sort(key=lambda x: x[0], reverse=True)
@@ -198,8 +221,9 @@ def create_section_header_tex(header_left: str) -> Path:
         "\\usepackage{booktabs}\n"
         "\\usepackage{graphicx}\n"
         "\\usepackage{microtype}\n"
-        "\\usepackage{tabularx}\n"
         "\\usepackage{adjustbox}\n"
+        "\\usepackage{pdflscape}\n"
+        "\\usepackage{array}\n"
         "\n"
         "\\definecolor{CystoBlue}{HTML}{1F4E79}\n"
         "\\definecolor{CystoTeal}{HTML}{2A7F62}\n"
