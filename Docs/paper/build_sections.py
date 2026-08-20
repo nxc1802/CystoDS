@@ -27,18 +27,18 @@ OUTPUT_DIR = DOCS / "output" / "pdf"
 SECTION_DEFS = [
     {
         "id": "01_Dataset",
-        "title": "CystoDS: Báo cáo Tập Dữ Liệu và Giao Thức Đánh Giá Độc Lập Bệnh Nhân",
-        "subtitle": "Kiểm định 8.067 ảnh, 160 bệnh nhân và 3 phân hoạch hold-out chuẩn hóa (Stage 00)",
+        "title": "CystoDS: Báo cáo Tập Dữ Liệu, Bối Cảnh và Giao Thức Đánh Giá Độc Lập Bệnh Nhân",
+        "subtitle": "Kiểm định 8.067 ảnh, 160 bệnh nhân, phân tích liên hệ nghiên cứu và 3 phân hoạch hold-out chuẩn hóa (Stage 00)",
         "header_left": "CystoDS -- Báo cáo Tập Dữ Liệu và Giao Thức (Stage 00)",
-        "regex": r"(## 2\. Dữ liệu và giao thức đánh giá[\s\S]*?)(?=## 3\. Phương pháp)",
+        "regex": r"(## 1\. Đặt vấn đề[\s\S]*?)(?=## 4\. Phương pháp)",
         "filename_stem": "CystoDS_01_Dataset_VI",
     },
     {
         "id": "02_Methodology",
-        "title": "CystoDS: Phương Pháp Phân Cấp Ba Giai Đoạn Tuần Tự (3S-HFT)",
-        "subtitle": "Kiến trúc Swin-Tiny, Sàng lọc Backbones & Loss Đuôi dài, Khảo sát Intermediate Heads và Tinh chỉnh Tuần tự",
+        "title": "CystoDS: Phương Pháp Phân Cấp Ba Giai Đoạn Tuần Tự (3S-HFT v3.1)",
+        "subtitle": "Kiến trúc Swin-Tiny, Lịch trình Curriculum Warmup cho Hierarchy Loss và Cơ chế Hierarchical Marginalization",
         "header_left": "CystoDS -- Phương Pháp Nghiên Cứu và Mô Hình Đề Xuất (3S-HFT)",
-        "regex": r"(## 3\. Phương pháp nghiên cứu[\s\S]*?)(?=## 4\. Kết quả)",
+        "regex": r"(## 4\. Phương pháp Đề xuất[\s\S]*?)(?=## 5\. Kết quả)",
         "filename_stem": "CystoDS_02_Methodology_VI",
     },
     {
@@ -46,7 +46,7 @@ SECTION_DEFS = [
         "title": "CystoDS: Báo Cáo Kết Quả Thực Nghiệm Toàn Diện Theo Từng Giai Đoạn (Stages 10--40)",
         "subtitle": "Đánh giá đối chuẩn qua 3 hold-out splits độc lập và bóc tách định lượng 10 biến thể triệt tiêu thành phần",
         "header_left": "CystoDS -- Báo cáo Kết Quả Thực Nghiệm Theo Giai Đoạn (Stages 10--40)",
-        "regex": r"(## 4\. Kết quả thực nghiệm[\s\S]*?)(?=## 5\. Thảo luận)",
+        "regex": r"(## 5\. Kết quả Thực nghiệm[\s\S]*)",
         "filename_stem": "CystoDS_03_Experiment_VI",
     },
 ]

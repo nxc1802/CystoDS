@@ -27,27 +27,15 @@ TITLE = (
 SUBTITLE = "Phương pháp tinh chỉnh hai giai đoạn tách rời trên hold-out độc lập theo bệnh nhân"
 
 TABLE_CAPTIONS = [
-    "Kết quả kiểm định các thuộc tính dữ liệu CystoDS.",
-    "Thống kê phân chia tập hold-out theo bệnh nhân và phân bố lớp.",
-    "Cấu hình chi tiết của mô hình Swin-Tiny đề xuất.",
-    "Định nghĩa các mức đánh giá đa tầng (hierarchical evaluation levels).",
-    "Hiệu năng phát hiện ROI ở mức nhị phân trên tập test 329 ảnh.",
-    "Điểm số đa mức và khoảng tin cậy 95% bootstrap theo bệnh nhân.",
-    "Các chỉ số phân cấp chi tiết trên 248 ảnh có nhãn fine.",
-    "Đánh giá phân loại 5 lớp thô (coarse-level) trên các cấu hình.",
-    "Hiệu năng theo từng lớp thô (per-class coarse) của mô hình phân cấp.",
-    "Đánh giá phân loại 22 nhãn phụ (fine-level) trên các cấu hình.",
-    "Hiệu năng theo từng nhãn phụ (per-class fine) của mô hình phân cấp.",
-    "Phân tích các mẫu lỗi ưu tiên và hướng xử lý đề xuất.",
-    "Sàng lọc hiệu năng các loss hàm ở mức fine-level.",
-    "Kết quả ablation khảo sát vai trò của từng thành phần.",
-    "So sánh hiệu năng khi huấn luyện và đánh giá trên miền WLC.",
-    "Động lực học huấn luyện (learning dynamics) trên các tập dữ liệu.",
-    "Thông số chi phí và tài nguyên huấn luyện mô hình đề xuất.",
-    "Microbenchmark thời gian suy luận (latency) và throughput.",
-    "Đánh giá tính đầy đủ của artifact và dữ liệu thực nghiệm.",
-    "Đối chiếu hiệu năng với benchmark CystoDS đã công bố.",
-    "Tổng hợp các nghiên cứu SOTA liên quan trong phân loại nội soi bàng quang."
+    "Tổng hợp và đối chiếu các công trình nghiên cứu phân loại nội soi bàng quang liên quan.",
+    "Thống kê mẫu và bệnh nhân bộ dữ liệu CystoDS theo 3 tầng phả hệ.",
+    "Kết quả sàng lọc 4 họ kiến trúc mạng xương sống (Stage 10) qua 3 hold-out splits độc lập.",
+    "Kết quả sàng lọc 7 hàm mất mát xử lý phân bố đuôi dài (Stage 20) qua 3 hold-out splits độc lập.",
+    "Kết quả đánh giá mô hình đề xuất 3S-HFT v3.1 trên tập Validation (3-Fold Patient-Disjoint).",
+    "Kết quả kiểm định độc lập của mô hình đề xuất 3S-HFT v3.1 trên tập Test (3-Fold Patient-Disjoint).",
+    "Kết quả thực nghiệm triệt tiêu thành phần (Ablation Studies -- Stage 40) trên 10 biến thể qua 3 splits.",
+    "Khảo sát vị trí trích xuất đặc trưng đa tầng: Shared Late-Stage so với Multi-Stage Intermediate Heads.",
+    "Hiệu năng chi tiết theo từng lớp thô (per-class coarse metrics) của mô hình phân cấp.",
 ]
 
 
