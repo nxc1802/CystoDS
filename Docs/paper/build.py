@@ -29,7 +29,6 @@ SUBTITLE = "Phương pháp tinh chỉnh hai giai đoạn tách rời trên hold-
 TABLE_CAPTIONS = [
     "Tổng hợp và đối chiếu các công trình nghiên cứu phân loại nội soi bàng quang liên quan.",
     "Thống kê mẫu và bệnh nhân bộ dữ liệu CystoDS theo 3 tầng phả hệ.",
-    "Bảng tổng hợp đại thống kê toàn bộ thực nghiệm (Master Benchmark Table -- Stages 10--40) qua 3 hold-out splits độc lập.",
     "Kết quả sàng lọc 4 họ kiến trúc mạng xương sống (Stage 10) qua 3 hold-out splits độc lập.",
     "Kết quả sàng lọc 7 hàm mất mát xử lý phân bố đuôi dài (Stage 20) qua 3 hold-out splits độc lập.",
     "Kết quả đánh giá mô hình đề xuất 3S-HFT v3.1 trên tập Validation (3-Fold Patient-Disjoint).",
