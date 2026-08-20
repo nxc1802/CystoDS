@@ -121,37 +121,42 @@
 - **Cấu hình Shared Late-Stage:** Toàn bộ 3 heads (Binary, Coarse, Fine) cùng nhận đặc trưng vector 768 chiều từ Stage 4 sau lớp LayerNorm.
 
 ```
-[Phase 1: Representation Learning] ──► Full Backbone + 3 Heads
-  Loss = BCE(Bin) + CE(Coarse) + CE(Fine) + 0.10*SupCon + w_hrc(t)*L_hierarchy
-  Warmup Schedule: w_hrc(t) = 0.25 * min(1.0, epoch / 12)
-                 │
-                 ▼
-[Phase 2: Coarse Alignment] ───────► Frozen Backbone & Fine/Binary Heads
-  Loss = Smoothed Balanced Softmax on Coarse Head (Zero Forgetting)
-                 │
-                 ▼
-[Phase 3: Fine Alignment] ─────────► Frozen Backbone & Coarse/Binary Heads
-  Loss = Smoothed Balanced Softmax on Fine Head + 0.25*L_cf
+[Phase 1: Representation Learning]
+  • Open 100% Backbone + 3 Heads
+  • Loss: BCE + CE + 0.10*SupCon
+  • Warmup: w_hrc(t) = 0.25*min(1, t/12)
+               │
+               ▼
+[Phase 2: Coarse Alignment]
+  • Freeze Backbone & Fine/Binary
+  • Loss: Coarse SBS (Zero Forgetting)
+               │
+               ▼
+[Phase 3: Fine Alignment]
+  • Freeze Backbone & Coarse/Binary
+  • Loss: Fine SBS + 0.25*L_cf
 ```
 
 ### 4.2. Công thức toán học các hàm mất mát
 - **Hàm Supervised Contrastive Loss ($L_{\text{supcon}}$):**
-  $$L_{\text{supcon}} = \sum_{i \in I} \frac{-1}{|P(i)|} \sum_{p \in P(i)} \log \frac{\exp(z_i \cdot z_p / \tau)}{\sum_{a \in A(i)} \exp(z_i \cdot z_a / \tau)}$$
-- **Ràng buộc phân cấp Coarse-Fine ($L_{\text{hierarchy}}$):** Phạt KL-Divergence giữa xác suất dự đoán của Coarse Head và xác suất cộng dồn từ Fine Head:
-  $$L_{\text{cf}} = D_{\text{KL}}\left(P_{\text{coarse}} \,\parallel\, P_{\text{from\_fine}}\right) \quad \text{với} \quad P_{\text{from\_fine}}(C) = \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)$$
+  $$L_{\text{supcon}} = \sum_{i \in I} \frac{-1}{|P(i)|} \sum_{p \in P(i)} \log \frac{e^{z_i \cdot z_p / \tau}}{\sum_{a \in A(i)} e^{z_i \cdot z_a / \tau}}$$
+- **Ràng buộc phân cấp Coarse-Fine ($L_{\text{hierarchy}}$):**
+  $$L_{\text{cf}} = D_{\text{KL}}\left(P_{\text{coarse}} \,\parallel\, P_{\text{from\_fine}}\right)$$
+  $$P_{\text{from\_fine}}(C) = \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)$$
 - **Smoothed Balanced Softmax Loss (SBS):**
-  $$L_{\text{SBS}}(y, \hat{z}) = -\log \frac{\text{prior}_y \cdot \exp(\hat{z}_y)}{\sum_{j} \text{prior}_j \cdot \exp(\hat{z}_j)}, \quad \text{với} \quad \text{prior}_j = (\text{patients}_j + \epsilon)^{0{,}5}$$
+  $$L_{\text{SBS}}(y, \hat{z}) = -\log \frac{\text{prior}_y \cdot e^{\hat{z}_y}}{\sum_{j} \text{prior}_j \cdot e^{\hat{z}_j}}$$
+  $$\text{prior}_j = (\text{patients}_j + \epsilon)^{0{,}5}$$
 
 ### 4.3. Lịch trình Curriculum Warmup cho Hierarchy Loss
 - **Quy luật biến thiên trọng số ở Phase 1:**
-  $$w_{\text{hrc}}(t) = 0{,}25 \times \min\left(1{,}0, \frac{t}{12}\right), \quad t \in [1, \text{epochs}]$$
+  $$w_{\text{hrc}}(t) = 0{,}25 \times \min\left(1{,}0,\, \frac{t}{12}\right)$$
 - **Cơ chế tác động:**
   - $t \le 4$: $w_{\text{hrc}} \approx 0$, cho phép Backbone tự do định hình không gian biểu diễn cơ bản không bị ràng buộc phả hệ cưỡng bức.
   - $t > 4 \rightarrow 12$: Tăng dần đều để nắn chỉnh tính nhất quán phả hệ khi các đặc trưng đã chín muồi.
 
 ### 4.4. Suy Luận Đa Tầng Kết Hợp (Hierarchical Marginalization & Ensemble Inference)
 - **Công thức suy luận kết hợp:**
-  $$P_{\text{ensemble}}(\lambda, C \mid x) = \lambda P_{\text{coarse}}(C \mid x) + (1-\lambda) \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f \mid x)$$
+  $$P_{\text{ens}}(C) = \lambda P_{\text{coarse}}(C) + (1-\lambda) P_{\text{from\_fine}}(C)$$
 - **Tham số tối ưu:** $\lambda = 0{,}25$ (75% thông tin trích xuất từ phân phối vi thể của Fine Head).
 
 ---
