@@ -44,7 +44,7 @@ SECTION_DEFS = [
     {
         "id": "03_Experiment",
         "title": "CystoDS: Báo Cáo Kết Quả Thực Nghiệm Toàn Diện Theo Từng Giai Đoạn (Stages 10--40)",
-        "subtitle": "Đánh giá đối chuẩn qua 3 hold-out splits độc lập và bóc tách định lượng 8 biến thể triệt tiêu thành phần",
+        "subtitle": "Đánh giá đối chuẩn qua 3 hold-out splits độc lập và bóc tách định lượng 10 biến thể triệt tiêu thành phần",
         "header_left": "CystoDS -- Báo cáo Kết Quả Thực Nghiệm Theo Giai Đoạn (Stages 10--40)",
         "regex": r"(## 4\. Kết quả thực nghiệm[\s\S]*?)(?=## 5\. Thảo luận)",
         "filename_stem": "CystoDS_03_Experiment_VI",
