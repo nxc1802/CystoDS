@@ -377,12 +377,20 @@ def test_stage_10_declares_baseline_trials_for_paper_backbones() -> None:
     trials = get_stage_trials(stage="10")
     expected_active_tasks = {
         "binary_swin_tiny": {"binary"},
+        "coarse_swin_tiny": {"coarse"},
+        "fine_swin_tiny": {"fine"},
         "multitask_swin_tiny": {"binary", "coarse", "fine"},
         "binary_resnet152": {"binary"},
+        "coarse_resnet152": {"coarse"},
+        "fine_resnet152": {"fine"},
         "multitask_resnet152": {"binary", "coarse", "fine"},
         "binary_hrnet_w18": {"binary"},
+        "coarse_hrnet_w18": {"coarse"},
+        "fine_hrnet_w18": {"fine"},
         "multitask_hrnet_w18": {"binary", "coarse", "fine"},
         "binary_resnext50_32x4d": {"binary"},
+        "coarse_resnext50_32x4d": {"coarse"},
+        "fine_resnext50_32x4d": {"fine"},
         "multitask_resnext50_32x4d": {"binary", "coarse", "fine"},
     }
 

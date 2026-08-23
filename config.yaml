@@ -251,6 +251,17 @@ stages:
         overrides:
           model_name: swin_tiny_patch4_window7_224.ms_in1k
           monitor_metric: binary_auroc
+      - experiment_id: coarse_swin_tiny
+        task_mode: coarse
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          monitor_metric: coarse_macro_f1
+      - experiment_id: fine_swin_tiny
+        task_mode: fine
+        overrides:
+          model_name: swin_tiny_patch4_window7_224.ms_in1k
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1_supported
       - experiment_id: multitask_swin_tiny
         task_mode: multitask
         overrides:
@@ -264,6 +275,17 @@ stages:
         overrides:
           model_name: resnet152.a1_in1k
           monitor_metric: binary_auroc
+      - experiment_id: coarse_resnet152
+        task_mode: coarse
+        overrides:
+          model_name: resnet152.a1_in1k
+          monitor_metric: coarse_macro_f1
+      - experiment_id: fine_resnet152
+        task_mode: fine
+        overrides:
+          model_name: resnet152.a1_in1k
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1_supported
       - experiment_id: multitask_resnet152
         task_mode: multitask
         overrides:
@@ -277,6 +299,17 @@ stages:
         overrides:
           model_name: hrnet_w18.ms_in1k
           monitor_metric: binary_auroc
+      - experiment_id: coarse_hrnet_w18
+        task_mode: coarse
+        overrides:
+          model_name: hrnet_w18.ms_in1k
+          monitor_metric: coarse_macro_f1
+      - experiment_id: fine_hrnet_w18
+        task_mode: fine
+        overrides:
+          model_name: hrnet_w18.ms_in1k
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1_supported
       - experiment_id: multitask_hrnet_w18
         task_mode: multitask
         overrides:
@@ -290,6 +323,17 @@ stages:
         overrides:
           model_name: resnext50_32x4d.a1_in1k
           monitor_metric: binary_auroc
+      - experiment_id: coarse_resnext50_32x4d
+        task_mode: coarse
+        overrides:
+          model_name: resnext50_32x4d.a1_in1k
+          monitor_metric: coarse_macro_f1
+      - experiment_id: fine_resnext50_32x4d
+        task_mode: fine
+        overrides:
+          model_name: resnext50_32x4d.a1_in1k
+          fine_loss: cross_entropy
+          monitor_metric: fine_macro_f1_supported
       - experiment_id: multitask_resnext50_32x4d
         task_mode: multitask
         overrides:
