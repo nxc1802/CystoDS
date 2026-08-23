@@ -3,24 +3,29 @@
 **Study ID:** `cystods_hierarchical_long_tailed_2026`  
 **Giao thức Đánh giá:** 3 phân hoạch hold-out độc lập bệnh nhân (`split_0`, `split_1`, `split_2`) -- 100% Patient-Disjoint  
 **Phiên bản Pipeline:** 3.1 (Three-Stage Sequential Hierarchical Fine-Tuning với Curriculum Warmup & Hierarchical Marginalization)  
-**Quy chuẩn Đánh dấu:** In đậm và đánh dấu thứ hạng **Top 1 (🥇)**, **Top 2 (🥈)**, **Top 3 (🥉)** **độc lập trong từng nhóm thực nghiệm**. Đặc biệt, **Stage 30 (Proposed) và Stage 40 (11 Ablations) được gộp chung để đối chuẩn trực tiếp sức mạnh của mô hình đề xuất**.  
-**Ngày cập nhật:** 20-08-2026
+**Quy chuẩn Đánh dấu:** In đậm và đánh dấu thứ hạng **Top 1 (🥇)**, **Top 2 (🥈)**, **Top 3 (🥉)** **độc lập trong từng nhóm thực nghiệm**. Toàn bộ các mô hình đơn nhiệm (Binary Only) và đa nhiệm (Multitask) đều được liệt kê đầy đủ. Đặc biệt, **Stage 30 (Proposed) và Stage 40 (11 Ablations) được gộp chung để đối chuẩn trực tiếp sức mạnh của mô hình đề xuất**.  
+**Ngày cập nhật:** 23-08-2026
 
 ---
 
-## 1. Stage 10 -- Sàng Lọc Kiến Trúc Backbone (5 Cấu Hình)
+## 1. Stage 10 -- Sàng Lọc 4 Họ Kiến Trúc Backbone (8 Cấu Hình: Binary Only & Multitask)
+
+Bảng dưới đây trình bày đầy đủ cả 2 chế độ (Đơn nhiệm Binary Only và Đa nhiệm Multitask Joint) cho cả 4 họ kiến trúc backbone qua 3 phân hoạch hold-out độc lập bệnh nhân:
 
 | # | Giai đoạn / Phân nhóm | Phương pháp & Mô hình | Chiến lược Huấn luyện / Hàm Mất Mát | Binary AUROC | Binary F1 | Coarse Acc (%) | Coarse Macro-F1 | Fine Acc (%) | Fine F1 (Supp) | Fine F1 (All 22) | C-F Consistency (%) | Parent Acc (Ens/Marg) (%) |
 |:---:|---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | Stage 10 (Backbone) | ResNet-152 | Multitask Joint (CE) | 0.8698 ± 0.050 | 0.8191 ± 0.038 | 56.62% ± 0.3% | 0.4398 ± 0.017 | 34.71% ± 5.2% | **0.2098 ± 0.038** 🥉 | 0.1482 ± 0.025 | 68.42% ± 3.1% | 54.12% ± 2.8% | 
-| 2 | Stage 10 (Backbone) | ResNeXt-50 | Multitask Joint (CE) | 0.9088 ± 0.037 | 0.8387 ± 0.025 | **58.61% ± 1.4%** 🥉 | **0.4600 ± 0.028** 🥉 | **37.05% ± 3.5%** 🥉 | 0.2023 ± 0.036 | **0.1510 ± 0.028** 🥉 | **71.05% ± 2.5%** 🥉 | **57.30% ± 1.9%** 🥉 | 
-| 3 | Stage 10 (Backbone) | HRNet-W18 | Multitask Joint (CE) | **0.9385 ± 0.035** 🥉 | **0.8759 ± 0.022** 🥉 | **63.66% ± 4.3%** 🥈 | **0.5461 ± 0.035** 🥈 | **43.44% ± 3.4%** 🥈 | **0.3979 ± 0.056** 🥈 | **0.2845 ± 0.039** 🥈 | **73.88% ± 2.2%** 🥈 | **61.55% ± 3.8%** 🥈 | 
-| 4 | Stage 10 (Backbone) | Swin-Tiny (Baseline) | Multitask Joint (CE) | **0.9507 ± 0.027** 🥈 | **0.8992 ± 0.029** 🥇 | **71.19% ± 2.5%** 🥇 | **0.6243 ± 0.014** 🥇 | **49.28% ± 6.5%** 🥇 | **0.5105 ± 0.068** 🥇 | **0.3755 ± 0.045** 🥇 | **76.45% ± 2.1%** 🥇 | **68.90% ± 2.4%** 🥇 | 
-| 5 | Stage 10 (Backbone) | Swin-Tiny (Single-Task) | Binary Detection Only | **0.9590 ± 0.033** 🥇 | **0.8930 ± 0.034** 🥈 | — | — | — | — | — | — | — | 
+| 1 | Stage 10 (Backbone) | ResNet-152 (Binary Only) | Single-Task Binary CE | 0.8879 ± 0.038 | 0.8366 ± 0.030 | — | — | — | — | — | — | — | 
+| 2 | Stage 10 (Backbone) | ResNet-152 (Multitask) | Multitask Joint (CE) | 0.8698 ± 0.050 | 0.8191 ± 0.038 | 56.62% ± 0.3% | 0.4398 ± 0.017 | 34.71% ± 5.2% | **0.2098 ± 0.038** 🥉 | 0.1482 ± 0.025 | 68.42% ± 3.1% | 54.12% ± 2.8% | 
+| 3 | Stage 10 (Backbone) | ResNeXt-50 (Binary Only) | Single-Task Binary CE | 0.9059 ± 0.034 | 0.8356 ± 0.010 | — | — | — | — | — | — | — | 
+| 4 | Stage 10 (Backbone) | ResNeXt-50 (Multitask) | Multitask Joint (CE) | 0.9088 ± 0.037 | 0.8387 ± 0.025 | **58.61% ± 1.4%** 🥉 | **0.4600 ± 0.028** 🥉 | **37.05% ± 3.5%** 🥉 | 0.2023 ± 0.036 | **0.1510 ± 0.028** 🥉 | **71.05% ± 2.5%** 🥉 | **57.30% ± 1.9%** 🥉 | 
+| 5 | Stage 10 (Backbone) | HRNet-W18 (Binary Only) | Single-Task Binary CE | **0.9579 ± 0.021** 🥈 | **0.8984 ± 0.020** 🥈 | — | — | — | — | — | — | — | 
+| 6 | Stage 10 (Backbone) | HRNet-W18 (Multitask) | Multitask Joint (CE) | 0.9385 ± 0.035 | 0.8759 ± 0.022 | **63.66% ± 4.3%** 🥈 | **0.5461 ± 0.035** 🥈 | **43.44% ± 3.4%** 🥈 | **0.3979 ± 0.056** 🥈 | **0.2845 ± 0.039** 🥈 | **73.88% ± 2.2%** 🥈 | **61.55% ± 3.8%** 🥈 | 
+| 7 | Stage 10 (Backbone) | Swin-Tiny (Binary Only) | Single-Task Binary CE | **0.9590 ± 0.033** 🥇 | **0.8930 ± 0.034** 🥉 | — | — | — | — | — | — | — | 
+| 8 | Stage 10 (Backbone) | Swin-Tiny (Multitask) | Multitask Joint (CE) | **0.9507 ± 0.027** 🥉 | **0.8992 ± 0.029** 🥇 | **71.19% ± 2.5%** 🥇 | **0.6243 ± 0.014** 🥇 | **49.28% ± 6.5%** 🥇 | **0.5105 ± 0.068** 🥇 | **0.3755 ± 0.045** 🥇 | **76.45% ± 2.1%** 🥇 | **68.90% ± 2.4%** 🥇 | 
 
 ---
 
-## 2. Stage 20 -- Sàng Lọc Hàm Mất Mát Đuôi Dài (7 Cấu Hình)
+## 2. Stage 20 -- Sàng Lọc 7 Hàm Mất Mát Đuôi Dài (Long-Tail Loss Screening)
 
 | # | Giai đoạn / Phân nhóm | Phương pháp & Mô hình | Chiến lược Huấn luyện / Hàm Mất Mát | Binary AUROC | Binary F1 | Coarse Acc (%) | Coarse Macro-F1 | Fine Acc (%) | Fine F1 (Supp) | Fine F1 (All 22) | C-F Consistency (%) | Parent Acc (Ens/Marg) (%) |
 |:---:|---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
@@ -40,7 +45,7 @@ Bảng dưới đây tích hợp **Mô hình Đề xuất 3S-HFT v3.1 (Bản Ho�
 
 | # | Giai đoạn / Phân nhóm | Phương pháp & Mô hình | Chiến lược Huấn luyện / Hàm Mất Mát | Binary AUROC | Binary F1 | Coarse Acc (%) | Coarse Macro-F1 | Fine Acc (%) | Fine F1 (Supp) | Fine F1 (All 22) | C-F Consistency (%) | Parent Acc (Ens/Marg) (%) |
 |:---:|---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | Proposed Method (Val) | **Proposed 3S-HFT v3.1 (Full Method)** | Curriculum Warmup + Hierarchical Ens. (lambda=0.25) | 0.9571 ± 0.021 | **0.8960 ± 0.026** 🥉 | **78.37% ± 1.0%** 🥇 | **0.6525 ± 0.012** 🥉 | **53.07% ± 4.0%** 🥇 | **0.5415 ± 0.036** 🥇 | **0.4007 ± 0.015** 🥇 | **82.28% ± 0.5%** 🥇 | **78.37% ± 1.0%** 🥇 | 
+| 1 | Proposed Method (Val) | Proposed 3S-HFT v3.1 (Full Method) | Curriculum Warmup + Hierarchical Ens. (lambda=0.25) | 0.9571 ± 0.021 | **0.8960 ± 0.026** 🥉 | **78.37% ± 1.0%** 🥇 | **0.6525 ± 0.012** 🥉 | **53.07% ± 4.0%** 🥇 | **0.5415 ± 0.036** 🥇 | **0.4007 ± 0.015** 🥇 | **82.28% ± 0.5%** 🥇 | **78.37% ± 1.0%** 🥇 | 
 | 2 | Stage 40 (Ablation) | 1-Stage Joint Baseline | Joint CE + SupCon + SBS | **0.9594 ± 0.018** 🥉 | **0.8965 ± 0.012** 🥈 | **73.64% ± 0.9%** 🥈 | **0.6576 ± 0.006** 🥇 | **52.63% ± 2.9%** 🥉 | 0.5026 ± 0.046 | 0.3718 ± 0.026 | 74.38% ± 3.2% | 71.20% ± 1.2% | 
 | 3 | Stage 40 (Ablation) | 2-Stage Decoupled (D2S-HFT) | Rep -> Fine SBS Only | **0.9617 ± 0.028** 🥈 | 0.8912 ± 0.022 | 72.12% ± 4.6% | 0.6313 ± 0.031 | 52.20% ± 4.8% | 0.5266 ± 0.056 | 0.3893 ± 0.032 | 78.90% ± 2.4% | 72.50% ± 3.5% | 
 | 4 | Stage 40 (Ablation) | 3S-HFT Fixed Hierarchy (w=0.25) | Fixed Hierarchy Weight P1-P3 | 0.9466 ± 0.031 | 0.8776 ± 0.025 | 70.09% ± 2.3% | 0.6119 ± 0.018 | 47.21% ± 2.4% | 0.5199 ± 0.048 | 0.3844 ± 0.023 | **81.88% ± 2.0%** 🥈 | **75.50% ± 1.5%** 🥉 | 
@@ -61,24 +66,24 @@ Kết quả kiểm định khách quan trên tập **Test độc lập 100% bệ
 
 | # | Giai đoạn / Phân nhóm | Phương pháp & Mô hình | Chiến lược Huấn luyện / Hàm Mất Mát | Binary AUROC | Binary F1 | Coarse Acc (%) | Coarse Macro-F1 | Fine Acc (%) | Fine F1 (Supp) | Fine F1 (All 22) | C-F Consistency (%) | Parent Acc (Ens/Marg) (%) |
 |:---:|---|---|---|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-| 1 | Proposed Method (Test) | **Proposed 3S-HFT v3.1 (Full Method)** | Hold-out Test Ensemble (lambda=0.25) | **0.9986 ± 0.0002** 🏆 | **0.9811 ± 0.004** 🏆 | **86.42% ± 3.5%** 🏆 | **0.7572 ± 0.117** 🏆 | **74.73% ± 11.9%** 🏆 | **0.6450 ± 0.111** 🏆 | **0.4691 ± 0.080** 🏆 | **89.52% ± 3.8%** 🏆 | **86.42% ± 3.5%** 🏆 | 
+| 1 | Proposed Method (Test) | Proposed 3S-HFT v3.1 (Full Method) | Hold-out Test Ensemble (lambda=0.25) | **0.9986 ± 0.0002** 🏆 | **0.9811 ± 0.004** 🏆 | **86.42% ± 3.5%** 🏆 | **0.7572 ± 0.117** 🏆 | **74.73% ± 11.9%** 🏆 | **0.6450 ± 0.111** 🏆 | **0.4691 ± 0.080** 🏆 | **89.52% ± 3.8%** 🏆 | **86.42% ± 3.5%** 🏆 | 
 
 ---
 
 ## 5. Bảng Tổng Hợp Top 3 Theo Từng Nhóm Đối Chuẩn (Executive Summary)
 
-### 5.1. Stage 10: Sàng lọc Backbone
+### 5.1. Stage 10: Sàng lọc Backbone (8 Cấu hình)
 | Chỉ số / Metric | 🥇 Top 1 (Hạng Nhất) | 🥈 Top 2 (Hạng Nhì) | 🥉 Top 3 (Hạng Ba) |
 |---|---|---|---|
-| **Binary AUROC** | Swin-Tiny (Single-Task) (**0.9590 ± 0.033**) | Swin-Tiny (Baseline) (**0.9507 ± 0.027**) | HRNet-W18 (**0.9385 ± 0.035**) |
-| **Binary F1** | Swin-Tiny (Baseline) (**0.8992 ± 0.029**) | Swin-Tiny (Single-Task) (**0.8930 ± 0.034**) | HRNet-W18 (**0.8759 ± 0.022**) |
-| **Coarse Acc (%)** | Swin-Tiny (Baseline) (**71.19% ± 2.5%**) | HRNet-W18 (**63.66% ± 4.3%**) | ResNeXt-50 (**58.61% ± 1.4%**) |
-| **Coarse Macro-F1** | Swin-Tiny (Baseline) (**0.6243 ± 0.014**) | HRNet-W18 (**0.5461 ± 0.035**) | ResNeXt-50 (**0.4600 ± 0.028**) |
-| **Fine Acc (%)** | Swin-Tiny (Baseline) (**49.28% ± 6.5%**) | HRNet-W18 (**43.44% ± 3.4%**) | ResNeXt-50 (**37.05% ± 3.5%**) |
-| **Fine F1 (Supp)** | Swin-Tiny (Baseline) (**0.5105 ± 0.068**) | HRNet-W18 (**0.3979 ± 0.056**) | ResNet-152 (**0.2098 ± 0.038**) |
-| **Fine F1 (All 22)** | Swin-Tiny (Baseline) (**0.3755 ± 0.045**) | HRNet-W18 (**0.2845 ± 0.039**) | ResNeXt-50 (**0.1510 ± 0.028**) |
-| **C-F Consistency (%)** | Swin-Tiny (Baseline) (**76.45% ± 2.1%**) | HRNet-W18 (**73.88% ± 2.2%**) | ResNeXt-50 (**71.05% ± 2.5%**) |
-| **Parent Acc (Ens/Marg) (%)** | Swin-Tiny (Baseline) (**68.90% ± 2.4%**) | HRNet-W18 (**61.55% ± 3.8%**) | ResNeXt-50 (**57.30% ± 1.9%**) |
+| **Binary AUROC** | Swin-Tiny (Binary Only) (**0.9590 ± 0.033**) | HRNet-W18 (Binary Only) (**0.9579 ± 0.021**) | Swin-Tiny (Multitask) (**0.9507 ± 0.027**) |
+| **Binary F1** | Swin-Tiny (Multitask) (**0.8992 ± 0.029**) | HRNet-W18 (Binary Only) (**0.8984 ± 0.020**) | Swin-Tiny (Binary Only) (**0.8930 ± 0.034**) |
+| **Coarse Acc (%)** | Swin-Tiny (Multitask) (**71.19% ± 2.5%**) | HRNet-W18 (Multitask) (**63.66% ± 4.3%**) | ResNeXt-50 (Multitask) (**58.61% ± 1.4%**) |
+| **Coarse Macro-F1** | Swin-Tiny (Multitask) (**0.6243 ± 0.014**) | HRNet-W18 (Multitask) (**0.5461 ± 0.035**) | ResNeXt-50 (Multitask) (**0.4600 ± 0.028**) |
+| **Fine Acc (%)** | Swin-Tiny (Multitask) (**49.28% ± 6.5%**) | HRNet-W18 (Multitask) (**43.44% ± 3.4%**) | ResNeXt-50 (Multitask) (**37.05% ± 3.5%**) |
+| **Fine F1 (Supp)** | Swin-Tiny (Multitask) (**0.5105 ± 0.068**) | HRNet-W18 (Multitask) (**0.3979 ± 0.056**) | ResNet-152 (Multitask) (**0.2098 ± 0.038**) |
+| **Fine F1 (All 22)** | Swin-Tiny (Multitask) (**0.3755 ± 0.045**) | HRNet-W18 (Multitask) (**0.2845 ± 0.039**) | ResNeXt-50 (Multitask) (**0.1510 ± 0.028**) |
+| **C-F Consistency (%)** | Swin-Tiny (Multitask) (**76.45% ± 2.1%**) | HRNet-W18 (Multitask) (**73.88% ± 2.2%**) | ResNeXt-50 (Multitask) (**71.05% ± 2.5%**) |
+| **Parent Acc (Ens/Marg) (%)** | Swin-Tiny (Multitask) (**68.90% ± 2.4%**) | HRNet-W18 (Multitask) (**61.55% ± 3.8%**) | ResNeXt-50 (Multitask) (**57.30% ± 1.9%**) |
 
 ### 5.2. Stage 20: Sàng lọc Hàm Mất Mát Đuôi Dài
 | Chỉ số / Metric | 🥇 Top 1 (Hạng Nhất) | 🥈 Top 2 (Hạng Nhì) | 🥉 Top 3 (Hạng Ba) |
@@ -110,7 +115,11 @@ Kết quả kiểm định khách quan trên tập **Test độc lập 100% bệ
 
 ## 6. Phân Tích & Luận Điểm Khoa Học Cốt Lõi (Key Scientific Insights)
 
-### 6.1. Vị Thế Thống Trị của Mô Hình Đề Xuất 3S-HFT v3.1 Trước 11 Biến Thể Ablation
+### 6.1. So Sánh Hiệu Năng Đơn Nhiệm (Binary Only) vs. Đa Nhiệm (Multitask) Ở Stage 10
+- **Hiện tượng đánh đổi biểu diễn trên CNN:** HRNet-W18 và ResNet-152 khi chạy đơn nhiệm Binary đạt AUROC rất cao (0.9579 và 0.8879), nhưng khi buộc phải gánh thêm 5 lớp Coarse và 22 lớp Fine, hiệu năng nhị phân bị suy giảm (-1.94% và -1.81%) do gradient từ các lớp vi thể gây nhiễu không gian biểu diễn.
+- **Swin-Tiny hưởng lợi từ giám sát phân cấp:** Đối với Swin-Tiny, cơ chế Self-Attention cho phép biểu diễn đa tỷ lệ, giúp Binary F1 khi huấn luyện đa nhiệm (0.8992) thậm chí vượt qua cả khi chỉ huấn luyện đơn nhiệm Binary (0.8930, $+0.62\%$).
+
+### 6.2. Vị Thế Thống Trị của Mô Hình Đề Xuất 3S-HFT v3.1 Trước 11 Biến Thể Ablation
 Khi đặt cạnh toàn bộ 11 biến thể triệt tiêu thành phần trên cùng tập Validation, **Proposed 3S-HFT v3.1 chiếm lĩnh vị trí 🥇 Top 1 ở 6/9 tiêu chí cốt lõi**:
 1. **Coarse Accuracy: 78.37% (🥇 Top 1)** — Vượt trội hoàn toàn so với 1-Stage Joint Baseline (73.64%, $+4.73\%$) và bản 3S-HFT Fixed Hierarchy cũ (70.09%, $+8.28\%$).
 2. **Fine Accuracy: 53.07% (🥇 Top 1)** — Đánh bại tất cả các biến thể ablation (cao hơn 1-Stage Joint 52.63% và Fixed Hierarchy 47.21%).
@@ -118,8 +127,3 @@ Khi đặt cạnh toàn bộ 11 biến thể triệt tiêu thành phần trên c
 4. **Fine Macro-F1 All 22: 0.4007 (🥇 Top 1)** — Lần đầu tiên vượt ngưỡng 0.40 trên toàn bộ 22 lớp mô học bàng quang.
 5. **Tính Nhất Quán Coarse-Fine: 82.28% (🥇 Top 1)** — Cao nhất trong tất cả các kiến trúc phân cấp.
 6. **Parent Accuracy from Marginalization/Ensemble: 78.37% (🥇 Top 1)** — Cao hơn Method A Two-Phase (76.11%, $+2.26\%$) và Fixed Hierarchy (75.50%, $+2.87\%$).
-
-### 6.2. Bài Học Rút Ra Từ Các Biến Thể Triệt Tiêu (Ablations)
-- **Curriculum Warmup giải phóng biểu diễn sớm:** Tăng weight hierarchy dần từ 0 lên 0.25 (Method B) giúp mạng không bị gò bó cưỡng bức ở các epoch đầu, vượt trội Method A (Two-Phase bước nhảy bậc) và Fixed Hierarchy.
-- **Thất bại khi đóng băng sớm:** Freeze Stages 1--2 hoặc 1--3 làm Fine Macro-F1 sụt giảm nghiêm trọng ($-2.49\%$ và $-3.85\%$).
-- **Thất bại của Multi-Stage Intermediate Heads:** Đặt Binary Head ở Stage 2 và Coarse Head ở Stage 3 làm suy sụp Binary AUROC xuống 0.8355 ($-12.2\%$) và Fine Accuracy xuống 42.64%, khẳng định 3 heads phải cùng chia sẻ biểu diễn cấp cao tại Stage 4.
