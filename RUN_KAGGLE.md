@@ -204,17 +204,103 @@ Nếu bạn muốn chạy toàn bộ Phương pháp Đề xuất & Toàn bộ 8 
 
 ---
 
-## 📦 7. Nén & Tải Kết Quả Về Máy Sau Khi Chạy Xong
+## 📦 7. Tự Động Đồng Bộ & Lưu Trữ Lên Hugging Face Hub (Khuyến Nghị Hàng Đầu)
 
-Copy vào Cell cuối cùng của Notebook để nén kết quả và hiển thị link tải:
+Để bảo toàn 100% kết quả và weights mô hình mà không sợ Kaggle timeout, không sợ đầy ổ cứng 20GB, bạn nên đẩy thẳng kết quả từ Kaggle sang Hugging Face Hub.
+
+### 🔑 Bước 1: Cấu hình Secret trên Kaggle (Chỉ làm 1 lần duy nhất)
+1. Trên thanh công cụ Notebook Kaggle, chọn menu **Add-ons** $\rightarrow$ **Secrets**.
+2. Bấm **Add a new secret**:
+   - **Label**: `HF_TOKEN`
+   - **Value**: Dán Hugging Face Token (quyền `Write`) của bạn vào.
+3. Tích chọn Notebook này được phép truy cập `HF_TOKEN`.
+
+---
+
+### 🚀 Bước 2: Chạy Cell Tự Động Push Lên Hugging Face (Cuối Notebook)
+
+Copy vào Cell cuối cùng của Notebook để tự động đẩy toàn bộ kết quả vừa train lên Hugging Face:
 
 ```python
-# --- Cell 3: Zip & Download Results ---
-!zip -q -r cystods_results.zip result/
-from IPython.display import FileLink
-print("Click link bên dưới để tải kết quả về máy:")
-FileLink("cystods_results.zip")
+# --- Cell 3: Tự động Đồng bộ lên Hugging Face Hub ---
+from kaggle_secrets import UserSecretsClient
+from huggingface_hub import HfApi, login
+import os
+
+try:
+    # 1. Đăng nhập an toàn qua Kaggle Secrets
+    hf_token = UserSecretsClient().get_secret("HF_TOKEN")
+    login(token=hf_token)
+
+    # 2. Upload toàn bộ thư mục result
+    repo_id = "Cuong2004/CystoDS-results"
+    api = HfApi()
+    api.create_repo(repo_id=repo_id, repo_type="model", private=True, exist_ok=True)
+
+    print(f"🚀 Đang tải toàn bộ kết quả lên https://huggingface.co/{repo_id}...")
+    api.upload_folder(
+        folder_path="result",
+        path_in_repo="result",
+        repo_id=repo_id,
+        repo_type="model",
+        commit_message="Kaggle run sync: CystoDS experiments and checkpoints"
+    )
+    print("✅ ĐÃ ĐỒNG BỘ HOÀN TẤT VÀ AN TOÀN LÊN HUGGING FACE HUB!")
+except Exception as e:
+    print(f"⚠️ Lỗi khi đẩy lên HF ({e}). Chuyển sang phương án nén zip dự phòng:")
+    !zip -q -r cystods_results.zip result/
+    from IPython.display import FileLink
+    display(FileLink("cystods_results.zip"))
 ```
 
+---
 
+## 💻 8. Quy Trình Đồng Bộ Về Máy Local Khi Phân Tích
+
+Tại máy local, bạn có thể giải phóng dung lượng ổ cứng bất kỳ lúc nào và đồng bộ lại cực kỳ linh hoạt:
+
+### 🔹 Cách 1: Chỉ tải Báo Cáo & Metrics để Phân Tích (Siêu nhẹ ~140MB, chỉ vài giây)
+Tải toàn bộ `.json`, `.csv`, `.log`, `.md` để vẽ biểu đồ, render bảng benchmark [master_benchmark_table.md](file:///Volumes/WorkSpace/Project/CystoDS/Docs/master_benchmark_table.md) hoặc chạy Marimo Lab mà **không cần tải hàng chục GB weights**:
+
+```bash
+python -m cystods hf pull-metrics
+```
+
+### 🔹 Cách 2: Tải Trọng Số Mô Hình On-Demand Khi Cần Inference / Grad-CAM
+Khi cần chạy demo hoặc tạo bản đồ Grad-CAM cho một mô hình cụ thể:
+
+```bash
+# Tải riêng weights của Stage 30 (Proposed Method):
+python -m cystods hf pull-model "30_proposed"
+
+# Hoặc tải riêng weights của Swin-Tiny hoặc ResNet152:
+python -m cystods hf pull-model "swin_tiny"
+python -m cystods hf pull-model "resnet152"
+
+---
+
+## 🧬 9. Chạy Thử Nghiệm Kiến Trúc Mới: Cascaded Late-Stage Stacked Heads
+
+Kiến trúc này xếp chồng **cả 3 Heads tại Stage 4 (768-d)** với luồng điều kiện xuôi (`Binary -> Coarse -> Fine`) và suy ngược xác suất ngược (`Hierarchical Marginalization`):
+
+### 🔹 Phương Án A: Huấn Luyện 1-Stage End-to-End (Toàn bộ Gradient thông suốt)
+```python
+# Chạy trên Split 0 (thử nghiệm nhanh ~5-7 phút):
+!python -m cystods.experiments.cascaded_runner --profile research --split 0
+
+# Hoặc chạy trên cả 3 Splits:
+!python -m cystods.experiments.cascaded_runner --profile research --split all
+```
+
+### 🔹 Phương Án B: Huấn Luyện Cách Ly Gradient (`--detach-hierarchy`)
+*(Chặn gradient từ Fine dội ngược về làm hỏng Binary Head)*:
+```python
+# Chạy với cờ --detach-hierarchy:
+!python -m cystods.experiments.cascaded_runner --profile research --split 0 --detach-hierarchy
+```
+
+### 🔹 Chạy Thử Nhanh Chế Độ Smoke Debug (~10 giây):
+```python
+!python -m cystods.experiments.cascaded_runner --profile smoke --split 0
+```
 

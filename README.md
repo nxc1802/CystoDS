@@ -96,13 +96,33 @@ Overriding hierarchy (later layer overrides earlier, CLI is always highest):
 
 ---
 
+## ☁️ Hugging Face Hub Storage & Artifact Sync
+
+Tất cả kết quả thực nghiệm, báo cáo và model checkpoints được tự động đồng bộ và lưu trữ tập trung trên Hugging Face Hub ([`Cuong2004/CystoDS-results`](https://huggingface.co/Cuong2004/CystoDS-results)):
+
+```bash
+# Đẩy toàn bộ kết quả thực nghiệm và checkpoints lên Hugging Face Hub
+python -m cystods hf push --repo Cuong2004/CystoDS-results
+
+# Tải metrics & báo cáo JSON/CSV về máy local
+python -m cystods hf pull-metrics --repo Cuong2004/CystoDS-results
+
+# Tải checkpoint của một mô hình cụ thể (phục vụ Grad-CAM hoặc phân tích)
+python -m cystods hf pull-model "resnet152" --repo Cuong2004/CystoDS-results
+
+# Đối soát tính toàn vẹn đồng bộ giữa Local và Hub
+python -m cystods hf verify --repo Cuong2004/CystoDS-results
+```
+
+---
+
 ## 📚 Documentation
 
-Detailed documentation is available in the [`docs/`](file:///Volumes/WorkSpace/Project/CystoDS/docs/) directory:
+Detailed documentation is available in the [`Docs/`](Docs/) directory:
 
-- [Research Methodology](file:///Volumes/WorkSpace/Project/CystoDS/docs/research.md) — Problem formulation, dataset taxonomy, loss design, and validation protocol.
-- [Development Guide](file:///Volumes/WorkSpace/Project/CystoDS/docs/development.md) — Architecture layout, package structure, module contracts, and CLI reference.
-- [Experimental Results](file:///Volumes/WorkSpace/Project/CystoDS/docs/results.md) — Comprehensive dataset audit, split verification, and baseline benchmarks.
+- [Master Benchmark Table](Docs/master_benchmark_table.md) — Đại thống kê toàn bộ thực nghiệm và đối chiếu Table 3 Paper gốc (*Nature Sci Data 2026*).
+- [Research Methodology](Docs/reference/) — Problem formulation, dataset taxonomy, loss design, and validation protocol.
+- [Kaggle Execution Guide](RUN_KAGGLE.md) — Quy trình chạy tự động và đồng bộ kết quả trên Kaggle.
 
 ---
 

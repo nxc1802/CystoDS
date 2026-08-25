@@ -55,14 +55,26 @@ def markdown_scalar(value: Any) -> str:
 def metrics_table_markdown(metrics: Mapping[str, Any]) -> str:
     rows: list[tuple[str, Any]] = []
     if metrics["binary"] is not None:
+        b = metrics["binary"]
         rows.extend(
             [
-                ("Binary AUROC", metrics["binary"]["auroc"]),
-                ("Binary AUPRC", metrics["binary"]["auprc"]),
-                ("Binary F1", metrics["binary"]["f1"]),
-                ("Binary sensitivity", metrics["binary"]["sensitivity"]),
-                ("Binary specificity", metrics["binary"]["specificity"]),
-                ("Binary MCC", metrics["binary"]["mcc"]),
+                ("Binary Sensitivity / Recall", b.get("sensitivity")),
+                ("Binary Specificity", b.get("specificity")),
+                ("Binary Accuracy", b.get("accuracy")),
+                ("Binary Precision (PPV)", b.get("precision")),
+                ("Binary NPV", b.get("npv")),
+                ("Binary F1-Score", b.get("f1")),
+                ("Binary F2-Score (Recall-emphasized)", b.get("f2")),
+                ("Binary Balanced Accuracy", b.get("balanced_accuracy")),
+                ("Binary AUROC", b.get("auroc")),
+                ("Binary AUPRC", b.get("auprc")),
+                ("Binary MCC", b.get("mcc")),
+                ("Binary Cohen's Kappa", b.get("cohen_kappa")),
+                ("Binary Youden's J Index", b.get("youden_j")),
+                ("Binary Brier Score (Calibration)", b.get("brier_score")),
+                ("Binary Diagnostic Odds Ratio (DOR)", b.get("diagnostic_odds_ratio")),
+                ("Binary Positive Likelihood Ratio (PLR)", b.get("positive_likelihood_ratio")),
+                ("Binary Negative Likelihood Ratio (NLR)", b.get("negative_likelihood_ratio")),
             ]
         )
     if metrics["coarse"] is not None:

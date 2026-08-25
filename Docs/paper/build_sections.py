@@ -49,6 +49,14 @@ SECTION_DEFS = [
         "regex": r"(## 5\. Kết quả Thực nghiệm[\s\S]*)",
         "filename_stem": "CystoDS_03_Experiment_VI",
     },
+    {
+        "id": "04_GradCAM",
+        "title": "CystoDS: Báo Cáo Trực Quan Hóa Grad-CAM & Đánh Giá Định Vị Không Gian",
+        "subtitle": "Đánh giá định tính và định lượng độ trùng khớp Grad-CAM IoU giữa Swin Baseline và Mô Hình Đề Xuất 3S-HFT v3.1 trên Ground-Truth Mask",
+        "header_left": "CystoDS -- Báo Cáo Trực Quan Hóa Grad-CAM & Định Vị Không Gian",
+        "direct_file": PAPER_DIR / "gradcam_report.md",
+        "filename_stem": "CystoDS_04_Grad-CAM_VI",
+    },
 ]
 
 
@@ -126,11 +134,17 @@ def transform_tables_1col(tex: str) -> str:
                     align_chars.append("r" if num_cols > 3 or c_idx > 0 else "l")
 
             align_str = "".join(align_chars)
-            cap = f"Bảng {idx+1}."
+            cap_match = re.search(r"\\caption(?:\[.*?\])?\{(.*?)\}", lt_code, re.DOTALL)
+            if cap_match:
+                cap_raw = cap_match.group(1).strip()
+                cap_clean = re.sub(r"\\label\{.*?\}", "", cap_raw).strip()
+                cap = clean_cell_tex(cap_clean)
+            else:
+                cap = f"Bảng {idx+1}."
             cap = re.sub(r"(?<!\\)%", r"\%", cap)
 
             new_tex = (
-                f"\\begin{{table}}[htbp]\n"
+                f"\\begin{{table}}[H]\n"
                 f"\\centering\n"
                 f"\\caption{{{cap}}}\n"
                 f"\\label{{tab:sec_table{idx+1}}}\n"
@@ -173,7 +187,7 @@ def transform_figures_1col(tex: str) -> str:
         caption_clean = re.sub(r"\s+", " ", caption)
         caption_clean = re.sub(r"(?<!\\)%", r"\%", caption_clean)
         return (
-            f"\\begin{{figure}}[htbp]\n"
+            f"\\begin{{figure}}[H]\n"
             f"\\centering\n"
             f"\\includegraphics[width=0.88\\textwidth]{{{path}}}\n"
             f"\\caption{{{caption_clean}}}\n"
@@ -186,6 +200,7 @@ def transform_figures_1col(tex: str) -> str:
 
 def create_section_header_tex(header_left: str) -> Path:
     """Generate a custom 1-column LaTeX header with dedicated fancyhdr."""
+    header_left_clean = header_left.replace("&", "\\&")
     header_content = (
         "% 1-column header for CystoDS section report\n"
         "\\PassOptionsToPackage{table,xcdraw}{xcolor}\n"
@@ -200,6 +215,7 @@ def create_section_header_tex(header_left: str) -> Path:
         "\\usepackage{microtype}\n"
         "\\usepackage{tabularx}\n"
         "\\usepackage{adjustbox}\n"
+        "\\usepackage{float}\n"
         "\n"
         "\\definecolor{CystoBlue}{HTML}{1F4E79}\n"
         "\\definecolor{CystoTeal}{HTML}{2A7F62}\n"
@@ -225,7 +241,7 @@ def create_section_header_tex(header_left: str) -> Path:
         "\n"
         "\\pagestyle{fancy}\n"
         "\\fancyhf{}\n"
-        f"\\fancyhead[L]{{\\small\\color{{CystoGray}}{header_left}}}\n"
+        f"\\fancyhead[L]{{\\small\\color{{CystoGray}}{header_left_clean}}}\n"
         "\\fancyhead[R]{\\small\\color{CystoGray}CystoDS 2026}\n"
         "\\fancyfoot[C]{\\small\\color{CystoGray}\\thepage}\n"
         "\\setlength{\\headheight}{14pt}\n"
@@ -248,14 +264,15 @@ def create_section_header_tex(header_left: str) -> Path:
 
 def build_single_section(sec: dict[str, Any], full_markdown: str) -> Path:
     """Extract section markdown and compile into 1-column PDF."""
-    match = re.search(sec["regex"], full_markdown)
-    if not match:
-        raise ValueError(f"Could not extract section {sec['id']} with regex {sec['regex']}")
-
-    sec_content = match.group(1).strip()
-
-    # Prepend Title and metadata
-    sec_md = f"# {sec['title']}\n\n## {sec['subtitle']}\n\n{sec_content}\n"
+    if sec.get("direct_file") and Path(sec["direct_file"]).exists():
+        sec_content = Path(sec["direct_file"]).read_text(encoding="utf-8")
+        sec_md = f"# {sec['title']}\n\n## {sec['subtitle']}\n\n{sec_content}\n"
+    else:
+        match = re.search(sec["regex"], full_markdown)
+        if not match:
+            raise ValueError(f"Could not extract section {sec['id']} with regex {sec['regex']}")
+        sec_content = match.group(1).strip()
+        sec_md = f"# {sec['title']}\n\n## {sec['subtitle']}\n\n{sec_content}\n"
 
     # Normalize unicode math
     sec_md = sec_md.replace("–", "--").replace("—", "---")

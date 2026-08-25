@@ -20,6 +20,20 @@ STAGE_ID = "30"
 STAGE_NAME = "stage_30_run_proposed_method"
 
 
+def _source_files() -> tuple[Path, ...]:
+    pkg_dir = Path(__file__).resolve().parent.parent
+    return tuple(
+        path
+        for path in (
+            pkg_dir / "core.py",
+            pkg_dir / "hf.py",
+            pkg_dir / "science.py",
+            pkg_dir / "experiments" / "three_stage_runner.py",
+        )
+        if path.is_file()
+    )
+
+
 def run(config: dict[str, Any]) -> dict[str, Any]:
     """Execute Stage 30 (3S-HFT Proposed Method) with the resolved config."""
     config = dict(config)

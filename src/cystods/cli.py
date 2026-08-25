@@ -220,6 +220,46 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Path to legacy result run directory or result root folder",
     )
 
+    # --- cystods hf ---
+    hf_parser = subparsers.add_parser(
+        "hf", help="Hugging Face Hub synchronization & checkpoint manager"
+    )
+    hf_sub = hf_parser.add_subparsers(dest="hf_command")
+
+    # hf push
+    hf_push = hf_sub.add_parser("push", help="Upload local results to Hugging Face Hub")
+    hf_push.add_argument("--repo", type=str, default=None, help="HF Repo ID (default: Cuong2004/CystoDS-results)")
+    hf_push.add_argument("--dir", "--folder", dest="folder", type=str, default="result", help="Local directory to upload (default: result)")
+    hf_push.add_argument("--path-in-repo", type=str, default="result", help="Destination path in repo (default: result)")
+    hf_push.add_argument("--public", action="store_true", default=False, help="Make repository public (default: private)")
+    hf_push.add_argument("--message", "-m", type=str, default=None, help="Commit message")
+
+    # hf pull-metrics
+    hf_pull_metrics = hf_sub.add_parser("pull-metrics", help="Download lightweight metrics & metadata (JSON, CSV, Log, MD) ~140MB")
+    hf_pull_metrics.add_argument("--repo", type=str, default=None, help="HF Repo ID")
+    hf_pull_metrics.add_argument("--dir", dest="local_dir", type=str, default=".", help="Local destination directory (default: .)")
+
+    # hf pull-model
+    hf_pull_model = hf_sub.add_parser("pull-model", help="Download specific model weights by pattern or path")
+    hf_pull_model.add_argument("pattern", type=str, help="Model pattern or relative path (e.g. *30_proposed*, *resnet152*, result/.../best_model.pt)")
+    hf_pull_model.add_argument("--repo", type=str, default=None, help="HF Repo ID")
+    hf_pull_model.add_argument("--dir", dest="local_dir", type=str, default=".", help="Local destination directory (default: .)")
+
+    # hf pull-all
+    hf_pull_all = hf_sub.add_parser("pull-all", help="Download full repository including all weights")
+    hf_pull_all.add_argument("--repo", type=str, default=None, help="HF Repo ID")
+    hf_pull_all.add_argument("--dir", dest="local_dir", type=str, default=".", help="Local destination directory (default: .)")
+
+    # hf list
+    hf_list = hf_sub.add_parser("list", help="List model checkpoints stored on Hugging Face Hub")
+    hf_list.add_argument("--repo", type=str, default=None, help="HF Repo ID")
+    hf_list.add_argument("--pattern", "-p", type=str, default=None, help="Optional filter pattern")
+
+    # hf verify
+    hf_verify = hf_sub.add_parser("verify", help="Verify local files against Hugging Face Hub")
+    hf_verify.add_argument("--repo", type=str, default=None, help="HF Repo ID")
+    hf_verify.add_argument("--dir", dest="folder", type=str, default="result", help="Local directory to verify")
+
     return parser
 
 
@@ -538,6 +578,75 @@ def _cmd_migrate_results(args: argparse.Namespace) -> None:
             sys.exit(1)
 
 
+def _cmd_hf(args: argparse.Namespace) -> None:
+    """Handle cystods hf subcommands."""
+    from cystods.infra.hf_sync import (
+        DEFAULT_HF_REPO_ID,
+        list_hub_checkpoints,
+        pull_all,
+        pull_metrics,
+        pull_model_checkpoint,
+        push_to_hub,
+        verify_hub_sync,
+    )
+
+    cmd = getattr(args, "hf_command", None)
+    if cmd is None:
+        print("Usage: cystods hf {push,pull-metrics,pull-model,pull-all,list,verify} ...", file=sys.stderr)
+        sys.exit(1)
+
+    repo_id = getattr(args, "repo", None) or DEFAULT_HF_REPO_ID
+
+    if cmd == "push":
+        folder = getattr(args, "folder", "result")
+        path_in_repo = getattr(args, "path_in_repo", "result")
+        private = not getattr(args, "public", False)
+        commit_message = getattr(args, "message", None)
+        push_to_hub(
+            folder_path=folder,
+            repo_id=repo_id,
+            path_in_repo=path_in_repo,
+            private=private,
+            commit_message=commit_message,
+        )
+    elif cmd == "pull-metrics":
+        local_dir = getattr(args, "local_dir", ".")
+        pull_metrics(repo_id=repo_id, local_dir=local_dir)
+    elif cmd == "pull-model":
+        pattern = args.pattern
+        local_dir = getattr(args, "local_dir", ".")
+        pull_model_checkpoint(pattern_or_path=pattern, repo_id=repo_id, local_dir=local_dir)
+    elif cmd == "pull-all":
+        local_dir = getattr(args, "local_dir", ".")
+        pull_all(repo_id=repo_id, local_dir=local_dir)
+    elif cmd == "list":
+        pattern = getattr(args, "pattern", None)
+        cps = list_hub_checkpoints(repo_id=repo_id, pattern=pattern)
+        print(f"\nFound {len(cps)} checkpoint(s) on Hugging Face repo: {repo_id}")
+        print("=" * 70)
+        for cp in cps:
+            print(f"  • {cp}")
+        print()
+    elif cmd == "verify":
+        folder = getattr(args, "folder", "result")
+        res = verify_hub_sync(folder_path=folder, repo_id=repo_id)
+        print("\n" + "=" * 70)
+        print(f"HUGGING FACE SYNC VERIFICATION REPORT ({repo_id})")
+        print("=" * 70)
+        print(f"  • Local folder         : {folder}")
+        print(f"  • Total local files    : {res['total_local_files']}")
+        print(f"  • Remote matched files : {res['matched_remote_files']}")
+        print(f"  • .pt checkpoints total: {res['pt_total_count']}")
+        print(f"  • .pt matched on Hub   : {res['pt_matched_count']}")
+        if res["is_fully_synced"]:
+            print("\n  ✅ ALL FILES & WEIGHTS ARE 100% SYNCHRONIZED ON HUGGING FACE HUB!")
+        else:
+            print(f"\n  ⚠️ Warning: {len(res['missing_on_remote'])} files missing on Hub:")
+            for mf in res["missing_on_remote"][:10]:
+                print(f"    - {mf}")
+        print("=" * 70 + "\n")
+
+
 def main(argv: list[str] | None = None) -> None:
     """CLI entry point."""
     parser = _build_parser()
@@ -562,6 +671,8 @@ def main(argv: list[str] | None = None) -> None:
         _cmd_run_remaining(args)
     elif args.command == "migrate-results":
         _cmd_migrate_results(args)
+    elif args.command == "hf":
+        _cmd_hf(args)
     else:
         parser.print_help()
 

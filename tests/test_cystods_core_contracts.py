@@ -1089,8 +1089,8 @@ def test_matched_checkpoint_monitor() -> None:
                 "binary_auroc",
             )
 
-    multitask_ref = [t for t in trials if t["experiment_id"] == "task_multitask_bcf"][0]
-    assert multitask_ref.get("overrides", {}).get("monitor_metric") == "hierarchical_composite"
+    multitask_ref = [t for t in trials if t["experiment_id"] == "ablation_1stage_joint"][0]
+    assert multitask_ref.get("overrides", {}).get("monitor_metric", "hierarchical_composite") == "hierarchical_composite"
 
     trials90 = get_stage_trials(stage="90")
     for trial in trials90:

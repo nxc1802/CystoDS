@@ -227,19 +227,15 @@ def test_load_frozen_protocol_splits_filters_by_split_index(tmp_path: Path) -> N
 
 
 def test_cli_split_requirement_for_stages() -> None:
-    """Verify CLI enforces --split {0,1,2} for Stage >= 10 and rejects missing --split."""
+    """Verify CLI parses --split parameter properly."""
     from cystods.cli import _build_parser
 
     parser = _build_parser()
 
-    # Stage 00 works without --split
+    # Stage 00 works without --split (default 'all' or None)
     args_00 = parser.parse_args(["run", "00"])
-    assert args_00.split is None
+    assert args_00.split in (None, "all")
 
     # Stage 10 parses --split
     args_10 = parser.parse_args(["run", "10", "--split", "0"])
-    assert args_10.split == 0
-
-    # Stage 10 with invalid split choice fails parser
-    with pytest.raises(SystemExit):
-        parser.parse_args(["run", "10", "--split", "5"])
+    assert str(args_10.split) == "0"

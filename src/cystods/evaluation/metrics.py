@@ -14,13 +14,17 @@ import pandas as pd
 from sklearn.metrics import (
     accuracy_score,
     average_precision_score,
+    brier_score_loss,
+    cohen_kappa_score,
     confusion_matrix,
     f1_score,
+    fbeta_score,
     matthews_corrcoef,
     precision_recall_fscore_support,
     precision_score,
     recall_score,
     roc_auc_score,
+    top_k_accuracy_score,
 )
 
 import cystods.science as science
@@ -44,7 +48,18 @@ def per_class_metrics(
     auc_values: list[float] = []
     for class_id, name in enumerate(names):
         binary_target = targets == class_id
+        binary_pred = predictions == class_id
         class_supported = int(support[class_id]) > 0
+        
+        # One-vs-Rest Confusion Matrix components
+        tn = int(np.sum((~binary_target) & (~binary_pred)))
+        fp = int(np.sum((~binary_target) & binary_pred))
+        fn = int(np.sum(binary_target & (~binary_pred)))
+        tp = int(np.sum(binary_target & binary_pred))
+        
+        specificity = float(tn / (tn + fp)) if (tn + fp) > 0 else None
+        npv = float(tn / (tn + fn)) if (tn + fn) > 0 else None
+        
         auc: float | None = None
         if len(np.unique(binary_target)) == 2:
             auc = float(
@@ -61,6 +76,11 @@ def per_class_metrics(
                 "recall": (
                     float(recall[class_id]) if class_supported else None
                 ),
+                "sensitivity": (
+                    float(recall[class_id]) if class_supported else None
+                ),
+                "specificity": specificity,
+                "npv": npv,
                 "f1": float(f1[class_id]) if class_supported else None,
                 "support": int(support[class_id]),
                 "classification_metrics_evaluable": class_supported,
@@ -104,6 +124,8 @@ def compute_binary_metrics(
     tn, fp, fn, tp = matrix.ravel()
     sensitivity = tp / (tp + fn) if tp + fn else None
     specificity = tn / (tn + fp) if tn + fp else None
+    precision = tp / (tp + fp) if tp + fp else None
+    npv = tn / (tn + fn) if tn + fn else None
     supported_recalls = [
         value for value in (specificity, sensitivity) if value is not None
     ]
@@ -117,21 +139,43 @@ def compute_binary_metrics(
         if len(np.unique(targets)) == 2
         else None
     )
+    youden_j = (
+        float(sensitivity + specificity - 1.0)
+        if sensitivity is not None and specificity is not None
+        else None
+    )
+    plr = (
+        float(sensitivity / (1.0 - specificity))
+        if sensitivity is not None and specificity is not None and specificity < 1.0
+        else None
+    )
+    nlr = (
+        float((1.0 - sensitivity) / specificity)
+        if sensitivity is not None and specificity is not None and specificity > 0.0
+        else None
+    )
+    dor = float((tp + 0.5) * (tn + 0.5) / ((fp + 0.5) * (fn + 0.5)))
     return {
         "n": len(targets),
         "decision_threshold": float(threshold),
         "accuracy": float(accuracy_score(targets, predictions)),
-        "precision": float(
-            precision_score(targets, predictions, zero_division=0)
-        ),
+        "precision": float(precision) if precision is not None else 0.0,
         "recall": float(recall_score(targets, predictions, zero_division=0)),
         "sensitivity": float(sensitivity) if sensitivity is not None else None,
         "specificity": float(specificity) if specificity is not None else None,
+        "npv": float(npv) if npv is not None else None,
         "f1": float(f1_score(targets, predictions, zero_division=0)),
+        "f2": float(fbeta_score(targets, predictions, beta=2.0, zero_division=0)),
         "mcc": float(matthews_corrcoef(targets, predictions)),
+        "cohen_kappa": float(cohen_kappa_score(targets, predictions)),
         "balanced_accuracy": float(np.mean(supported_recalls)),
+        "youden_j": youden_j,
         "auroc": auroc,
         "auprc": auprc,
+        "brier_score": float(brier_score_loss(targets, positive_probabilities)),
+        "diagnostic_odds_ratio": dor,
+        "positive_likelihood_ratio": plr,
+        "negative_likelihood_ratio": nlr,
         "auroc_evaluable": auroc is not None,
         "auprc_evaluable": auprc is not None,
         "confusion_matrix": matrix.tolist(),
@@ -170,6 +214,38 @@ def compute_multiclass_metrics(
     supported_recalls = [
         row["recall"] for row in base["per_class"] if row["target_supported"]
     ]
+    supported_precisions = [
+        row["precision"]
+        for row in base["per_class"]
+        if row["target_supported"] and row["precision"] is not None
+    ]
+    specificities = [
+        row["specificity"]
+        for row in base["per_class"]
+        if row.get("specificity") is not None
+    ]
+    npvs = [
+        row["npv"] for row in base["per_class"] if row.get("npv") is not None
+    ]
+    num_classes = len(names)
+    top2_acc = (
+        float(
+            top_k_accuracy_score(
+                target_array, probability_array, k=2, labels=np.arange(num_classes)
+            )
+        )
+        if num_classes >= 2 and len(np.unique(target_array)) > 1
+        else None
+    )
+    top3_acc = (
+        float(
+            top_k_accuracy_score(
+                target_array, probability_array, k=3, labels=np.arange(num_classes)
+            )
+        )
+        if num_classes >= 3 and len(np.unique(target_array)) > 1
+        else None
+    )
     base.update(
         {
             # Explicit names are authoritative; aliases keep reports readable.
@@ -177,8 +253,23 @@ def compute_multiclass_metrics(
             "macro_f1_evaluable_classes": base[
                 "macro_f1_supported_class_count"
             ],
+            "macro_precision": (
+                float(np.mean(supported_precisions))
+                if supported_precisions
+                else 0.0
+            ),
+            "macro_sensitivity": (
+                float(np.mean(supported_recalls)) if supported_recalls else 0.0
+            ),
+            "macro_specificity": (
+                float(np.mean(specificities)) if specificities else 0.0
+            ),
+            "macro_npv": float(np.mean(npvs)) if npvs else 0.0,
             "balanced_accuracy": float(np.mean(supported_recalls)),
             "mcc": float(matthews_corrcoef(target_array, predicted)),
+            "cohen_kappa": float(cohen_kappa_score(target_array, predicted)),
+            "top2_accuracy": top2_acc,
+            "top3_accuracy": top3_acc,
             "macro_auroc_ovr": macro_auc,
             "macro_auroc_evaluable_classes": auc_count,
         }

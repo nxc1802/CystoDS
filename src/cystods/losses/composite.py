@@ -44,12 +44,7 @@ def compute_multitask_loss(
     expected_output_keys = {"features"} | {
         f"{task}_logits" for task in active_tasks
     }
-    optional_keys = {
-        "projection",
-        "binary_logits",
-        "coarse_logits",
-        "fine_logits",
-    }
+    optional_keys = {"projection"}
     unknown_outputs = set(outputs) - expected_output_keys - optional_keys
     missing_outputs = expected_output_keys - set(outputs)
     if missing_outputs or unknown_outputs:
