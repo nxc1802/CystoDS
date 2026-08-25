@@ -163,6 +163,8 @@ def run_cascaded_single_split(
     split_dir.mkdir(parents=True, exist_ok=True)
     run_split_dir = result_run_dir / "runs" / f"cascaded_{phases}phase" / f"split_{split_idx}"
     run_split_dir.mkdir(parents=True, exist_ok=True)
+    (run_split_dir / "reports").mkdir(parents=True, exist_ok=True)
+    (run_split_dir / "system").mkdir(parents=True, exist_ok=True)
 
     # 1. Build and validate data manifest & protocol splits
     manifest_frame, _ = load_and_validate_manifest(config, run_split_dir, logger)
@@ -361,6 +363,11 @@ def main() -> None:
     config["fine_loss"] = args.fine_loss
     config["coarse_loss"] = args.coarse_loss
     config["supervised_contrastive_loss_weight"] = args.supcon_weight
+    split_arg = str(args.split).strip().lower()
+    if split_arg == "all":
+        split_indices = [0, 1, 2]
+    else:
+        split_indices = [int(s.strip()) for s in split_arg.split(",") if s.strip()]
 
     if args.output_dir:
         result_dir = Path(args.output_dir)
@@ -372,7 +379,11 @@ def main() -> None:
         else:
             mode_suffix = "1stage_end_to_end"
         ts = utc_now_iso().replace(":", "").replace("-", "")[:15]
-        result_dir = Path(f"result/40_ablations/cascaded_{mode_suffix}/research_{ts}")
+        split_clean = split_arg.replace(",", "_")
+        if split_arg != "all":
+            result_dir = Path(f"result/40_ablations/cascaded_{mode_suffix}/research_{ts}_split{split_clean}")
+        else:
+            result_dir = Path(f"result/40_ablations/cascaded_{mode_suffix}/research_{ts}")
 
     result_dir.mkdir(parents=True, exist_ok=True)
     logger = setup_logger(result_dir / "cascaded_experiment.log")
@@ -382,12 +393,6 @@ def main() -> None:
     logger.info("=" * 70)
     logger.info("Profile: %s | Phases: %d | Detach: %s | Lambda: %.2f | Fine Loss: %s", args.profile, args.phases, args.detach_hierarchy, args.hierarchy_lambda, args.fine_loss)
     logger.info("Output directory: %s", result_dir)
-
-    split_arg = str(args.split).strip().lower()
-    if split_arg == "all":
-        split_indices = [0, 1, 2]
-    else:
-        split_indices = [int(s.strip()) for s in split_arg.split(",") if s.strip()]
 
     all_results = []
     for s_idx in split_indices:

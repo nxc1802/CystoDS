@@ -331,6 +331,8 @@ def load_and_validate_manifest(
         for digest, stems in sorted(duplicate_hashes.items())
         if len(stems) > 1
     ]
+    (run_dir / "reports").mkdir(parents=True, exist_ok=True)
+    (run_dir / "system").mkdir(parents=True, exist_ok=True)
     if hash_images:
         pd.DataFrame(inventory_rows).to_csv(
             run_dir / "reports" / "image_inventory.csv",
