@@ -100,6 +100,19 @@ def _build_cli_parser() -> argparse.ArgumentParser:
         help="Supervised Contrastive loss weight in Phase 1 (0.0 to disable, default: 0.10).",
     )
     parser.add_argument(
+        "--hierarchy-schedule",
+        type=str,
+        default="fixed",
+        choices=["fixed", "warmup", "curriculum", "two_phase"],
+        help="Hierarchy loss schedule: 'fixed' (constant w=0.25) or 'warmup'/'curriculum' (linear ramp-up from 0.0 to 0.25 over warmup epochs). Default: fixed.",
+    )
+    parser.add_argument(
+        "--hierarchy-warmup-epochs",
+        type=int,
+        default=12,
+        help="Number of epochs for hierarchy loss curriculum warmup (default: 12).",
+    )
+    parser.add_argument(
         "--epochs",
         type=int,
         default=None,
@@ -152,6 +165,8 @@ def run_cascaded_single_split(
     fine_loss: str = "balanced_softmax_smoothed",
     coarse_loss: str = "balanced_softmax_smoothed",
     supcon_weight: float = 0.10,
+    hierarchy_schedule: str = "fixed",
+    hierarchy_warmup_epochs: int = 12,
 ) -> dict[str, Any]:
     """Train and evaluate the CascadedHierarchicalCystoModel on a single split (1-Stage or 3-Phase)."""
     device = resolve_device(config)
@@ -198,8 +213,12 @@ def run_cascaded_single_split(
     model_cfg["binary_loss_weight"] = 1.0
     model_cfg["coarse_loss_weight"] = 1.0
     model_cfg["fine_loss_weight"] = 1.0
+    model_cfg["hierarchy_schedule"] = hierarchy_schedule
+    model_cfg["hierarchy_warmup_epochs"] = hierarchy_warmup_epochs
+    model_cfg["binary_coarse_hierarchy_loss_weight"] = 0.25
+    model_cfg["coarse_fine_hierarchy_loss_weight"] = 0.25
 
-    logger.info("Initializing CascadedHierarchicalCystoModel (Phases=%d, Detach=%s, Lambda=%.2f)...", phases, detach_hierarchy, hierarchy_lambda)
+    logger.info("Initializing CascadedHierarchicalCystoModel (Phases=%d, Detach=%s, Lambda=%.2f, Schedule=%s)...", phases, detach_hierarchy, hierarchy_lambda, hierarchy_schedule)
     model = CascadedHierarchicalCystoModel(model_cfg).to(device)
     param_summary = model.get_parameter_summary()
     logger.info(
@@ -218,7 +237,7 @@ def run_cascaded_single_split(
         # ══════════════════════════════════════════════════════════════════════
         # 1-STAGE END-TO-END TRAINING (1 PASS)
         # ══════════════════════════════════════════════════════════════════════
-        logger.info("Starting 1-Stage Training for Split %d (Detach=%s)...", split_idx, detach_hierarchy)
+        logger.info("Starting 1-Stage Training for Split %d (Detach=%s, Schedule=%s)...", split_idx, detach_hierarchy, hierarchy_schedule)
         eval_metrics, splits_out, best_checkpoint_path = train_model(
             model=model,
             loaders=loaders,
@@ -242,10 +261,12 @@ def run_cascaded_single_split(
         p1_cfg = dict(model_cfg)
         p1_cfg["fine_loss"] = "cross_entropy"
         p1_cfg["coarse_loss"] = "cross_entropy"
+        p1_cfg["hierarchy_schedule"] = hierarchy_schedule
+        p1_cfg["hierarchy_warmup_epochs"] = hierarchy_warmup_epochs
         p1_fold_dir = run_split_dir / "phase1"
         p1_fold_dir.mkdir(parents=True, exist_ok=True)
         model.configure_phase_freezing(1)
-        logger.info(">>> [Phase 1] Representation Learning (100% Backbone + Heads Trainable)...")
+        logger.info(">>> [Phase 1] Representation Learning (100% Backbone + Heads Trainable, Schedule=%s)...", hierarchy_schedule)
         p1_metrics, _, p1_ckpt = train_model(
             model=model,
             loaders=loaders,
@@ -269,6 +290,7 @@ def run_cascaded_single_split(
         p2_cfg["fine_loss_weight"] = 1e-7
         p2_cfg["supervised_contrastive_loss_weight"] = 0.0
         p2_cfg["coarse_loss"] = coarse_loss
+        p2_cfg["hierarchy_schedule"] = "fixed"
         p2_fold_dir = run_split_dir / "phase2"
         p2_fold_dir.mkdir(parents=True, exist_ok=True)
         model.configure_phase_freezing(2)
@@ -296,6 +318,7 @@ def run_cascaded_single_split(
         p3_cfg["fine_loss_weight"] = 1.0
         p3_cfg["supervised_contrastive_loss_weight"] = 0.0
         p3_cfg["fine_loss"] = fine_loss
+        p3_cfg["hierarchy_schedule"] = "fixed"
         p3_fold_dir = run_split_dir / "phase3"
         p3_fold_dir.mkdir(parents=True, exist_ok=True)
         model.configure_phase_freezing(3)
@@ -325,6 +348,7 @@ def run_cascaded_single_split(
         "split_index": split_idx,
         "detach_hierarchy": detach_hierarchy,
         "hierarchy_lambda": hierarchy_lambda,
+        "hierarchy_schedule": hierarchy_schedule,
         "elapsed_seconds": elapsed,
         "eval_metrics": eval_metrics,
         "best_checkpoint": str(best_checkpoint_path),
@@ -345,6 +369,8 @@ def main() -> None:
         f"training.fine_loss={args.fine_loss}",
         f"training.coarse_loss={args.coarse_loss}",
         f"training.supervised_contrastive_loss_weight={args.supcon_weight}",
+        f"training.hierarchy_schedule={args.hierarchy_schedule}",
+        f"training.hierarchy_warmup_epochs={args.hierarchy_warmup_epochs}",
     ]
     if args.epochs is not None:
         cli_overrides.append(f"training.epochs={args.epochs}")
@@ -363,6 +389,9 @@ def main() -> None:
     config["fine_loss"] = args.fine_loss
     config["coarse_loss"] = args.coarse_loss
     config["supervised_contrastive_loss_weight"] = args.supcon_weight
+    config["hierarchy_schedule"] = args.hierarchy_schedule
+    config["hierarchy_warmup_epochs"] = args.hierarchy_warmup_epochs
+
     split_arg = str(args.split).strip().lower()
     if split_arg == "all":
         split_indices = [0, 1, 2]
@@ -372,12 +401,20 @@ def main() -> None:
     if args.output_dir:
         result_dir = Path(args.output_dir)
     else:
-        if args.phases == 3:
-            mode_suffix = "3phase"
-        elif args.detach_hierarchy:
-            mode_suffix = "1stage_detached"
+        if args.hierarchy_schedule in ("warmup", "curriculum"):
+            sched_tag = "warmup"
+        elif args.hierarchy_schedule in ("two_phase",):
+            sched_tag = "twophase"
         else:
-            mode_suffix = "1stage_end_to_end"
+            sched_tag = ""
+
+        if args.phases == 3:
+            mode_suffix = f"3phase_{sched_tag}" if sched_tag else "3phase"
+        elif args.detach_hierarchy:
+            mode_suffix = f"1stage_detached_{sched_tag}" if sched_tag else "1stage_detached"
+        else:
+            mode_suffix = f"1stage_{sched_tag}" if sched_tag else "1stage_end_to_end"
+
         ts = utc_now_iso().replace(":", "").replace("-", "")[:15]
         split_clean = split_arg.replace(",", "_")
         if split_arg != "all":
@@ -391,7 +428,7 @@ def main() -> None:
     logger.info("=" * 70)
     logger.info("▶ CYSTODS: CASCADED LATE-STAGE STACKED MULTI-HEAD RUNNER")
     logger.info("=" * 70)
-    logger.info("Profile: %s | Phases: %d | Detach: %s | Lambda: %.2f | Fine Loss: %s", args.profile, args.phases, args.detach_hierarchy, args.hierarchy_lambda, args.fine_loss)
+    logger.info("Profile: %s | Phases: %d | Detach: %s | Schedule: %s | Lambda: %.2f | Fine Loss: %s", args.profile, args.phases, args.detach_hierarchy, args.hierarchy_schedule, args.hierarchy_lambda, args.fine_loss)
     logger.info("Output directory: %s", result_dir)
 
     all_results = []
@@ -410,6 +447,8 @@ def main() -> None:
             fine_loss=args.fine_loss,
             coarse_loss=args.coarse_loss,
             supcon_weight=args.supcon_weight,
+            hierarchy_schedule=args.hierarchy_schedule,
+            hierarchy_warmup_epochs=args.hierarchy_warmup_epochs,
         )
         all_results.append(res)
         gc.collect()
