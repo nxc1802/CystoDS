@@ -1,0 +1,31 @@
+\begin{table}[t]
+\centering
+\caption{External cohort benchmark on the independent Lazo et al. dataset (1,754 images / 23 patients across 3 CystoDS splits, Mean $\pm$ Std).}
+\label{tab:external_validation}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lcccccc}
+\toprule
+\textbf{Subgroup / Metric} & \textbf{AUROC} & \textbf{Accuracy (\%)} & \textbf{Sensitivity (\%)} & \textbf{Specificity (\%)} & \textbf{F1-Score} & \textbf{Bal. Acc (\%)} \\
+\midrule
+\multicolumn{7}{l}{\textit{\textbf{A. Toàn bộ tập Ngoại kiểm (WLI + NBI, N=1,754 images / 23 Patients)}}} \\
+Swin Baseline (Binary Only) & 0.9503 $\pm$ 0.0170 & 84.80\% $\pm$ 2.51\% & 80.16\% $\pm$ 3.62\% & \textbf{96.30\% $\pm$ 0.34\%} & 0.8821 $\pm$ 0.0221 & 88.23\% $\pm$ 1.70\% \\
+\textbf{CystoHier (Proposed Direct)} & \textbf{0.9587 $\pm$ 0.0118} & \textbf{85.37\% $\pm$ 2.05\%} & \textbf{81.23\% $\pm$ 3.15\%} & 95.63\% $\pm$ 1.55\% & \textbf{0.8875 $\pm$ 0.0179} & \textbf{88.43\% $\pm$ 1.36\%} \\
+CystoHier (Hierarchical Ens.) & 0.9065 $\pm$ 0.0379 & 81.45\% $\pm$ 1.96\% & 79.92\% $\pm$ 2.83\% & 85.25\% $\pm$ 8.61\% & 0.8600 $\pm$ 0.0145 & 82.59\% $\pm$ 3.58\% \\
+\midrule
+\multicolumn{7}{l}{\textit{\textbf{B. Phân nhóm theo Chế độ Quang học (Imaging Modality)}}} \\
+\textbf{WLI Only (N=1,433):} & & & & & & \\
+\quad Swin Baseline & 0.9528 $\pm$ 0.0200 & \textbf{86.76\% $\pm$ 2.38\%} & \textbf{82.70\% $\pm$ 3.39\%} & \textbf{96.27\% $\pm$ 0.00\%} & \textbf{0.8971 $\pm$ 0.0205} & \textbf{89.49\% $\pm$ 1.70\%} \\
+\quad \textbf{CystoHier (Proposed Direct)} & \textbf{0.9633 $\pm$ 0.0154} & 86.35\% $\pm$ 2.48\% & 82.64\% $\pm$ 3.57\% & 95.03\% $\pm$ 1.73\% & 0.8941 $\pm$ 0.0214 & 88.83\% $\pm$ 1.86\% \\
+\textbf{NBI Only (N=321, Dải hẹp):} & & & & & & \\
+\quad Swin Baseline & \textbf{0.9528 $\pm$ 0.0073} & 76.01\% $\pm$ 4.35\% & 69.78\% $\pm$ 6.35\% & 96.44\% $\pm$ 2.27\% & 0.8151 $\pm$ 0.0404 & 83.11\% $\pm$ 2.07\% \\
+\quad \textbf{CystoHier (Proposed Direct)} & 0.9414 $\pm$ 0.0114 & \textbf{81.00\% $\pm$ 4.83\%} & \textbf{75.47\% $\pm$ 6.47\%} & \textbf{99.11\% $\pm$ 0.63\%} & \textbf{0.8573 $\pm$ 0.0414} & \textbf{87.29\% $\pm$ 2.97\%} \\
+\midrule
+\multicolumn{7}{l}{\textit{\textbf{C. Phân nhóm mô bệnh học (Pathology Breakdown)}}} \\
+\quad LGC Sensitivity (N=647) & \multicolumn{2}{l}{Swin: 82.59\% $\pm$ 4.10\%} & \multicolumn{2}{l}{\textbf{CystoHier: 82.53\% $\pm$ 4.99\%}} & \multicolumn{2}{l}{Ensemble: 80.94\% $\pm$ 4.18\%} \\
+\quad HGC Sensitivity (N=469) & \multicolumn{2}{l}{Swin: 88.56\% $\pm$ 2.46\%} & \multicolumn{2}{l}{\textbf{CystoHier: 89.48\% $\pm$ 1.96\%}} & \multicolumn{2}{l}{Ensemble: 86.50\% $\pm$ 1.83\%} \\
+\quad NTL Sensitivity (N=134) & \multicolumn{2}{l}{Swin: 39.05\% $\pm$ 5.66\%} & \multicolumn{2}{l}{\textbf{CystoHier: 46.02\% $\pm$ 4.57\%}} & \multicolumn{2}{l}{\textbf{Ensemble: 51.99\% $\pm$ 8.32\%}} \\
+\quad NST Specificity (N=504) & \multicolumn{2}{l}{\textbf{Swin: 96.30\% $\pm$ 0.34\%}} & \multicolumn{2}{l}{\textbf{CystoHier: 95.63\% $\pm$ 1.55\%}} & \multicolumn{2}{l}{Ensemble: 85.25\% $\pm$ 8.61\%} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}

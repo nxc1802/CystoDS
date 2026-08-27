@@ -1,0 +1,30 @@
+% Table 3: Independent Test Set Benchmark (Main Gold Standard Table)
+\begin{table*}[t]
+\centering
+\small
+\caption{Kết quả kiểm định độc lập của mô hình đề xuất 3S-HFT v3.1 và các baseline trên tập Test (3-Fold Patient-Disjoint Hold-out Test). Báo cáo Mean $\pm$ Std qua 3 splits.}
+\label{tab:test_benchmark}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lllcccccccc}
+\toprule
+\textbf{\#} & \textbf{Mô Hình \& Kiến Trúc} & \textbf{Chiến Lược Huấn Luyện} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Coarse Macro-F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All 22)} & \textbf{C-F Cons. (\%)} \\
+\midrule
+\textbf{🏆} & \textbf{Proposed 3S-HFT v3.1} & \textbf{Sequential Warmup + Ens.} & \textbf{0,9986 $\pm$ 0,0002} & \textbf{0,9811 $\pm$ 0,004} & \textbf{86,42\% $\pm$ 3,5\%} & \textbf{0,7572 $\pm$ 0,117} & \textbf{74,73\% $\pm$ 11,9\%} & \textbf{0,6450 $\pm$ 0,111} & \textbf{0,4691 $\pm$ 0,080} & \textbf{89,52\% $\pm$ 3,8\%} \\
+\midrule
+\multicolumn{11}{l}{\textit{Multitask Baselines (Shared Multi-Head CE)}} \\
+1 & Swin-Tiny (Multitask) & Multitask CE & 0,9989 $\pm$ 0,001 & 0,9876 $\pm$ 0,003 & 83,79\% $\pm$ 7,0\% & 0,7781 $\pm$ 0,102 & 75,00\% $\pm$ 14,2\% & 0,6102 $\pm$ 0,121 & 0,4438 $\pm$ 0,088 & 81,20\% $\pm$ 2,5\% \\
+2 & HRNet-W18 (Multitask) & Multitask CE & 0,9930 $\pm$ 0,003 & 0,9608 $\pm$ 0,011 & 77,20\% $\pm$ 12,2\% & 0,7093 $\pm$ 0,167 & 64,52\% $\pm$ 21,5\% & 0,5704 $\pm$ 0,203 & 0,4149 $\pm$ 0,147 & 76,40\% $\pm$ 3,1\% \\
+3 & ResNeXt-50 (Multitask) & Multitask CE & 0,9854 $\pm$ 0,009 & 0,9452 $\pm$ 0,016 & 77,61\% $\pm$ 10,1\% & 0,7241 $\pm$ 0,127 & 65,05\% $\pm$ 15,5\% & 0,4024 $\pm$ 0,158 & 0,2927 $\pm$ 0,115 & 74,50\% $\pm$ 2,8\% \\
+4 & ResNet-152 (Multitask) & Multitask CE & 0,9740 $\pm$ 0,018 & 0,9370 $\pm$ 0,034 & 75,08\% $\pm$ 14,0\% & 0,6782 $\pm$ 0,198 & 61,29\% $\pm$ 19,7\% & 0,3578 $\pm$ 0,163 & 0,2602 $\pm$ 0,118 & 71,80\% $\pm$ 3,4\% \\
+\midrule
+\multicolumn{11}{l}{\textit{Single-Task Baselines (Independent Training)}} \\
+5 & Swin-Tiny (Binary Only) & Binary CE Only & 0,9980 $\pm$ 0,001 & 0,9759 $\pm$ 0,007 & --- & --- & --- & --- & --- & --- \\
+6 & HRNet-W18 (Binary Only) & Binary CE Only & 0,9917 $\pm$ 0,005 & 0,9680 $\pm$ 0,017 & --- & --- & --- & --- & --- & --- \\
+7 & Swin-Tiny (Coarse Only) & Coarse CE Only & --- & --- & 81,45\% $\pm$ 5,8\% & 0,7512 $\pm$ 0,089 & --- & --- & --- & --- \\
+8 & HRNet-W18 (Coarse Only) & Coarse CE Only & --- & --- & 76,80\% $\pm$ 9,4\% & 0,6940 $\pm$ 0,142 & --- & --- & --- & --- \\
+9 & Swin-Tiny (Fine Only) & Fine CE Only & --- & --- & --- & --- & 71,20\% $\pm$ 12,8\% & 0,5840 $\pm$ 0,105 & 0,4215 $\pm$ 0,075 & --- \\
+10 & HRNet-W18 (Fine Only) & Fine CE Only & --- & --- & --- & --- & 63,10\% $\pm$ 18,4\% & 0,5420 $\pm$ 0,180 & 0,3950 $\pm$ 0,130 & --- \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

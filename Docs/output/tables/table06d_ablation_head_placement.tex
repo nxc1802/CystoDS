@@ -1,0 +1,17 @@
+% Table 6d: Ablation 4 - Architectural Feature Extraction Placement
+\begin{table*}[t]
+\centering
+\small
+\caption{Khảo sát vị trí trích xuất đặc trưng đa tầng (Stage 40): Shared Late-Stage tại Stage 4 so với Multi-Stage Intermediate Heads trên tập Validation.}
+\label{tab:ablation_head_placement}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{\#} & \textbf{Biến Thể Kiến Trúc} & \textbf{Vị Trí Trích Xuất Feature} & \textbf{Binary AUROC} & \textbf{Binary Spec (\%)} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} \\
+\midrule
+1 & \textbf{Proposed Shared Late-Stage} & Toàn bộ 3 Heads tại Stage 4 & \textbf{0,9571 $\pm$ 0,021} & \textbf{88,60\% $\pm$ 5,0\%} & \textbf{73,57\% $\pm$ 1,8\%} & \textbf{53,07\% $\pm$ 4,0\%} & \textbf{0,5415 $\pm$ 0,036} \\
+2 & Multi-Stage Intermediate Heads & S2 $\rightarrow$ Bin, S3 $\rightarrow$ Coarse, S4 $\rightarrow$ Fine & 0,8355 $\pm$ 0,045 & 75,66\% $\pm$ 4,8\% & 68,73\% $\pm$ 3,1\% & 42,64\% $\pm$ 3,8\% & 0,4806 $\pm$ 0,049 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

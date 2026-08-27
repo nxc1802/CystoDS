@@ -1,0 +1,94 @@
+{
+  "benchmark_name": "Lazo et al. (2023) Independent Multi-Domain External Bladder Cohort",
+  "citation": "Lazo Sanchez J, et al. Semi-supervised Bladder Tissue Classification in Multi-Domain Endoscopic Images. IEEE TBME 2023.",
+  "total_images": 1754,
+  "total_patient_cases": 23,
+  "imaging_modalities": {
+    "WLI": 1433,
+    "NBI": 321
+  },
+  "ground_truth_distribution": {
+    "ROI": {
+      "total": 1250,
+      "LGC_LowGradeCarcinoma": 647,
+      "HGC_HighGradeCarcinoma": 469,
+      "NTL_NonTumoralLesion": 134
+    },
+    "Non_ROI": {
+      "total": 504,
+      "NST_NonSuspiciousTissue": 504
+    }
+  },
+  "splits_evaluated": [0, 1, 2],
+  "training_protocol": "Trained strictly on CystoDS; evaluated directly zero-shot on Lazo without domain adaptation.",
+  "results_mean_std": {
+    "overall": {
+      "baseline_swin_binary": {
+        "auroc": "0.9503 ± 0.0170",
+        "accuracy": "84.80% ± 2.51%",
+        "sensitivity": "80.16% ± 3.62%",
+        "specificity": "96.30% ± 0.34%",
+        "f1_score": "0.8821 ± 0.0221",
+        "balanced_accuracy": "88.23% ± 1.70%"
+      },
+      "proposed_cystohier_direct": {
+        "auroc": "0.9587 ± 0.0118",
+        "accuracy": "85.37% ± 2.05%",
+        "sensitivity": "81.23% ± 3.15%",
+        "specificity": "95.63% ± 1.55%",
+        "f1_score": "0.8875 ± 0.0179",
+        "balanced_accuracy": "88.43% ± 1.36%"
+      },
+      "proposed_cystohier_ensemble": {
+        "auroc": "0.9065 ± 0.0379",
+        "accuracy": "81.45% ± 1.96%",
+        "sensitivity": "79.92% ± 2.83%",
+        "specificity": "85.25% ± 8.61%",
+        "f1_score": "0.8600 ± 0.0145",
+        "balanced_accuracy": "82.59% ± 3.58%"
+      }
+    },
+    "modality_breakdown": {
+      "WLI_1433_images": {
+        "baseline_auroc": "0.9528 ± 0.0200",
+        "baseline_accuracy": "86.76% ± 2.38%",
+        "proposed_auroc": "0.9633 ± 0.0154",
+        "proposed_accuracy": "86.35% ± 2.48%"
+      },
+      "NBI_321_images": {
+        "baseline_accuracy": "76.01% ± 4.35%",
+        "baseline_sensitivity": "69.78% ± 6.35%",
+        "baseline_specificity": "96.44% ± 2.27%",
+        "baseline_f1": "0.8151 ± 0.0404",
+        "proposed_accuracy": "81.00% ± 4.83%",
+        "proposed_sensitivity": "75.47% ± 6.47%",
+        "proposed_specificity": "99.11% ± 0.63%",
+        "proposed_f1": "0.8573 ± 0.0414"
+      }
+    },
+    "pathology_breakdown": {
+      "HGC_sensitivity": {
+        "baseline": "88.56% ± 2.46%",
+        "proposed": "89.48% ± 1.96%"
+      },
+      "LGC_sensitivity": {
+        "baseline": "82.59% ± 4.10%",
+        "proposed": "82.53% ± 4.99%"
+      },
+      "NTL_sensitivity": {
+        "baseline": "39.05% ± 5.66%",
+        "proposed_direct": "46.02% ± 4.57%",
+        "proposed_ensemble": "51.99% ± 8.32%"
+      },
+      "NST_specificity": {
+        "baseline": "96.30% ± 0.34%",
+        "proposed": "95.63% ± 1.55%"
+      }
+    },
+    "patient_level_bootstrap_95ci": {
+      "proposed_auroc": "0.9574 ± 0.0121 [95% CI: 0.9312, 0.9788]",
+      "proposed_specificity": "96.20% ± 1.08% [95% CI: 0.9381, 0.9784]",
+      "proposed_f1": "0.8736 ± 0.0310 [95% CI: 0.8127, 0.9296]"
+    }
+  }
+}

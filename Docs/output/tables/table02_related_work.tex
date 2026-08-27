@@ -1,0 +1,23 @@
+% Table 2: Related Works Comparison
+\begin{table*}[t]
+\centering
+\small
+\caption{Tổng hợp và đối chiếu các công trình nghiên cứu phân loại nội soi bàng quang liên quan.}
+\label{tab:related_works}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llccp{3.5cm}p{4.5cm}}
+\toprule
+\textbf{Công Trình Nghiên Cứu} & \textbf{Bộ Dữ Liệu / Quy Mô} & \textbf{Số Tầng / Lớp} & \textbf{Patient-Disjoint} & \textbf{Phương Pháp Cốt Lõi} & \textbf{Điểm Hạn Chế / Khoảng Trống Khoa Học} \\
+\midrule
+Lee et al. (CystoDS gốc) [1] & 8.067 ảnh / 160 BN & 1 tầng (2 lớp ROI) & 1 Split riêng & Swin-Large / HRNet & Chỉ phân loại nhị phân ROI, chưa khai thác 5 coarse và 22 fine. \\
+Shkolyar et al. [5] & Video WLC nội bộ & 1 tầng (Detection) & Có & CNN Object Detection & Chỉ phát hiện khối u, không phân loại mô bệnh học vi thể. \\
+Wu et al. [6] & 69.204 ảnh / 10.729 BN & 1 tầng (2 lớp) & Đa trung tâm & CNN Classifier & Phân loại phẳng, thiếu cấu trúc phả hệ và các tổn thương tiền ung thư hiếm. \\
+Lazo et al. [7] & 1.754 ảnh / 23 BN & 1 tầng (4 lớp) & Có & Semi-supervised CNN & Cỡ mẫu nhỏ (23 BN), cấu trúc lớp phẳng không có quan hệ cha-con. \\
+Abd El-Aziz et al. [9] & Bộ dữ liệu EBTC & 1 tầng (4 lớp) & Không rõ & EfficientNet-B3 & Phân loại phẳng, không xử lý phân bố đuôi dài hay kiểm định tách biệt bệnh nhân. \\
+Wang et al. [10] & NBI đa trung tâm & 2 tầng (Phân độ) & Có & Multitask NBI Net & Phụ thuộc hoàn toàn vào nguồn sáng dải hẹp NBI. \\
+\midrule
+\textbf{Nghiên cứu này (3S-HFT)} & \textbf{8.067 ảnh / 160 BN} & \textbf{3 tầng (2 / 5 / 22 lớp)} & \textbf{3 Splits (100\%)} & \textbf{3S-HFT + Warmup + Ensemble} & \textbf{Giải quyết đồng thời 3 tầng nhãn, bảo vệ ranh giới và xử lý đuôi dài cực đoan.} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

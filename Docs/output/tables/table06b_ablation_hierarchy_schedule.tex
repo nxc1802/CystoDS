@@ -1,0 +1,21 @@
+% Table 6b: Ablation 2 - Hierarchy Loss Scheduling & Curriculum Warmup
+\begin{table*}[t]
+\centering
+\small
+\caption{Khảo sát lịch trình trọng số phân cấp (Stage 40): Đột phá của Curriculum Warmup Schedule ($w_{\text{hrc}}(t)$) so với trọng số cố định trên tập Validation.}
+\label{tab:ablation_hierarchy_schedule}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llccccccc}
+\toprule
+\textbf{\#} & \textbf{Biến Thể Lịch Trình} & \textbf{Lịch Trình $w_{\text{hrc}}(t)$} & \textbf{Binary AUROC} & \textbf{Coarse Acc (\%)} & \textbf{Coarse F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons. (\%)} \\
+\midrule
+1 & \textbf{Proposed Warmup} & $0{,}25 \cdot \min(1{,}0, t/12)$ & 0,9571 $\pm$ 0,021 & \textbf{73,57\% $\pm$ 1,8\%} & \textbf{0,6525 $\pm$ 0,012} & \textbf{53,07\% $\pm$ 4,0\%} & \textbf{0,5415 $\pm$ 0,036} & \textbf{82,28\% $\pm$ 0,5\%} \\
+2 & Method A (Two-Phase) & $w=0 \rightarrow 0{,}25$ ở P2 & 0,9521 $\pm$ 0,028 & 71,76\% $\pm$ 1,1\% & 0,6371 $\pm$ 0,008 & 48,98\% $\pm$ 4,1\% & 0,5240 $\pm$ 0,025 & 81,55\% $\pm$ 1,8\% \\
+3 & Fixed Hierarchy & $w=0{,}25$ xuyên suốt & 0,9466 $\pm$ 0,031 & 70,09\% $\pm$ 2,3\% & 0,6119 $\pm$ 0,018 & 47,21\% $\pm$ 2,4\% & 0,5199 $\pm$ 0,048 & 81,88\% $\pm$ 2,0\% \\
+4 & w/o Hierarchy Loss & $w=0$ (Unconstrained) & \textbf{0,9649 $\pm$ 0,022} & 73,46\% $\pm$ 1,7\% & 0,6426 $\pm$ 0,009 & 52,72\% $\pm$ 2,0\% & 0,5414 $\pm$ 0,077 & 72,40\% $\pm$ 4,1\% \\
+5 & w/o Binary-Coarse & $w_{\text{bc}}=0, w_{\text{cf}}=0{,}25$ & 0,9528 $\pm$ 0,037 & 71,75\% $\pm$ 0,7\% & 0,6206 $\pm$ 0,011 & 49,06\% $\pm$ 2,8\% & 0,5120 $\pm$ 0,035 & 82,43\% $\pm$ 2,8\% \\
+6 & w/o Coarse-Fine & $w_{\text{bc}}=0{,}25, w_{\text{cf}}=0$ & 0,9605 $\pm$ 0,021 & 71,51\% $\pm$ 4,0\% & 0,6313 $\pm$ 0,029 & 52,92\% $\pm$ 4,1\% & 0,5312 $\pm$ 0,028 & 81,31\% $\pm$ 3,1\% \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

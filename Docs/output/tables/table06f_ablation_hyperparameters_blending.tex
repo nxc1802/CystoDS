@@ -1,0 +1,28 @@
+% Table 6f: Ablation 6 - Hyperparameters & Inference Blending
+\begin{table*}[t]
+\centering
+\small
+\caption{Khảo sát độ nhạy siêu tham số ($\tau, w_{\text{supcon}}$) và trọng số suy luận kết hợp đa tầng ($\lambda$) trên tập Validation và Test.}
+\label{tab:ablation_hyperparameters_blending}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llcccccc}
+\toprule
+\textbf{Nhóm Khảo Sát} & \textbf{Giá Trị / Cấu Hình} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons. (\%)} \\
+\midrule
+\textit{Nhiệt độ $\tau$ ($w=0{,}10$)} & $\tau = 0{,}05$ & \textbf{0,9664 $\pm$ 0,024} & 0,9092 $\pm$ 0,032 & 72,51\% $\pm$ 4,0\% & 51,67\% $\pm$ 3,9\% & 0,5847 $\pm$ 0,013 & 81,69\% $\pm$ 2,8\% \\
+& $\mathbf{\tau = 0{,}10}$ \textbf{(Optimal)} & 0,9596 $\pm$ 0,032 & 0,8998 $\pm$ 0,038 & \textbf{72,76\% $\pm$ 1,5\%} & 51,02\% $\pm$ 3,9\% & \textbf{0,6114 $\pm$ 0,023} & \textbf{82,80\% $\pm$ 2,6\%} \\
+& $\tau = 0{,}20$ & 0,9550 $\pm$ 0,031 & 0,8954 $\pm$ 0,027 & 71,29\% $\pm$ 2,6\% & \textbf{51,94\% $\pm$ 1,0\%} & 0,5914 $\pm$ 0,061 & 79,41\% $\pm$ 3,6\% \\
+\midrule
+\textit{Trọng số $w_{\text{supcon}}$ ($\tau=0{,}10$)} & $w = 0{,}05$ & 0,9602 $\pm$ 0,028 & 0,9035 $\pm$ 0,030 & 72,55\% $\pm$ 1,5\% & \textbf{53,67\% $\pm$ 4,2\%} & 0,6081 $\pm$ 0,046 & 79,80\% $\pm$ 3,4\% \\
+& $\mathbf{w = 0{,}10}$ \textbf{(Optimal)} & 0,9596 $\pm$ 0,032 & 0,8998 $\pm$ 0,038 & \textbf{72,76\% $\pm$ 1,5\%} & 51,02\% $\pm$ 3,9\% & 0,6114 $\pm$ 0,023 & \textbf{82,80\% $\pm$ 2,6\%} \\
+& $w = 0{,}20$ & \textbf{0,9630 $\pm$ 0,029} & \textbf{0,9117 $\pm$ 0,031} & 71,59\% $\pm$ 2,4\% & 50,52\% $\pm$ 2,5\% & \textbf{0,6228 $\pm$ 0,030} & 79,33\% $\pm$ 3,5\% \\
+\midrule
+\multicolumn{8}{l}{\textit{Trọng số kết hợp Hierarchical Marginalization ($\lambda$): $P_{\text{ens}} = \lambda P_{\text{coarse}} + (1-\lambda) P_{\text{from\_fine}}$}} \\
+& $\lambda = 1{,}00$ (Coarse Direct) & --- & --- & 70,76\% $\pm$ 1,1\% (Val) & --- & --- & 81,18\% $\pm$ 6,9\% (Test) \\
+& $\lambda = 0{,}50$ (Equal Blend) & --- & --- & 76,50\% $\pm$ 0,9\% (Val) & --- & --- & 85,10\% $\pm$ 4,2\% (Test) \\
+& $\mathbf{\lambda = 0{,}25}$ \textbf{(Optimal)} & --- & --- & \textbf{78,37\% $\pm$ 1,0\%} \textbf{(Val)} & --- & --- & \textbf{86,42\% $\pm$ 3,5\%} \textbf{(Test)} \\
+& $\lambda = 0{,}00$ (Fine Marg. Only) & --- & --- & 78,10\% $\pm$ 0,7\% (Val) & --- & --- & 86,42\% $\pm$ 3,5\% (Test) \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

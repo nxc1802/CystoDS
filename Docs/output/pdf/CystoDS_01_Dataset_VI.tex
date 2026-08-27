@@ -1,0 +1,407 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  11pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[top=2.0cm,bottom=2.0cm,left=2.0cm,right=2.0cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Times New Roman}
+  \setsansfont[]{Arial}
+  \setmonofont[]{Menlo}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{longtable,booktabs,array}
+\newcounter{none} % for unnumbered tables
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% 1-column header for CystoDS section report
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{seqsplit}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{float}
+
+\definecolor{CystoBlue}{HTML}{1F4E79}
+\definecolor{CystoTeal}{HTML}{2A7F62}
+\definecolor{CystoGray}{HTML}{4A5568}
+\definecolor{CystoDark}{HTML}{1A202C}
+
+\graphicspath{{../../Docs/}{Docs/}{paper_assets/}{../paper_assets/}}
+
+\captionsetup{font=small,labelfont={bf,color=CystoBlue}}
+\captionsetup[table]{position=top,skip=3pt}
+\captionsetup[figure]{position=bottom,skip=4pt}
+
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+
+\titleformat{\section}{\Large\bfseries\color{CystoBlue}}{\thesection.}{0.4em}{}
+\titleformat{\subsection}{\large\bfseries\color{CystoTeal}}{\thesubsection.}{0.4em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{CystoDark}}{\thesubsubsection.}{0.4em}{}
+
+\setlength{\parindent}{1.0em}
+\setlength{\parskip}{0.35em plus 0.05em minus 0.05em}
+\setlist{nosep,leftmargin=1.5em,topsep=0.3em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{CystoGray}CystoDS -- Báo cáo Tập Dữ Liệu và Giao Thức (Stage 00)}
+\fancyhead[R]{\small\color{CystoGray}CystoDS 2026}
+\fancyfoot[C]{\small\color{CystoGray}\thepage}
+\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0.35pt}
+
+\AtBeginDocument{%
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=CystoBlue,
+    urlcolor=CystoTeal,
+    citecolor=CystoBlue,
+  }%
+}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={CystoDS: Báo cáo Tập Dữ Liệu{,} Bối Cảnh và Giao Thức Đánh Giá Độc Lập Bệnh Nhân},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{CystoDS: Báo cáo Tập Dữ Liệu, Bối Cảnh và Giao Thức Đánh Giá Độc
+Lập Bệnh Nhân}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Kiểm định 8.067 ảnh, 160 bệnh nhân, phân tích liên hệ nghiên
+cứu và 3 phân hoạch hold-out chuẩn hóa (Stage 00)}
+\author{}
+\date{Báo cáo nghiên cứu 2026}
+
+\begin{document}
+\maketitle
+
+\section{CystoDS: Báo cáo Tập Dữ Liệu, Bối Cảnh và Giao Thức Đánh Giá
+Độc Lập Bệnh
+Nhân}\label{cystods-buxe1o-cuxe1o-tux1eadp-dux1eef-liux1ec7u-bux1ed1i-cux1ea3nh-vuxe0-giao-thux1ee9c-ux111uxe1nh-giuxe1-ux111ux1ed9c-lux1eadp-bux1ec7nh-nhuxe2n}
+
+\subsection{Kiểm định 8.067 ảnh, 160 bệnh nhân, phân tích liên hệ nghiên
+cứu và 3 phân hoạch hold-out chuẩn hóa (Stage
+00)}\label{kiux1ec3m-ux111ux1ecbnh-8.067-ux1ea3nh-160-bux1ec7nh-nhuxe2n-phuxe2n-tuxedch-liuxean-hux1ec7-nghiuxean-cux1ee9u-vuxe0-3-phuxe2n-houx1ea1ch-hold-out-chuux1ea9n-huxf3a-stage-00}
+
+\subsection{1. Đặt vấn đề \& Đóng góp khoa học (Introduction \&
+Contributions)}\label{ux111ux1eb7t-vux1ea5n-ux111ux1ec1-ux111uxf3ng-guxf3p-khoa-hux1ecdc-introduction-contributions}
+
+\subsubsection{1.1. Bối cảnh lâm sàng \& Tính chất dữ liệu nội soi bàng
+quang}\label{bux1ed1i-cux1ea3nh-luxe2m-suxe0ng-tuxednh-chux1ea5t-dux1eef-liux1ec7u-nux1ed9i-soi-buxe0ng-quang}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ý nghĩa lâm sàng:} Nội soi bàng quang (Cystoscopy) là tiêu
+  chuẩn vàng chẩn đoán ung thư biểu mô đường niệu; tuy nhiên, thị trường
+  lâm sàng đối mặt với tỷ lệ bỏ sót tổn thương phẳng (CIS) và cảnh báo
+  giả do niêm mạc viêm hoặc mốc giải phẫu.
+\item
+  \textbf{Tính đa tầng tự nhiên của chẩn đoán (Diagnostic Hierarchy):}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Mức 1: Định vị nhanh vùng tổn thương nghi ngờ (ROI Detection: Tổn
+    thương vs Bình thường).
+  \item
+    Mức 2: Phân nhóm bệnh cảnh thô (Coarse Grouping: Ác tính, Không ác
+    tính, Niêm mạc lành, Mốc giải phẫu, Dị vật/Dụng cụ).
+  \item
+    Mức 3: Phân loại chẩn đoán chi tiết (Fine-Grained Diagnostic
+    Categories: 22 phân lớp chẩn đoán bao gồm tổn thương ác tính, lành
+    tính, mốc giải phẫu và dụng cụ can thiệp).
+  \end{itemize}
+\item
+  \textbf{Thách thức mất cân bằng dài đuôi cực đoan ở cấp độ bệnh nhân:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Đỉnh phân phối (Head): Niêm mạc bình thường chiếm áp đảo 79,16\%
+    tổng số ảnh.
+  \item
+    Đuôi phân phối (Tail): Các tổn thương tiền ung thư
+    (\texttt{PreMalignant}), ung thư biểu mô tại chỗ (\texttt{CIS}), nhú
+    niệu mạc (\texttt{UrothelialPapilloma}) chỉ xuất hiện ở vài bệnh
+    nhân cá biệt.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{1.2. Mâu thuẫn kỹ thuật cốt lõi trong học đa nhiệm phân
+cấp}\label{muxe2u-thuux1eabn-kux1ef9-thuux1eadt-cux1ed1t-luxf5i-trong-hux1ecdc-ux111a-nhiux1ec7m-phuxe2n-cux1ea5p}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Mâu thuẫn 1 -- Xung đột Gradient biểu diễn vs Cân bằng đuôi
+  dài (Representation vs Classifier Trade-off):}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Huấn luyện 1 giai đoạn chung (1-Stage Joint) với các hàm loss đuôi
+    dài mạnh làm méo mó không gian đặc trưng tổng quát, dẫn đến suy giảm
+    độ chính xác lớp đầu (Coarse/Binary).
+  \end{itemize}
+\item
+  \textbf{Mâu thuẫn 2 -- Thắt cổ chai phân cấp sớm (Early Hierarchy
+  Bottleneck):}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Ràng buộc phân cấp phả hệ (\(L_{\text{hierarchy}}\)) nếu áp đặt cứng
+    ngay từ epoch 1 sẽ gò bó gradient của Backbone, cản trở việc học các
+    đặc trưng thị giác cơ bản.
+  \end{itemize}
+\item
+  \textbf{Mâu thuẫn 3 -- Nguy cơ trôi dạt ranh giới khi tinh chỉnh phân
+  tách:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Nếu chỉ nắn Fine Head ở giai đoạn sau mà không có cơ chế cô lập tham
+    số, ranh giới quyết định của Binary và Coarse sẽ bị trôi dạt.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{1.3. Ba đóng góp cốt lõi của nghiên
+cứu}\label{ba-ux111uxf3ng-guxf3p-cux1ed1t-luxf5i-cux1ee7a-nghiuxean-cux1ee9u}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Khung học phân cấp nhận biết phân bố bệnh nhân (Patient-Aware
+  Hierarchical Learning):} Tích hợp kiến trúc Shared Late-Stage
+  Swin-Tiny với hàm mất mát \textbf{Patient-Prior Smoothed Balanced
+  Softmax (PP-SBS)} điều hòa theo căn bậc hai số lượng bệnh nhân thực tế
+  \(\pi_j = (\text{patients}_j + \epsilon)^{0{,}5}\) và Supervised
+  Contrastive Loss (\(L_{\text{supcon}}\)).
+\item
+  \textbf{Chiến lược tối ưu hóa tuần tự tách rời ba giai đoạn
+  (Three-Stage Decoupled Optimization):} Tách bạch rõ ràng:
+  \emph{Representation Learning (với Curriculum Warmup
+  \(w_{\text{hrc}}(t)\))} \rightarrow *Coarse Alignment (với cơ chế cô
+  lập tham số)* \rightarrow *Fine Alignment*.
+\item
+  \textbf{Cơ chế suy luận phả hệ tăng cường và kiểm định thực nghiệm
+  minh bạch:} Tích lũy xác suất từ 22 phân lớp chi tiết về 5 nhóm cha
+  (\(P_{\text{from\_fine}}\)) kết hợp hòa trộn (\(\lambda=0{,}25\)),
+  tăng Coarse Accuracy thêm \(+5{,}24\%\) trên tập Test độc lập. Báo cáo
+  đầy đủ khoảng tin cậy 95\%, kiểm định thống kê cặp và phân tích độ
+  nhạy Grad-CAM.
+\end{enumerate}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{2. Công trình liên quan \& Định vị nghiên cứu (Related
+Work)}\label{cuxf4ng-truxecnh-liuxean-quan-ux111ux1ecbnh-vux1ecb-nghiuxean-cux1ee9u-related-work}
+
+\subsubsection{2.1. Phân loại ảnh nội soi bàng quang bằng Deep
+Learning}\label{phuxe2n-loux1ea1i-ux1ea3nh-nux1ed9i-soi-buxe0ng-quang-bux1eb1ng-deep-learning}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Nghiên cứu gốc CystoDS (Lee et al., 2026 {[}1{]}):} Khảo sát
+  ResNet, ResNeXt, HRNet, Swin-Transformer cho bài toán nhị phân ROI;
+  chỉ dừng lại ở phân loại phẳng trên 1 split duy nhất.
+\item
+  \textbf{Các nghiên cứu quốc tế liên quan:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \emph{Shkolyar et al.~(2019 {[}5{]}):} Phát hiện khối u trên video
+    WLC (Sensitivity 90,9\%, Specificity 98,6\%), không phân loại chi
+    tiết đa tầng.
+  \item
+    \emph{Wu et al.~(2022 {[}6{]}):} Đa trung tâm 69.204 ảnh, phân loại
+    nhị phân ung thư / lành tính.
+  \item
+    \emph{Lazo et al.~(2023 {[}7{]}):} Phân loại 4 nhóm mô bán giám sát
+    trên WLI/NBI (1.754 ảnh/23 BN).
+  \item
+    \emph{Abd El-Aziz et al.~(2025 {[}9{]}):} EfficientNet-B3 phân loại
+    4 lớp trên bộ dữ liệu EBTC.
+  \item
+    \emph{Wang et al.~(2026 {[}10{]}):} Chẩn đoán NBI đa trung tâm, kết
+    hợp phân độ mô học.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{2.2. Học phân cấp \& Cân bằng phân phối đuôi
+dài}\label{hux1ecdc-phuxe2n-cux1ea5p-cuxe2n-bux1eb1ng-phuxe2n-phux1ed1i-ux111uuxf4i-duxe0i}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hierarchical Classification:} Tận dụng cây phả hệ y học để
+  phạt các lỗi sai nhánh nghiêm trọng hơn lỗi sai trong cùng nhóm cha.
+\item
+  \textbf{Decoupled Representation \& Classifier Learning (Kang et al.,
+  2020; cRT):} Tách rời việc học đặc trưng trên phân phối tự nhiên và
+  cân bằng lại phân loại; được mở rộng trong nghiên cứu này thành cơ chế
+  3 giai đoạn tuần tự.
+\item
+  \textbf{Balanced Meta-Softmax (Ren et al., 2020 {[}3{]}):} Dịch chuyển
+  biên quyết định theo phân phối mẫu; được chúng tôi cải tiến thành
+  \textbf{Patient-Prior Smoothed Balanced Softmax (PP-SBS)} với prior
+  mượt theo số lượng bệnh nhân
+  (\(\text{prior}_j = (\text{patients}_j + \epsilon)^{0{,}5}\)).
+\end{itemize}
+
+\subsubsection{2.3. Bảng đối chiếu tổng hợp các công trình liên
+quan}\label{bux1ea3ng-ux111ux1ed1i-chiux1ebfu-tux1ed5ng-hux1ee3p-cuxe1c-cuxf4ng-truxecnh-liuxean-quan}
+
+\begin{table}[H]
+\centering
+\caption{Bảng 1.}
+\label{tab:sec_table1}
+\vspace{3pt}
+\adjustbox{max width=\textwidth}{
+\begin{tabular}{lrrrrr}
+\toprule
+Nghiên cứu & Bộ dữ liệu / Cỡ mẫu & Số lượng Lớp / Tầng & Độc lập Bệnh nhân & Phương pháp Cốt lõi & Điểm hạn chế chính \\
+\midrule
+\textbf{Lee et al.~(CystoDS gốc) {[}1{]}} & 8.067 ảnh / 160 BN & Nhị
+phân ROI (2 lớp) & 1 Split riêng & Swin-Transformer Large & Chỉ làm nhị
+phân, chưa khai thác 5 coarse / 22 fine \\
+\textbf{Shkolyar et al.~{[}5{]}} & Video WLC nội bộ & ROI Detection & Có
+& CNN Object Detection & Không phân loại chẩn đoán đa tầng \\
+\textbf{Wu et al.~{[}6{]}} & 69.204 ảnh / 10.729 BN & Ung thư vs Lành
+tính & Đa trung tâm & CNN Classifier & Nhị phân phẳng, thiếu chi tiết
+tổn thương \\
+\textbf{Lazo et al.~{[}7{]}} & 1.754 ảnh / 23 BN & 4 lớp phẳng & Có &
+Semi-supervised & Cỡ mẫu nhỏ, không có cấu trúc phả hệ \\
+\textbf{Wang et al.~{[}10{]}} & NBI đa trung tâm & Phân độ ung thư & Có
+& Multitask NBI & Phụ thuộc ánh sáng dải hẹp NBI \\
+\textbf{Nghiên cứu này (CystoHier)} & \textbf{8.067 ảnh / 160 BN} &
+\textbf{3 tầng (2 / 5 / 22 lớp)} & \textbf{3 Splits chuẩn hóa} &
+\textbf{CystoHier (3S + Ens.)} & \textbf{Giải quyết đồng thời 3 tầng
+nhãn và đuôi dài} \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\subsection{3. Kiểm toán Dữ liệu \& Giao thức Nghiên cứu (Stage 00
+Protocol)}\label{kiux1ec3m-touxe1n-dux1eef-liux1ec7u-giao-thux1ee9c-nghiuxean-cux1ee9u-stage-00-protocol}
+
+\subsubsection{3.1. Thống kê bộ dữ liệu CystoDS qua 3 tầng phân
+cấp}\label{thux1ed1ng-kuxea-bux1ed9-dux1eef-liux1ec7u-cystods-qua-3-tux1ea7ng-phuxe2n-cux1ea5p}
+
+\begin{table}[H]
+\centering
+\caption{Bảng 2.}
+\label{tab:sec_table2}
+\vspace{3pt}
+\adjustbox{max width=\textwidth}{
+\begin{tabular}{lrrr}
+\toprule
+Tầng nhãn & Số lớp & Chi tiết phân nhóm lâm sàng & Số lượng mẫu (Raw) \\
+\midrule
+\textbf{Layer 1: Binary} & 2 & \textbf{ROI} (Tổn thương) /
+\textbf{Non-ROI} (Bình thường \& Dị vật) & 1.219 ROI / 6.848 Non-ROI \\
+\textbf{Layer 2: Coarse} & 5 & Malignant (998), Non-malignant (221),
+Normal mucosa (6.386), Landmarks (211), Foreign bodies (251) & 8.067 \\
+\textbf{Layer 3: Fine} & 22 & 4 Ác tính, 8 Lành tính/Viêm, 6 Mốc giải
+phẫu, 4 Dị vật/Dụng cụ & 8.067 (Long-tailed) \\
+\bottomrule
+\end{tabular}
+}
+\end{table}
+
+\subsubsection{3.2. Kiểm định rò rỉ dữ liệu \& Kiểm soát thiên lệch niêm
+mạc}\label{kiux1ec3m-ux111ux1ecbnh-ruxf2-rux1ec9-dux1eef-liux1ec7u-kiux1ec3m-souxe1t-thiuxean-lux1ec7ch-niuxeam-mux1ea1c}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Kiểm tra trùng lặp (Image Duplication):} 0 cặp ảnh trùng hash
+  SHA-256 trong toàn bộ 8.067 ảnh.
+\item
+  \textbf{Giới hạn niêm mạc bình thường
+  (\texttt{normal\_mucosa\_limit:\ 540}):} Giới hạn tối đa 540 ảnh
+  Normal mucosa trong tập Train để tránh làm loãng đặc trưng bệnh lý.
+\item
+  \textbf{Giao thức 3-Fold Patient-Disjoint Holdout:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tỉ lệ phân chia: 70\% Train (\textasciitilde1.550 ảnh / 112 BN),
+    15\% Validation (\textasciitilde330 ảnh / 24 BN), 15\% Test
+    (\textasciitilde335 ảnh / 24 BN).
+  \item
+    Khóa toàn bộ danh tính bệnh nhân giữa các tập để đảm bảo độ trung
+    thực lâm sàng tuyệt đối.
+  \end{itemize}
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}

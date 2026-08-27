@@ -1,0 +1,7 @@
+# Table 1: Thống Kê Bộ Dữ Liệu CystoDS Qua 3 Tầng Phân Cấp (Dataset Statistics)
+
+| Tầng Phân Cấp (Taxonomy Level) | Số Lớp ($C$) | Định Nghĩa Lâm Sàng & Phân Nhóm | Số Mẫu Ảnh ($N_{\text{images}}$) | Số Bệnh Nhân ($N_{\text{patients}}$) | Phân Bố & Tỉ Lệ Mất Cân Bằng |
+|---|:---:|---|:---:|:---:|---|
+| **Layer 1: Binary Detection** | 2 | **ROI** (Tổn thương nghi ngờ)<br>**Non-ROI** (Bình thường / Dị vật) | 1,219<br>6,848 | 108<br>148 | 15.11% ROI<br>84.89% Non-ROI (Tỉ lệ 1 : 5.6) |
+| **Layer 2: Coarse Grouping** | 5 | **Malignant** (Khối u ác tính)<br>**Non-malignant** (Tổn thương lành/viêm)<br>**Normal mucosa** (Niêm mạc lành)<br>**Anatomical landmarks** (Mốc giải phẫu)<br>**Foreign bodies** (Dị vật / Dụng cụ) | 998<br>221<br>6,386<br>211<br>251 | 82<br>41<br>65<br>33<br>24 | 12.37%<br>2.74%<br>79.16% (Lớp đa số áp đảo)<br>2.62%<br>3.11% |
+| **Layer 3: Fine Histopathology** | 22 | **5 Ác tính:** HighGradePapillary (433), LowGradePapillary (493), CIS (71), PreMalignant (1), Denuded (9)<br>**6 Lành tính/Viêm:** BenignNOS (97), InflammationNOS (80), BenignRare (4), NephrogenicAdenoma (4), SquamousMetaplasia (5), UrothelialPapilloma (9)<br>**11 Mốc giải phẫu & Dị vật:** AirBubble (210), UreteralOrifice (99), ResectionScar (30), ResectionBed (33), Trabeculation (21), ResectionLoop (17), ProstaticUrethra (15), BiopsyForcep (16), CCG (13), Diverticulum (13), Stent (8) | 8,067 | 160 | Mất cân bằng dài đuôi cực đoan (*Extreme Long-Tail*). Tỉ lệ mẫu giữa lớp lớn nhất và nhỏ nhất đạt **6,386 : 1**. 7 lớp có $\le 10$ ảnh. |

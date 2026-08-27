@@ -1,0 +1,28 @@
+% Table 7: Per-Class Performance & Real-Time Inference Benchmark
+\begin{table*}[t]
+\centering
+\small
+\caption{Hiệu năng chi tiết theo 5 lớp Coarse (Split 0) và benchmark độ trễ suy luận thời gian thực trên phần cứng biên (Apple Silicon MPS, FP32).}
+\label{tab:per_class_and_runtime}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lcccccc}
+\toprule
+\multicolumn{7}{l}{\textbf{Phần A: Hiệu Năng Phân Loại Theo Từng Lớp Coarse (Split 0 Validation)}} \\
+\textbf{Nhóm Coarse (5 Nhóm)} & \textbf{Số Mẫu Thật (Support)} & \textbf{Dự Đoán} & \textbf{Precision} & \textbf{Recall (Sensitivity)} & \textbf{F1-Score} & \textbf{AUROC (OvR)} \\
+\midrule
+Malignant (Ác tính) & 142 & 149 & 0,7852 & 0,8239 & \textbf{0,8041} & 0,9175 \\
+Non-malignant (Không ác tính) & 32 & 30 & 0,2000 & 0,1875 & 0,1935 & 0,8348 \\
+Normal mucosa (Niêm mạc lành) & 81 & 111 & 0,6757 & \textbf{0,9259} & 0,7813 & 0,9512 \\
+Anatomical landmarks (Giải phẫu) & 31 & 11 & \textbf{0,8182} & 0,2903 & 0,4286 & 0,9027 \\
+Foreign bodies (Dị vật / Dụng cụ) & 43 & 28 & \textbf{0,9286} & 0,6047 & 0,7324 & \textbf{0,9689} \\
+\midrule
+\multicolumn{7}{l}{\textbf{Phần B: Benchmark Độ Trễ \& Thông Lượng Suy Luận Thời Gian Thực (Apple Silicon MPS, FP32)}} \\
+\textbf{Cấu Hình Batch} & \textbf{Số Vòng Đo} & \textbf{Forward (ms/ảnh)} & \textbf{Thông Lượng Forward} & \textbf{End-to-End (ms)} & \textbf{Thông Lượng E2E} & \textbf{Bộ Nhớ MPS (MiB)} \\
+\midrule
+Batch = 1 (Đơn ảnh) & 60 & \textbf{12,081 $\pm$ 0,95 ms} & \textbf{82,78 FPS} & \textbf{15,000 $\pm$ 1,12 ms} & \textbf{66,67 FPS} & 110,83 MiB \\
+Batch = 8 (Mini-batch) & 60 & 10,167 $\pm$ 0,42 ms & 98,36 FPS & --- & --- & 113,99 MiB \\
+Batch = 32 (Thông lượng cao) & 20 & 9,954 $\pm$ 0,38 ms & 100,46 FPS & --- & --- & 128,00 MiB \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

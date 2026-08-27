@@ -1,0 +1,224 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+  11pt,
+  a4paper,
+]{article}
+\usepackage{xcolor}
+\usepackage[top=2.0cm,bottom=2.0cm,left=2.0cm,right=2.0cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Times New Roman}
+  \setsansfont[]{Arial}
+  \setmonofont[]{Menlo}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+% 1-column header for CystoDS section report
+\PassOptionsToPackage{table,xcdraw}{xcolor}
+\usepackage[section]{placeins}
+\usepackage{caption}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{seqsplit}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{tabularx}
+\usepackage{adjustbox}
+\usepackage{float}
+
+\definecolor{CystoBlue}{HTML}{1F4E79}
+\definecolor{CystoTeal}{HTML}{2A7F62}
+\definecolor{CystoGray}{HTML}{4A5568}
+\definecolor{CystoDark}{HTML}{1A202C}
+
+\graphicspath{{../../Docs/}{Docs/}{paper_assets/}{../paper_assets/}}
+
+\captionsetup{font=small,labelfont={bf,color=CystoBlue}}
+\captionsetup[table]{position=top,skip=3pt}
+\captionsetup[figure]{position=bottom,skip=4pt}
+
+\renewcommand{\figurename}{Hình}
+\renewcommand{\tablename}{Bảng}
+
+\titleformat{\section}{\Large\bfseries\color{CystoBlue}}{\thesection.}{0.4em}{}
+\titleformat{\subsection}{\large\bfseries\color{CystoTeal}}{\thesubsection.}{0.4em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries\color{CystoDark}}{\thesubsubsection.}{0.4em}{}
+
+\setlength{\parindent}{1.0em}
+\setlength{\parskip}{0.35em plus 0.05em minus 0.05em}
+\setlist{nosep,leftmargin=1.5em,topsep=0.3em}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\color{CystoGray}CystoDS -- Phương Pháp Nghiên Cứu và Mô Hình Đề Xuất (3S-HFT)}
+\fancyhead[R]{\small\color{CystoGray}CystoDS 2026}
+\fancyfoot[C]{\small\color{CystoGray}\thepage}
+\setlength{\headheight}{14pt}
+\renewcommand{\headrulewidth}{0.35pt}
+
+\AtBeginDocument{%
+  \hypersetup{
+    colorlinks=true,
+    linkcolor=CystoBlue,
+    urlcolor=CystoTeal,
+    citecolor=CystoBlue,
+  }%
+}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={CystoDS: Phương Pháp Phân Cấp Ba Giai Đoạn Tuần Tự (3S-HFT v3.1)},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{CystoDS: Phương Pháp Phân Cấp Ba Giai Đoạn Tuần Tự (3S-HFT v3.1)}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Kiến trúc Swin-Tiny, Lịch trình Curriculum Warmup cho
+Hierarchy Loss và Cơ chế Hierarchical Marginalization}
+\author{}
+\date{Báo cáo nghiên cứu 2026}
+
+\begin{document}
+\maketitle
+
+\section{CystoDS: Phương Pháp Phân Cấp Ba Giai Đoạn Tuần Tự (3S-HFT
+v3.1)}\label{cystods-phux1b0ux1a1ng-phuxe1p-phuxe2n-cux1ea5p-ba-giai-ux111oux1ea1n-tuux1ea7n-tux1ef1-3s-hft-v3.1}
+
+\subsection{Kiến trúc Swin-Tiny, Lịch trình Curriculum Warmup cho
+Hierarchy Loss và Cơ chế Hierarchical
+Marginalization}\label{kiux1ebfn-truxfac-swin-tiny-lux1ecbch-truxecnh-curriculum-warmup-cho-hierarchy-loss-vuxe0-cux1a1-chux1ebf-hierarchical-marginalization}
+
+\subsection{4. Phương pháp Đề xuất: CystoHier
+(Methodology)}\label{phux1b0ux1a1ng-phuxe1p-ux111ux1ec1-xuux1ea5t-cystohier-methodology}
+
+\subsubsection{4.1. Kiến trúc Swin-Tiny Đa Nhiệm Phân Cấp (Shared
+Late-Stage)}\label{kiux1ebfn-truxfac-swin-tiny-ux111a-nhiux1ec7m-phuxe2n-cux1ea5p-shared-late-stage}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Backbone:} Swin-Tiny tiền huấn luyện ImageNet (28,3M tham số),
+  chia 4 stages với kích thước cửa sổ \(7 \times 7\).
+\item
+  \textbf{Cấu hình Shared Late-Stage:} Toàn bộ 3 heads (Binary, Coarse,
+  Fine) cùng nhận đặc trưng vector 768 chiều từ Stage 4 sau lớp
+  LayerNorm.
+\end{itemize}
+
+\begin{verbatim}
+[Phase 1: Representation Learning]
+  • Open 100% Backbone + 3 Heads
+  • Loss: BCE + CE + 0.10*SupCon
+  • Warmup: w_hrc(t) = 0.25*min(1, t/12)
+               │
+               ▼
+[Phase 2: Coarse Alignment]
+  • Freeze Backbone & Fine/Binary
+  • Loss: Coarse PP-SBS (Parameter Isolation)
+               │
+               ▼
+[Phase 3: Fine Alignment]
+  • Freeze Backbone & Coarse/Binary
+  • Loss: Fine PP-SBS + 0.25*L_cf
+\end{verbatim}
+
+\subsubsection{4.2. Công thức toán học các hàm mất
+mát}\label{cuxf4ng-thux1ee9c-touxe1n-hux1ecdc-cuxe1c-huxe0m-mux1ea5t-muxe1t}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hàm Supervised Contrastive Loss (\(L_{\text{supcon}}\)):}
+  \[L_{\text{supcon}} = \sum_{i \in I} \frac{-1}{|P(i)|} \sum_{p \in P(i)} \log \frac{e^{z_i \cdot z_p / \tau}}{\sum_{a \in A(i)} e^{z_i \cdot z_a / \tau}}\]
+\item
+  \textbf{Ràng buộc phân cấp Coarse-Fine (\(L_{\text{hierarchy}}\)):}
+  \[L_{\text{cf}} = D_{\text{KL}}\left(P_{\text{coarse}} \,\parallel\, P_{\text{from\_fine}}\right)\]
+  \[P_{\text{from\_fine}}(C) = \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)\]
+\item
+  \textbf{Patient-Prior Smoothed Balanced Softmax Loss (PP-SBS):}
+  \[L_{\text{PP-SBS}}(y, \hat{z}) = -\log \frac{\pi_y \cdot e^{\hat{z}_y}}{\sum_{j} \pi_j \cdot e^{\hat{z}_j}}\]
+  \[\pi_j = (\text{patients}_j + \epsilon)^{0{,}5}\]
+\end{itemize}
+
+\subsubsection{4.3. Lịch trình Curriculum Warmup cho Hierarchy
+Loss}\label{lux1ecbch-truxecnh-curriculum-warmup-cho-hierarchy-loss}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Quy luật biến thiên trọng số ở Phase 1:}
+  \[w_{\text{hrc}}(t) = 0{,}25 \times \min\left(1{,}0,\, \frac{t}{12}\right)\]
+\item
+  \textbf{Cơ chế tác động:}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \(t \le 4\): \(w_{\text{hrc}} \approx 0\), cho phép Backbone tự do
+    định hình không gian biểu diễn cơ bản không bị ràng buộc phả hệ
+    cưỡng bức.
+  \item
+    \(t > 4 \rightarrow 12\): Tăng dần đều để nắn chỉnh tính nhất quán
+    phả hệ khi các đặc trưng đã chín muồi.
+  \end{itemize}
+\end{itemize}
+
+\subsubsection{4.4. Suy Luận Đa Tầng Kết Hợp \& Tính Nhất Quán Phả
+Hệ}\label{suy-luux1eadn-ux111a-tux1ea7ng-kux1ebft-hux1ee3p-tuxednh-nhux1ea5t-quuxe1n-phux1ea3-hux1ec7}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Định nghĩa Tính nhất quán Coarse-Fine (Consistency):}
+  \[\text{Consistency} = \frac{1}{N}\sum_{i=1}^N \mathbb{I}\left[\arg\max P_{\text{coarse}}^{(i)} = \text{Parent}\left(\arg\max P_{\text{fine}}^{(i)}\right)\right]\]
+\item
+  \textbf{Công thức suy luận kết hợp:}
+  \[P_{\text{ens}}(C) = \lambda P_{\text{coarse}}(C) + (1-\lambda) P_{\text{from\_fine}}(C)\]
+\item
+  \textbf{Tham số tối ưu:} \(\lambda = 0{,}25\) (75\% thông tin trích
+  xuất từ phân phối của Fine Head).
+\end{itemize}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\end{document}

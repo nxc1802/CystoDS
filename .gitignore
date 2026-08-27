@@ -9,9 +9,12 @@ build/
 # === Environments ===
 .venv/
 venv/
+.cache/
 
 # === IDE / OS ===
 .DS_Store
+*/.DS_Store
+**/.DS_Store
 .ipynb_checkpoints/
 .pytest_cache/
 .ruff_cache/
@@ -23,17 +26,39 @@ venv/
 # === Agent customizations ===
 .agents/
 
-# === Project: generated artifacts ===
-output/
+# === Project: scratch & temp ===
+scratch/
 tmp/
+/output/
 
-# === Project: large data ===
+# === Project: large data & raw archives ===
 xvdhy-osfstorage-archive/
 xvdhy-osfstorage-archive.zip
+baldder_tissue_classification/
+baldder_tissue_classification.zip
+*.tar.gz
 
-# === Project: result directories (generated at runtime) ===
+# === Project: result & docs directories ===
 result/*
 !result/00_protocol/
 !result/00_protocol/**
 !Docs/result/
 !Docs/result/**
+!Docs/output/
+!Docs/output/**
+
+# === LaTeX Intermediate & Build Files (Always ignore) ===
+*.aux
+*.log
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.xdv
+**/*.aux
+**/*.log
+**/*.out
+**/*.fls
+**/*.fdb_latexmk
+**/*.synctex.gz
+**/*.xdv

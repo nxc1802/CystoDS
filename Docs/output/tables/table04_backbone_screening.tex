@@ -1,0 +1,30 @@
+% Table 4: Backbone Architecture Screening (Validation Benchmark)
+\begin{table*}[t]
+\centering
+\small
+\caption{Kết quả sàng lọc 4 họ kiến trúc mạng xương sống (Stage 10) qua 3 hold-out splits độc lập trên tập Validation.}
+\label{tab:backbone_screening}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llccccccc}
+\toprule
+\textbf{Backbone} & \textbf{Chế Độ Huấn Luyện} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Coarse F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All 22)} \\
+\midrule
+\textbf{Swin-Tiny} & \textbf{Multitask (Shared)} & \textbf{0,9507 $\pm$ 0,027} & \textbf{0,8992 $\pm$ 0,029} & \textbf{71,19\% $\pm$ 2,5\%} & \textbf{0,6243 $\pm$ 0,014} & \textbf{49,28\% $\pm$ 6,5\%} & \textbf{0,5105 $\pm$ 0,068} & \textbf{0,3755 $\pm$ 0,045} \\
+Swin-Tiny & Binary Only & 0,9590 $\pm$ 0,033 & 0,8930 $\pm$ 0,034 & --- & --- & --- & --- & --- \\
+Swin-Tiny & Coarse Only & --- & --- & 71,17\% $\pm$ 1,6\% & 0,6403 $\pm$ 0,010 & --- & --- & --- \\
+Swin-Tiny & Fine Only & --- & --- & --- & --- & 44,38\% $\pm$ 5,0\% & 0,4974 $\pm$ 0,055 & 0,3673 $\pm$ 0,025 \\
+\midrule
+\textbf{HRNet-W18} & \textbf{Multitask (Shared)} & 0,9385 $\pm$ 0,035 & 0,8759 $\pm$ 0,022 & 63,66\% $\pm$ 4,3\% & 0,5461 $\pm$ 0,035 & 43,44\% $\pm$ 3,4\% & 0,3979 $\pm$ 0,056 & 0,2845 $\pm$ 0,039 \\
+HRNet-W18 & Binary Only & 0,9579 $\pm$ 0,021 & 0,8984 $\pm$ 0,020 & --- & --- & --- & --- & --- \\
+HRNet-W18 & Coarse Only & --- & --- & 66,24\% $\pm$ 3,7\% & 0,5878 $\pm$ 0,028 & --- & --- & --- \\
+HRNet-W18 & Fine Only & --- & --- & --- & --- & 43,70\% $\pm$ 1,5\% & 0,4372 $\pm$ 0,029 & 0,3234 $\pm$ 0,002 \\
+\midrule
+\textbf{ResNeXt-50} & \textbf{Multitask (Shared)} & 0,9088 $\pm$ 0,037 & 0,8387 $\pm$ 0,025 & 58,61\% $\pm$ 1,4\% & 0,4600 $\pm$ 0,028 & 37,05\% $\pm$ 3,5\% & 0,2023 $\pm$ 0,036 & 0,1510 $\pm$ 0,028 \\
+ResNeXt-50 & Single-Tasks (Avg) & 0,9059 $\pm$ 0,034 & 0,8356 $\pm$ 0,010 & 62,73\% $\pm$ 2,2\% & 0,5288 $\pm$ 0,027 & 33,37\% $\pm$ 4,7\% & 0,1979 $\pm$ 0,048 & 0,1481 $\pm$ 0,041 \\
+\midrule
+\textbf{ResNet-152} & \textbf{Multitask (Shared)} & 0,8698 $\pm$ 0,050 & 0,8191 $\pm$ 0,038 & 56,62\% $\pm$ 0,3\% & 0,4398 $\pm$ 0,017 & 34,71\% $\pm$ 5,2\% & 0,2098 $\pm$ 0,038 & 0,1482 $\pm$ 0,025 \\
+ResNet-152 & Single-Tasks (Avg) & 0,8879 $\pm$ 0,038 & 0,8366 $\pm$ 0,030 & 61,43\% $\pm$ 2,1\% & 0,4847 $\pm$ 0,052 & 31,39\% $\pm$ 2,5\% & 0,2164 $\pm$ 0,021 & 0,1598 $\pm$ 0,006 \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

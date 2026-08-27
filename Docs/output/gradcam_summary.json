@@ -1,0 +1,68 @@
+{
+  "samples": [
+    {
+      "class_en": "LowGradePapillary",
+      "class_vn": "U biểu mô nhú độ thấp",
+      "coarse_vn": "Ác tính",
+      "filename": "5efdd0ec.png",
+      "is_test": "Test Hold-out",
+      "b_conf": 0.7260628938674927,
+      "b_iou": 0.011244688568763603,
+      "p_conf": 0.9790473580360413,
+      "p_iou": 0.37775835700240334,
+      "delta_iou": 0.36651366843363975
+    },
+    {
+      "class_en": "AirBubble",
+      "class_vn": "Bọt khí nội soi",
+      "coarse_vn": "Dị vật / Ngoại lai",
+      "filename": "cdc79f7f.png",
+      "is_test": "Test Hold-out",
+      "b_conf": 0.7130225300788879,
+      "b_iou": 0.0,
+      "p_conf": 0.9999918937683105,
+      "p_iou": 0.24595871673713007,
+      "delta_iou": 0.24595871673713007
+    },
+    {
+      "class_en": "HighGradePapillary",
+      "class_vn": "U biểu mô nhú độ cao",
+      "coarse_vn": "Ác tính",
+      "filename": "700c4947.png",
+      "is_test": "Test Hold-out",
+      "b_conf": 0.9238806366920471,
+      "b_iou": 0.05564725300636642,
+      "p_conf": 0.9999974966049194,
+      "p_iou": 0.17171891742421624,
+      "delta_iou": 0.11607166441784983
+    },
+    {
+      "class_en": "UreteralOrifice",
+      "class_vn": "Lỗ niệu quản",
+      "coarse_vn": "Mốc giải phẫu",
+      "filename": "a4ca6b92.png",
+      "is_test": "Test Hold-out",
+      "b_conf": 0.429989218711853,
+      "b_iou": 0.16439649359406608,
+      "p_conf": 0.9926222562789917,
+      "p_iou": 0.20498533724340176,
+      "delta_iou": 0.04058884364933568
+    },
+    {
+      "class_en": "ResectionScar",
+      "class_vn": "Sẹo sau cắt đốt (TURBT)",
+      "coarse_vn": "Mốc giải phẫu",
+      "filename": "8112404c.png",
+      "is_test": "Split 0 Train",
+      "b_conf": 0.9843413233757019,
+      "b_iou": 0.01867265763111373,
+      "p_conf": 0.9999990463256836,
+      "p_iou": 0.17773540241977906,
+      "delta_iou": 0.15906274478866533
+    }
+  ],
+  "mean_swin_iou": 0.04999221856006197,
+  "mean_proposed_iou": 0.2356313461653861,
+  "mean_delta_iou": 0.18563912760532414,
+  "relative_improvement_pct": 371.33604579339163
+}

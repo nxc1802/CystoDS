@@ -1,0 +1,20 @@
+% Table 1: Dataset & Clinical Hierarchy Statistics
+\begin{table*}[t]
+\centering
+\small
+\caption{Thống kê mẫu và bệnh nhân bộ dữ liệu CystoDS theo 3 tầng phả hệ chẩn đoán lâm sàng.}
+\label{tab:dataset_statistics}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{lcp{6.5cm}ccl}
+\toprule
+\textbf{Tầng Phân Cấp} & \textbf{Số Lớp ($C$)} & \textbf{Định Nghĩa Lâm Sàng \& Phân Nhóm} & \textbf{Số Mẫu ($N_{\text{img}}$)} & \textbf{Số BN ($N_{\text{pat}}$)} & \textbf{Đặc Điểm Phân Bố \& Mất Cân Bằng} \\
+\midrule
+\textbf{Layer 1: Binary} & 2 & \textbf{ROI} (Tổn thương nghi ngờ: Ác tính + Lành tính) \newline \textbf{Non-ROI} (Bình thường, mốc giải phẫu, dị vật) & \begin{tabular}{@{}c@{}}1.219 \\ 6.848\end{tabular} & \begin{tabular}{@{}c@{}}108 \\ 148\end{tabular} & 15,11\% ROI / 84,89\% Non-ROI (Tỉ lệ 1 : 5,6) \\
+\midrule
+\textbf{Layer 2: Coarse} & 5 & \textbf{Malignant} (Khối u ác tính) \newline \textbf{Non-malignant} (Tổn thương lành/viêm) \newline \textbf{Normal mucosa} (Niêm mạc bình thường) \newline \textbf{Anatomical landmarks} (Mốc giải phẫu) \newline \textbf{Foreign bodies} (Dị vật / Dụng cụ can thiệp) & \begin{tabular}{@{}c@{}}998 \\ 221 \\ 6.386 \\ 211 \\ 251\end{tabular} & \begin{tabular}{@{}c@{}}82 \\ 41 \\ 65 \\ 33 \\ 24\end{tabular} & \begin{tabular}{@{}l@{}}12,37\% \newline 2,74\% \newline 79,16\% (Lớp đa số áp đảo) \newline 2,62\% \newline 3,11\%\end{tabular} \\
+\midrule
+\textbf{Layer 3: Fine} & 22 & \textbf{5 Ác tính:} HighGradePapillary (433), LowGradePapillary (493), CIS (71), PreMalignant (1), Denuded (9) \newline \textbf{6 Lành tính/Viêm:} BenignNOS (97), InflammationNOS (80), BenignRare (4), NephrogenicAdenoma (4), SquamousMetaplasia (5), UrothelialPapilloma (9) \newline \textbf{11 Mốc giải phẫu \& Dị vật:} AirBubble (210), UreteralOrifice (99), ResectionScar (30), ResectionBed (33), Trabeculation (21), ResectionLoop (17), ProstaticUrethra (15), BiopsyForcep (16), CCG (13), Diverticulum (13), Stent (8) & 8.067 & 160 & \begin{tabular}{@{}l@{}}Phân bố đuôi dài cực đoan \newline (\textit{Extreme Long-Tail Imbalance}). \newline Tỉ lệ mẫu lệch tối đa 6.386 : 1. \newline 7 phân lớp có $\le 10$ mẫu ảnh.\end{tabular} \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

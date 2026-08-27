@@ -1,0 +1,20 @@
+% Table 6c: Ablation 3 - Loss Component Marginal Contributions
+\begin{table*}[t]
+\centering
+\small
+\caption{Bóc tách đóng góp cận biên của các thành phần hàm mất mát (Stage 40): SupCon, Smoothed Balanced Softmax, và Hierarchy Loss trên tập Validation.}
+\label{tab:ablation_loss_components}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llccccccc}
+\toprule
+\textbf{\#} & \textbf{Cấu Hình Thử Nghiệm} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Primary Fine F1} & \textbf{Tail Recall (\%)} & \textbf{C-F Cons. (\%)} \\
+\midrule
+1 & \textbf{Full Proposed (Anchor)} & 0,9596 $\pm$ 0,032 & 0,8998 $\pm$ 0,038 & \textbf{72,76\% $\pm$ 1,5\%} & 51,02\% $\pm$ 3,9\% & \textbf{0,6114 $\pm$ 0,023} & 65,23\% $\pm$ 7,4\% & \textbf{82,80\% $\pm$ 2,6\%} \\
+2 & w/o SupCon ($w=0$) & 0,9591 $\pm$ 0,029 & \textbf{0,9015 $\pm$ 0,038} & 70,31\% $\pm$ 2,7\% & 47,74\% $\pm$ 1,5\% & 0,5627 $\pm$ 0,073 & \textbf{67,08\% $\pm$ 6,9\%} & 81,42\% $\pm$ 2,7\% \\
+3 & w/o Smoothed Balanced Softmax & 0,9534 $\pm$ 0,021 & 0,8937 $\pm$ 0,026 & 70,93\% $\pm$ 1,1\% & 48,92\% $\pm$ 3,2\% & 0,6004 $\pm$ 0,026 & 59,86\% $\pm$ 9,4\% & 78,58\% $\pm$ 3,7\% \\
+4 & w/o Hierarchy Loss ($w=0$) & 0,9583 $\pm$ 0,034 & 0,9009 $\pm$ 0,028 & 71,97\% $\pm$ 1,9\% & \textbf{51,29\% $\pm$ 1,2\%} & 0,5890 $\pm$ 0,029 & 65,54\% $\pm$ 6,4\% & 81,49\% $\pm$ 2,9\% \\
+5 & w/o Data Augmentation & 0,9596 $\pm$ 0,032 & 0,8998 $\pm$ 0,038 & 72,76\% $\pm$ 1,5\% & 51,02\% $\pm$ 3,9\% & 0,6114 $\pm$ 0,023 & 65,23\% $\pm$ 7,4\% & 82,80\% $\pm$ 2,6\% \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}

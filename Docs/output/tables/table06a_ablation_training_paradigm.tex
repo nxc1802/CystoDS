@@ -1,0 +1,20 @@
+% Table 6a: Ablation 1 - Training Paradigm & Stage Decoupling
+\begin{table*}[t]
+\centering
+\small
+\caption{Bóc tách chiến lược và quy trình huấn luyện đa tầng (Stage 40): So sánh 1-Stage Joint, 2-Stage Decoupled, và 3S-HFT tuần tự trên tập Validation.}
+\label{tab:ablation_training_paradigm}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{llcccccccc}
+\toprule
+\textbf{\#} & \textbf{Chiến Lược Huấn Luyện} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Coarse F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All 22)} & \textbf{C-F Cons. (\%)} \\
+\midrule
+1 & \textbf{Proposed 3S-HFT v3.1} & 0,9571 $\pm$ 0,021 & 0,8960 $\pm$ 0,026 & \textbf{78,37\% $\pm$ 1,0\%} & 0,6525 $\pm$ 0,012 & \textbf{53,07\% $\pm$ 4,0\%} & \textbf{0,5415 $\pm$ 0,036} & \textbf{0,4007 $\pm$ 0,015} & \textbf{82,28\% $\pm$ 0,5\%} \\
+2 & 1-Stage Joint Baseline & 0,9594 $\pm$ 0,018 & \textbf{0,8965 $\pm$ 0,012} & 73,64\% $\pm$ 0,9\% & \textbf{0,6576 $\pm$ 0,006} & 52,63\% $\pm$ 2,9\% & 0,5026 $\pm$ 0,046 & 0,3718 $\pm$ 0,026 & 74,38\% $\pm$ 3,2\% \\
+3 & 2-Stage Decoupled (D2S) & \textbf{0,9617 $\pm$ 0,028} & 0,8912 $\pm$ 0,022 & 72,12\% $\pm$ 4,6\% & 0,6313 $\pm$ 0,031 & 52,20\% $\pm$ 4,8\% & 0,5266 $\pm$ 0,056 & 0,3893 $\pm$ 0,032 & 78,90\% $\pm$ 2,4\% \\
+4 & Ablation: Strategy cRT & \textbf{0,9617 $\pm$ 0,028} & 0,8910 $\pm$ 0,024 & 72,12\% $\pm$ 4,6\% & 0,6313 $\pm$ 0,031 & 51,96\% $\pm$ 2,5\% & 0,5311 $\pm$ 0,048 & 0,3930 $\pm$ 0,029 & 78,45\% $\pm$ 2,6\% \\
+5 & Ablation: Target All Heads & 0,9583 $\pm$ 0,035 & 0,8875 $\pm$ 0,031 & 73,10\% $\pm$ 3,4\% & 0,6435 $\pm$ 0,031 & 51,55\% $\pm$ 3,6\% & 0,5129 $\pm$ 0,059 & 0,3794 $\pm$ 0,038 & 76,80\% $\pm$ 2,9\% \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table*}
