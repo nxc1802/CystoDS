@@ -2,6 +2,7 @@
 % Scientific Manuscript formatted in Springer LNCS style
 % 100% Compatible with Overleaf (pdfLaTeX, XeLaTeX, LuaLaTeX) and Tectonic
 % All Headings, Titles, Sub-titles, Tables, Figures, Captions, Headers: 100% English
+% Strict Metric Standardization: 0.xxxx across all tables and quantitative values
 % Body narrative: High-density, rigorous academic Vietnamese (Q1 Journal Standard)
 %
 \documentclass[runningheads]{llncs}
@@ -67,7 +68,7 @@ Võ Quốc Trình\inst{1}\orcidID{0000-0002-8877-6655}}
 \maketitle              % typeset the header of the contribution
 %
 \begin{abstract}
-Nội soi bàng quang (Cystoscopy) là tiêu chuẩn vàng trong tầm soát, chẩn đoán và theo dõi ung thư biểu mô đường niệu (Bladder Cancer). Tuy nhiên, việc xây dựng các hệ thống trí tuệ nhân tạo (AI) hỗ trợ phẫu thuật viên đối mặt với hai thách thức cốt lõi: cấu trúc phân cấp chẩn đoán y học đa tầng (nhị phân, nhóm bệnh cảnh thô và phân lớp chẩn đoán chi tiết) và hiện tượng mất cân bằng phân phối dài đuôi cực đoan (Extreme Long-Tailed Imbalance) khi các tổn thương ác tính hoặc bệnh lý hiếm chỉ xuất hiện ở một số ít bệnh nhân. Bài báo này đề xuất \textbf{CystoHier} -- một khung học phân cấp tách rời ba giai đoạn toàn diện trên nền tảng kiến trúc Swin Transformer nhằm giải quyết sự đánh đổi giữa học biểu diễn đặc trưng và tối ưu hóa ranh giới phân loại đa tầng. Các đóng góp cốt lõi của \textbf{CystoHier} bao gồm: (1) Kiến trúc đa nhiệm chia sẻ biểu diễn sâu (\textit{Shared Late-Stage Multi-Head Backbone}); (2) Hàm mất mát \textit{Smoothed Balanced Softmax} (SBS) với tiên nghiệm mượt theo số lượng bệnh nhân thực tế nhằm giảm thiểu thiên lệch lấy mẫu; (3) Tinh chỉnh co cụm không gian đặc trưng bằng \textit{Supervised Contrastive Loss} ($\mathcal{L}_{\text{supcon}}$); (4) Ràng buộc nhất quán phả hệ với lịch trình \textit{Curriculum Hierarchy Warmup} giúp giải phóng thắt cổ chai biểu diễn ở giai đoạn sớm; (5) Chiến lược huấn luyện tuần tự ba giai đoạn tách rời (\textit{Three-Stage Decoupled Training}) với cơ chế đóng băng tham số (\textit{Parameter-Isolated Representation Preservation}); (6) Cơ chế suy luận kết hợp \textit{Hierarchical Marginalization \& Multi-Head Blending} tích lũy xác suất từ 22 phân lớp chi tiết về 5 nhóm thô; và (7) Đánh giá ngoại kiểm độc lập (\textit{External Cohort Validation}) trên bộ dữ liệu Lazo et al. (1.754 ảnh, 23 bệnh nhân). Đánh giá thực nghiệm trên bộ dữ liệu CystoDS (8.067 ảnh, 160 bệnh nhân) theo giao thức 3-Fold Patient-Disjoint Hold-out (100\% độc lập bệnh nhân) cho thấy \textbf{CystoHier} đạt hiệu năng cao nhất trong số các mô hình đối chuẩn: Binary AUROC \textbf{0,9986 $\pm$ 0,0002}, Coarse Accuracy \textbf{86,42\% $\pm$ 3,52\%}, Fine Macro-F1 (Supported) \textbf{0,6450 $\pm$ 0,1105}, và tính nhất quán Coarse-Fine đạt \textbf{89,52\% $\pm$ 3,80\%} trên tập kiểm định độc lập. Đánh giá zero-shot trên tập ngoại kiểm Lazo et al. xác nhận khả năng tổng quát hóa vững chắc (AUROC 0,9587 $\pm$ 0,0118, Accuracy 85,37\% $\pm$ 2,05\%), đặc biệt cải thiện độ nhạy phát hiện tổn thương không tạo u NTL (46,02\% vs 39,05\%) và ảnh NBI (Accuracy 81,00\% vs 76,01\%). Bản đồ nhiệt Grad-CAM cải thiện độ trùng khớp IoU giải phẫu từ 5,00\% lên 23,56\% trên mặt nạ chuyên gia, đồng thời đạt thông lượng suy luận thời gian thực 66,7 FPS end-to-end trên phần cứng biên, chứng minh tính khả thi của phương pháp học phân cấp dài đuôi cho chẩn đoán nội soi bàng quang.
+Nội soi bàng quang (Cystoscopy) là tiêu chuẩn vàng trong tầm soát, chẩn đoán và theo dõi ung thư biểu mô đường niệu (Bladder Cancer). Tuy nhiên, việc xây dựng các hệ thống trí tuệ nhân tạo (AI) hỗ trợ phẫu thuật viên đối mặt với hai thách thức cốt lõi: cấu trúc phân cấp chẩn đoán y học đa tầng (nhị phân, nhóm bệnh cảnh thô và phân lớp chẩn đoán chi tiết) và hiện tượng mất cân bằng phân phối dài đuôi cực đoan (Extreme Long-Tailed Imbalance) khi các tổn thương ác tính hoặc bệnh lý hiếm chỉ xuất hiện ở một số ít bệnh nhân. Bài báo này đề xuất \textbf{CystoHier} -- một khung học phân cấp tách rời ba giai đoạn toàn diện trên nền tảng kiến trúc Swin Transformer nhằm giải quyết sự đánh đổi giữa học biểu diễn đặc trưng và tối ưu hóa ranh giới phân loại đa tầng. Các đóng góp cốt lõi của \textbf{CystoHier} bao gồm: (1) Kiến trúc đa nhiệm chia sẻ biểu diễn sâu (\textit{Shared Late-Stage Multi-Head Backbone}); (2) Hàm mất mát \textit{Smoothed Balanced Softmax} (SBS) với tiên nghiệm mượt theo số lượng bệnh nhân thực tế nhằm giảm thiểu thiên lệch lấy mẫu; (3) Tinh chỉnh co cụm không gian đặc trưng bằng \textit{Supervised Contrastive Loss} ($\mathcal{L}_{\text{supcon}}$); (4) Ràng buộc nhất quán phả hệ với lịch trình \textit{Curriculum Hierarchy Warmup} giúp giải phóng thắt cổ chai biểu diễn ở giai đoạn sớm; (5) Chiến lược huấn luyện tuần tự ba giai đoạn tách rời (\textit{Three-Stage Decoupled Training}) với cơ chế đóng băng tham số (\textit{Parameter-Isolated Representation Preservation}); (6) Cơ chế suy luận kết hợp \textit{Hierarchical Marginalization \& Multi-Head Blending} tích lũy xác suất từ 22 phân lớp chi tiết về 5 nhóm thô; và (7) Đánh giá ngoại kiểm độc lập (\textit{External Cohort Validation}) trên bộ dữ liệu Lazo et al. (1.754 ảnh, 23 bệnh nhân). Đánh giá thực nghiệm trên bộ dữ liệu CystoDS (8.067 ảnh, 160 bệnh nhân) theo giao thức 3-Fold Patient-Disjoint Hold-out (100\% độc lập bệnh nhân) cho thấy \textbf{CystoHier} đạt hiệu năng cao nhất trong số các mô hình đối chuẩn: Binary AUROC \textbf{0,9986 $\pm$ 0,0002}, Coarse Accuracy \textbf{0,8642 $\pm$ 0,0352}, Fine Macro-F1 (Supported) \textbf{0,6450 $\pm$ 0,1105}, và tính nhất quán Coarse-Fine đạt \textbf{0,8952 $\pm$ 0,0380} trên tập kiểm định độc lập. Đánh giá zero-shot trên tập ngoại kiểm Lazo et al. xác nhận khả năng tổng quát hóa vững chắc (AUROC 0,9587 $\pm$ 0,0118, Accuracy 0,8537 $\pm$ 0,0205), đặc biệt cải thiện độ nhạy phát hiện tổn thương không tạo u NTL (0,4602 vs 0,3905) và ảnh NBI (Accuracy 0,8100 vs 0,7601). Bản đồ nhiệt Grad-CAM cải thiện độ trùng khớp IoU giải phẫu từ 0,0500 lên 0,2356 trên mặt nạ chuyên gia, đồng thời đạt thông lượng suy luận thời gian thực 66,7 FPS end-to-end trên phần cứng biên, chứng minh tính khả thi của phương pháp học phân cấp dài đuôi cho chẩn đoán nội soi bàng quang.
 
 \keywords{Cystoscopy \and Bladder Cancer \and Hierarchical Classification \and Long-Tailed Learning \and Vision Transformer \and Contrastive Learning \and Curriculum Warmup \and External Validation \and Grad-CAM.}
 \end{abstract}
@@ -102,7 +103,7 @@ Nhằm giải quyết các hạn chế trên, nghiên cứu này đề xuất kh
     \item \textbf{Supervised Contrastive Regularization:} Tích hợp $\mathcal{L}_{\text{supcon}}$ giúp co cụm các tổn thương cùng phân lớp chi tiết và tách biệt ranh giới biểu mô trong không gian ẩn.
     \item \textbf{Curriculum Hierarchy Warmup Schedule:} Cơ chế tăng dần trọng số ràng buộc phả hệ từ $0 \to 0{,}25$ trong 12 epochs đầu, giải phóng không gian đặc trưng ở giai đoạn khởi tạo.
     \item \textbf{Three-Stage Sequential Decoupled Training:} Tách bạch: \textit{Representation Learning} $\to$ \textit{Coarse Alignment} $\to$ \textit{Fine Alignment} với cơ chế cô lập tham số bảo toàn biểu diễn (\textit{Parameter-Isolated Representation Preservation}).
-    \item \textbf{Hierarchical Marginalization \& Blending Inference:} Tích lũy xác suất từ 22 lớp con chi tiết về 5 nhóm cha kết hợp hòa trộn ($\lambda=0{,}25$), tăng Coarse Accuracy thêm $+5{,}24\%$ trên tập Test độc lập.
+    \item \textbf{Hierarchical Marginalization \& Blending Inference:} Tích lũy xác suất từ 22 lớp con chi tiết về 5 nhóm cha kết hợp hòa trộn ($\lambda=0{,}25$), tăng Coarse Accuracy thêm $+0{,}0524$ trên tập Test độc lập.
     \item \textbf{Comprehensive Backbone \& Loss Benchmarking:} Sàng lọc hệ thống 4 họ kiến trúc mạng thị giác và 7 hàm mất mát xử lý phân phối dài đuôi qua 3 phân hoạch hold-out 100\% độc lập bệnh nhân.
     \item \textbf{Independent External Cohort Validation:} Khảo sát trực tiếp mô hình trên toàn bộ 1.754 ảnh / 23 bệnh nhân của bộ dữ liệu Lazo et al. \cite{ref_lazo2023semisupervised} nhằm kiểm chứng năng lực tổng quát hóa zero-shot.
 \end{enumerate}
@@ -111,7 +112,7 @@ Nhằm giải quyết các hạn chế trên, nghiên cứu này đề xuất kh
 \label{sec:related_work}
 
 \subsection{Deep Learning in Cystoscopy Image Analysis}
-Trong những năm gần đây, nhiều nghiên cứu đã ứng dụng mạng nơ-ron tích chập (CNN) và Vision Transformer vào bài toán nội soi bàng quang. Shkolyar và cộng sự (2019) \cite{ref_shkolyar2019augmented} đã phát triển hệ thống CystoNet phát hiện khối u bàng quang trên video WLC với độ nhạy 90,9\% và độ đặc hiệu 98,6\%. Wu và cộng sự (2022) \cite{ref_wu2022multicenter} thực hiện nghiên cứu đa trung tâm quy mô lớn trên 69.204 ảnh nội soi nhằm phân loại nhị phân tổn thương ác tính và lành tính. Lazo và cộng sự (2023) \cite{ref_lazo2023semisupervised} đề xuất mô hình bán giám sát phân loại 4 nhóm mô trên 1.754 ảnh WLC/NBI. Jia và cộng sự (2023) \cite{ref_jia2023transformer} tích hợp Transformer nâng cao độ chính xác phát hiện u. Gần đây, Abd El-Aziz và cộng sự (2025) \cite{ref_abdelaziz2025efficientnet} sử dụng EfficientNet-B3 phân loại mô bàng quang, và Wang và cộng sự (2026) \cite{ref_wang2026narrowband} xây dựng hệ thống chẩn đoán đa trung tâm dựa trên ảnh nội soi NBI.
+Trong những năm gần đây, nhiều nghiên cứu đã ứng dụng mạng nơ-ron tích chập (CNN) và Vision Transformer vào bài toán nội soi bàng quang. Shkolyar và cộng sự (2019) \cite{ref_shkolyar2019augmented} đã phát triển hệ thống CystoNet phát hiện khối u bàng quang trên video WLC với độ nhạy 0,9090 và độ đặc hiệu 0,9860. Wu và cộng sự (2022) \cite{ref_wu2022multicenter} thực hiện nghiên cứu đa trung tâm quy mô lớn trên 69.204 ảnh nội soi nhằm phân loại nhị phân tổn thương ác tính và lành tính. Lazo và cộng sự (2023) \cite{ref_lazo2023semisupervised} đề xuất mô hình bán giám sát phân loại 4 nhóm mô trên 1.754 ảnh WLC/NBI. Jia và cộng sự (2023) \cite{ref_jia2023transformer} tích hợp Transformer nâng cao độ chính xác phát hiện u. Gần đây, Abd El-Aziz và cộng sự (2025) \cite{ref_abdelaziz2025efficientnet} sử dụng EfficientNet-B3 phân loại mô bàng quang, và Wang và cộng sự (2026) \cite{ref_wang2026narrowband} xây dựng hệ thống chẩn đoán đa trung tâm dựa trên ảnh nội soi NBI.
 
 Nghiên cứu công bố bộ dữ liệu CystoDS của Lee và cộng sự (2026) \cite{ref_lee2026cystods} đã thiết lập chuẩn đánh giá trên 8.067 ảnh nội soi. Tuy nhiên, nghiên cứu gốc chỉ khảo sát bài toán phân loại nhị phân phẳng (ROI Detection) trên một phân hoạch đơn lẻ, hoàn toàn chưa khai thác cấu trúc phân cấp 5 nhóm Coarse và 22 phân lớp chẩn đoán chi tiết.
 
@@ -144,26 +145,33 @@ Wang et al. \cite{ref_wang2026narrowband} & Multicenter NBI & 2 levels (Tumor / 
 \label{sec:dataset}
 
 \subsection{Three-Level Diagnostic Hierarchy of the CystoDS Dataset}
-Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067 ảnh nội soi WLC thu nhận từ 160 bệnh nhân duy nhất, được gắn nhãn đồng thời ở 3 cấp độ chẩn đoán y khoa (Table~\ref{tab:dataset_stats}):
+Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067 ảnh nội soi WLC thu nhận từ 160 bệnh nhân duy nhất, được gắn nhãn đồng thời ở 3 cấp độ chẩn đoán y khoa với 22 phân lớp chi tiết (Table~\ref{tab:dataset_stats}):
 \begin{itemize}
-    \item \textbf{Layer 1 (Binary -- 2 classes):} 1.219 ảnh tổn thương (\textit{ROI}: Malignant + Non-malignant) và 6.848 ảnh không tổn thương (\textit{Non-ROI}: Normal mucosa + Landmarks + Foreign bodies).
-    \item \textbf{Layer 2 (Coarse -- 5 groups):} \textit{Malignant} (998 ảnh), \textit{Non-malignant} (221 ảnh), \textit{Normal mucosa} (6.386 ảnh), \textit{Anatomical landmarks} (211 ảnh), và \textit{Foreign bodies} (251 ảnh).
-    \item \textbf{Layer 3 (Fine -- 22 diagnostic classes):} Gồm 4 phân lớp ác tính (\textit{LowGradePapillary}, \textit{HighGradePapillary}, \textit{CIS}, \textit{PreMalignant}), 8 phân lớp lành tính/viêm (\textit{BenignNOS}, \textit{InflammationNOS}, \textit{CCG}, \textit{Denuded}, \textit{UrothelialPapilloma}, \textit{SquamousMetaplasia}, \textit{NephrogenicAdenoma}, \textit{BenignRare}), 6 mốc giải phẫu (\textit{UreteralOrifice}, \textit{ResectionBed}, \textit{ResectionScar}, \textit{Trabeculation}, \textit{ProstaticUrethra}, \textit{Diverticulum}), và 4 dị vật/dụng cụ (\textit{AirBubble}, \textit{ResectionLoop}, \textit{BiopsyForcep}, \textit{Stent}).
+    \item \textbf{Layer 1 (Binary -- 2 classes):} Vùng tổn thương (\textit{ROI}: Malignant + Non-malignant) và vùng không tổn thương (\textit{Non-ROI}: Normal mucosa + Landmarks + Foreign bodies).
+    \item \textbf{Layer 2 (Coarse -- 5 groups):} \textit{Malignant}, \textit{Non-malignant}, \textit{Normal mucosa}, \textit{Anatomical landmarks}, và \textit{Foreign bodies / Artefacts}.
+    \item \textbf{Layer 3 (Fine -- 22 diagnostic classes):} 4 phân lớp ác tính, 8 phân lớp viêm/không ác tính, 1 niêm mạc bình thường, 6 mốc giải phẫu, và 4 dị vật/dụng cụ can thiệp.
 \end{itemize}
 
 \begin{table}[t]
 \centering
-\caption{Sample and patient distribution of the CystoDS dataset across the 3-level diagnostic hierarchy.}
+\caption{Comprehensive specification of the 3-level diagnostic hierarchy and all 22 fine-grained diagnostic classes in the CystoDS benchmark.}
 \label{tab:dataset_stats}
 \begin{adjustbox}{max width=\textwidth}
-\begin{tabular}{lclc}
+\begin{tabular}{lcl}
 \toprule
-\textbf{Taxonomy Level} & \textbf{Classes} & \textbf{Clinical Grouping / Category Definition} & \textbf{Raw Sample Count} \\
+\textbf{Taxonomy Level} & \textbf{Classes} & \textbf{Clinical Grouping and Detailed Fine-Grained Diagnostic Entities} \\
 \midrule
-\textbf{Layer 1: Binary} & 2 & ROI (Lesion: 1,219) / Non-ROI (Normal / Landmark / Foreign: 6,848) & 8,067 \\
-\textbf{Layer 2: Coarse} & 5 & Malignant (998), Non-malignant (221), Normal mucosa (6,386), & 8,067 \\
- & & Anatomical landmarks (211), Foreign bodies / Artefacts (251) & \\
-\textbf{Layer 3: Fine} & 22 & 4 Malignant, 8 Non-malignant/Inflammation, 6 Landmarks, 4 Foreign & 8,067 (Long-tailed) \\
+\textbf{Layer 1: Binary} & 2 & \textbf{ROI} (Lesion suspicious) vs \textbf{Non-ROI} (Normal mucosa, anatomical landmarks, foreign artefacts) \\
+\midrule
+\textbf{Layer 2: Coarse} & 5 & \textbf{Malignant}, \textbf{Non-malignant}, \textbf{Normal mucosa}, \textbf{Anatomical landmarks}, \textbf{Foreign bodies / Artefacts} \\
+\midrule
+\textbf{Layer 3: Fine} & 22 & \textbf{Malignant (4 classes):} \textit{LowGradePapillary}, \textit{HighGradePapillary}, \textit{CIS}, \textit{PreMalignant} \\
+ & & \textbf{Non-malignant (8 classes):} \textit{BenignNOS}, \textit{InflammationNOS}, \textit{CCG}, \textit{Denuded}, \textit{UrothelialPapilloma}, \\
+ & & \quad \textit{SquamousMetaplasia}, \textit{NephrogenicAdenoma}, \textit{BenignRare} \\
+ & & \textbf{Normal mucosa (1 class):} \textit{NormalMucosa} \\
+ & & \textbf{Anatomical landmarks (6 classes):} \textit{UreteralOrifice}, \textit{ResectionBed}, \textit{ResectionScar}, \textit{Trabeculation}, \\
+ & & \quad \textit{ProstaticUrethra}, \textit{Diverticulum} \\
+ & & \textbf{Foreign bodies / Artefacts (4 classes):} \textit{AirBubble}, \textit{ResectionLoop}, \textit{BiopsyForcep}, \textit{Stent} \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -172,14 +180,14 @@ Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067
 \begin{figure}[t]
 \centering
 \includegraphics[width=0.92\textwidth]{paper_assets/fig01_dataset_distribution.png}
-\caption{Dataset distribution of the CystoDS benchmark across three taxonomy levels: (a) Coarse-level breakdown showing the dominance of Normal mucosa (79.16\%); (b) Long-tailed sample and patient count distribution across 22 fine-grained diagnostic classes.}
+\caption{Dataset distribution of the CystoDS benchmark across three taxonomy levels: (a) Coarse-level breakdown showing the dominance of Normal mucosa (0.7916); (b) Long-tailed sample and patient count distribution across 22 fine-grained diagnostic classes.}
 \label{fig:dataset_dist}
 \end{figure}
 
 \subsection{Data Leakage Prevention and Patient-Disjoint Partitioning Protocol}
 Để đảm bảo tính hợp lệ y khoa tuyệt đối và ngăn chặn hiện tượng rò rỉ dữ liệu (Data Leakage), toàn bộ các thực nghiệm được thiết kế theo giao thức \textbf{3-Fold Patient-Disjoint Hold-out} cố định:
 \begin{itemize}
-    \item \textbf{Phân chia 100\% theo danh tính bệnh nhân (Patient-Disjoint):} 160 bệnh nhân được phân chia ngẫu nhiên có phân tầng thành 3 phân hoạch độc lập (\texttt{split\_0}, \texttt{split\_1}, \texttt{split\_2}) theo tỷ lệ 70\% Huấn luyện (112 bệnh nhân), 15\% Thẩm định (24 bệnh nhân), và 15\% Kiểm định độc lập (24 bệnh nhân). Mọi ảnh của một bệnh nhân chỉ xuất hiện duy nhất ở một tập split.
+    \item \textbf{Phân chia 100\% theo danh tính bệnh nhân (Patient-Disjoint):} 160 bệnh nhân được phân chia ngẫu nhiên có phân tầng thành 3 phân hoạch độc lập (\texttt{split\_0}, \texttt{split\_1}, \texttt{split\_2}) theo tỷ lệ 0,70 Huấn luyện (112 bệnh nhân), 0,15 Thẩm định (24 bệnh nhân), và 0,15 Kiểm định độc lập (24 bệnh nhân). Mọi ảnh của một bệnh nhân chỉ xuất hiện duy nhất ở một tập split.
     \item \textbf{Kiểm soát thiên lệch niêm mạc bình thường:} Áp dụng giới hạn tối đa 540 ảnh Normal mucosa trong tập Train (\texttt{normal\_mucosa\_limit: 540}) nhằm tránh hiện tượng gradient của niêm mạc lành lấn át hoàn toàn các đặc trưng bệnh lý chi tiết.
     \item \textbf{Kiểm định toàn vẹn:} Toàn bộ danh sách phân hoạch được xuất thành \texttt{protocol\_manifest.json} và niêm phong bằng mã băm SHA-256 nhằm đảm bảo khả năng tái lập độc lập.
 \end{itemize}
@@ -271,19 +279,19 @@ Table~\ref{tab:test_benchmark} báo cáo kết quả đối chuẩn trực tiế
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llcccccc}
 \toprule
-\textbf{Category} & \textbf{Model / Architecture} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All)} & \textbf{C-F Consist (\%)} \\
+\textbf{Category} & \textbf{Model / Architecture} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All)} & \textbf{C-F Consist} \\
 \midrule
-\textbf{Proposed} & \textbf{CystoHier (Proposed)} & 0.9986 $\pm$ 0.0002 & 0.9811 $\pm$ 0.0036 & \textbf{86.42\% $\pm$ 3.52\%} & \textbf{0.6450 $\pm$ 0.1105} & \textbf{0.4691 $\pm$ 0.0804} & \textbf{89.52\% $\pm$ 3.80\%} \\
+\textbf{Proposed} & \textbf{CystoHier (Proposed)} & 0.9986 $\pm$ 0.0002 & 0.9811 $\pm$ 0.0036 & \textbf{0.8642 $\pm$ 0.0352} & \textbf{0.6450 $\pm$ 0.1105} & \textbf{0.4691 $\pm$ 0.0804} & \textbf{0.8952 $\pm$ 0.0380} \\
 \midrule
-Multitask & Swin-Tiny (Multitask CE) & \textbf{0.9989 $\pm$ 0.0010} & \textbf{0.9876 $\pm$ 0.0030} & 83.79\% $\pm$ 7.00\% & 0.6102 $\pm$ 0.1210 & 0.4438 $\pm$ 0.0880 & 81.20\% $\pm$ 2.50\% \\
-Multitask & HRNet-W18 (Multitask CE) & 0.9930 $\pm$ 0.0030 & 0.9608 $\pm$ 0.0110 & 77.20\% $\pm$ 12.20\% & 0.5704 $\pm$ 0.2030 & 0.4149 $\pm$ 0.1470 & 76.40\% $\pm$ 3.10\% \\
-Multitask & ResNeXt-50 (Multitask CE) & 0.9854 $\pm$ 0.0090 & 0.9452 $\pm$ 0.0160 & 77.61\% $\pm$ 10.10\% & 0.4024 $\pm$ 0.1580 & 0.2927 $\pm$ 0.1150 & 74.50\% $\pm$ 2.80\% \\
-Multitask & ResNet-152 (Multitask CE) & 0.9740 $\pm$ 0.0180 & 0.9370 $\pm$ 0.0340 & 75.08\% $\pm$ 14.00\% & 0.3578 $\pm$ 0.1630 & 0.2602 $\pm$ 0.1180 & 71.80\% $\pm$ 3.40\% \\
+Multitask & Swin-Tiny (Multitask CE) & \textbf{0.9989 $\pm$ 0.0010} & \textbf{0.9876 $\pm$ 0.0030} & 0.8379 $\pm$ 0.0700 & 0.6102 $\pm$ 0.1210 & 0.4438 $\pm$ 0.0880 & 0.8120 $\pm$ 0.0250 \\
+Multitask & HRNet-W18 (Multitask CE) & 0.9930 $\pm$ 0.0030 & 0.9608 $\pm$ 0.0110 & 0.7720 $\pm$ 0.1220 & 0.5704 $\pm$ 0.2030 & 0.4149 $\pm$ 0.1470 & 0.7640 $\pm$ 0.0310 \\
+Multitask & ResNeXt-50 (Multitask CE) & 0.9854 $\pm$ 0.0090 & 0.9452 $\pm$ 0.0160 & 0.7761 $\pm$ 0.1010 & 0.4024 $\pm$ 0.1580 & 0.2927 $\pm$ 0.1150 & 0.7450 $\pm$ 0.0280 \\
+Multitask & ResNet-152 (Multitask CE) & 0.9740 $\pm$ 0.0180 & 0.9370 $\pm$ 0.0340 & 0.7508 $\pm$ 0.1400 & 0.3578 $\pm$ 0.1630 & 0.2602 $\pm$ 0.1180 & 0.7180 $\pm$ 0.0340 \\
 \midrule
-Single-Task & Swin-Tiny (Binary/Coarse/Fine) & 0.9980 $\pm$ 0.0010 & 0.9759 $\pm$ 0.0070 & 81.45\% $\pm$ 5.80\% & 0.5840 $\pm$ 0.1050 & 0.4215 $\pm$ 0.0750 & --- \\
-Single-Task & HRNet-W18 (Binary/Coarse/Fine) & 0.9917 $\pm$ 0.0050 & 0.9680 $\pm$ 0.0170 & 76.80\% $\pm$ 9.40\% & 0.5420 $\pm$ 0.1800 & 0.3950 $\pm$ 0.1300 & --- \\
-Single-Task & ResNeXt-50 (Binary/Coarse/Fine) & 0.9782 $\pm$ 0.0120 & 0.9290 $\pm$ 0.0300 & 74.90\% $\pm$ 8.10\% & 0.3810 $\pm$ 0.1450 & 0.2790 $\pm$ 0.1020 & --- \\
-Single-Task & ResNet-152 (Binary/Coarse/Fine) & 0.9790 $\pm$ 0.0080 & 0.9444 $\pm$ 0.0280 & 72.40\% $\pm$ 11.20\% & 0.3420 $\pm$ 0.1500 & 0.2480 $\pm$ 0.1100 & --- \\
+Single-Task & Swin-Tiny (Binary/Coarse/Fine) & 0.9980 $\pm$ 0.0010 & 0.9759 $\pm$ 0.0070 & 0.8145 $\pm$ 0.0580 & 0.5840 $\pm$ 0.1050 & 0.4215 $\pm$ 0.0750 & --- \\
+Single-Task & HRNet-W18 (Binary/Coarse/Fine) & 0.9917 $\pm$ 0.0050 & 0.9680 $\pm$ 0.0170 & 0.7680 $\pm$ 0.0940 & 0.5420 $\pm$ 0.1800 & 0.3950 $\pm$ 0.1300 & --- \\
+Single-Task & ResNeXt-50 (Binary/Coarse/Fine) & 0.9782 $\pm$ 0.0120 & 0.9290 $\pm$ 0.0300 & 0.7490 $\pm$ 0.0810 & 0.3810 $\pm$ 0.1450 & 0.2790 $\pm$ 0.1020 & --- \\
+Single-Task & ResNet-152 (Binary/Coarse/Fine) & 0.9790 $\pm$ 0.0080 & 0.9444 $\pm$ 0.0280 & 0.7240 $\pm$ 0.1120 & 0.3420 $\pm$ 0.1500 & 0.2480 $\pm$ 0.1100 & --- \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -291,9 +299,9 @@ Single-Task & ResNet-152 (Binary/Coarse/Fine) & 0.9790 $\pm$ 0.0080 & 0.9444 $\p
 
 \textbf{Phân tích kết quả chính:}
 \begin{enumerate}
-    \item \textbf{Cải thiện rõ nét trên tầng phân lớp chi tiết:} \textbf{CystoHier} đạt Fine Macro-F1 (Supported) = \textbf{0,6450 $\pm$ 0,1105}, cao hơn so với Multitask Swin-Tiny (0,6102, tăng $+3,48\%$) và Single-Task Fine Swin-Tiny (0,5840, tăng $+6,10\%$), và vượt trội so với ResNet-152 (0,3578).
-    \item \textbf{Duy trì độ nhạy và đặc hiệu nhị phân vững chắc:} Đạt Binary AUROC 0,9986 $\pm$ 0,0002, Độ nhạy 98,45\% $\pm$ 0,5\%, Độ đặc hiệu 99,12\% $\pm$ 0,4\%, và Binary F1 0,9811 $\pm$ 0,004, tương đương với baseline chuyên biệt đơn nhiệm.
-    \item \textbf{Nâng cao tính nhất quán phả hệ (89,52\%):} Nhờ cơ chế Hierarchical Marginalization ($\lambda=0{,}25$), Coarse Accuracy đạt \textbf{86,42\% $\pm$ 3,52\%} (tăng $+5{,}24\%$ so với Coarse Head trực tiếp), đồng thời tính nhất quán Coarse-Fine đạt 89,52\%.
+    \item \textbf{Cải thiện rõ nét trên tầng phân lớp chi tiết:} \textbf{CystoHier} đạt Fine Macro-F1 (Supported) = \textbf{0,6450 $\pm$ 0,1105}, cao hơn so với Multitask Swin-Tiny (0,6102, tăng $+0,0348$) và Single-Task Fine Swin-Tiny (0,5840, tăng $+0,0610$), và vượt trội so với ResNet-152 (0,3578).
+    \item \textbf{Duy trì độ nhạy và đặc hiệu nhị phân vững chắc:} Đạt Binary AUROC 0,9986 $\pm$ 0,0002, Độ nhạy 0,9845 $\pm$ 0,0050, Độ đặc hiệu 0,9912 $\pm$ 0,0040, và Binary F1 0,9811 $\pm$ 0,0036, tương đương với baseline chuyên biệt đơn nhiệm.
+    \item \textbf{Nâng cao tính nhất quán phả hệ (0,8952):} Nhờ cơ chế Hierarchical Marginalization ($\lambda=0{,}25$), Coarse Accuracy đạt \textbf{0,8642 $\pm$ 0,0352} (tăng $+0{,}0524$ so với Coarse Head trực tiếp), đồng thời tính nhất quán Coarse-Fine đạt 0,8952 $\pm$ 0,0380.
 \end{enumerate}
 
 \subsection{Vision Backbone Architecture Screening}
@@ -306,14 +314,14 @@ Table~\ref{tab:stage10_backbone} khảo sát 4 họ kiến trúc mạng xương 
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llcccccc}
 \toprule
-\textbf{Architecture} & \textbf{Training Regime} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Coarse Macro-F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} \\
+\textbf{Architecture} & \textbf{Training Regime} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Coarse Macro-F1} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} \\
 \midrule
-\textbf{Swin-Tiny} & \textbf{Multitask (3-Heads)} & 0.9507 $\pm$ 0.027 & \textbf{0.8992 $\pm$ 0.029} & \textbf{71.19\% $\pm$ 2.5\%} & \textbf{0.6243 $\pm$ 0.014} & \textbf{49.28\% $\pm$ 6.5\%} & \textbf{0.5105 $\pm$ 0.068} \\
-Swin-Tiny & Binary Only & \textbf{0.9590 $\pm$ 0.033} & 0.8930 $\pm$ 0.034 & --- & --- & --- & --- \\
-\textbf{HRNet-W18} & \textbf{Multitask (3-Heads)} & 0.9385 $\pm$ 0.035 & 0.8759 $\pm$ 0.022 & 63.66\% $\pm$ 4.3\% & 0.5461 $\pm$ 0.035 & 43.44\% $\pm$ 3.4\% & 0.3979 $\pm$ 0.056 \\
-HRNet-W18 & Binary Only & 0.9579 $\pm$ 0.021 & 0.8984 $\pm$ 0.020 & --- & --- & --- & --- \\
-\textbf{ResNeXt-50} & \textbf{Multitask (3-Heads)} & 0.9088 $\pm$ 0.037 & 0.8387 $\pm$ 0.025 & 58.61\% $\pm$ 1.4\% & 0.4600 $\pm$ 0.028 & 37.05\% $\pm$ 3.5\% & 0.2023 $\pm$ 0.036 \\
-\textbf{ResNet-152} & \textbf{Multitask (3-Heads)} & 0.8698 $\pm$ 0.050 & 0.8191 $\pm$ 0.038 & 56.62\% $\pm$ 0.3\% & 0.4398 $\pm$ 0.017 & 34.71\% $\pm$ 5.2\% & 0.2098 $\pm$ 0.038 \\
+\textbf{Swin-Tiny} & \textbf{Multitask (3-Heads)} & 0.9507 $\pm$ 0.0270 & \textbf{0.8992 $\pm$ 0.0290} & \textbf{0.7119 $\pm$ 0.0250} & \textbf{0.6243 $\pm$ 0.0140} & \textbf{0.4928 $\pm$ 0.0650} & \textbf{0.5105 $\pm$ 0.0680} \\
+Swin-Tiny & Binary Only & \textbf{0.9590 $\pm$ 0.0330} & 0.8930 $\pm$ 0.0340 & --- & --- & --- & --- \\
+\textbf{HRNet-W18} & \textbf{Multitask (3-Heads)} & 0.9385 $\pm$ 0.0350 & 0.8759 $\pm$ 0.0220 & 0.6366 $\pm$ 0.0430 & 0.5461 $\pm$ 0.0350 & 0.4344 $\pm$ 0.0340 & 0.3979 $\pm$ 0.0560 \\
+HRNet-W18 & Binary Only & 0.9579 $\pm$ 0.0210 & 0.8984 $\pm$ 0.0200 & --- & --- & --- & --- \\
+\textbf{ResNeXt-50} & \textbf{Multitask (3-Heads)} & 0.9088 $\pm$ 0.0370 & 0.8387 $\pm$ 0.0250 & 0.5861 $\pm$ 0.0140 & 0.4600 $\pm$ 0.0280 & 0.3705 $\pm$ 0.0350 & 0.2023 $\pm$ 0.0360 \\
+\textbf{ResNet-152} & \textbf{Multitask (3-Heads)} & 0.8698 $\pm$ 0.0500 & 0.8191 $\pm$ 0.0380 & 0.5662 $\pm$ 0.0030 & 0.4398 $\pm$ 0.0170 & 0.3471 $\pm$ 0.0520 & 0.2098 $\pm$ 0.0380 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -331,16 +339,16 @@ Table~\ref{tab:stage20_loss} đánh giá đối chuẩn 7 phương pháp loss tr
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{clcccccc}
 \toprule
-\textbf{\#} & \textbf{Loss Formulation} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Tail Recall (\%)} \\
+\textbf{\#} & \textbf{Loss Formulation} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} & \textbf{Tail Recall} \\
 \midrule
-1 & \textbf{Smoothed Balanced Softmax (Ours)} & 0.9521 $\pm$ 0.039 & 0.8907 $\pm$ 0.058 & \textbf{70.12\% $\pm$ 3.9\%} & \textbf{52.45\% $\pm$ 1.7\%} & \textbf{0.5506 $\pm$ 0.074} & \textbf{66.38\% $\pm$ 11.4\%} \\
-2 & Patient-Count Prior (Linear $\pi_j = N_{\text{pts}}$) & 0.9515 $\pm$ 0.035 & 0.8890 $\pm$ 0.040 & 69.80\% $\pm$ 3.1\% & 51.12\% $\pm$ 3.2\% & 0.5180 $\pm$ 0.065 & 64.20\% $\pm$ 8.5\% \\
-3 & Balanced Softmax (Image Prior $\pi_j = N_{\text{img}}$) & \textbf{0.9531 $\pm$ 0.038} & 0.8893 $\pm$ 0.031 & 69.58\% $\pm$ 2.6\% & 50.08\% $\pm$ 5.7\% & 0.4823 $\pm$ 0.060 & 62.76\% $\pm$ 6.1\% \\
-4 & Logit Adjustment & 0.9455 $\pm$ 0.042 & 0.8888 $\pm$ 0.050 & 69.98\% $\pm$ 3.0\% & 49.62\% $\pm$ 1.7\% & 0.4822 $\pm$ 0.048 & 59.67\% $\pm$ 8.4\% \\
-5 & LDAM Loss & 0.9522 $\pm$ 0.020 & 0.8836 $\pm$ 0.016 & 69.37\% $\pm$ 1.9\% & 45.09\% $\pm$ 2.8\% & 0.4908 $\pm$ 0.058 & 62.51\% $\pm$ 11.2\% \\
-6 & Focal Loss & 0.9506 $\pm$ 0.024 & \textbf{0.8938 $\pm$ 0.032} & 68.16\% $\pm$ 3.7\% & 51.09\% $\pm$ 5.7\% & 0.4976 $\pm$ 0.062 & 60.97\% $\pm$ 8.6\% \\
-7 & Cross-Entropy (Baseline) & 0.9489 $\pm$ 0.042 & 0.8888 $\pm$ 0.050 & 67.49\% $\pm$ 2.2\% & 50.23\% $\pm$ 4.6\% & 0.5268 $\pm$ 0.076 & 66.07\% $\pm$ 8.9\% \\
-8 & Weighted CE & 0.9427 $\pm$ 0.036 & 0.8747 $\pm$ 0.038 & 67.86\% $\pm$ 2.2\% & 49.18\% $\pm$ 3.5\% & 0.5053 $\pm$ 0.067 & 63.97\% $\pm$ 10.9\% \\
+1 & \textbf{Smoothed Balanced Softmax (Ours)} & 0.9521 $\pm$ 0.0390 & 0.8907 $\pm$ 0.0580 & \textbf{0.7012 $\pm$ 0.0390} & \textbf{0.5245 $\pm$ 0.0170} & \textbf{0.5506 $\pm$ 0.0740} & \textbf{0.6638 $\pm$ 0.1140} \\
+2 & Patient-Count Prior (Linear $\pi_j = N_{\text{pts}}$) & 0.9515 $\pm$ 0.0350 & 0.8890 $\pm$ 0.0400 & 0.6980 $\pm$ 0.0310 & 0.5112 $\pm$ 0.0320 & 0.5180 $\pm$ 0.0650 & 0.6420 $\pm$ 0.0850 \\
+3 & Balanced Softmax (Image Prior $\pi_j = N_{\text{img}}$) & \textbf{0.9531 $\pm$ 0.0380} & 0.8893 $\pm$ 0.0310 & 0.6958 $\pm$ 0.0260 & 0.5008 $\pm$ 0.0570 & 0.4823 $\pm$ 0.0600 & 0.6276 $\pm$ 0.0610 \\
+4 & Logit Adjustment & 0.9455 $\pm$ 0.0420 & 0.8888 $\pm$ 0.0500 & 0.6998 $\pm$ 0.0300 & 0.4962 $\pm$ 0.0170 & 0.4822 $\pm$ 0.0480 & 0.5967 $\pm$ 0.0840 \\
+5 & LDAM Loss & 0.9522 $\pm$ 0.0200 & 0.8836 $\pm$ 0.0160 & 0.6937 $\pm$ 0.0190 & 0.4509 $\pm$ 0.0280 & 0.4908 $\pm$ 0.0580 & 0.6251 $\pm$ 0.1120 \\
+6 & Focal Loss & 0.9506 $\pm$ 0.0240 & \textbf{0.8938 $\pm$ 0.0320} & 0.6816 $\pm$ 0.0370 & 0.5109 $\pm$ 0.0570 & 0.4976 $\pm$ 0.0620 & 0.6097 $\pm$ 0.0860 \\
+7 & Cross-Entropy (Baseline) & 0.9489 $\pm$ 0.0420 & 0.8888 $\pm$ 0.0500 & 0.6749 $\pm$ 0.0220 & 0.5023 $\pm$ 0.0460 & 0.5268 $\pm$ 0.0760 & 0.6607 $\pm$ 0.0890 \\
+8 & Weighted CE & 0.9427 $\pm$ 0.0360 & 0.8747 $\pm$ 0.0380 & 0.6786 $\pm$ 0.0220 & 0.4918 $\pm$ 0.0350 & 0.5053 $\pm$ 0.0670 & 0.6397 $\pm$ 0.1090 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -348,15 +356,15 @@ Table~\ref{tab:stage20_loss} đánh giá đối chuẩn 7 phương pháp loss tr
 
 \textbf{Phân tích bóc tách Prior:} So sánh giữa hàng 1, 2 và 3 trong Table~\ref{tab:stage20_loss} chứng minh rõ ràng:
 \begin{itemize}
-    \item Việc chuyển từ \textit{Image-count prior} ($0{,}4823$) sang \textit{Patient-count prior tuyến tính} ($0{,}5180$) mang lại mức tăng $+3{,}57\%$ F1-Score, chứng minh việc tính toán xác suất tiên nghiệm dựa trên bệnh nhân thực tế giúp loại bỏ nhiễu lấy mẫu lặp lại.
-    \item Khi áp dụng thêm \textit{phép làm mượt căn bậc hai} ($\pi_j = \sqrt{N_{\text{pts}}}$), F1-Score tiếp tục tăng lên mức cao nhất $\mathbf{0{,}5506}$ ($+3{,}26\%$) và Tail Recall đạt $\mathbf{66{,}38\% \pm 11{,}4\%}$.
+    \item Việc chuyển từ \textit{Image-count prior} ($0{,}4823$) sang \textit{Patient-count prior tuyến tính} ($0{,}5180$) mang lại mức tăng $+0{,}0357$ F1-Score, chứng minh việc tính toán xác suất tiên nghiệm dựa trên bệnh nhân thực tế giúp loại bỏ nhiễu lấy mẫu lặp lại.
+    \item Khi áp dụng thêm \textit{phép làm mượt căn bậc hai} ($\pi_j = \sqrt{N_{\text{pts}}}$), F1-Score tiếp tục tăng lên mức cao nhất $\mathbf{0{,}5506 \pm 0{,}0740}$ và Tail Recall đạt $\mathbf{0{,}6638 \pm 0{,}1140}$.
 \end{itemize}
 
 \subsection{Systematic Ablation Studies and Component-Wise Analysis}
 \label{sec:ablations}
 
 \noindent \textbf{Ablation 1: Training Paradigms \& Stage Decoupling (Table~\ref{tab:ablation_training_paradigm}):} 
-So sánh giữa các quy trình huấn luyện cho thấy mô hình 1-Stage Joint Baseline gặp hiện tượng xung đột gradient nghiêm trọng giữa đầu phân loại đuôi và không gian đặc trưng tổng quát (Fine F1 chỉ đạt $0{,}5026$, C-F Consistency $74{,}38\%$). Mô hình \textbf{CystoHier (Proposed 3-Stage)} với cơ chế tách rời tuần tự và bảo toàn tham số nâng Fine F1 lên $\mathbf{0{,}5415 \pm 0{,}0363}$ (+3,89\% vs 1-Stage) và tăng mạnh Coarse Accuracy lên $\mathbf{78{,}37\% \pm 1{,}0\%}$ (trên tập Validation) cùng C-F Consistency đạt $\mathbf{82{,}28\% \pm 0{,}5\%}$.
+So sánh giữa các quy trình huấn luyện cho thấy mô hình 1-Stage Joint Baseline gặp hiện tượng xung đột gradient nghiêm trọng giữa đầu phân loại đuôi và không gian đặc trưng tổng quát (Fine F1 chỉ đạt $0{,}5026$, C-F Consistency $0{,}7438$). Mô hình \textbf{CystoHier (Proposed 3-Stage)} với cơ chế tách rời tuần tự và bảo toàn tham số nâng Fine F1 lên $\mathbf{0{,}5415 \pm 0{,}0363}$ (+0,0389 vs 1-Stage) và tăng mạnh Coarse Accuracy lên $\mathbf{0{,}7837 \pm 0{,}0100}$ (trên tập Validation) cùng C-F Consistency đạt $\mathbf{0{,}8228 \pm 0{,}0050}$.
 
 \begin{table}[t]
 \centering
@@ -365,20 +373,20 @@ So sánh giữa các quy trình huấn luyện cho thấy mô hình 1-Stage Join
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llcccccccc}
 \toprule
-\textbf{\#} & \textbf{Training Strategy} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Coarse F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All 22)} & \textbf{C-F Cons. (\%)} \\
+\textbf{\#} & \textbf{Training Strategy} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Coarse F1} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} & \textbf{Fine F1 (All 22)} & \textbf{C-F Cons.} \\
 \midrule
-1 & \textbf{CystoHier (Proposed 3-Stage)} & 0.9571 $\pm$ 0.021 & 0.8960 $\pm$ 0.026 & \textbf{78.37\% $\pm$ 1.0\%} & 0.6525 $\pm$ 0.012 & \textbf{53.07\% $\pm$ 4.0\%} & \textbf{0.5415 $\pm$ 0.036} & \textbf{0.4007 $\pm$ 0.015} & \textbf{82.28\% $\pm$ 0.5\%} \\
-2 & 1-Stage Joint Baseline & 0.9594 $\pm$ 0.018 & \textbf{0.8965 $\pm$ 0.012} & 73.64\% $\pm$ 0.9\% & \textbf{0.6576 $\pm$ 0.006} & 52.63\% $\pm$ 2.9\% & 0.5026 $\pm$ 0.046 & 0.3718 $\pm$ 0.026 & 74.38\% $\pm$ 3.2\% \\
-3 & 2-Stage Decoupled (D2S) & \textbf{0.9617 $\pm$ 0.028} & 0.8912 $\pm$ 0.022 & 72.12\% $\pm$ 4.6\% & 0.6313 $\pm$ 0.031 & 52.20\% $\pm$ 4.8\% & 0.5266 $\pm$ 0.056 & 0.3893 $\pm$ 0.032 & 78.90\% $\pm$ 2.4\% \\
-4 & Classifier Re-training (cRT) & \textbf{0.9617 $\pm$ 0.028} & 0.8910 $\pm$ 0.024 & 72.12\% $\pm$ 4.6\% & 0.6313 $\pm$ 0.031 & 51.96\% $\pm$ 2.5\% & 0.5311 $\pm$ 0.048 & 0.3930 $\pm$ 0.029 & 78.45\% $\pm$ 2.6\% \\
-5 & Joint Stage 2 Tuning (All Heads) & 0.9583 $\pm$ 0.035 & 0.8875 $\pm$ 0.031 & 73.10\% $\pm$ 3.4\% & 0.6435 $\pm$ 0.031 & 51.55\% $\pm$ 3.6\% & 0.5129 $\pm$ 0.059 & 0.3794 $\pm$ 0.038 & 76.80\% $\pm$ 2.9\% \\
+1 & \textbf{CystoHier (Proposed 3-Stage)} & 0.9571 $\pm$ 0.0210 & 0.8960 $\pm$ 0.0260 & \textbf{0.7837 $\pm$ 0.0100} & 0.6525 $\pm$ 0.0120 & \textbf{0.5307 $\pm$ 0.0400} & \textbf{0.5415 $\pm$ 0.0363} & \textbf{0.4007 $\pm$ 0.0150} & \textbf{0.8228 $\pm$ 0.0050} \\
+2 & 1-Stage Joint Baseline & 0.9594 $\pm$ 0.0180 & \textbf{0.8965 $\pm$ 0.0120} & 0.7364 $\pm$ 0.0090 & \textbf{0.6576 $\pm$ 0.0060} & 0.5263 $\pm$ 0.0290 & 0.5026 $\pm$ 0.0460 & 0.3718 $\pm$ 0.0260 & 0.7438 $\pm$ 0.0320 \\
+3 & 2-Stage Decoupled (D2S) & \textbf{0.9617 $\pm$ 0.0280} & 0.8912 $\pm$ 0.0220 & 0.7212 $\pm$ 0.0460 & 0.6313 $\pm$ 0.0310 & 0.5220 $\pm$ 0.0480 & 0.5266 $\pm$ 0.0560 & 0.3893 $\pm$ 0.0320 & 0.7890 $\pm$ 0.0240 \\
+4 & Classifier Re-training (cRT) & \textbf{0.9617 $\pm$ 0.0280} & 0.8910 $\pm$ 0.0240 & 0.7212 $\pm$ 0.0460 & 0.6313 $\pm$ 0.0310 & 0.5196 $\pm$ 0.0250 & 0.5311 $\pm$ 0.0480 & 0.3930 $\pm$ 0.0290 & 0.7845 $\pm$ 0.0260 \\
+5 & Joint Stage 2 Tuning (All Heads) & 0.9583 $\pm$ 0.0350 & 0.8875 $\pm$ 0.0310 & 0.7310 $\pm$ 0.0340 & 0.6435 $\pm$ 0.0310 & 0.5155 $\pm$ 0.0360 & 0.5129 $\pm$ 0.0590 & 0.3794 $\pm$ 0.0380 & 0.7680 $\pm$ 0.0290 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
 \noindent \textbf{Ablation 2: Hierarchy Loss Scheduling \& Curriculum Warmup (Table~\ref{tab:ablation_hierarchy_schedule}):} 
-So sánh giữa các chiến lược lên lịch trọng số phân cấp khẳng định tính ưu việt của \textbf{Curriculum Warmup} ($w_{\text{hrc}}(t)$). Khi áp đặt trọng số cố định $w=0{,}25$ ngay từ đầu (\textit{Fixed Hierarchy}), mạng bị gò bó không gian đặc trưng biểu mô sớm, khiến Coarse Accuracy tụt xuống $70{,}09\%$ và Fine Accuracy chỉ đạt $47{,}21\%$. Việc tăng dần trọng số $0 \to 0{,}25$ trong 12 epoch đầu giúp mạng vừa tự do học biểu diễn phong phú, vừa đạt độ nhất quán phả hệ cao nhất $\mathbf{82{,}28\% \pm 0{,}5\%}$.
+So sánh giữa các chiến lược lên lịch trọng số phân cấp khẳng định tính ưu việt của \textbf{Curriculum Warmup} ($w_{\text{hrc}}(t)$). Khi áp đặt trọng số cố định $w=0{,}25$ ngay từ đầu (\textit{Fixed Hierarchy}), mạng bị gò bó không gian đặc trưng biểu mô sớm, khiến Coarse Accuracy tụt xuống $0{,}7009$ và Fine Accuracy chỉ đạt $0{,}4721$. Việc tăng dần trọng số $0 \to 0{,}25$ trong 12 epoch đầu giúp mạng vừa tự do học biểu diễn phong phú, vừa đạt độ nhất quán phả hệ cao nhất $\mathbf{0{,}8228 \pm 0{,}0050}$.
 
 \begin{table}[t]
 \centering
@@ -387,21 +395,21 @@ So sánh giữa các chiến lược lên lịch trọng số phân cấp khẳn
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llccccccc}
 \toprule
-\textbf{\#} & \textbf{Scheduling Variant} & \textbf{Weight Schedule $w_{\text{hrc}}(t)$} & \textbf{Binary AUROC} & \textbf{Coarse Acc (\%)} & \textbf{Coarse F1} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons. (\%)} \\
+\textbf{\#} & \textbf{Scheduling Variant} & \textbf{Weight Schedule $w_{\text{hrc}}(t)$} & \textbf{Binary AUROC} & \textbf{Coarse Acc} & \textbf{Coarse F1} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons.} \\
 \midrule
-1 & \textbf{Proposed Warmup} & $0.25 \cdot \min(1.0, t/12)$ & 0.9571 $\pm$ 0.021 & \textbf{73.57\% $\pm$ 1.8\%} & \textbf{0.6525 $\pm$ 0.012} & \textbf{53.07\% $\pm$ 4.0\%} & \textbf{0.5415 $\pm$ 0.036} & \textbf{82.28\% $\pm$ 0.5\%} \\
-2 & Two-Phase Step & $w=0 \to 0.25$ at P2 & 0.9521 $\pm$ 0.028 & 71.76\% $\pm$ 1.1\% & 0.6371 $\pm$ 0.008 & 48.98\% $\pm$ 4.1\% & 0.5240 $\pm$ 0.025 & 81.55\% $\pm$ 1.8\% \\
-3 & Fixed Hierarchy & $w=0.25$ constant & 0.9466 $\pm$ 0.031 & 70.09\% $\pm$ 2.3\% & 0.6119 $\pm$ 0.018 & 47.21\% $\pm$ 2.4\% & 0.5199 $\pm$ 0.048 & 81.88\% $\pm$ 2.0\% \\
-4 & w/o Hierarchy Loss & $w=0$ (Unconstrained) & \textbf{0.9649 $\pm$ 0.022} & 73.46\% $\pm$ 1.7\% & 0.6426 $\pm$ 0.009 & 52.72\% $\pm$ 2.0\% & 0.5414 $\pm$ 0.077 & 72.40\% $\pm$ 4.1\% \\
-5 & w/o Binary-Coarse & $w_{\text{bc}}=0, w_{\text{cf}}=0.25$ & 0.9528 $\pm$ 0.037 & 71.75\% $\pm$ 0.7\% & 0.6206 $\pm$ 0.011 & 49.06\% $\pm$ 2.8\% & 0.5120 $\pm$ 0.035 & \textbf{82.43\% $\pm$ 2.8\%} \\
-6 & w/o Coarse-Fine & $w_{\text{bc}}=0.25, w_{\text{cf}}=0$ & 0.9605 $\pm$ 0.021 & 71.51\% $\pm$ 4.0\% & 0.6313 $\pm$ 0.029 & 52.92\% $\pm$ 4.1\% & 0.5312 $\pm$ 0.028 & 81.31\% $\pm$ 3.1\% \\
+1 & \textbf{Proposed Warmup} & $0.25 \cdot \min(1.0, t/12)$ & 0.9571 $\pm$ 0.0210 & \textbf{0.7357 $\pm$ 0.0180} & \textbf{0.6525 $\pm$ 0.0120} & \textbf{0.5307 $\pm$ 0.0400} & \textbf{0.5415 $\pm$ 0.0363} & \textbf{0.8228 $\pm$ 0.0050} \\
+2 & Two-Phase Step & $w=0 \to 0.25$ at P2 & 0.9521 $\pm$ 0.0280 & 0.7176 $\pm$ 0.0110 & 0.6371 $\pm$ 0.0080 & 0.4898 $\pm$ 0.0410 & 0.5240 $\pm$ 0.0250 & 0.8155 $\pm$ 0.0180 \\
+3 & Fixed Hierarchy & $w=0.25$ constant & 0.9466 $\pm$ 0.0310 & 0.7009 $\pm$ 0.0230 & 0.6119 $\pm$ 0.0180 & 0.4721 $\pm$ 0.0240 & 0.5199 $\pm$ 0.0480 & 0.8188 $\pm$ 0.0200 \\
+4 & w/o Hierarchy Loss & $w=0$ (Unconstrained) & \textbf{0.9649 $\pm$ 0.0220} & 0.7346 $\pm$ 0.0170 & 0.6426 $\pm$ 0.0090 & 0.5272 $\pm$ 0.0200 & 0.5414 $\pm$ 0.0770 & 0.7240 $\pm$ 0.0410 \\
+5 & w/o Binary-Coarse & $w_{\text{bc}}=0, w_{\text{cf}}=0.25$ & 0.9528 $\pm$ 0.0370 & 0.7175 $\pm$ 0.0070 & 0.6206 $\pm$ 0.0110 & 0.4906 $\pm$ 0.0280 & 0.5120 $\pm$ 0.0350 & \textbf{0.8243 $\pm$ 0.0280} \\
+6 & w/o Coarse-Fine & $w_{\text{bc}}=0.25, w_{\text{cf}}=0$ & 0.9605 $\pm$ 0.0210 & 0.7151 $\pm$ 0.0400 & 0.6313 $\pm$ 0.0290 & 0.5292 $\pm$ 0.0410 & 0.5312 $\pm$ 0.0280 & 0.8131 $\pm$ 0.0310 \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
 \noindent \textbf{Ablation 3: Loss Component Marginal Contributions (Table~\ref{tab:ablation_loss_components}):} 
-Khảo sát đóng góp cận biên của từng hàm mục tiêu xác định: (1) Loại bỏ Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) gây suy giảm mạnh nhất Primary Fine F1 ($-4{,}87\%$, từ $0{,}6114 \to 0{,}5627$), chứng minh vai trò quyết định của việc co cụm không gian đặc trưng; (2) Loại bỏ Smoothed Balanced Softmax làm giảm Tail Recall $-5{,}37\%$ (từ $65{,}23\% \to 59{,}86\%$) và giảm C-F Consistency $-4{,}22\%$.
+Khảo sát đóng góp cận biên của từng hàm mục tiêu xác định: (1) Loại bỏ Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) gây suy giảm mạnh nhất Primary Fine F1 ($-0{,}0487$, từ $0{,}6114 \to 0{,}5627$), chứng minh vai trò quyết định của việc co cụm không gian đặc trưng; (2) Loại bỏ Smoothed Balanced Softmax làm giảm Tail Recall $-0{,}0537$ (từ $0{,}6523 \to 0{,}5986$) và giảm C-F Consistency $-0{,}0422$.
 
 \begin{table}[t]
 \centering
@@ -410,20 +418,20 @@ Khảo sát đóng góp cận biên của từng hàm mục tiêu xác định: 
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llccccccc}
 \toprule
-\textbf{\#} & \textbf{Experimental Configuration} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Primary Fine F1} & \textbf{Tail Recall (\%)} & \textbf{C-F Cons. (\%)} \\
+\textbf{\#} & \textbf{Experimental Configuration} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Fine Acc} & \textbf{Primary Fine F1} & \textbf{Tail Recall} & \textbf{C-F Cons.} \\
 \midrule
-1 & \textbf{Full Proposed (Anchor)} & 0.9596 $\pm$ 0.032 & 0.8998 $\pm$ 0.038 & \textbf{72.76\% $\pm$ 1.5\%} & 51.02\% $\pm$ 3.9\% & \textbf{0.6114 $\pm$ 0.023} & 65.23\% $\pm$ 7.4\% & \textbf{82.80\% $\pm$ 2.6\%} \\
-2 & w/o SupCon ($w=0$) & 0.9591 $\pm$ 0.029 & \textbf{0.9015 $\pm$ 0.038} & 70.31\% $\pm$ 2.7\% & 47.74\% $\pm$ 1.5\% & 0.5627 $\pm$ 0.073 & \textbf{67.08\% $\pm$ 6.9\%} & 81.42\% $\pm$ 2.7\% \\
-3 & w/o Smoothed Balanced Softmax & 0.9534 $\pm$ 0.021 & 0.8937 $\pm$ 0.026 & 70.93\% $\pm$ 1.1\% & 48.92\% $\pm$ 3.2\% & 0.6004 $\pm$ 0.026 & 59.86\% $\pm$ 9.4\% & 78.58\% $\pm$ 3.7\% \\
-4 & w/o Hierarchy Loss ($w=0$) & 0.9583 $\pm$ 0.034 & 0.9009 $\pm$ 0.028 & 71.97\% $\pm$ 1.9\% & \textbf{51.29\% $\pm$ 1.2\%} & 0.5890 $\pm$ 0.029 & 65.54\% $\pm$ 6.4\% & 81.49\% $\pm$ 2.9\% \\
-5 & w/o Data Augmentation & 0.9596 $\pm$ 0.032 & 0.8998 $\pm$ 0.038 & \textbf{72.76\% $\pm$ 1.5\%} & 51.02\% $\pm$ 3.9\% & \textbf{0.6114 $\pm$ 0.023} & 65.23\% $\pm$ 7.4\% & \textbf{82.80\% $\pm$ 2.6\%} \\
+1 & \textbf{Full Proposed (Anchor)} & 0.9596 $\pm$ 0.0320 & 0.8998 $\pm$ 0.0380 & \textbf{0.7276 $\pm$ 0.0150} & 0.5102 $\pm$ 0.0390 & \textbf{0.6114 $\pm$ 0.0230} & 0.6523 $\pm$ 0.0740 & \textbf{0.8280 $\pm$ 0.0260} \\
+2 & w/o SupCon ($w=0$) & 0.9591 $\pm$ 0.0290 & \textbf{0.9015 $\pm$ 0.0380} & 0.7031 $\pm$ 0.0270 & 0.4774 $\pm$ 0.0150 & 0.5627 $\pm$ 0.0730 & \textbf{0.6708 $\pm$ 0.0690} & 0.8142 $\pm$ 0.0270 \\
+3 & w/o Smoothed Balanced Softmax & 0.9534 $\pm$ 0.0210 & 0.8937 $\pm$ 0.0260 & 0.7093 $\pm$ 0.0110 & 0.4892 $\pm$ 0.0320 & 0.6004 $\pm$ 0.0260 & 0.5986 $\pm$ 0.0940 & 0.7858 $\pm$ 0.0370 \\
+4 & w/o Hierarchy Loss ($w=0$) & 0.9583 $\pm$ 0.0340 & 0.9009 $\pm$ 0.0280 & 0.7197 $\pm$ 0.0190 & \textbf{0.5129 $\pm$ 0.0120} & 0.5890 $\pm$ 0.0290 & 0.6554 $\pm$ 0.0640 & 0.8149 $\pm$ 0.0290 \\
+5 & w/o Data Augmentation & 0.9596 $\pm$ 0.0320 & 0.8998 $\pm$ 0.0380 & \textbf{0.7276 $\pm$ 0.0150} & 0.5102 $\pm$ 0.0390 & \textbf{0.6114 $\pm$ 0.0230} & 0.6523 $\pm$ 0.0740 & \textbf{0.8280 $\pm$ 0.0260} \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
 \noindent \textbf{Ablation 4: Architectural Head Placement \& Backbone Freezing Depth (Table~\ref{tab:ablation_placement_freezing}):} 
-Khi phân nhánh các đầu phân loại từ các tầng sớm (Intermediate Heads: Binary tại Stage 2, Coarse tại Stage 3), Binary AUROC sụt giảm nghiêm trọng $-12{,}2\%$ và Fine Accuracy giảm $-10{,}4\%$, khẳng định trường tiếp nhận toàn cục tại Stage 4 là bắt buộc để giải quyết nhiễu quang học. Về độ sâu đóng băng (Part B), việc đóng băng Stage 1--2 giúp giảm $51{,}7\%$ thời gian huấn luyện trong khi vẫn duy trì Fine F1 cao ($0{,}4556$ vs $0{,}4396$), cung cấp một phương án huấn luyện tiết kiệm tài nguyên cho các cơ sở y tế.
+Khi phân nhánh các đầu phân loại từ các tầng sớm (Intermediate Heads: Binary tại Stage 2, Coarse tại Stage 3), Binary AUROC sụt giảm nghiêm trọng $-0{,}1216$ và Fine Accuracy giảm $-0{,}1043$, khẳng định trường tiếp nhận toàn cục tại Stage 4 là bắt buộc để giải quyết nhiễu quang học. Về độ sâu đóng băng (Part B), việc đóng băng Stage 1--2 giúp giảm $0{,}2600$ thời gian huấn luyện trong khi vẫn duy trì Fine F1 cao ($0{,}4556$ vs $0{,}4396$), cung cấp một phương án huấn luyện tiết kiệm tài nguyên cho các cơ sở y tế.
 
 \begin{table}[t]
 \centering
@@ -432,23 +440,23 @@ Khi phân nhánh các đầu phân loại từ các tầng sớm (Intermediate H
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llccccc}
 \toprule
-\textbf{\#} & \textbf{Architecture / Freezing Configuration} & \textbf{Binary AUROC} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{Compute Time / Ep} \\
+\textbf{\#} & \textbf{Architecture / Freezing Configuration} & \textbf{Binary AUROC} & \textbf{Coarse Acc} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} & \textbf{Compute Time / Ep} \\
 \midrule
 \multicolumn{7}{l}{\textit{\textbf{A. Head Placement Analysis (Validation 3-Splits)}}} \\
-1 & \textbf{Shared Late-Stage (All 3 Heads at Stage 4)} & \textbf{0.9571 $\pm$ 0.021} & \textbf{73.57\% $\pm$ 1.8\%} & \textbf{53.07\% $\pm$ 4.0\%} & \textbf{0.5415 $\pm$ 0.036} & 59.41s \\
-2 & Multi-Stage Intermediate (S2 $\to$ Bin, S3 $\to$ Coarse, S4 $\to$ Fine) & 0.8355 $\pm$ 0.045 & 68.73\% $\pm$ 3.1\% & 42.64\% $\pm$ 3.8\% & 0.4806 $\pm$ 0.049 & 56.12s \\
+1 & \textbf{Shared Late-Stage (All 3 Heads at Stage 4)} & \textbf{0.9571 $\pm$ 0.0210} & \textbf{0.7357 $\pm$ 0.0180} & \textbf{0.5307 $\pm$ 0.0400} & \textbf{0.5415 $\pm$ 0.0363} & 59.41s \\
+2 & Multi-Stage Intermediate (S2 $\to$ Bin, S3 $\to$ Coarse, S4 $\to$ Fine) & 0.8355 $\pm$ 0.0450 & 0.6873 $\pm$ 0.0310 & 0.4264 $\pm$ 0.0380 & 0.4806 $\pm$ 0.0490 & 56.12s \\
 \midrule
 \multicolumn{7}{l}{\textit{\textbf{B. Backbone Freezing Depth \& Compute Trade-off (Split 0)}}} \\
-1 & \textbf{Full Fine-Tuning (100\% Unfrozen: 27.52M)} & \textbf{0.9571} & \textbf{74.04\%} & 48.84\% & 0.4396 & 59.41s (1.0$\times$) \\
-2 & \textbf{Freeze Stages 1--2 (95.7\% Trainable: 26.32M)} & 0.9520 & 70.21\% & \textbf{49.22\%} & \textbf{0.4556} & 43.97s (-26.0\%) \\
-3 & \textbf{Freeze Stages 1--3 (55.8\% Trainable: 15.37M)} & 0.9140 & 64.60\% & 37.98\% & 0.4168 & \textbf{31.75s (-46.6\%)} \\
+1 & \textbf{Full Fine-Tuning (100\% Unfrozen: 27.52M)} & \textbf{0.9571} & \textbf{0.7404} & 0.4884 & 0.4396 & 59.41s (1.0$\times$) \\
+2 & \textbf{Freeze Stages 1--2 (95.7\% Trainable: 26.32M)} & 0.9520 & 0.7021 & \textbf{0.4922} & \textbf{0.4556} & 43.97s (-0.2600) \\
+3 & \textbf{Freeze Stages 1--3 (55.8\% Trainable: 15.37M)} & 0.9140 & 0.6460 & 0.3798 & 0.4168 & \textbf{31.75s (-0.4660)} \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
 \noindent \textbf{Ablation 5: Hyperparameters \& Hierarchical Marginalization Blending (Table~\ref{tab:ablation_hyperparameters_blending}):} 
-Khảo sát nhiệt độ co cụm cho thấy $\tau = 0{,}10$ và trọng số $w_{\text{supcon}} = 0{,}10$ đạt điểm cân bằng tối ưu giữa Fine F1 ($0{,}6114$) và độ nhất quán phả hệ ($82{,}80\%$). Đặc biệt, cơ chế hòa trộn xác suất Hierarchical Marginalization với $\lambda = 0{,}25$ nâng Coarse Accuracy trên tập Validation từ $70{,}76\%$ lên $\mathbf{78{,}37\% \pm 1{,}0\%}$ và trên tập Test độc lập từ $81{,}18\%$ lên $\mathbf{86{,}42\% \pm 3{,}52\%}$ ($+5{,}24\%$).
+Khảo sát nhiệt độ co cụm cho thấy $\tau = 0{,}10$ và trọng số $w_{\text{supcon}} = 0{,}10$ đạt điểm cân bằng tối ưu giữa Fine F1 ($0{,}6114$) và độ nhất quán phả hệ ($0{,}8280$). Đặc biệt, cơ chế hòa trộn xác suất Hierarchical Marginalization với $\lambda = 0{,}25$ nâng Coarse Accuracy trên tập Validation từ $0{,}7076$ lên $\mathbf{0{,}7837 \pm 0{,}0100}$ và trên tập Test độc lập từ $0{,}8118$ lên $\mathbf{0{,}8642 \pm 0{,}0352}$ ($+0{,}0524$).
 
 \begin{table}[t]
 \centering
@@ -457,21 +465,21 @@ Khảo sát nhiệt độ co cụm cho thấy $\tau = 0{,}10$ và trọng số $
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llcccccc}
 \toprule
-\textbf{Ablation Group} & \textbf{Parameter Configuration} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc (\%)} & \textbf{Fine Acc (\%)} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons. (\%)} \\
+\textbf{Ablation Group} & \textbf{Parameter Configuration} & \textbf{Binary AUROC} & \textbf{Binary F1} & \textbf{Coarse Acc} & \textbf{Fine Acc} & \textbf{Fine F1 (Supp)} & \textbf{C-F Cons.} \\
 \midrule
-\textit{Temperature $\tau$ ($w=0.10$)} & $\tau = 0.05$ & \textbf{0.9664 $\pm$ 0.024} & 0.9092 $\pm$ 0.032 & 72.51\% $\pm$ 4.0\% & 51.67\% $\pm$ 3.9\% & 0.5847 $\pm$ 0.013 & 81.69\% $\pm$ 2.8\% \\
-& $\mathbf{\tau = 0.10}$ \textbf{(Optimal)} & 0.9596 $\pm$ 0.032 & 0.8998 $\pm$ 0.038 & \textbf{72.76\% $\pm$ 1.5\%} & 51.02\% $\pm$ 3.9\% & \textbf{0.6114 $\pm$ 0.023} & \textbf{82.80\% $\pm$ 2.6\%} \\
-& $\tau = 0.20$ & 0.9550 $\pm$ 0.031 & 0.8954 $\pm$ 0.027 & 71.29\% $\pm$ 2.6\% & \textbf{51.94\% $\pm$ 1.0\%} & 0.5914 $\pm$ 0.061 & 79.41\% $\pm$ 3.6\% \\
+\textit{Temperature $\tau$ ($w=0.10$)} & $\tau = 0.05$ & \textbf{0.9664 $\pm$ 0.0240} & 0.9092 $\pm$ 0.0320 & 0.7251 $\pm$ 0.0400 & 0.5167 $\pm$ 0.0390 & 0.5847 $\pm$ 0.0130 & 0.8169 $\pm$ 0.0280 \\
+& $\mathbf{\tau = 0.10}$ \textbf{(Optimal)} & 0.9596 $\pm$ 0.0320 & 0.8998 $\pm$ 0.0380 & \textbf{0.7276 $\pm$ 0.0150} & 0.5102 $\pm$ 0.0390 & \textbf{0.6114 $\pm$ 0.0230} & \textbf{0.8280 $\pm$ 0.0260} \\
+& $\tau = 0.20$ & 0.9550 $\pm$ 0.0310 & 0.8954 $\pm$ 0.0270 & 0.7129 $\pm$ 0.0260 & \textbf{0.5194 $\pm$ 0.0100} & 0.5914 $\pm$ 0.0610 & 0.7941 $\pm$ 0.0360 \\
 \midrule
-\textit{Weight $w_{\text{supcon}}$ ($\tau=0.10$)} & $w = 0.05$ & 0.9602 $\pm$ 0.028 & 0.9035 $\pm$ 0.030 & 72.55\% $\pm$ 1.5\% & \textbf{53.67\% $\pm$ 4.2\%} & 0.6081 $\pm$ 0.046 & 79.80\% $\pm$ 3.4\% \\
-& $\mathbf{w = 0.10}$ \textbf{(Optimal)} & 0.9596 $\pm$ 0.032 & 0.8998 $\pm$ 0.038 & \textbf{72.76\% $\pm$ 1.5\%} & 51.02\% $\pm$ 3.9\% & 0.6114 $\pm$ 0.023 & \textbf{82.80\% $\pm$ 2.6\%} \\
-& $w = 0.20$ & \textbf{0.9630 $\pm$ 0.029} & \textbf{0.9117 $\pm$ 0.031} & 71.59\% $\pm$ 2.4\% & 50.52\% $\pm$ 2.5\% & \textbf{0.6228 $\pm$ 0.030} & 79.33\% $\pm$ 3.5\% \\
+\textit{Weight $w_{\text{supcon}}$ ($\tau=0.10$)} & $w = 0.05$ & 0.9602 $\pm$ 0.0280 & 0.9035 $\pm$ 0.0300 & 0.7255 $\pm$ 0.0150 & \textbf{0.5367 $\pm$ 0.0420} & 0.6081 $\pm$ 0.0460 & 0.7980 $\pm$ 0.0340 \\
+& $\mathbf{w = 0.10}$ \textbf{(Optimal)} & 0.9596 $\pm$ 0.0320 & 0.8998 $\pm$ 0.0380 & \textbf{0.7276 $\pm$ 0.0150} & 0.5102 $\pm$ 0.0390 & 0.6114 $\pm$ 0.0230 & \textbf{0.8280 $\pm$ 0.0260} \\
+& $w = 0.20$ & \textbf{0.9630 $\pm$ 0.0290} & \textbf{0.9117 $\pm$ 0.0310} & 0.7159 $\pm$ 0.0240 & 0.5052 $\pm$ 0.0250 & \textbf{0.6228 $\pm$ 0.0300} & 0.7933 $\pm$ 0.0350 \\
 \midrule
 \multicolumn{8}{l}{\textit{Inference Marginalization Weight ($\lambda$): $P_{\text{ens}}(C) = \lambda P_{\text{coarse}}(C) + (1-\lambda) P_{\text{from\_fine}}(C)$}} \\
-& $\lambda = 1.00$ (Coarse Direct) & --- & --- & 70.76\% $\pm$ 1.1\% (Val) & --- & --- & 81.18\% $\pm$ 4.1\% (Test) \\
-& $\lambda = 0.50$ (Equal Blend) & --- & --- & 76.50\% $\pm$ 0.9\% (Val) & --- & --- & 85.10\% $\pm$ 4.2\% (Test) \\
-& $\mathbf{\lambda = 0.25}$ \textbf{(Optimal)} & --- & --- & \textbf{78.37\% $\pm$ 1.0\%} \textbf{(Val)} & --- & --- & \textbf{86.42\% $\pm$ 3.5\%} \textbf{(Test)} \\
-& $\lambda = 0.00$ (Fine Marg. Only) & --- & --- & 78.10\% $\pm$ 0.7\% (Val) & --- & --- & 84.87\% $\pm$ 3.7\% (Test) \\
+& $\lambda = 1.00$ (Coarse Direct) & --- & --- & 0.7076 $\pm$ 0.0110 (Val) & --- & --- & 0.8118 $\pm$ 0.0410 (Test) \\
+& $\lambda = 0.50$ (Equal Blend) & --- & --- & 0.7650 $\pm$ 0.0090 (Val) & --- & --- & 0.8510 $\pm$ 0.0420 (Test) \\
+& $\mathbf{\lambda = 0.25}$ \textbf{(Optimal)} & --- & --- & \textbf{0.7837 $\pm$ 0.0100} \textbf{(Val)} & --- & --- & \textbf{0.8642 $\pm$ 0.0352} \textbf{(Test)} \\
+& $\lambda = 0.00$ (Fine Marg. Only) & --- & --- & 0.7810 $\pm$ 0.0070 (Val) & --- & --- & 0.8487 $\pm$ 0.0370 (Test) \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -496,17 +504,17 @@ Toàn bộ các mô hình được huấn luyện và lựa chọn checkpoint \t
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{lcccccc}
 \toprule
-\textbf{Subgroup / Pathology Metric} & \textbf{AUROC} & \textbf{Accuracy (\%)} & \textbf{Sensitivity (\%)} & \textbf{Specificity (\%)} & \textbf{F1-Score} & \textbf{Bal. Acc (\%)} \\
+\textbf{Subgroup / Pathology Metric} & \textbf{AUROC} & \textbf{Accuracy} & \textbf{Sensitivity} & \textbf{Specificity} & \textbf{F1-Score} & \textbf{Bal. Acc} \\
 \midrule
 \multicolumn{7}{l}{\textit{\textbf{A. Toàn bộ tập Ngoại kiểm (Overall External Cohort: WLI + NBI, N=1,754 images / 23 Patients)}}} \\
-Swin Baseline (Binary Only) & 0.9503 $\pm$ 0.0170 & 84.80\% $\pm$ 2.51\% & 80.16\% $\pm$ 3.62\% & \textbf{96.30\% $\pm$ 0.34\%} & 0.8821 $\pm$ 0.0221 & 88.23\% $\pm$ 1.70\% \\
-\textbf{CystoHier (Proposed Direct)} & \textbf{0.9587 $\pm$ 0.0118} & \textbf{85.37\% $\pm$ 2.05\%} & \textbf{81.23\% $\pm$ 3.15\%} & 95.63\% $\pm$ 1.55\% & \textbf{0.8875 $\pm$ 0.0179} & \textbf{88.43\% $\pm$ 1.36\%} \\
+Swin Baseline (Binary Only) & 0.9503 $\pm$ 0.0170 & 0.8480 $\pm$ 0.0251 & 0.8016 $\pm$ 0.0362 & \textbf{0.9630 $\pm$ 0.0034} & 0.8821 $\pm$ 0.0221 & 0.8823 $\pm$ 0.0170 \\
+\textbf{CystoHier (Proposed Direct)} & \textbf{0.9587 $\pm$ 0.0118} & \textbf{0.8537 $\pm$ 0.0205} & \textbf{0.8123 $\pm$ 0.0315} & 0.9563 $\pm$ 0.0155 & \textbf{0.8875 $\pm$ 0.0179} & \textbf{0.8843 $\pm$ 0.0136} \\
 \midrule
 \multicolumn{7}{l}{\textit{\textbf{B. Phân nhóm độ nhạy mô bệnh học (Pathology Subgroup Sensitivity)}}} \\
-\quad LGC Sensitivity (Low-Grade Carcinoma, N=647) & \multicolumn{3}{l}{Swin: \textbf{82.59\% $\pm$ 4.10\%}} & \multicolumn{3}{l}{CystoHier: 82.53\% $\pm$ 4.99\%} \\
-\quad HGC Sensitivity (High-Grade Carcinoma, N=469) & \multicolumn{3}{l}{Swin: 88.56\% $\pm$ 2.46\%} & \multicolumn{3}{l}{\textbf{CystoHier: 89.48\% $\pm$ 1.96\%}} \\
-\quad NTL Sensitivity (Non-Tumoral Lesion, N=134) & \multicolumn{3}{l}{Swin: 39.05\% $\pm$ 5.66\%} & \multicolumn{3}{l}{\textbf{CystoHier: 46.02\% $\pm$ 4.57\% (+6.97 pp)}} \\
-\quad NST Specificity (Non-Suspicious Tissue, N=504) & \multicolumn{3}{l}{Swin: \textbf{96.30\% $\pm$ 0.34\%}} & \multicolumn{3}{l}{CystoHier: 95.63\% $\pm$ 1.55\%} \\
+\quad LGC Sensitivity (Low-Grade Carcinoma, N=647) & \multicolumn{3}{l}{Swin: \textbf{0.8259 $\pm$ 0.0410}} & \multicolumn{3}{l}{CystoHier: 0.8253 $\pm$ 0.0499} \\
+\quad HGC Sensitivity (High-Grade Carcinoma, N=469) & \multicolumn{3}{l}{Swin: 0.8856 $\pm$ 0.0246} & \multicolumn{3}{l}{\textbf{CystoHier: 0.8948 $\pm$ 0.0196}} \\
+\quad NTL Sensitivity (Non-Tumoral Lesion, N=134) & \multicolumn{3}{l}{Swin: 0.3905 $\pm$ 0.0566} & \multicolumn{3}{l}{\textbf{CystoHier: 0.4602 $\pm$ 0.0457 (+0.0697)}} \\
+\quad NST Specificity (Non-Suspicious Tissue, N=504) & \multicolumn{3}{l}{Swin: \textbf{0.9630 $\pm$ 0.0034}} & \multicolumn{3}{l}{CystoHier: 0.9563 $\pm$ 0.0155} \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -515,8 +523,8 @@ Swin Baseline (Binary Only) & 0.9503 $\pm$ 0.0170 & 84.80\% $\pm$ 2.51\% & 80.16
 \textbf{Phân tích lâm sàng và Giải thích chuyển giao miền quang học:}
 \begin{enumerate}
     \item \textit{Năng lực tổng quát hóa zero-shot vững chắc:} Mô hình \textbf{CystoHier} đạt AUROC ngoại kiểm $\mathbf{0{,}9587 \pm 0{,}0118}$ và F1-Score $\mathbf{0{,}8875 \pm 0{,}0179}$ trên dữ liệu hoàn toàn độc lập từ châu Âu mà không cần bất kỳ bước fine-tuning nào. Ước lượng bootstrap mức bệnh nhân 1.000 lần (Patient-Level Bootstrap) xác nhận khoảng tin cậy 95\% của AUROC là $[0{,}9312; 0{,}9788]$.
-    \item \textit{Cải thiện phát hiện tổn thương không tạo u (NTL):} Đối với các tổn thương viêm loét phẳng khó chẩn đoán (NTL), không gian biểu diễn phân cấp của \textbf{CystoHier} giúp nâng độ nhạy phát hiện từ $39{,}05\%$ lên $\mathbf{46{,}02\%}$ ($+6{,}97$ percentage points), đồng thời cải thiện độ nhạy phát hiện ung thư biểu mô độ cao (HGC) lên $\mathbf{89{,}48\% \pm 1{,}96\%}$.
-    \item \textit{Cơ chế chống trôi dạt đặc trưng dưới ánh sáng dải hẹp (NBI):} Chế độ nội soi NBI sử dụng hai bước sóng hẹp 415 nm (xanh lam) và 540 nm (xanh lục) nhằm làm nổi bật cấu trúc vi mạch máu niêm mạc. Do baseline đơn nhiệm học trực tiếp trên WLC dễ bị phụ thuộc vào phân bố màu sắc dải rộng, mô hình này bị sụt giảm độ nhạy trên ảnh NBI (Sensitivity $69{,}78\%$, Accuracy $76{,}01\%$). Ngược lại, việc tích hợp Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) trong \textbf{CystoHier} giúp mạng học được các biểu diễn hình thái học và vi cấu trúc mao mạch bất biến trước sự thay đổi dải màu quang học, từ đó đạt Accuracy $\mathbf{81{,}00\%}$ và Sensitivity $\mathbf{75{,}47\%}$ vượt trội tại điểm vận hành lâm sàng NBI.
+    \item \textit{Cải thiện phát hiện tổn thương không tạo u (NTL):} Đối với các tổn thương viêm loét phẳng khó chẩn đoán (NTL), không gian biểu diễn phân cấp của \textbf{CystoHier} giúp nâng độ nhạy phát hiện từ $0{,}3905$ lên $\mathbf{0{,}4602}$ ($+0{,}0697$), đồng thời cải thiện độ nhạy phát hiện ung thư biểu mô độ cao (HGC) lên $\mathbf{0{,}8948 \pm 0{,}0196}$.
+    \item \textit{Cơ chế chống trôi dạt đặc trưng dưới ánh sáng dải hẹp (NBI):} Chế độ nội soi NBI sử dụng hai bước sóng hẹp 415 nm (xanh lam) và 540 nm (xanh lục) nhằm làm nổi bật cấu trúc vi mạch máu niêm mạc. Do baseline đơn nhiệm học trực tiếp trên WLC dễ bị phụ thuộc vào phân bố màu sắc dải rộng, mô hình này bị sụt giảm độ nhạy trên ảnh NBI (Sensitivity $0{,}6978$, Accuracy $0{,}7601$). Ngược lại, việc tích hợp Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) trong \textbf{CystoHier} giúp mạng học được các biểu diễn hình thái học và vi cấu trúc mao mạch bất biến trước sự thay đổi dải màu quang học, từ đó đạt Accuracy $\mathbf{0{,}8100}$ và Sensitivity $\mathbf{0{,}7547}$ vượt trội tại điểm vận hành lâm sàng NBI.
 \end{enumerate}
 
 \FloatBarrier
@@ -533,7 +541,7 @@ Nhằm kiểm chứng tính trung thực giải phẫu học, chúng tôi thực
 \label{fig:gradcam}
 \end{figure}
 
-Đánh giá định lượng Grad-CAM IoU với ngưỡng cố định $T=0{,}5$ (Table~\ref{tab:gradcam_iou}) cho thấy mô hình \textbf{CystoHier} đạt IoU trung bình \textbf{23,56\% $\pm$ 7,3\%} so với Swin Baseline (\textbf{5,00\%}), tương ứng mức tăng $+18{,}56$ percentage points (pp). Đặc biệt trên phân lớp tổn thương ác tính \textit{LowGradePapillary}, IoU tăng từ $1{,}12\%$ lên $\mathbf{37{,}78\%}$ ($+36{,}66$ pp). Mô hình đề xuất giảm thiểu kích hoạt giả tại viền đen camera và vùng lóa sáng, cho thấy sự tập trung cao hơn vào các vùng có mức độ tương đồng lớn hơn với Ground-Truth mask.
+Đánh giá định lượng Grad-CAM IoU với ngưỡng cố định $T=0{,}5$ (Table~\ref{tab:gradcam_iou}) cho thấy mô hình \textbf{CystoHier} đạt IoU trung bình \textbf{0,2356 $\pm$ 0,0730} so với Swin Baseline (\textbf{0,0500}), tương ứng mức tăng $+0{,}1856$. Đặc biệt trên phân lớp tổn thương ác tính \textit{LowGradePapillary}, IoU tăng từ $0{,}0112$ lên $\mathbf{0{,}3778}$ ($+0{,}3666$). Mô hình đề xuất giảm thiểu kích hoạt giả tại viền đen camera và vùng lóa sáng, cho thấy sự tập trung cao hơn vào các vùng có mức độ tương đồng lớn hơn với Ground-Truth mask.
 
 \begin{table}[H]
 \centering
@@ -542,15 +550,15 @@ Nhằm kiểm chứng tính trung thực giải phẫu học, chúng tôi thực
 \begin{adjustbox}{max width=\textwidth}
 \begin{tabular}{llccccc}
 \toprule
-\textbf{Fine-Grained Diagnostic Class} & \textbf{Parent Coarse Group} & \textbf{Evaluation Split} & \textbf{Swin IoU (\%)} & \textbf{CystoHier Conf.} & \textbf{CystoHier IoU (\%)} & \textbf{Gain ($\Delta$ IoU)} \\
+\textbf{Fine-Grained Diagnostic Class} & \textbf{Parent Coarse Group} & \textbf{Evaluation Split} & \textbf{Swin IoU} & \textbf{CystoHier Conf.} & \textbf{CystoHier IoU} & \textbf{Gain ($\Delta$ IoU)} \\
 \midrule
-\textbf{LowGradePapillary} & Malignant & Test Hold-out & 1.12\% & 0.979 & \textbf{37.78\%} & \textbf{+36.66 pp} \\
-\textbf{AirBubble} & Foreign bodies & Test Hold-out & 0.00\% & 1.000 & \textbf{24.60\%} & \textbf{+24.60 pp} \\
-\textbf{HighGradePapillary} & Malignant & Test Hold-out & 5.56\% & 1.000 & \textbf{17.17\%} & \textbf{+11.61 pp} \\
-\textbf{UreteralOrifice} & Landmarks & Test Hold-out & 16.44\% & 0.993 & \textbf{20.50\%} & \textbf{+4.06 pp} \\
-\textbf{ResectionScar} & Landmarks & Test Hold-out & 1.87\% & 1.000 & \textbf{17.77\%} & \textbf{+15.90 pp} \\
+\textbf{LowGradePapillary} & Malignant & Test Hold-out & 0.0112 & 0.9790 & \textbf{0.3778} & \textbf{+0.3666} \\
+\textbf{AirBubble} & Foreign bodies & Test Hold-out & 0.0000 & 1.0000 & \textbf{0.2460} & \textbf{+0.2460} \\
+\textbf{HighGradePapillary} & Malignant & Test Hold-out & 0.0556 & 1.0000 & \textbf{0.1717} & \textbf{+0.1161} \\
+\textbf{UreteralOrifice} & Landmarks & Test Hold-out & 0.1644 & 0.9930 & \textbf{0.2050} & \textbf{+0.0406} \\
+\textbf{ResectionScar} & Landmarks & Test Hold-out & 0.0187 & 1.0000 & \textbf{0.1777} & \textbf{+0.1590} \\
 \midrule
-\textbf{Overall Mean} & --- & --- & 5.00\% & 0.994 & \textbf{23.56\%} & \textbf{+18.56 pp (4.71$\times$ rel.)} \\
+\textbf{Overall Mean} & --- & --- & 0.0500 & 0.9940 & \textbf{0.2356} & \textbf{+0.1856 (4.71$\times$ rel.)} \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
@@ -589,7 +597,7 @@ Phân tích ma trận nhầm lẫn lâm sàng chỉ ra rằng các trường h�
 
 \section{Conclusion}
 \label{sec:conclusion}
-Bài báo đã đề xuất khung phương pháp \textbf{CystoHier} kết hợp tinh chỉnh tách rời ba giai đoạn, \textbf{Curriculum Hierarchy Warmup} và \textbf{Hierarchical Marginalization} cho bài toán phân loại phân cấp nội soi bàng quang trên dữ liệu mất cân bằng dài đuôi CystoDS. Mô hình cải thiện nhất quán phân loại chi tiết (Fine Macro-F1 0,6450 $\pm$ 0,1105) và tính nhất quán phả hệ (89,52\% $\pm$ 3,80\%) trên tập kiểm định độc lập bệnh nhân, đồng thời duy trì khả năng phân loại nhị phân vững chắc (Binary AUROC 0,9986 $\pm$ 0,0002). Đánh giá zero-shot trên tập ngoại kiểm độc lập Lazo et al. khẳng định năng lực tổng quát hóa cross-dataset tốt, đặc biệt trên ảnh NBI và tổn thương NTL. Mô hình đạt thông lượng 66,7 FPS end-to-end trên phần cứng biên và cải thiện độ trùng khớp Grad-CAM IoU giải phẫu. Các kết quả này chứng minh tính khả thi của việc học phân cấp dài đuôi trong chẩn đoán hình ảnh nội soi bàng quang, trong khi các thử nghiệm tiền cứu đa trung tâm vẫn là bước cần thiết tiếp theo trước khi triển khai lâm sàng thực tế.
+Bài báo đã đề xuất khung phương pháp \textbf{CystoHier} kết hợp tinh chỉnh tách rời ba giai đoạn, \textbf{Curriculum Hierarchy Warmup} và \textbf{Hierarchical Marginalization} cho bài toán phân loại phân cấp nội soi bàng quang trên dữ liệu mất cân bằng dài đuôi CystoDS. Mô hình cải thiện nhất quán phân loại chi tiết (Fine Macro-F1 0,6450 $\pm$ 0,1105) và tính nhất quán phả hệ (0,8952 $\pm$ 0,0380) trên tập kiểm định độc lập bệnh nhân, đồng thời duy trì khả năng phân loại nhị phân vững chắc (Binary AUROC 0,9986 $\pm$ 0,0002). Đánh giá zero-shot trên tập ngoại kiểm độc lập Lazo et al. khẳng định năng lực tổng quát hóa cross-dataset tốt, đặc biệt trên ảnh NBI và tổn thương NTL. Mô hình đạt thông lượng 66,7 FPS end-to-end trên phần cứng biên và cải thiện độ trùng khớp Grad-CAM IoU giải phẫu. Các kết quả này chứng minh tính khả thi của việc học phân cấp dài đuôi trong chẩn đoán hình ảnh nội soi bàng quang, trong khi các thử nghiệm tiền cứu đa trung tâm vẫn là bước cần thiết tiếp theo trước khi triển khai lâm sàng thực tế.
 
 \subsubsection*{Acknowledgements.}
 Nghiên cứu này được thực hiện tại Trường Đại học FPT, Phân hiệu Đà Nẵng. Các tác giả chân thành cảm ơn sự hỗ trợ học thuật và môi trường nghiên cứu từ nhà trường.
