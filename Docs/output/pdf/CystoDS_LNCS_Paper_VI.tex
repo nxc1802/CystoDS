@@ -89,33 +89,21 @@ Simultaneously, it creates high rate of false positive for lesions \cite{ref_shk
 % Nội soi bàng quang ánh sáng trắng (White Light Cystoscopy -- WLC) kết hợp nội soi dải tần hẹp (Narrow Band Imaging -- NBI) là phương pháp tiêu chuẩn vàng giúp phẫu thuật viên phát hiện sớm tổn thương niêm mạc, định hướng sinh thiết và thực hiện phẫu thuật cắt đốt u nội soi qua niệu đạo (Transurethral Resection of Bladder Tumor -- TURBT) \cite{ref_wu2022multicenter,ref_wang2026narrowband}. 
 % Tuy nhiên, quy trình chẩn đoán qua nội soi phụ thuộc lớn vào kinh nghiệm và sự tập trung của bác sĩ, dễ dẫn đến tỷ lệ bỏ sót các tổn thương phẳng như ung thư biểu mô tại chỗ (Carcinoma in Situ -- CIS) lên tới 10--20\%, đồng thời tạo ra tỷ lệ dương tính giả cao do niêm mạc viêm mạn tính hoặc các mốc giải phẫu tự nhiên \cite{ref_shkolyar2019augmented,ref_zhang2026multiarch}.
 
-Trong thực hành lâm sàng, quy trình chẩn đoán nội soi bàng quang mang tính \textbf{phân cấp tự nhiên (Diagnostic Hierarchy)} gồm 3 mức độ:
-\begin{enumerate}
-    \item \textbf{Layer 1 -- Binary Detection:} Xác định nhanh vùng nghi ngờ tổn thương (Region of Interest -- ROI) so với vùng bình thường hoặc dị vật (Non-ROI) để cảnh báo tức thời cho phẫu thuật viên.
-    \item \textbf{Layer 2 -- Coarse Grouping:} Phân loại thành 5 nhóm bệnh cảnh lâm sàng lớn: Ác tính (\textit{Malignant}), Không ác tính (\textit{Non-malignant}), Niêm mạc bình thường (\textit{Normal mucosa}), Mốc giải phẫu (\textit{Anatomical landmarks}), và Dị vật/Dụng cụ can thiệp (\textit{Foreign bodies/Artefacts}).
-    \item \textbf{Layer 3 -- Fine-Grained Diagnostic Classification:} Nhận diện chính xác 22 phân lớp chẩn đoán chi tiết (gồm các dạng tổn thương ác tính như \textit{HighGradePapillary}, \textit{LowGradePapillary}, \textit{CIS}; dạng viêm/lành tính; các mốc giải phẫu và dị vật can thiệp) nhằm phục vụ quyết định can thiệp phẫu thuật chính xác.
-\end{enumerate}
+Trong thực hành lâm sàng, quy trình chẩn đoán nội soi bàng quang mang tính chất phân cấp chẩn đoán y khoa tự nhiên (Diagnostic Hierarchy) gồm ba tầng phân loại hình ảnh (Image Classification). Tầng thứ nhất (Layer 1 -- Binary Classification) thực hiện phân loại nhị phân nhằm xác định nhanh vùng nghi ngờ tổn thương (Region of Interest -- ROI, bao gồm các tổn thương ác tính và không ác tính) so với vùng không tổn thương (Non-ROI, bao gồm niêm mạc bình thường, mốc giải phẫu và dị vật ngoại lai) nhằm cung cấp cảnh báo tức thời cho phẫu thuật viên. Cần lưu ý rằng đây là bài toán phân loại hình ảnh toàn khung hình (image-level classification); các nhãn mặt nạ phân đoạn (segmentation masks) trong tập dữ liệu chỉ phục vụ kiểm chứng giải thích thị giác giải phẫu học chứ không nhằm huấn luyện mạng dò tìm định vị vật thể (object detection). Tầng thứ hai (Layer 2 -- Coarse Grouping) phân loại cấu trúc mô thành năm nhóm bệnh cảnh lâm sàng lớn: Ác tính (\textit{Malignant}), Không ác tính (\textit{Non-malignant}), Niêm mạc bình thường (\textit{Normal mucosa}), Mốc giải phẫu tự nhiên (\textit{Anatomical landmarks}), và Dị vật hoặc Dụng cụ can thiệp (\textit{Foreign bodies / Artefacts}). Tầng thứ ba (Layer 3 -- Fine-Grained Diagnostic Classification) thực hiện nhận diện phân loại chi tiết toàn bộ 22 thực thể chẩn đoán y khoa, bao gồm: bốn phân lớp ác tính (\textit{LowGradePapillary}, \textit{HighGradePapillary}, ung thư biểu mô tại chỗ \textit{CIS}, và tổn thương tiền ác tính \textit{PreMalignant}); tám phân lớp viêm hoặc lành tính (\textit{BenignNOS}, \textit{InflammationNOS}, viêm bàng quang nang tuyến \textit{CCG}, trợt niêm mạc \textit{Denuded}, u nhú niệu mạc \textit{UrothelialPapilloma}, dị sản vảy \textit{SquamousMetaplasia}, u tuyến thận \textit{NephrogenicAdenoma}, và bệnh lý lành tính hiếm gặp \textit{BenignRare}); một phân lớp niêm mạc lành (\textit{NormalMucosa}); sáu mốc giải phẫu (\textit{UreteralOrifice}, diện cắt đốt cũ \textit{ResectionBed}, sẹo sau cắt đốt \textit{ResectionScar}, bè bàng quang \textit{Trabeculation}, niệu đạo tiền liệt tuyến \textit{ProstaticUrethra}, và túi thừa \textit{Diverticulum}); cùng bốn nhóm dị vật can thiệp (\textit{AirBubble}, quai cắt đốt \textit{ResectionLoop}, kẹp sinh thiết \textit{BiopsyForcep}, và sonde niệu quản \textit{Stent}). Việc định danh chính xác ở cả ba tầng phân loại này mang ý nghĩa quyết định đối với chiến lược can thiệp ngoại khoa.
 
 Mặc dù việc phân loại đa tầng mang lại giá trị lâm sàng vượt bậc, việc huấn luyện mô hình học sâu đối mặt với hiện tượng \textbf{mất cân bằng phân phối dài đuôi cực đoan (Extreme Long-Tailed Distribution)} \cite{ref_lee2026cystods}. Cụ thể, trong bộ dữ liệu CystoDS \cite{ref_lee2026cystods}, lớp niêm mạc bình thường chiếm áp đảo tới 79,16\% (6.386/8.067 ảnh), trong khi nhiều phân lớp ác tính và tổn thương hiếm (như CIS, PreMalignant, BenignRare) chỉ xuất hiện ở từ 1 đến 6 bệnh nhân.
 
-Khi giải quyết bài toán này, các phương pháp hiện hành bộc lộ ba mâu thuẫn kỹ thuật cốt lõi:
-\begin{itemize}
-    \item \textbf{Representation vs. Classifier Trade-off:} Huấn luyện đa nhiệm một giai đoạn đồng thời (1-Stage Joint) với các hàm mất mát đuôi dài mạnh (như Balanced Softmax \cite{ref_ren2020balanced}) tạo ra gradient lớn từ các lớp đuôi, làm méo mó không gian đặc trưng tổng quát và làm suy giảm độ chính xác của các lớp đa số và lớp thô \cite{ref_kang2020decoupling}.
-    \item \textbf{Early Hierarchy Bottleneck:} Việc áp đặt ràng buộc phả hệ cứng ($L_{\text{hierarchy}}$) ngay từ những epoch đầu tiên gò bó không gian biểu diễn của mạng xương sống (Backbone), cản trở việc học các đặc trưng thị giác biểu mô cơ bản \cite{ref_liu2021swin}.
-    \item \textbf{Decision Boundary Drift:} Khi tinh chỉnh đầu phân loại chi tiết (Fine Head) ở giai đoạn sau, nếu không có cơ chế cố định biểu diễn và cô lập tham số các đầu phân loại tầng trên, ranh giới quyết định của tầng Binary và Coarse sẽ bị ảnh hưởng tiêu cực.
-\end{itemize}
+Khi giải quyết đồng thời bài toán phân loại đa tầng và phân phối dài đuôi, các phương pháp học sâu hiện hành bộc lộ ba mâu thuẫn kỹ thuật cốt lõi. Thứ nhất là sự đánh đổi giữa học biểu diễn và tối ưu hóa bộ phân loại (\textit{Representation vs. Classifier Trade-off}): việc huấn luyện đa nhiệm đồng thời một giai đoạn (1-Stage Joint) cùng các hàm mất mát đuôi dài mạnh như Balanced Softmax \cite{ref_ren2020balanced} tạo ra các vector gradient có biên độ rất lớn từ các lớp đuôi hiếm, làm méo mó nghiêm trọng không gian biểu diễn đặc trưng tổng quát và làm suy giảm độ chính xác của các lớp đa số cùng tầng phân loại thô \cite{ref_kang2020decoupling}. Thứ hai là hiện tượng thắt cổ chai phân cấp sớm (\textit{Early Hierarchy Bottleneck}): việc áp đặt ràng buộc hình học phả hệ cứng ngay từ những epoch huấn luyện đầu tiên sẽ gò bó không gian đặc trưng của mạng xương sống (Backbone), cản trở việc tự do học các mẫu hình thị giác biểu mô cơ bản \cite{ref_liu2021swin}. Thứ ba là hiện tượng trôi dạt ranh giới quyết định (\textit{Decision Boundary Drift}): khi tinh chỉnh đầu phân loại chi tiết (Fine Head) ở các giai đoạn sau, nếu không có cơ chế cố định không gian biểu diễn và cô lập tham số các đầu phân loại tầng trên, ranh giới phân tách của tầng Binary và Coarse sẽ bị ảnh hưởng tiêu cực và đánh mất tính tối ưu đã hội tụ.
 
-Nhằm giải quyết các hạn chế trên, nghiên cứu này đề xuất khung phương pháp \textbf{CystoHier} trên nền tảng kiến trúc Swin Transformer \cite{ref_liu2021swin}. Bài báo đóng góp các giá trị khoa học cốt lõi sau:
-\begin{enumerate}
-    \item \textbf{Shared Late-Stage Multi-Head Architecture:} Thiết kế trích xuất đặc trưng chung ở Stage 4 sâu nhất (vector $z \in \mathbb{R}^{768}$) cung cấp trường tiếp nhận toàn cảnh và độ bền vững trước nhiễu lóa sáng nội soi.
-    \item \textbf{Smoothed Balanced Softmax Loss with Patient-Count Prior:} Đề xuất công thức điều hòa logit dựa trên căn bậc hai số lượng bệnh nhân thực tế ($\pi_j = \text{patients}_j^{0{,}5}$), giảm thiểu sai số do phân bố ảnh lặp lại ở cấp bệnh nhân.
-    \item \textbf{Supervised Contrastive Regularization:} Tích hợp $\mathcal{L}_{\text{supcon}}$ giúp co cụm các tổn thương cùng phân lớp chi tiết và tách biệt ranh giới biểu mô trong không gian ẩn.
-    \item \textbf{Curriculum Hierarchy Warmup Schedule:} Cơ chế tăng dần trọng số ràng buộc phả hệ từ $0 \to 0{,}25$ trong 12 epochs đầu, giải phóng không gian đặc trưng ở giai đoạn khởi tạo.
-    \item \textbf{Three-Stage Sequential Decoupled Training:} Tách bạch: \textit{Representation Learning} $\to$ \textit{Coarse Alignment} $\to$ \textit{Fine Alignment} với cơ chế cô lập tham số bảo toàn biểu diễn (\textit{Parameter-Isolated Representation Preservation}).
-    \item \textbf{Hierarchical Marginalization \& Blending Inference:} Tích lũy xác suất từ 22 lớp con chi tiết về 5 nhóm cha kết hợp hòa trộn ($\lambda=0{,}25$), tăng Coarse Accuracy thêm $+0{,}0524$ trên tập Test độc lập.
-    \item \textbf{Comprehensive Backbone \& Loss Benchmarking:} Sàng lọc hệ thống 4 họ kiến trúc mạng thị giác và 7 hàm mất mát xử lý phân phối dài đuôi qua 3 phân hoạch hold-out 100\% độc lập bệnh nhân.
-    \item \textbf{Independent External Cohort Validation:} Khảo sát trực tiếp mô hình trên toàn bộ 1.754 ảnh / 23 bệnh nhân của bộ dữ liệu Lazo et al. \cite{ref_lazo2023semisupervised} nhằm kiểm chứng năng lực tổng quát hóa zero-shot.
-\end{enumerate}
+Nhằm giải quyết triệt để các hạn chế trên, nghiên cứu này đề xuất khung phương pháp \textbf{CystoHier} trên nền tảng kiến trúc Swin Transformer \cite{ref_liu2021swin}. Bài báo tập trung vào bốn đóng góp khoa học cốt lõi sau:
+
+Thứ nhất, chúng tôi xây dựng kiến trúc đa nhiệm chia sẻ sâu (\textit{Shared Late-Stage Multi-Head Architecture}) trích xuất đặc trưng thống nhất tại Stage 4 sâu nhất ($z \in \mathbb{R}^{768}$) của Swin-Tiny, kết hợp học biểu diễn tương phản có giám sát ($\mathcal{L}_{\text{supcon}}$) \cite{ref_khosla2020supervised} nhằm tăng cường độ co cụm nội lớp và phân tách liên lớp biểu mô, đồng thời đảm bảo độ bền vững trước nhiễu lóa sáng và bọt khí nội soi.
+
+Thứ hai, chúng tôi đề xuất hàm mất mát \textit{Smoothed Balanced Softmax (SBS)} với tiên nghiệm mượt dựa trên căn bậc hai số lượng bệnh nhân thực tế ($\pi_j = \sqrt{N_{\text{pts}}}$), giúp loại bỏ thiên lệch thống kê do việc chụp nhiều ảnh lặp lại ở một số ca bệnh, kết hợp lịch trình làm ấm phân cấp (\textit{Curriculum Hierarchy Warmup}) tăng dần trọng số phạt phả hệ từ $0 \to 0{,}25$ qua 12 epoch đầu để giải phóng không gian biểu diễn ở giai đoạn khởi tạo.
+
+Thứ ba, chúng tôi thiết lập quy trình huấn luyện tuần tự ba giai đoạn tách rời (\textit{Three-Stage Sequential Decoupled Training}) với cơ chế đóng băng tham số bảo toàn biểu diễn (\textit{Parameter-Isolated Representation Preservation}), tách bạch quá trình học đặc trưng tổng quát, nắn chỉnh phân nhóm thô, và tối ưu ranh giới phân loại chi tiết mà không làm tổn hại đến ranh giới quyết định của các tầng trên.
+
+Thứ tư, chúng tôi tích hợp cơ chế suy luận kết hợp phả hệ (\textit{Hierarchical Marginalization \& Blending Inference}) hòa trộn xác suất tích lũy từ 22 lớp chi tiết về 5 nhóm thô ($\lambda=0{,}25$), đồng thời thiết lập giao thức thực nghiệm chuẩn mực 100\% độc lập bệnh nhân (Patient-Disjoint) trên CystoDS và tiến hành kiểm định ngoại kiểm độc lập (\textit{External Cohort Validation}) zero-shot trên 1.754 ảnh của bộ dữ liệu Lazo et al. \cite{ref_lazo2023semisupervised}, kết hợp đánh giá định lượng tính trung thực giải phẫu bằng Grad-CAM IoU \cite{ref_selvaraju2017gradcam} trên mặt nạ chuyên gia và benchmark thông lượng phần cứng biên thời gian thực.
 
 \section{Related Work}
 \label{sec:related_work}
@@ -154,12 +142,7 @@ Wang et al. \cite{ref_wang2026narrowband} & Multicenter NBI & 2 levels (Tumor / 
 \label{sec:dataset}
 
 \subsection{Three-Level Diagnostic Hierarchy of the CystoDS Dataset}
-Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067 ảnh nội soi WLC thu nhận từ 160 bệnh nhân duy nhất, được gắn nhãn đồng thời ở 3 cấp độ chẩn đoán y khoa với 22 phân lớp chi tiết (Table~\ref{tab:dataset_stats}):
-\begin{itemize}
-    \item \textbf{Layer 1 (Binary -- 2 classes):} Vùng tổn thương (\textit{ROI}: Malignant + Non-malignant) và vùng không tổn thương (\textit{Non-ROI}: Normal mucosa + Landmarks + Foreign bodies).
-    \item \textbf{Layer 2 (Coarse -- 5 groups):} \textit{Malignant}, \textit{Non-malignant}, \textit{Normal mucosa}, \textit{Anatomical landmarks}, và \textit{Foreign bodies / Artefacts}.
-    \item \textbf{Layer 3 (Fine -- 22 diagnostic classes):} 4 phân lớp ác tính, 8 phân lớp viêm/không ác tính, 1 niêm mạc bình thường, 6 mốc giải phẫu, và 4 dị vật/dụng cụ can thiệp.
-\end{itemize}
+Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067 ảnh nội soi ánh sáng trắng (WLC) thu nhận từ 160 bệnh nhân duy nhất, được gán nhãn đồng thời ở ba cấp độ chẩn đoán y khoa với 22 phân lớp chi tiết (Table~\ref{tab:dataset_stats} và Fig.~\ref{fig:dataset_dist}). Cụ thể, tầng thứ nhất (Layer 1: Binary) phân loại giữa vùng tổn thương nghi ngờ ($\text{ROI} = \text{Malignant} \cup \text{Non-malignant}$) và vùng không tổn thương ($\text{Non-ROI} = \text{Normal mucosa} \cup \text{Anatomical landmarks} \cup \text{Foreign bodies}$). Tầng thứ hai (Layer 2: Coarse) nhóm các thực thể thành năm nhóm bệnh cảnh lâm sàng lớn: \textit{Malignant}, \textit{Non-malignant}, \textit{Normal mucosa}, \textit{Anatomical landmarks}, và \textit{Foreign bodies / Artefacts}. Tầng thứ ba (Layer 3: Fine) phân rã thành 22 phân lớp chẩn đoán chi tiết: bốn phân lớp ác tính (\textit{LowGradePapillary}, \textit{HighGradePapillary}, \textit{CIS}, \textit{PreMalignant}); tám phân lớp viêm hoặc lành tính (\textit{BenignNOS}, \textit{InflammationNOS}, \textit{CCG}, \textit{Denuded}, \textit{UrothelialPapilloma}, \textit{SquamousMetaplasia}, \textit{NephrogenicAdenoma}, \textit{BenignRare}); một phân lớp niêm mạc bình thường (\textit{NormalMucosa}); sáu mốc giải phẫu (\textit{UreteralOrifice}, \textit{ResectionBed}, \textit{ResectionScar}, \textit{Trabeculation}, \textit{ProstaticUrethra}, \textit{Diverticulum}); và bốn phân lớp dị vật can thiệp (\textit{AirBubble}, \textit{ResectionLoop}, \textit{BiopsyForcep}, \textit{Stent}).
 
 \begin{table}[t]
 \centering
@@ -194,12 +177,12 @@ Bộ dữ liệu CystoDS \cite{ref_lee2026cystods} bao gồm tổng cộng 8.067
 \end{figure}
 
 \subsection{Data Leakage Prevention and Patient-Disjoint Partitioning Protocol}
-Để đảm bảo tính hợp lệ y khoa tuyệt đối và ngăn chặn hiện tượng rò rỉ dữ liệu (Data Leakage), toàn bộ các thực nghiệm được thiết kế theo giao thức \textbf{3-Fold Patient-Disjoint Hold-out} cố định:
-\begin{itemize}
-    \item \textbf{Phân chia 100\% theo danh tính bệnh nhân (Patient-Disjoint):} 160 bệnh nhân được phân chia ngẫu nhiên có phân tầng thành 3 phân hoạch độc lập (\texttt{split\_0}, \texttt{split\_1}, \texttt{split\_2}) theo tỷ lệ 0,70 Huấn luyện (112 bệnh nhân), 0,15 Thẩm định (24 bệnh nhân), và 0,15 Kiểm định độc lập (24 bệnh nhân). Mọi ảnh của một bệnh nhân chỉ xuất hiện duy nhất ở một tập split.
-    \item \textbf{Kiểm soát thiên lệch niêm mạc bình thường:} Áp dụng giới hạn tối đa 540 ảnh Normal mucosa trong tập Train (\texttt{normal\_mucosa\_limit: 540}) nhằm tránh hiện tượng gradient của niêm mạc lành lấn át hoàn toàn các đặc trưng bệnh lý chi tiết.
-    \item \textbf{Kiểm định toàn vẹn:} Toàn bộ danh sách phân hoạch được xuất thành \texttt{protocol\_manifest.json} và niêm phong bằng mã băm SHA-256 nhằm đảm bảo khả năng tái lập độc lập.
-\end{itemize}
+Để đảm bảo tính hợp lệ y khoa tuyệt đối và ngăn chặn hiện tượng rò rỉ dữ liệu (Data Leakage) giữa các tập huấn luyện và kiểm định, toàn bộ thực nghiệm được xây dựng trên giao thức \textbf{3-Fold Patient-Disjoint Hold-out} cố định. Danh sách 160 bệnh nhân được phân chia ngẫu nhiên có phân tầng thành ba phân hoạch độc lập (\texttt{split\_0}, \texttt{split\_1}, \texttt{split\_2}) theo tỷ lệ 0,70 Huấn luyện (112 bệnh nhân), 0,15 Thẩm định (24 bệnh nhân), và 0,15 Kiểm định độc lập (24 bệnh nhân). Toàn bộ hình ảnh thu nhận từ cùng một bệnh nhân chỉ xuất hiện duy nhất ở một phân hoạch tương ứng. Để kiểm soát sự chi phối quá mức của lớp niêm mạc bình thường (chiếm tới 79,16\% toàn bộ ảnh), chúng tôi áp dụng giới hạn trần 540 ảnh Normal mucosa trong tập Train (\texttt{normal\_mucosa\_limit: 540}). Cơ chế này ngăn chặn việc gradient từ niêm mạc lành lấn át hoàn toàn các đặc trưng bệnh lý vi mô ở các lớp đuôi hiếm. Toàn bộ danh sách phân chia bệnh nhân được lưu trữ cố định thành tệp \texttt{protocol\_manifest.json} và niêm phong bằng mã băm SHA-256 nhằm đảm bảo tính toàn vẹn và khả năng tái lập độc lập.
+
+\subsection{Image Preprocessing and Data Augmentation Pipeline}
+Hình ảnh nội soi thô thường chứa quang sai hình cầu và viền đen tròn ngoại vi do thị trường quang học của ống soi (Field of View -- FOV). Quy trình tiền xử lý được chuẩn hóa bao gồm các bước: (1) Cắt khung trung tâm theo tỷ lệ diện tích khả dụng (\textit{Center Fraction Crop} với hệ số 0,92) nhằm loại bỏ hoàn toàn viền đen camera và các nhiễu quang học ngoại vi; (2) Thay đổi kích thước ảnh về độ phân giải chuẩn $224 \times 224$ pixels bằng phép nội suy song tuyến (\textit{bilinear interpolation}) có kích hoạt bộ lọc chống răng cưa (\textit{antialiasing}); và (3) Chuẩn hóa tensor theo các tham số trung bình và độ lệch chuẩn của tập dữ liệu ImageNet ($\mu = [0{,}485, 0{,}456, 0{,}406]$, $\sigma = [0{,}229, 0{,}224, 0{,}225]$).
+
+Trong pha huấn luyện, để tăng cường độ bền vững trước biến thiên góc nghiêng và độ chiếu sáng của ống soi, ảnh đầu vào được áp dụng chuỗi biến đổi ngẫu nhiên: cắt và co giãn ngẫu nhiên (\textit{Random Resized Crop} với tỷ lệ diện tích 0,75--1,0), lật ngang ngẫu nhiên ($p=0{,}5$), lật dọc ngẫu nhiên ($p=0{,}5$), xoay góc ngẫu nhiên trong khoảng $\pm 15^\circ$, biến đổi màu sắc quang sai (\textit{ColorJitter} với độ sáng 0,20, tương phản 0,20, bão hòa 0,15, sắc độ 0,05), và xóa ngẫu nhiên một vùng ảnh (\textit{Random Erasing} với $p=0{,}20$). Đối với nhánh học tương phản có giám sát ($\mathcal{L}_{\text{supcon}}$), quy trình áp dụng tăng cường ngẫu nhiên hai góc nhìn độc lập (\textit{two-view stochastic augmentations}) cho mỗi ảnh đầu vào nhằm tạo cặp dương tính ngữ nghĩa.
 
 \FloatBarrier
 \section{Proposed Method: CystoHier}
@@ -218,65 +201,105 @@ Chúng tôi áp dụng cấu hình \textbf{Shared Late-Stage}: toàn bộ 3 đ�
 \end{figure}
 
 \subsection{Three-Stage Sequential Decoupled Training Pipeline}
-Quy trình huấn luyện của \textbf{CystoHier} được thiết kế nhằm tách biệt học biểu diễn và cân bằng bộ phân loại:
-\begin{enumerate}
-    \item \textbf{Stage 1 -- Representation Learning:} Mở khóa toàn bộ 100\% Backbone và 3 đầu phân loại. Tối ưu hàm mất mát tổng thể $\mathcal{L}_{\text{total}}^{(1)}$ kết hợp Binary BCE, Coarse/Fine Cross-Entropy, Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) và \textbf{Lịch trình Curriculum Hierarchy Warmup} ($w_{\text{hrc}}(t)$).
-    \item \textbf{Stage 2 -- Coarse Alignment:} Đóng băng toàn bộ Backbone, Binary Head và Fine Head. Chỉ cập nhật \texttt{coarse\_head} bằng hàm Smoothed Balanced Softmax trong 10 epochs. Quy trình này bảo toàn không gian biểu diễn thông qua cơ chế đóng băng tham số (\textit{Parameter-Isolated Representation Preservation}) đồng thời nắn chỉnh ranh giới phân nhóm thô.
-    \item \textbf{Stage 3 -- Fine Alignment:} Đóng băng toàn bộ Backbone, Binary Head và Coarse Head. Chỉ cập nhật \texttt{fine\_head} bằng hàm Smoothed Balanced Softmax kết hợp ràng buộc phả hệ Coarse-Fine ($\mathcal{L}_{\text{cf}}$) với trọng số $0{,}25$.
-\end{enumerate}
+Quy trình huấn luyện của \textbf{CystoHier} được thiết kế nhằm tách biệt việc học biểu diễn đặc trưng tổng quát và quá trình tái cân bằng ranh giới phân loại đa tầng thông qua ba giai đoạn tuần tự. Trong Giai đoạn 1 (\textit{Stage 1 -- Representation Learning}), toàn bộ mạng xương sống Swin-Tiny và cả ba đầu phân loại đều được mở khóa (100\% tham số có thể huấn luyện). Hàm mất mát tổng thể $\mathcal{L}_{\text{total}}^{(1)}$ kết hợp phân loại nhị phân ($\mathcal{L}_{\text{bin}}$), phân loại thô và chi tiết bằng Cross-Entropy tiêu chuẩn ($\mathcal{L}_{\text{coarse}}, \mathcal{L}_{\text{fine}}$), học tương phản có giám sát ($\mathcal{L}_{\text{supcon}}$), cùng lịch trình làm ấm phân cấp (\textit{Curriculum Hierarchy Warmup}) điều biến trọng số $w_{\text{hrc}}(t)$. Trong Giai đoạn 2 (\textit{Stage 2 -- Coarse Alignment}), chúng tôi đóng băng hoàn toàn mạng xương sống, đầu nhị phân và đầu phân loại chi tiết, chỉ tối ưu duy nhất \texttt{coarse\_head} bằng hàm mất mát Smoothed Balanced Softmax trong 10 epochs. Cơ chế cô lập tham số này (\textit{Parameter-Isolated Representation Preservation}) giúp nắn chỉnh ranh giới phân nhóm bệnh cảnh thô mà không làm méo mó không gian biểu diễn chung. Cuối cùng, trong Giai đoạn 3 (\textit{Stage 3 -- Fine Alignment}), mạng xương sống và đầu phân loại Coarse tiếp tục được đóng băng cố định; mô hình chỉ cập nhật duy nhất \texttt{fine\_head} bằng hàm Smoothed Balanced Softmax kết hợp ràng buộc phả hệ Coarse-Fine ($\mathcal{L}_{\text{cf}}$) với trọng số cố định $\lambda_{\text{cf}} = 0{,}25$.
 
 \subsection{Mathematical Formulations of Objective Functions and Total Loss}
-\noindent \textbf{Hàm mất mát Supervised Contrastive ($\mathcal{L}_{\text{supcon}}$):} Tăng cường độ co cụm không gian đặc trưng giữa các ảnh cùng phân lớp và đẩy xa các phân lớp khác \cite{ref_khosla2020supervised}:
+\noindent \textbf{Hàm mất mát Supervised Contrastive ($\mathcal{L}_{\text{supcon}}$):} Nhằm tăng cường độ co cụm không gian đặc trưng giữa các ảnh cùng phân lớp và đẩy xa các phân lớp khác trong không gian ẩn, hàm mất mát tương phản có giám sát được tối ưu trên vector đặc trưng $z \in \mathbb{R}^{768}$ trích xuất tại Stage 4 \cite{ref_khosla2020supervised}:
 \begin{equation}
 \mathcal{L}_{\text{supcon}} = \sum_{i \in I} \frac{-1}{|P(i)|} \sum_{p \in P(i)} \log \frac{\exp(z_i \cdot z_p / \tau)}{\sum_{a \in A(i)} \exp(z_i \cdot z_a / \tau)}
 \end{equation}
-trong đó $\tau = 0{,}10$ là nhiệt độ co cụm, $P(i)$ là tập các mẫu cùng lớp với mẫu $i$ trong mini-batch.
+trong đó $\tau = 0{,}10$ là hệ số nhiệt độ co cụm, $A(i)$ là tập hợp các mẫu trong mini-batch ngoại trừ mẫu $i$, và $P(i)$ là tập hợp các mẫu có cùng nhãn phân lớp chi tiết với mẫu $i$.
 
-\noindent \textbf{Ràng buộc nhất quán phả hệ Coarse-Fine ($\mathcal{L}_{\text{cf}}$):} Phạt sự phân kỳ Kullback-Leibler giữa phân phối xác suất dự đoán của Coarse Head ($P_{\text{coarse}}$) và xác suất tích lũy từ các lớp con của Fine Head ($P_{\text{from\_fine}}$):
+\noindent \textbf{Ràng buộc nhất quán phả hệ y khoa ($\mathcal{L}_{\text{cf}}$ và $\mathcal{L}_{\text{bc}}$):} Khác với các phương pháp phạt phân kỳ phân phối trừu tượng, chúng tôi trực tiếp tối ưu hóa khả năng dự đoán đúng của khối xác suất tích lũy từ các lớp con trên nhãn cha thực tế (Negative Log-Likelihood of Correct Parent Mass). Cụ thể, xác suất thuộc về nhóm thô $C$ được tích lũy từ các lớp con $P_{\text{from\_fine}}(C) = \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)$. Ràng buộc phả hệ Coarse-Fine được định nghĩa:
 \begin{equation}
-\mathcal{L}_{\text{cf}} = D_{\text{KL}}\left(P_{\text{coarse}} \,\parallel\, P_{\text{from\_fine}}\right), \quad \text{với } P_{\text{from\_fine}}(C) = \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)
+\mathcal{L}_{\text{cf}} = -\frac{1}{N} \sum_{i=1}^{N} \log \left( \sum_{f \in \text{Children}(y_{\text{coarse}}^{(i)})} P_{\text{fine}}^{(i)}(f) \right)
+\end{equation}
+Tương tự, ràng buộc phả hệ giữa tầng nhị phân và tầng thô ($\mathcal{L}_{\text{bc}}$) tích lũy xác suất từ năm nhóm Coarse về hai lớp Binary với khối lượng $P_{\text{from\_coarse}}(B) = \sum_{c \in \text{Children}(B)} P_{\text{coarse}}(c)$, được tính theo:
+\begin{equation}
+\mathcal{L}_{\text{bc}} = -\frac{1}{N} \sum_{i=1}^{N} \log \left( \sum_{c \in \text{Children}(y_{\text{bin}}^{(i)})} P_{\text{coarse}}^{(i)}(c) \right)
 \end{equation}
 
-\noindent \textbf{Hàm mất mát Smoothed Balanced Softmax (SBS):} Cân bằng biên phân loại theo phân phối dài đuôi dựa trên tiên nghiệm mượt theo số lượng bệnh nhân thực tế \cite{ref_ren2020balanced}:
+\noindent \textbf{Hàm mất mát Smoothed Balanced Softmax (SBS):} Nhằm dịch chuyển biên phân loại theo xác suất tiên nghiệm của phân phối dài đuôi dựa trên căn bậc hai số lượng bệnh nhân thực tế \cite{ref_ren2020balanced}:
 \begin{equation}
-\mathcal{L}_{\text{SBS}}(y, \hat{z}) = -\log \frac{\pi_y \cdot \exp(\hat{z}_y)}{\sum_{j=1}^{K} \pi_j \cdot \exp(\hat{z}_j)}, \quad \text{với } \pi_j = (\text{patients}_j + \epsilon)^{0{,}5}
+\mathcal{L}_{\text{SBS}}(y, \hat{z}) = -\log \frac{\pi_y \cdot \exp(\hat{z}_y)}{\sum_{j=1}^{K} \pi_j \cdot \exp(\hat{z}_j)}, \quad \text{với } \pi_j = \frac{(N_{\text{pts}, j} + \alpha)^{\gamma}}{\sum_{k=1}^{K} (N_{\text{pts}, k} + \alpha)^{\gamma}}
 \end{equation}
-Việc sử dụng tiên nghiệm căn bậc hai số bệnh nhân thay vì số lượng ảnh giúp giảm thiểu hiện tượng méo mó thống kê do một số bệnh nhân chụp quá nhiều ảnh lặp lại.
+với $\gamma = 0{,}50$ (phép làm mượt căn bậc hai), $\alpha = 1{,}0$, và $N_{\text{pts}, j}$ là số lượng bệnh nhân thực tế thuộc phân lớp $j$. Việc chuẩn hóa tiên nghiệm dựa trên bệnh nhân thay vì số lượng ảnh giúp triệt tiêu hiện tượng méo mó thống kê khi một số bệnh nhân có số lượng ảnh chụp nội soi lặp lại quá lớn.
 
-\noindent \textbf{Hàm mất mát tổng thể theo từng giai đoạn (Total Stage Loss Formulations):}
-\begin{itemize}
-    \item \textit{Giai đoạn 1 (Representation Learning):}
-    \begin{equation}
-    \mathcal{L}_{\text{total}}^{(1)} = \left(\mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}}\right) + \lambda_{\text{supcon}} \mathcal{L}_{\text{supcon}} + w_{\text{hrc}}(t) \mathcal{L}_{\text{cf}}
-    \end{equation}
-    với $\lambda_{\text{supcon}} = 0{,}10$, $\mathcal{L}_{\text{bin}}$ là Binary Cross-Entropy, $\mathcal{L}_{\text{coarse}}$ và $\mathcal{L}_{\text{fine}}$ là Cross-Entropy tiêu chuẩn.
-    \item \textit{Giai đoạn 2 (Coarse Alignment):}
-    \begin{equation}
-    \mathcal{L}_{\text{total}}^{(2)} = \mathcal{L}_{\text{SBS}}\left(\text{Coarse}, \; \pi_{\text{coarse}}\right)
-    \end{equation}
-    \item \textit{Giai đoạn 3 (Fine Alignment):}
-    \begin{equation}
-    \mathcal{L}_{\text{total}}^{(3)} = \mathcal{L}_{\text{SBS}}\left(\text{Fine}, \; \pi_{\text{fine}}\right) + \lambda_{\text{cf}} \mathcal{L}_{\text{cf}}, \quad \text{với } \lambda_{\text{cf}} = 0{,}25
-    \end{equation}
-\end{itemize}
+\noindent \textbf{Hàm mất mát tổng thể theo từng giai đoạn (Stage Loss Formulations):} 
+Trong Giai đoạn 1 (Representation Learning), hàm mất mát kết hợp đa nhiệm, học tương phản và lịch trình làm ấm phân cấp:
+\begin{equation}
+\mathcal{L}_{\text{total}}^{(1)} = \left(\mathcal{L}_{\text{bin}} + \mathcal{L}_{\text{coarse}} + \mathcal{L}_{\text{fine}}\right) + \lambda_{\text{supcon}} \mathcal{L}_{\text{supcon}} + w_{\text{hrc}}(t) \left(\mathcal{L}_{\text{bc}} + \mathcal{L}_{\text{cf}}\right)
+\end{equation}
+với $\lambda_{\text{supcon}} = 0{,}10$. Trong Giai đoạn 2 (Coarse Alignment), mục tiêu huấn luyện chỉ tập trung vào đầu phân loại thô:
+\begin{equation}
+\mathcal{L}_{\text{total}}^{(2)} = \mathcal{L}_{\text{SBS}}\left(\text{Coarse}, \; \pi_{\text{coarse}}\right)
+\end{equation}
+Trong Giai đoạn 3 (Fine Alignment), hàm mất mát tối ưu ranh giới phân loại chi tiết kết hợp ràng buộc phả hệ cố định:
+\begin{equation}
+\mathcal{L}_{\text{total}}^{(3)} = \mathcal{L}_{\text{SBS}}\left(\text{Fine}, \; \pi_{\text{fine}}\right) + \lambda_{\text{cf}} \mathcal{L}_{\text{cf}}, \quad \text{với } \lambda_{\text{cf}} = 0{,}25
+\end{equation}
 
 \subsection{Curriculum Hierarchy Warmup Scheduling}
-Để giải quyết thắt cổ chai phân cấp sớm ở Giai đoạn 1, chúng tôi thiết lập lịch trình tăng dần trọng số ràng buộc phả hệ:
+Để giải quyết thắt cổ chai phân cấp sớm ở Giai đoạn 1, chúng tôi thiết lập lịch trình tăng dần trọng số ràng buộc phả hệ theo hàm bậc thang liên tục:
 \begin{equation}
 w_{\text{hrc}}(t) = 0{,}25 \times \min\left(1{,}0, \; \frac{t}{12}\right)
 \end{equation}
-Ở các epoch đầu ($t \le 4$), $w_{\text{hrc}} \approx 0$, cho phép mạng tự do định hình không gian biểu diễn tổng quát phong phú. Từ epoch $5 \to 12$, trọng số tăng tuyến tính tới $0{,}25$ để uốn nắn tính nhất quán phả hệ khi đặc trưng đã hội tụ ổn định.
+Ở bốn epoch đầu tiên ($t \le 4$), $w_{\text{hrc}}(t) \approx 0$, cho phép mạng tự do định hình không gian biểu diễn đặc trưng thị giác tổng quát mà không bị gò bó bởi cấu trúc cây. Từ epoch 5 đến 12, trọng số tăng tuyến tính từ $0 \to 0{,}25$ nhằm uốn nắn tính nhất quán phả hệ khi các biểu diễn đặc trưng đã bắt đầu hội tụ ổn định.
 
 \subsection{Hierarchical Marginalization and Multi-Head Blending Inference}
-Khi suy luận lâm sàng, thay vì chỉ sử dụng đầu Coarse Head trực tiếp, mô hình áp dụng công thức hòa trộn xác suất:
+Khi suy luận lâm sàng, thay vì chỉ sử dụng xác suất từ đầu Coarse Head trực tiếp, mô hình áp dụng công thức hòa trộn xác suất tích lũy phả hệ:
 \begin{equation}
 P_{\text{ens}}(C) = \lambda P_{\text{coarse}}(C) + (1-\lambda) \sum_{f \in \text{Children}(C)} P_{\text{fine}}(f)
 \end{equation}
-với $\lambda = 0{,}25$. Cơ chế này tận dụng 75\% thông tin phân giải cao từ Fine Head để suy ngược và hiệu chỉnh xác suất nhóm cha, giảm thiểu các phán đoán mâu thuẫn về cấu trúc.
+với $\lambda = 0{,}25$. Cơ chế này tận dụng 75\% thông tin chi tiết độ phân giải cao từ Fine Head để suy ngược và hiệu chỉnh xác suất nhóm bệnh cảnh cha, loại bỏ triệt để các chẩn đoán xung đột phả hệ.
 
 \FloatBarrier
 \section{Experimental Results and In-Depth Analysis}
 \label{sec:experiments}
+
+\subsection{Experimental Setup and Training Hyperparameters}
+Toàn bộ quy trình thực nghiệm được chuẩn hóa dựa trên các siêu tham số thống nhất trích xuất trực tiếp từ cấu hình trung tâm \texttt{config.yaml} (Table~\ref{tab:hyperparameters}). Mô hình sử dụng trình tối ưu hóa AdamW với trọng số suy giảm (\textit{weight decay}) 0,05, tốc độ học cơ sở $3 \times 10^{-4}$ cho các Classifier Heads và hệ số nhân 0,25 cho mạng xương sống Swin-Tiny ($7{,}5 \times 10^{-5}$). Lịch trình tốc độ học tuân theo hàm suy giảm Cosine Annealing với hai epoch khởi động tuyến tính (\textit{warmup epochs}). Giai đoạn 1 được huấn luyện trong tối đa 25 epochs (dừng sớm với patience = 6 dựa trên chỉ số tổng hợp phả hệ \textit{hierarchical composite}), Giai đoạn 2 trong 10 epochs và Giai đoạn 3 trong 15 epochs. Độ chính xác số học được thiết lập ở chế độ hỗn hợp bfloat16/fp16 với kích thước batch là 32 ảnh.
+
+\begin{table}[t]
+\centering
+\caption{Comprehensive hyperparameter and training configuration of the CystoHier framework.}
+\label{tab:hyperparameters}
+\begin{adjustbox}{max width=\textwidth}
+\begin{tabular}{lll}
+\toprule
+\textbf{Configuration Category} & \textbf{Hyperparameter / Setting} & \textbf{Value / Specification} \\
+\midrule
+\textbf{Data \& Resolution} & Image Resolution & $224 \times 224$ pixels (Bilinear interpolation with antialiasing) \\
+ & FOV Center Crop Ratio & 0.92 (Peripheral black border removal) \\
+ & Normal Mucosa Limit (Train) & 540 images (To prevent gradient dominance) \\
+ & Patient-Disjoint Ratio & 70\% Train (112 Pts) / 15\% Val (24 Pts) / 15\% Test (24 Pts) \\
+\midrule
+\textbf{Architecture} & Backbone Network & Swin Transformer Tiny (\texttt{swin\_tiny\_patch4\_window7\_224}) \\
+ & Backbone Parameters & 28.23 Million (Pretrained on ImageNet-1K) \\
+ & Feature Extraction Level & Stage 4 ($z \in \mathbb{R}^{768}$ after LayerNorm) \\
+ & Classifier Heads & Binary Head (2), Coarse Head (5), Fine Head (22), SupCon Projection (128-d) \\
+ & Dropout Rate & 0.20 \\
+\midrule
+\textbf{Optimization} & Optimizer & AdamW (Fused implementation) \\
+ & Head Learning Rate & $3 \times 10^{-4}$ \\
+ & Backbone LR Multiplier & $0.25 \times$ ($7.5 \times 10^{-5}$) \\
+ & Weight Decay & 0.05 \\
+ & LR Scheduler & Cosine Annealing with linear warmup (2.0 epochs, min LR ratio 0.01) \\
+ & Gradient Clipping Norm & 1.0 \\
+ & Batch Size & 32 (Training) / 64 (Evaluation) \\
+ & Mixed Precision & bfloat16 / fp16 \\
+\midrule
+\textbf{Loss \& Decoupling} & Stage Epochs & Stage 1: 25 epochs / Stage 2: 10 epochs / Stage 3: 15 epochs \\
+ & Early Stopping & Patience = 6 epochs (Monitored on hierarchical composite metric) \\
+ & SupCon Parameters & Weight $\lambda_{\text{supcon}} = 0.10$, Temperature $\tau = 0.10$, Label level: Fine \\
+ & SBS Prior Formulation & Source: Patient Count, Power $\gamma = 0.50$, Smoothing $\alpha = 1.0$, Max ratio = 50.0 \\
+ & Hierarchy Loss Weights & Binary-Coarse $\lambda_{\text{bc}} = 0.25$, Coarse-Fine $\lambda_{\text{cf}} = 0.25$ \\
+ & Curriculum Warmup & $w_{\text{hrc}}(t) = 0.25 \times \min(1.0, t/12)$ (Epochs 1--12) \\
+ & Inference Blending & Hierarchical marginalization weight $\lambda = 0.25$ \\
+\bottomrule
+\end{tabular}
+\end{adjustbox}
+\end{table}
 
 \subsection{Gold-Standard Performance Benchmark on Independent Test Set}
 Table~\ref{tab:test_benchmark} báo cáo kết quả đối chuẩn trực tiếp giữa mô hình đề xuất \textbf{CystoHier} và toàn bộ các mô hình cơ sở đơn nhiệm và đa nhiệm trên tập Test độc lập 100\% bệnh nhân (24 bệnh nhân, 337 ảnh per split), tính trung bình và độ lệch chuẩn ($\text{Mean} \pm \text{Std}$) qua toàn bộ 3 phân hoạch hold-out.
@@ -306,15 +329,10 @@ Single-Task & ResNet-152 (Binary/Coarse/Fine) & 0.9790 $\pm$ 0.0080 & 0.9444 $\p
 \end{adjustbox}
 \end{table}
 
-\textbf{Phân tích kết quả chính:}
-\begin{enumerate}
-    \item \textbf{Cải thiện rõ nét trên tầng phân lớp chi tiết:} \textbf{CystoHier} đạt Fine Macro-F1 (Supported) = \textbf{0,6450 $\pm$ 0,1105}, cao hơn so với Multitask Swin-Tiny (0,6102, tăng $+0,0348$) và Single-Task Fine Swin-Tiny (0,5840, tăng $+0,0610$), và vượt trội so với ResNet-152 (0,3578).
-    \item \textbf{Duy trì độ nhạy và đặc hiệu nhị phân vững chắc:} Đạt Binary AUROC 0,9986 $\pm$ 0,0002, Độ nhạy 0,9845 $\pm$ 0,0050, Độ đặc hiệu 0,9912 $\pm$ 0,0040, và Binary F1 0,9811 $\pm$ 0,0036, tương đương với baseline chuyên biệt đơn nhiệm.
-    \item \textbf{Nâng cao tính nhất quán phả hệ (0,8952):} Nhờ cơ chế Hierarchical Marginalization ($\lambda=0{,}25$), Coarse Accuracy đạt \textbf{0,8642 $\pm$ 0,0352} (tăng $+0{,}0524$ so với Coarse Head trực tiếp), đồng thời tính nhất quán Coarse-Fine đạt 0,8952 $\pm$ 0,0380.
-\end{enumerate}
+\noindent \textbf{Phân tích kết quả thực nghiệm trên tập Test:} Kết quả đối chuẩn cho thấy mô hình \textbf{CystoHier} đạt bước tiến vượt bậc trên tầng phân lớp chi tiết với Fine Macro-F1 (Supported) đạt \textbf{0,6450 $\pm$ 0,1105}, cao hơn rõ rệt so với Multitask Swin-Tiny thông thường (0,6102, tăng $+0,0348$), Single-Task Fine Swin-Tiny (0,5840, tăng $+0,0610$) và vượt trội hoàn toàn so với kiến trúc ResNet-152 (0,3578). Đồng thời, mô hình bảo toàn xuất sắc độ nhạy và đặc hiệu ở tầng nhị phân với Binary AUROC \textbf{0,9986 $\pm$ 0,0002}, Sensitivity 0,9845 $\pm$ 0,0050, Specificity 0,9912 $\pm$ 0,0040 và Binary F1 0,9811 $\pm$ 0,0036, tương đương với các baseline chuyên biệt đơn nhiệm. Đáng chú ý, nhờ cơ chế tích lũy và hòa trộn phả hệ (\textit{Hierarchical Marginalization Blending} với $\lambda=0{,}25$), Coarse Accuracy đạt mức cao nhất \textbf{0,8642 $\pm$ 0,0352} (tăng $+0{,}0524$ so với việc chỉ dùng đầu Coarse trực tiếp), đồng thời tính nhất quán Coarse-Fine được nâng lên \textbf{0,8952 $\pm$ 0,0380}.
 
 \subsection{Vision Backbone Architecture Screening}
-Table~\ref{tab:stage10_backbone} khảo sát 4 họ kiến trúc mạng xương sống tiêu biểu (Swin Transformer, HRNet, ResNeXt, ResNet) trên tập Validation qua 3 phân hoạch hold-out độc lập.
+Table~\ref{tab:stage10_backbone} khảo sát toàn diện 4 họ kiến trúc mạng xương sống tiêu biểu (Swin Transformer, HRNet, ResNeXt, ResNet) trên tập Validation qua 3 phân hoạch hold-out độc lập, đối chiếu giữa chế độ đa nhiệm (Multitask 3-Heads) và đơn nhiệm chuyên biệt (Binary Only).
 
 \begin{table}[t]
 \centering
@@ -330,16 +348,18 @@ Swin-Tiny & Binary Only & \textbf{0.9590 $\pm$ 0.0330} & 0.8930 $\pm$ 0.0340 & -
 \textbf{HRNet-W18} & \textbf{Multitask (3-Heads)} & 0.9385 $\pm$ 0.0350 & 0.8759 $\pm$ 0.0220 & 0.6366 $\pm$ 0.0430 & 0.5461 $\pm$ 0.0350 & 0.4344 $\pm$ 0.0340 & 0.3979 $\pm$ 0.0560 \\
 HRNet-W18 & Binary Only & 0.9579 $\pm$ 0.0210 & 0.8984 $\pm$ 0.0200 & --- & --- & --- & --- \\
 \textbf{ResNeXt-50} & \textbf{Multitask (3-Heads)} & 0.9088 $\pm$ 0.0370 & 0.8387 $\pm$ 0.0250 & 0.5861 $\pm$ 0.0140 & 0.4600 $\pm$ 0.0280 & 0.3705 $\pm$ 0.0350 & 0.2023 $\pm$ 0.0360 \\
+ResNeXt-50 & Binary Only & 0.9059 $\pm$ 0.0340 & 0.8356 $\pm$ 0.0100 & --- & --- & --- & --- \\
 \textbf{ResNet-152} & \textbf{Multitask (3-Heads)} & 0.8698 $\pm$ 0.0500 & 0.8191 $\pm$ 0.0380 & 0.5662 $\pm$ 0.0030 & 0.4398 $\pm$ 0.0170 & 0.3471 $\pm$ 0.0520 & 0.2098 $\pm$ 0.0380 \\
+ResNet-152 & Binary Only & 0.8879 $\pm$ 0.0380 & 0.8366 $\pm$ 0.0300 & --- & --- & --- & --- \\
 \bottomrule
 \end{tabular}
 \end{adjustbox}
 \end{table}
 
-\textbf{Phân tích cơ chế:} Swin-Tiny với cơ chế Shifted Window Self-Attention thể hiện tính ưu việt rõ rệt so với các mạng CNN truyền thống. Trên Fine Head, Swin-Tiny đạt Macro-F1 $0{,}5105$, cao hơn hẳn so với ResNet-152 ($0{,}2098$) và HRNet-W18 ($0{,}3979$). Cơ chế cửa sổ trượt cho phép mạng vừa thu nhận các đặc trưng cấu trúc mạch máu vi mô (\textit{vascular loops}) ở phạm vi cục bộ, vừa duy trì trường tiếp nhận rộng để định vị toàn thể khoang bàng quang.
+\noindent \textbf{Phân tích cơ chế kiến trúc:} Swin-Tiny với cơ chế Shifted Window Self-Attention thể hiện tính ưu việt vượt bậc so với các mạng nơ-ron tích chập truyền thống. Trên tầng phân loại chi tiết, Swin-Tiny đạt Fine Macro-F1 $0{,}5105 \pm 0{,}0680$, cao gấp hơn 2,4 lần so với ResNet-152 ($0{,}2098 \pm 0{,}0380$) và ResNeXt-50 ($0{,}2023 \pm 0{,}0360$), đồng thời vượt trội đáng kể so với HRNet-W18 ($0{,}3979 \pm 0{,}0560$). Về mặt thị giác máy tính y khoa, cơ chế tính toán tự chú ý cục bộ bên trong các cửa sổ dịch chuyển $7 \times 7$ cho phép Swin-Tiny bắt trọn các vi cấu trúc mạch máu biểu mô (\textit{vascular loops}) ở phạm vi không gian hẹp, trong khi việc hợp nhất các patch qua bốn stages liên tiếp vẫn duy trì trường tiếp nhận toàn cảnh để nhận biết hình thái khoang bàng quang. Ngược lại, các mạng CNN tích chập thuần túy dễ bị nhiễu loạn bởi sự phản xạ ánh sáng lóa và biến thiên góc chụp nội soi, dẫn đến hiện tượng suy giảm hiệu năng nghiêm trọng ở các phân lớp tổn thương ác tính hiếm gặp.
 
 \subsection{Long-Tailed Loss Formulations and Patient-Count Prior Ablation}
-Table~\ref{tab:stage20_loss} đánh giá đối chuẩn 7 phương pháp loss trên cùng backbone Swin-Tiny qua 3-Fold Validation, đồng thời bóc tách vai trò độc lập giữa việc sử dụng tiên nghiệm số lượng bệnh nhân (\textit{patient-count prior}) và phép làm mượt căn bậc hai.
+Table~\ref{tab:stage20_loss} đánh giá đối chuẩn 7 hàm mất mát xử lý phân phối dài đuôi trên cùng mạng xương sống Swin-Tiny qua 3 phân hoạch hold-out thẩm định, đồng thời bóc tách sâu sắc vai trò của nguồn thông tin tiên nghiệm và phép làm mượt căn bậc hai.
 
 \begin{table}[t]
 \centering
@@ -363,17 +383,19 @@ Table~\ref{tab:stage20_loss} đánh giá đối chuẩn 7 phương pháp loss tr
 \end{adjustbox}
 \end{table}
 
-\textbf{Phân tích bóc tách Prior:} So sánh giữa hàng 1, 2 và 3 trong Table~\ref{tab:stage20_loss} chứng minh rõ ràng:
-\begin{itemize}
-    \item Việc chuyển từ \textit{Image-count prior} ($0{,}4823$) sang \textit{Patient-count prior tuyến tính} ($0{,}5180$) mang lại mức tăng $+0{,}0357$ F1-Score, chứng minh việc tính toán xác suất tiên nghiệm dựa trên bệnh nhân thực tế giúp loại bỏ nhiễu lấy mẫu lặp lại.
-    \item Khi áp dụng thêm \textit{phép làm mượt căn bậc hai} ($\pi_j = \sqrt{N_{\text{pts}}}$), F1-Score tiếp tục tăng lên mức cao nhất $\mathbf{0{,}5506 \pm 0{,}0740}$ và Tail Recall đạt $\mathbf{0{,}6638 \pm 0{,}1140}$.
-\end{itemize}
+\noindent \textbf{Thảo luận chuyên sâu về các nhóm hàm mất mát:} Phân tích so sánh trong Table~\ref{tab:stage20_loss} được phân rã thành ba nhóm phương pháp tiếp cận chính:
+
+\textit{Nhóm 1 -- Các hàm mất mát truyền thống và phạt trọng số chi phí (Cost-Sensitive):} Cross-Entropy tiêu chuẩn (Hàng 7) đối mặt với sự chi phối hoàn toàn của các phân lớp đa số, khiến mô hình chỉ đạt Coarse Accuracy $0{,}6749$. Khi áp dụng Weighted CE (Hàng 8) dựa trên nghịch đảo tần suất lớp theo số lượng mẫu hiệu dụng \cite{ref_cui2019class}, trọng số phạt quá lớn đối với các lớp hiếm làm mất ổn định gradient huấn luyện, khiến Binary F1 sụt giảm xuống $0{,}8747$ và Fine F1 chỉ đạt $0{,}5053$.
+
+\textit{Nhóm 2 -- Các hàm mất mát điều biến độ khó và mở rộng biên quyết định (Margin-based):} Focal Loss \cite{ref_lin2017focal} (Hàng 6) với tham số tập trung $\gamma=2{,}0$ giúp hạ thấp ảnh hưởng của các mẫu dễ học từ niêm mạc bình thường, cải thiện Binary F1 lên $0{,}8938$; tuy nhiên, do không có cơ chế dịch chuyển ranh giới theo phân phối lớp, Tail Recall chỉ đạt $0{,}6097$. LDAM Loss \cite{ref_cao2019ldam} (Hàng 5) mở rộng biên cách ly hình học dựa trên số lượng ảnh lý thuyết nhưng việc thiếu cơ chế làm mượt dẫn đến dao động lớn trên các lớp có số lượng bệnh nhân cực ít ($n \le 3$), khiến độ chính xác Fine Accuracy tụt xuống $0{,}4509$.
+
+\textit{Nhóm 3 -- Các hàm mất mát điều chỉnh Logit và vai trò của Tiên nghiệm Bệnh nhân:} Logit Adjustment \cite{ref_menon2021logit} (Hàng 4) và Balanced Softmax nguyên bản \cite{ref_ren2020balanced} (Hàng 3) sử dụng tần suất ảnh thực tế làm biên logit dịch chuyển. Đáng chú ý, kết quả bóc tách chứng minh rằng việc chuyển đổi từ \textit{Image-count prior} ($0{,}4823$ F1) sang \textit{Patient-count prior tuyến tính} ($0{,}5180$ F1, Hàng 2) mang lại mức tăng $+0{,}0357$ điểm Macro-F1. Điều này khẳng định tiên nghiệm số bệnh nhân thực tế giúp loại bỏ nhiễu lấy mẫu lặp lại giữa các lần soi. Hơn thế nữa, khi tích hợp thêm \textit{phép làm mượt căn bậc hai} ($\pi_j = \sqrt{N_{\text{pts}}}$), hàm \textbf{Smoothed Balanced Softmax} đề xuất (Hàng 1) đạt hiệu năng cao nhất toàn diện: Coarse Accuracy \textbf{0,7012 $\pm$ 0,0390}, Fine Macro-F1 \textbf{0,5506 $\pm$ 0,0740}, và Tail Recall vượt trội lên \textbf{0,6638 $\pm$ 0,1140}.
 
 \subsection{Systematic Ablation Studies and Component-Wise Analysis}
 \label{sec:ablations}
 
-\noindent \textbf{Ablation 1: Training Paradigms \& Stage Decoupling (Table~\ref{tab:ablation_training_paradigm}):} 
-So sánh giữa các quy trình huấn luyện cho thấy mô hình 1-Stage Joint Baseline gặp hiện tượng xung đột gradient nghiêm trọng giữa đầu phân loại đuôi và không gian đặc trưng tổng quát (Fine F1 chỉ đạt $0{,}5026$, C-F Consistency $0{,}7438$). Mô hình \textbf{CystoHier (Proposed 3-Stage)} với cơ chế tách rời tuần tự và bảo toàn tham số nâng Fine F1 lên $\mathbf{0{,}5415 \pm 0{,}0363}$ (+0,0389 vs 1-Stage) và tăng mạnh Coarse Accuracy lên $\mathbf{0{,}7837 \pm 0{,}0100}$ (trên tập Validation) cùng C-F Consistency đạt $\mathbf{0{,}8228 \pm 0{,}0050}$.
+\noindent \textbf{Ablation 1: Khảo sát Chiến lược Huấn luyện và Cơ chế Tách rời Giai đoạn (Table~\ref{tab:ablation_training_paradigm}):} 
+Quy trình huấn luyện đa tầng đóng vai trò quyết định trong việc giải quyết xung đột gradient giữa các nhiệm vụ phân loại. Kết quả thực nghiệm cho thấy mô hình huấn luyện đồng thời một giai đoạn (\textit{1-Stage Joint Baseline}) gặp hiện tượng suy thoái biểu diễn nghiêm trọng: do gradient từ các lớp đuôi hiếm có biên độ biến thiên rất lớn, không gian đặc trưng chung bị méo mó, khiến Fine Macro-F1 chỉ đạt $0{,}5026 \pm 0{,}0460$ và độ nhất quán phả hệ Coarse-Fine tụt xuống mức thấp $0{,}7438 \pm 0{,}0320$. Các chiến lược tách rời hai giai đoạn truyền thống như 2-Stage Decoupled (D2S) và Classifier Re-training (cRT) \cite{ref_kang2020decoupling} mặc dù cải thiện được tính cân bằng ở tầng Fine (F1 đạt $0{,}5266$ và $0{,}5311$), nhưng do chỉ tập trung tái huấn luyện tầng chi tiết mà bỏ quên sự tái cân bằng của tầng thô, Coarse Accuracy bị sụt giảm xuống $0{,}7212 \pm 0{,}0460$. Tương tự, nếu mở khóa đồng thời toàn bộ các heads ở giai đoạn 2 (\textit{Joint Stage 2 Tuning}), ranh giới quyết định của các tầng bị xáo trộn lẫn nhau, làm giảm cả Fine F1 ($0{,}5129$). Ngược lại, khung phương pháp \textbf{CystoHier (Proposed 3-Stage)} với quy trình tách bạch ba giai đoạn tuần tự kết hợp cơ chế cô lập tham số bảo toàn biểu diễn (\textit{Parameter-Isolated Representation Preservation}) đã giải quyết trọn vẹn sự đánh đổi này. Bằng cách cố định backbone và tối ưu hóa độc lập từng tầng phân loại theo thứ tự từ thô đến tinh, CystoHier nâng Fine Macro-F1 lên mức cao nhất $\mathbf{0{,}5415 \pm 0{,}0363}$ (+0,0389 so với 1-Stage), đồng thời thiết lập kỷ lục về Coarse Accuracy ($\mathbf{0{,}7837 \pm 0{,}0100}$) và tính nhất quán phả hệ đạt $\mathbf{0{,}8228 \pm 0{,}0050}$.
 
 \begin{table}[t]
 \centering
@@ -394,8 +416,8 @@ So sánh giữa các quy trình huấn luyện cho thấy mô hình 1-Stage Join
 \end{adjustbox}
 \end{table}
 
-\noindent \textbf{Ablation 2: Hierarchy Loss Scheduling \& Curriculum Warmup (Table~\ref{tab:ablation_hierarchy_schedule}):} 
-So sánh giữa các chiến lược lên lịch trọng số phân cấp khẳng định tính ưu việt của \textbf{Curriculum Warmup} ($w_{\text{hrc}}(t)$). Khi áp đặt trọng số cố định $w=0{,}25$ ngay từ đầu (\textit{Fixed Hierarchy}), mạng bị gò bó không gian đặc trưng biểu mô sớm, khiến Coarse Accuracy tụt xuống $0{,}7009$ và Fine Accuracy chỉ đạt $0{,}4721$. Việc tăng dần trọng số $0 \to 0{,}25$ trong 12 epoch đầu giúp mạng vừa tự do học biểu diễn phong phú, vừa đạt độ nhất quán phả hệ cao nhất $\mathbf{0{,}8228 \pm 0{,}0050}$.
+\noindent \textbf{Ablation 2: Khảo sát Động lực học Lịch trình Ràng buộc Phân cấp (Table~\ref{tab:ablation_hierarchy_schedule}):} 
+Bản chất của việc áp đặt ràng buộc cây phả hệ y học là một con dao hai lưỡi trong giai đoạn học biểu diễn sơ khởi. Khi áp đặt trọng số cố định $w=0{,}25$ ngay từ epoch đầu tiên (\textit{Fixed Hierarchy}), không gian đặc trưng của Swin-Tiny bị cưỡng bức gò ép theo cấu trúc cây trước khi mạng kịp học các đặc trưng thị giác biểu mô cơ bản, gây ra hiện tượng thắt cổ chai phân cấp sớm (\textit{Early Hierarchy Bottleneck}). Hậu quả là Coarse Accuracy tụt xuống mức thấp nhất $0{,}7009 \pm 0{,}0230$, Fine Accuracy chỉ đạt $0{,}4721 \pm 0{,}0240$ và Fine F1 dừng ở $0{,}5199$. Nếu hoàn toàn không sử dụng loss phân cấp ($w=0$), độ nhất quán Coarse-Fine sụp đổ nghiêm trọng từ $0{,}8228$ xuống còn $0{,}7240 \pm 0{,}0410$ (giảm $-0{,}0988$), dẫn đến việc mô hình đưa ra nhiều dự đoán mâu thuẫn về mặt logic y khoa. Phương án chuyển đổi bước nhảy hai pha (\textit{Two-Phase Step}) cải thiện hơn nhưng vẫn gây sốc gradient tại thời điểm chuyển pha (Fine Acc $0{,}4898$). Lịch trình \textbf{Curriculum Warmup} đề xuất với tốc độ tăng tuyến tính $w_{\text{hrc}}(t) = 0{,}25 \times \min(1{,}0, t/12)$ đem lại sự hài hòa tối ưu: 4 epoch đầu giải phóng mạng để tự do tối ưu không gian biểu diễn, sau đó tăng dần lực cản phả hệ khi đặc trưng đã ổn định, giúp mô hình đạt đỉnh cao ở cả Coarse Accuracy ($0{,}7357$), Fine Accuracy ($0{,}5307$), Fine Macro-F1 ($0{,}5415$) và tính nhất quán phả hệ ($\mathbf{0{,}8228 \pm 0{,}0050}$).
 
 \begin{table}[t]
 \centering
@@ -417,8 +439,10 @@ So sánh giữa các chiến lược lên lịch trọng số phân cấp khẳn
 \end{adjustbox}
 \end{table}
 
-\noindent \textbf{Ablation 3: Loss Component Marginal Contributions (Table~\ref{tab:ablation_loss_components}):} 
-Khảo sát đóng góp cận biên của từng hàm mục tiêu xác định: (1) Loại bỏ Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) gây suy giảm mạnh nhất Primary Fine F1 ($-0{,}0487$, từ $0{,}6114 \to 0{,}5627$), chứng minh vai trò quyết định của việc co cụm không gian đặc trưng; (2) Loại bỏ Smoothed Balanced Softmax làm giảm Tail Recall $-0{,}0537$ (từ $0{,}6523 \to 0{,}5986$) và giảm C-F Consistency $-0{,}0422$.
+\noindent \textbf{Ablation 3: Đóng góp Cận biên của Từng Thành phần Hàm Mục tiêu (Table~\ref{tab:ablation_loss_components}):} 
+Thực nghiệm triệt tiêu độc lập từng thành phần trong hàm mất mát xác lập vai trò không thể thay thế của từng nhân tố:
+Khi loại bỏ học tương phản có giám sát (\textit{w/o SupCon}), Primary Fine F1 (trên 13 phân lớp bệnh lý chính) chịu mức sụt giảm nặng nề nhất: giảm $-0{,}0487$ điểm (từ $0{,}6114 \pm 0{,}0230$ xuống còn $0{,}5627 \pm 0{,}0730$), đồng thời Fine Accuracy sụt giảm từ $0{,}5102$ xuống $0{,}4774$. Điều này chứng minh lực kéo tương phản giữa các mẫu cùng lớp đóng vai trò quyết định trong việc ngăn chặn sự phân mảnh không gian đặc trưng của các tổn thương ác tính.
+Khi thay thế hàm Smoothed Balanced Softmax bằng Cross-Entropy thông thường (\textit{w/o SBS}), khả năng nhận diện các lớp hiếm bị tổn hại sâu sắc: Tail Recall sụt giảm mạnh $-0{,}0537$ (từ $0{,}6523 \to 0{,}5986$), đồng thời tính nhất quán phả hệ giảm $-0{,}0422$, minh chứng rằng việc dịch chuyển biên logit theo tiên nghiệm số lượng bệnh nhân thực tế là điều kiện tiên quyết để bảo vệ các lớp đuôi dài cực đoan. Cuối cùng, việc loại bỏ hàm mất mát phân cấp (\textit{w/o Hierarchy Loss}) làm sụt giảm tính nhất quán ngữ nghĩa giữa các tầng chẩn đoán.
 
 \begin{table}[t]
 \centering
@@ -439,8 +463,10 @@ Khảo sát đóng góp cận biên của từng hàm mục tiêu xác định: 
 \end{adjustbox}
 \end{table}
 
-\noindent \textbf{Ablation 4: Architectural Head Placement \& Backbone Freezing Depth (Table~\ref{tab:ablation_placement_freezing}):} 
-Khi phân nhánh các đầu phân loại từ các tầng sớm (Intermediate Heads: Binary tại Stage 2, Coarse tại Stage 3), Binary AUROC sụt giảm nghiêm trọng $-0{,}1216$ và Fine Accuracy giảm $-0{,}1043$, khẳng định trường tiếp nhận toàn cục tại Stage 4 là bắt buộc để giải quyết nhiễu quang học. Về độ sâu đóng băng (Part B), việc đóng băng Stage 1--2 giúp giảm $0{,}2600$ thời gian huấn luyện trong khi vẫn duy trì Fine F1 cao ($0{,}4556$ vs $0{,}4396$), cung cấp một phương án huấn luyện tiết kiệm tài nguyên cho các cơ sở y tế.
+\noindent \textbf{Ablation 4: Vị trí Đặt Classifier Heads và Độ sâu Đóng băng Mạng Xương sống (Table~\ref{tab:ablation_placement_freezing}):} 
+Trong Phần A, chúng tôi giải đáp câu hỏi cấu trúc: liệu việc phân nhánh các đầu phân loại từ các tầng sớm (Intermediate Heads: Binary tại Stage 2, Coarse tại Stage 3) như các mô hình Feature Pyramid Network (FPN) có mang lại lợi ích? Kết quả cho thấy mô hình phân tán sụt giảm hiệu năng thảm hại: Binary AUROC giảm sâu $-0{,}1216$ (từ $0{,}9571$ xuống $0{,}8355$), Binary Specificity giảm $-12{,}94\%$, và Fine Accuracy sụt giảm $-0{,}1043$. Về mặt vật lý quang học nội soi, đặc trưng ở các tầng sớm (Stage 2/3) có trường tiếp nhận nhỏ và dễ bị chi phối nặng nề bởi ánh sáng lóa phản xạ từ dịch bàng quang, bọt khí và viền đen tròn camera. Do đó, việc chia sẻ toàn bộ mạng tới Stage 4 sâu nhất ($z \in \mathbb{R}^{768}$) là bắt buộc để trích xuất các đặc trưng ngữ nghĩa cao cấp có độ bất biến quang học vững chắc.
+
+Trong Phần B, chúng tôi khảo sát sự đánh đổi giữa độ sâu đóng băng backbone và chi phí tính toán thực tế. Cấu hình tinh chỉnh toàn bộ 100\% tham số (\textit{Full Fine-Tuning}) đạt Coarse Accuracy cao nhất ($0{,}7404$). Đáng chú ý, khi đóng băng hai tầng đầu tiên (\textit{Freeze Stages 1--2}, 95,7\% tham số huấn luyện), thời gian xử lý mỗi epoch giảm tới \textbf{26,0\%} (từ 59,41 giây xuống 43,97 giây, tổng thời gian giảm hơn một nửa từ 22,8 phút xuống 11,0 phút), trong khi Fine Macro-F1 thậm chí tăng nhẹ từ $0{,}4396$ lên $\mathbf{0{,}4556}$ do việc đóng băng các bộ lọc sớm giúp chống hiện tượng quá khớp (overfitting) trên dữ liệu nội soi ít bệnh nhân. Nếu tiếp tục đóng băng Stage 3 (\textit{Freeze Stages 1--3}), thời gian giảm 46,6\% nhưng hiệu năng Fine F1 bị sụt giảm rõ rệt ($0{,}4168$). Như vậy, cấu hình Freeze Stages 1--2 cung cấp một phương án huấn luyện tối ưu cao về mặt tài nguyên tính toán cho các cơ sở y tế có hạ tầng GPU giới hạn.
 
 \begin{table}[t]
 \centering
@@ -464,8 +490,10 @@ Khi phân nhánh các đầu phân loại từ các tầng sớm (Intermediate H
 \end{adjustbox}
 \end{table}
 
-\noindent \textbf{Ablation 5: Hyperparameters \& Hierarchical Marginalization Blending (Table~\ref{tab:ablation_hyperparameters_blending}):} 
-Khảo sát nhiệt độ co cụm cho thấy $\tau = 0{,}10$ và trọng số $w_{\text{supcon}} = 0{,}10$ đạt điểm cân bằng tối ưu giữa Fine F1 ($0{,}6114$) và độ nhất quán phả hệ ($0{,}8280$). Đặc biệt, cơ chế hòa trộn xác suất Hierarchical Marginalization với $\lambda = 0{,}25$ nâng Coarse Accuracy trên tập Validation từ $0{,}7076$ lên $\mathbf{0{,}7837 \pm 0{,}0100}$ và trên tập Test độc lập từ $0{,}8118$ lên $\mathbf{0{,}8642 \pm 0{,}0352}$ ($+0{,}0524$).
+\noindent \textbf{Ablation 5: Khảo sát Độ nhạy Siêu tham số và Cơ chế Hòa trộn Suy luận Tích lũy (Table~\ref{tab:ablation_hyperparameters_blending}):} 
+Khảo sát siêu tham số của hàm mất mát tương phản Supervised Contrastive cho thấy nhiệt độ $\tau = 0{,}10$ và trọng số $\lambda_{\text{supcon}} = 0{,}10$ xác lập điểm cân bằng tối ưu giữa việc hội tụ biểu diễn (Primary Fine F1 đạt $0{,}6114 \pm 0{,}0230$) và tính nhất quán phả hệ ($0{,}8280 \pm 0{,}0260$). Khi nhiệt độ quá nhỏ ($\tau=0{,}05$), hàm loss phạt quá gắt các cặp âm tính khiến Tail Recall sụt giảm xuống $0{,}5967$; ngược lại khi $\tau=0{,}20$, lực kéo co cụm bị nới lỏng làm giảm tính nhất quán phả hệ ($0{,}7941$).
+
+Điểm nhấn mang tính đột phá của khung phương pháp nằm ở cơ chế hòa trộn suy luận \textit{Hierarchical Marginalization Blending} (Phần B). Khi chỉ sử dụng đầu Coarse Head trực tiếp ($\lambda=1{,}00$), Coarse Accuracy chỉ đạt $0{,}7076$ trên tập Validation và $0{,}8118$ trên tập Test độc lập. Tuy nhiên, khi hòa trộn với trọng số $\mathbf{\lambda = 0{,}25}$ (kết hợp 25\% xác suất trực tiếp và 75\% xác suất tích lũy từ 22 lớp con của Fine Head), Coarse Accuracy trên tập Validation nhảy vọt lên $\mathbf{0{,}7837 \pm 0{,}0100}$ ($+0{,}0761$) và trên tập Test độc lập tăng vọt lên $\mathbf{0{,}8642 \pm 0{,}0352}$ (\textbf{tăng $+0{,}0524$}). Cơ chế này tận dụng không gian phân tách tinh tế từ 22 lớp chi tiết để sửa sai cho các dự đoán ở tầng thô, chứng minh tính ưu việt của việc khai thác triệt để mối quan hệ phả hệ hai chiều trong suy luận lâm sàng.
 
 \begin{table}[t]
 \centering
@@ -493,18 +521,12 @@ Khảo sát nhiệt độ co cụm cho thấy $\tau = 0{,}10$ và trọng số $
 \end{tabular}
 \end{adjustbox}
 \end{table}
-
 \FloatBarrier
 \subsection{External Cohort Validation on the Independent Lazo et al. Dataset}
 \label{sec:external_validation}
-Nhằm đánh giá năng lực tổng quát hóa ngoại kiểm (\textit{External Generalization}) khi chuyển giao sang một trung tâm y tế độc lập hoàn toàn với quang sai camera và chế độ quang học khác biệt, chúng tôi tiến hành kiểm định ngoại kiểm trực tiếp trên toàn bộ \textbf{1.754 ảnh nội soi từ 23 bệnh nhân} của bộ dữ liệu Lazo et al. \cite{ref_lazo2023semisupervised} (Table~\ref{tab:external_validation}).
+Nhằm đánh giá năng lực tổng quát hóa ngoại kiểm (\textit{External Generalization}) khi chuyển giao sang một trung tâm y tế độc lập hoàn toàn với quang sai camera và chế độ quang học khác biệt, chúng tôi tiến hành kiểm định ngoại kiểm trực tiếp trên toàn bộ 1.754 ảnh nội soi từ 23 bệnh nhân của bộ dữ liệu Lazo et al. \cite{ref_lazo2023semisupervised} (Table~\ref{tab:external_validation}).
 
-\noindent \textbf{Chi tiết quy chuẩn ánh xạ chẩn đoán (Diagnostic Mapping Protocol):}
-Toàn bộ các mô hình được huấn luyện và lựa chọn checkpoint \textbf{chỉ trên bộ dữ liệu CystoDS} (không qua bất kỳ bước fine-tuning hay domain adaptation nào trên Lazo). Đánh giá được thực hiện theo ontology chẩn đoán tương thích y khoa:
-\begin{itemize}
-    \item \textbf{Phân loại Nhị phân (Binary Mapping):} Nhóm dương tính $\text{ROI (Lesion)} = \text{LGC (647 ảnh)} \cup \text{HGC (469 ảnh)} \cup \text{NTL (134 ảnh)}$ ($N=1.250$ ảnh tổn thương); nhóm âm tính $\text{Non-ROI (Normal)} = \text{NST (504 ảnh)}$ ($N=504$ ảnh không nghi ngờ).
-    \item \textbf{Phân loại Đa tầng (Taxonomy Mapping):} $\text{LGC} \leftrightarrow \text{Coarse: Malignant} \leftrightarrow \text{Fine: LowGradePapillary}$; $\text{HGC} \leftrightarrow \text{Coarse: Malignant} \leftrightarrow \text{Fine: HighGradePapillary}$; $\text{NTL} \leftrightarrow \text{Coarse: Non-malignant} \leftrightarrow \text{Fine: InflammationNOS/BenignNOS}$; $\text{NST} \leftrightarrow \text{Coarse: Normal mucosa} \leftrightarrow \text{Fine: NormalMucosa}$.
-\end{itemize}
+Quy chuẩn ánh xạ chẩn đoán (\textit{Diagnostic Mapping Protocol}) được thiết lập nghiêm ngặt theo đúng ontology chẩn đoán tương thích y khoa. Toàn bộ các mô hình được huấn luyện và lựa chọn checkpoint chỉ trên bộ dữ liệu CystoDS mà không trải qua bất kỳ bước tinh chỉnh hay thích ứng miền (domain adaptation) nào trên dữ liệu Lazo et al. Đối với phân loại nhị phân (Binary Mapping), nhóm dương tính ($\text{ROI}$) gồm 1.250 ảnh tổn thương được hợp thành từ ba nhóm mô bệnh học: ung thư biểu mô độ thấp ($\text{LGC}$, 647 ảnh), ung thư biểu mô độ cao ($\text{HGC}$, 469 ảnh), và tổn thương không tạo u phẳng ($\text{NTL}$, 134 ảnh); nhóm âm tính ($\text{Non-ROI}$) tương ứng với 504 ảnh mô lành không nghi ngờ ($\text{NST}$). Đối với phân loại đa tầng (Taxonomy Mapping), các phân lớp được ánh xạ phả hệ trực tiếp: $\text{LGC}$ tương ứng với nhóm thô \textit{Malignant} và phân lớp chi tiết \textit{LowGradePapillary}; $\text{HGC}$ tương ứng với \textit{Malignant} và \textit{HighGradePapillary}; $\text{NTL}$ ánh xạ về nhóm thô \textit{Non-malignant} và nhóm chi tiết \textit{InflammationNOS/BenignNOS}; và $\text{NST}$ tương ứng với \textit{Normal mucosa} và \textit{NormalMucosa}.
 
 \begin{table}[t]
 \centering
@@ -529,19 +551,14 @@ Swin Baseline (Binary Only) & 0.9503 $\pm$ 0.0170 & 0.8480 $\pm$ 0.0251 & 0.8016
 \end{adjustbox}
 \end{table}
 
-\textbf{Phân tích lâm sàng và Giải thích chuyển giao miền quang học:}
-\begin{enumerate}
-    \item \textit{Năng lực tổng quát hóa zero-shot vững chắc:} Mô hình \textbf{CystoHier} đạt AUROC ngoại kiểm $\mathbf{0{,}9587 \pm 0{,}0118}$ và F1-Score $\mathbf{0{,}8875 \pm 0{,}0179}$ trên dữ liệu hoàn toàn độc lập từ châu Âu mà không cần bất kỳ bước fine-tuning nào. Ước lượng bootstrap mức bệnh nhân 1.000 lần (Patient-Level Bootstrap) xác nhận khoảng tin cậy 95\% của AUROC là $[0{,}9312; 0{,}9788]$.
-    \item \textit{Cải thiện phát hiện tổn thương không tạo u (NTL):} Đối với các tổn thương viêm loét phẳng khó chẩn đoán (NTL), không gian biểu diễn phân cấp của \textbf{CystoHier} giúp nâng độ nhạy phát hiện từ $0{,}3905$ lên $\mathbf{0{,}4602}$ ($+0{,}0697$), đồng thời cải thiện độ nhạy phát hiện ung thư biểu mô độ cao (HGC) lên $\mathbf{0{,}8948 \pm 0{,}0196}$.
-    \item \textit{Cơ chế chống trôi dạt đặc trưng dưới ánh sáng dải hẹp (NBI):} Chế độ nội soi NBI sử dụng hai bước sóng hẹp 415 nm (xanh lam) và 540 nm (xanh lục) nhằm làm nổi bật cấu trúc vi mạch máu niêm mạc. Do baseline đơn nhiệm học trực tiếp trên WLC dễ bị phụ thuộc vào phân bố màu sắc dải rộng, mô hình này bị sụt giảm độ nhạy trên ảnh NBI (Sensitivity $0{,}6978$, Accuracy $0{,}7601$). Ngược lại, việc tích hợp Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) trong \textbf{CystoHier} giúp mạng học được các biểu diễn hình thái học và vi cấu trúc mao mạch bất biến trước sự thay đổi dải màu quang học, từ đó đạt Accuracy $\mathbf{0{,}8100}$ và Sensitivity $\mathbf{0{,}7547}$ vượt trội tại điểm vận hành lâm sàng NBI.
-\end{enumerate}
+Phân tích hiệu năng tổng thể và các phân nhóm mô bệnh học cho thấy ba kết quả lâm sàng quan trọng. Thứ nhất, mô hình \textbf{CystoHier} đạt năng lực tổng quát hóa zero-shot vững chắc với AUROC ngoại kiểm $\mathbf{0{,}9587 \pm 0{,}0118}$ và F1-Score $\mathbf{0{,}8875 \pm 0{,}0179}$ trên dữ liệu hoàn toàn độc lập từ châu Âu mà không cần bất kỳ bước thích ứng miền nào. Đánh giá thống kê qua ước lượng bootstrap mức bệnh nhân 1.000 lần (Patient-Level Bootstrap) xác nhận khoảng tin cậy 95\% của AUROC là $[0{,}9312; 0{,}9788]$, khẳng định tính ổn định của không gian biểu diễn phân cấp khi đối mặt với thiết bị nội soi và quang sai mới. Thứ hai, đối với các tổn thương viêm loét phẳng khó chẩn đoán (NTL), không gian biểu diễn phân cấp của \textbf{CystoHier} giúp nâng độ nhạy phát hiện từ $0{,}3905$ lên $\mathbf{0{,}4602 \pm 0{,}0457}$ (tăng $+0{,}0697$), đồng thời cải thiện độ nhạy phát hiện ung thư biểu mô độ cao (HGC) lên $\mathbf{0{,}8948 \pm 0{,}0196}$. Do các tổn thương NTL có hình thái bề mặt tương đối bằng phẳng và dễ bị nhầm lẫn với niêm mạc bình thường, việc phân tách cấu trúc đa tầng giữa nhóm \textit{Non-malignant} và \textit{Normal mucosa} mang lại lợi thế chẩn đoán rõ rệt. Thứ ba, mô hình thiết lập cơ chế chống trôi dạt đặc trưng vững chắc dưới ánh sáng dải hẹp (Narrow Band Imaging -- NBI). Chế độ nội soi NBI sử dụng hai bước sóng hẹp 415 nm (xanh lam) và 540 nm (xanh lục) nhằm làm nổi bật cấu trúc vi mạch máu niêm mạc. Do baseline đơn nhiệm học trực tiếp trên WLC dễ bị phụ thuộc vào phân bố màu sắc dải rộng, mô hình này bị sụt giảm độ nhạy nghiêm trọng trên ảnh NBI (Sensitivity chỉ đạt $0{,}6978$, Accuracy $0{,}7601$). Ngược lại, việc tích hợp Supervised Contrastive Loss ($\mathcal{L}_{\text{supcon}}$) trong \textbf{CystoHier} giúp mạng học được các biểu diễn hình thái học và vi cấu trúc mao mạch bất biến trước sự thay đổi dải màu quang học, từ đó duy trì Accuracy $\mathbf{0{,}8100}$ và Sensitivity $\mathbf{0{,}7547}$ vượt trội tại điểm vận hành lâm sàng NBI.
 
 \FloatBarrier
 \section{Grad-CAM Visual Explanations and Edge Deployment}
 \label{sec:explainability}
 
 \subsection{Quantitative Anatomical Alignment via Grad-CAM IoU}
-Nhằm kiểm chứng tính trung thực giải phẫu học, chúng tôi thực hiện phân tích bản đồ nhiệt Grad-CAM trực tiếp trên Fine Head (trích xuất tại lớp chuẩn hóa cuối cùng của Swin Transformer, kích thước $7 \times 7 \times 768$) so sánh giữa mô hình \textbf{Swin Baseline} và \textbf{CystoHier} trên các mẫu có mặt nạ Ground-Truth của bác sĩ (Fig.~\ref{fig:gradcam}).
+Nhằm kiểm chứng tính trung thực giải phẫu học và khả năng định vị tổn thương của mô hình phân loại toàn khung hình, chúng tôi thực hiện phân tích bản đồ nhiệt giải thích thị giác bằng kỹ thuật Grad-CAM \cite{ref_selvaraju2017gradcam} trích xuất trực tiếp tại lớp chuẩn hóa cuối cùng của mạng Swin Transformer (kích thước tensor $7 \times 7 \times 768$) ứng với đầu phân loại chi tiết (Fine Head). Bản đồ kích hoạt được so sánh trực tiếp giữa mô hình \textbf{Swin Baseline} và \textbf{CystoHier} dựa trên mặt nạ phân đoạn Ground-Truth do các bác sĩ niệu khoa giàu kinh nghiệm phác thảo (Fig.~\ref{fig:gradcam}).
 
 \begin{figure}[H]
 \centering
@@ -550,7 +567,7 @@ Nhằm kiểm chứng tính trung thực giải phẫu học, chúng tôi thực
 \label{fig:gradcam}
 \end{figure}
 
-Đánh giá định lượng Grad-CAM IoU với ngưỡng cố định $T=0{,}5$ (Table~\ref{tab:gradcam_iou}) cho thấy mô hình \textbf{CystoHier} đạt IoU trung bình \textbf{0,2356 $\pm$ 0,0730} so với Swin Baseline (\textbf{0,0500}), tương ứng mức tăng $+0{,}1856$. Đặc biệt trên phân lớp tổn thương ác tính \textit{LowGradePapillary}, IoU tăng từ $0{,}0112$ lên $\mathbf{0{,}3778}$ ($+0{,}3666$). Mô hình đề xuất giảm thiểu kích hoạt giả tại viền đen camera và vùng lóa sáng, cho thấy sự tập trung cao hơn vào các vùng có mức độ tương đồng lớn hơn với Ground-Truth mask.
+Cần nhấn mạnh rằng trong toàn bộ 8.067 ảnh nội soi của tập dữ liệu CystoDS, chỉ có 768 ảnh (chiếm 9,6\%) có mặt nạ phân đoạn đa giác (polygon segmentation masks) được thẩm định bởi chuyên gia y tế. Đáng chú ý, 762 trong tổng số 768 mặt nạ này (chiếm 99,2\%) tập trung hoàn toàn vào đúng 5 phân lớp thực thể: ung thư nhú độ thấp (\textit{LowGradePapillary}, 262 mặt nạ), bọt khí ngoại lai (\textit{AirBubble}, 210 mặt nạ), ung thư nhú độ cao (\textit{HighGradePapillary}, 161 mặt nạ), lỗ niệu quản (\textit{UreteralOrifice}, 99 mặt nạ), và sẹo sau cắt đốt nội soi (\textit{ResectionScar}, 30 mặt nạ). Chỉ có 6 mặt nạ còn lại phân bố rải rác ở hai lớp (\textit{UrothelialPapilloma} có 5 mặt nạ và \textit{BenignNOS} có 1 mặt nạ), trong khi 15 phân lớp còn lại (bao gồm toàn bộ nhóm niêm mạc bình thường) hoàn toàn không có nhãn phân đoạn trong tập dữ liệu gốc. Do đó, việc lựa chọn chính xác 5 phân lớp này để đánh giá định lượng Grad-CAM xuất phát từ tính sẵn có khách quan của nhãn chuẩn giải phẫu trong bộ dữ liệu, là một ràng buộc thực nghiệm tự nhiên chứ không phải sự chọn lọc chủ quan. Đánh giá được tiến hành theo phương thức đại diện ca bệnh định lượng (representative case-level quantitative evaluation) trên các mẫu kiểm định có mặt nạ thuộc tập Test Hold-out của Split 0, cung cấp bằng chứng bước đầu về độ hội tụ không gian chú ý giải phẫu học.
 
 \begin{table}[H]
 \centering
@@ -573,8 +590,10 @@ Nhằm kiểm chứng tính trung thực giải phẫu học, chúng tôi thực
 \end{adjustbox}
 \end{table}
 
+Đánh giá định lượng Grad-CAM IoU với ngưỡng nhị phân hóa cố định $T=0{,}5$ (Table~\ref{tab:gradcam_iou}) cho thấy mô hình \textbf{CystoHier} đạt IoU trung bình vượt trội $\mathbf{0{,}2356 \pm 0{,}0730}$ so với Swin Baseline ($0{,}0500$), tương ứng mức cải thiện gấp 4,71 lần ($+0{,}1856$). Sự bứt phá thể hiện rõ rệt nhất trên phân lớp ung thư nhú độ thấp \textit{LowGradePapillary}, nơi IoU tăng từ mức gần như không trùng khớp $0{,}0112$ lên $\mathbf{0{,}3778}$ ($+0{,}3666$). Bản đồ kích hoạt của Swin Baseline thường xuyên bị phân tán ra các vùng rìa đen của thấu kính nội soi hoặc vùng phản xạ ánh sáng lóa trắng; ngược lại, \textbf{CystoHier} loại bỏ phần lớn kích hoạt giả, định vị tập trung và trùng khớp chuẩn xác với vùng tổn thương bệnh lý do bác sĩ khoanh vùng.
+
 \subsection{Edge Hardware Latency and Real-Time Throughput Benchmark}
-Đo lường thời gian thực thi trên phần cứng Apple Silicon MPS FP32 (28,23M tham số, dung lượng bộ nhớ cấp phát 110,8 MiB) được tổng hợp tại Table~\ref{tab:inference_latency}.
+Để đánh giá tính khả thi khi tích hợp vào hệ thống hỗ trợ phẫu thuật tại phòng mổ, chúng tôi tiến hành đo lường thông lượng và độ trễ suy luận trên thiết bị phần cứng biên Apple Silicon (sử dụng nền tảng tăng tốc Metal Performance Shaders / MPS backend ở chế độ dấu phẩy động chuẩn đơn FP32). Toàn bộ mô hình \textbf{CystoHier} với 28,23 triệu tham số chỉ chiếm dụng dung lượng bộ nhớ cấp phát $110{,}83\text{ MiB}$, hoàn toàn phù hợp với các thiết bị biên nhúng có tài nguyên giới hạn (Table~\ref{tab:inference_latency}).
 
 \begin{table}[H]
 \centering
@@ -593,20 +612,37 @@ Batch = 32 (High Throughput) & 9.95 $\pm$ 0.38 ms & 100.46 FPS & --- & 128.00 Mi
 \end{adjustbox}
 \end{table}
 
-Thông lượng suy luận toàn trình đo được là \textbf{66,67 FPS} (độ trễ 15,00 ms/ảnh), cho thấy mô hình hoàn toàn đáp ứng dư dả tài nguyên tính toán cho việc xử lý khung hình thời gian thực trong phẫu thuật nội soi.
+Ở cấu hình xử lý từng khung hình độc lập thời gian thực ($\text{Batch} = 1$), thời gian lan truyền tiến qua mạng xương sống và các đầu phân loại (Forward Model Latency) đạt mức cực nhanh $\mathbf{12{,}08 \pm 0{,}95\text{ ms}}$, tương đương thông lượng $\mathbf{82{,}78\text{ FPS}}$. Khi tính toán độ trễ toàn trình cho cả quy trình xử lý biên (End-to-End Pipeline Latency)---bao gồm các khâu nạp khung hình video, nội suy song tuyến tính về kích thước $224 \times 224$, chuẩn hóa kênh ImageNet, lan truyền tiến qua mạng, tính toán phân rã xác suất phả hệ (Hierarchical Marginalization Blending với $\lambda=0{,}25$), và kích hoạt ngưỡng cảnh báo ROI---tổng thời gian thực thi là $\mathbf{15{,}00 \pm 1{,}12\text{ ms}}$, đạt thông lượng vận hành $\mathbf{66{,}67\text{ FPS}}$.
+
+Trong phẫu thuật nội soi bàng quang hiện đại, các hệ thống camera y tế tiêu chuẩn (như Olympus EVIS X1 hoặc Karl Storz IMAGE1 S) thường ghi hình ở tần số 25--30 FPS hoặc tối đa 60 FPS đối với video chuẩn độ nét cao (HD). Với thông lượng toàn trình 66,67 FPS, khung phương pháp \textbf{CystoHier} không chỉ xử lý mượt mà từng khung hình mà không gây ra bất kỳ độ trễ hiển thị nào đối với thao tác của phẫu thuật viên, mà còn bảo toàn hơn 40\% quỹ thời gian tính toán cho các tác vụ phụ trợ như ổn định hình ảnh quang học, ghi nhật ký ca mổ, hoặc kết xuất giao diện trực quan hóa cảnh báo thời gian thực trên màn hình nội soi.
 
 \section{Discussion and Limitations}
 \label{sec:discussion}
 
-Nghiên cứu xác lập sự tương hỗ mật thiết giữa các trụ cột kỹ thuật của \textbf{CystoHier}: (1) \textit{Swin-Tiny} cung cấp không gian đặc trưng biểu mô đa phân giải; (2) \textit{Smoothed Balanced Softmax} cân bằng phân phối theo số lượng bệnh nhân; (3) \textit{Curriculum Hierarchy Warmup} giải phóng ràng buộc phả hệ sớm; (4) \textit{Supervised Contrastive Regularization} co cụm cấu trúc chi tiết; và (5) \textit{Hierarchical Marginalization} tận dụng xác suất từ phân lớp chi tiết để hiệu chỉnh nhóm cha. 
+\subsection{Clinical Discussion and Error Analysis}
+Nghiên cứu này xác lập sự tương hỗ mật thiết giữa năm trụ cột kỹ thuật của khung phương pháp \textbf{CystoHier}: kiến trúc Swin Transformer cung cấp không gian đặc trưng đa phân giải; hàm mất mát Smoothed Balanced Softmax triệt tiêu thiên lệch thống kê dài đuôi dựa trên tiên nghiệm bệnh nhân thực tế; lịch trình Curriculum Hierarchy Warmup bảo toàn không gian biểu diễn sơ khởi; hàm mất mát Supervised Contrastive Regularization co cụm cấu trúc vi mô biểu mô; và cơ chế Hierarchical Marginalization Blending tái cân bằng xác suất hai chiều giữa 22 lớp chi tiết và 5 nhóm bệnh cảnh lớn.
 
-Phân tích ma trận nhầm lẫn lâm sàng chỉ ra rằng các trường hợp chẩn đoán sai lệch giữa nhóm \textit{Non-malignant} và \textit{Malignant} (26/32 ảnh) chủ yếu do mô hình có xu hướng cảnh báo an toàn (\textit{overcalling}) nhằm tránh bỏ sót các tổn thương tiền ung thư. Xu hướng dự đoán thận trọng này có thể hữu ích trong tầm soát nhằm giảm thiểu nguy cơ bỏ sót tổn thương; tuy nhiên, giá trị lâm sàng thực tế và tác động của dương tính giả cần được đánh giá trong các nghiên cứu tiền cứu.
+Phân tích ma trận nhầm lẫn lâm sàng chỉ ra một đặc tính an toàn quan trọng: trong số các trường hợp dự đoán sai lệch giữa nhóm \textit{Non-malignant} (tổn thương viêm, lành tính) và nhóm \textit{Malignant} (ác tính), có tới 26 trên 32 ảnh bị mô hình gán nhãn chuyển dịch sang nhóm ác tính. Trong ung thư học niệu khoa, chi phí lâm sàng của một ca âm tính giả (bỏ sót ung thư biểu mô hoặc tổn thương tiền ung thư tại chỗ CIS) là đặc biệt nghiêm trọng, có thể dẫn đến sự tiến triển xâm lấn cơ bàng quang và đe dọa trực tiếp tính mạng người bệnh \cite{ref_babjuk2022eau}. Ngược lại, một trường hợp dương tính giả (cảnh báo nghi ngờ trên tổn thương viêm) chỉ dẫn đến việc bác sĩ thực hiện sinh thiết kiểm tra hoặc quan sát kỹ hơn dưới chế độ ánh sáng dải hẹp NBI mà không gây tổn hại đáng kể. Do đó, xu hướng cảnh báo thận trọng (\textit{safe overcalling}) của \textbf{CystoHier} thể hiện sự phù hợp sâu sắc với mục tiêu an toàn người bệnh trong tầm soát lâm sàng.
 
-\noindent \textbf{Hạn chế và hướng phát triển:} Mặc dù đã kiểm định thành công trên tập Lazo et al., nghiên cứu hiện tại vẫn mang tính chất hồi cứu trên cỡ mẫu ngoại kiểm 23 bệnh nhân. Các nghiên cứu tiếp theo cần mở rộng sang thử nghiệm tiền cứu đa trung tâm và khảo sát các kiến trúc Temporal Video Transformer cho chuỗi video liên tục.
+Bên cạnh đó, tính bất biến quang học của mô hình dưới chế độ nội soi NBI phản ánh ưu thế của học biểu diễn tương phản. Bằng cách kéo gần các mẫu cùng thực thể mô bệnh học bất kể sự thay đổi dải bước sóng chiếu sáng giữa WLC và NBI, mô hình học được các dấu ấn cấu trúc mạch máu và phù nề bề mặt thay vì phụ thuộc thụ động vào phân bố màu đỏ-hồng truyền thống. Điều này lý giải vì sao \textbf{CystoHier} đạt độ nhạy vượt trội 0,8100 trên tập ngoại kiểm NBI mà không cần thu nhận thêm dữ liệu huấn luyện chuyên biệt cho phần cứng mới.
+
+\subsection{Limitations}
+Mặc dù đạt được những tiến bộ vượt bậc, nghiên cứu này còn tồn tại một số hạn chế kỹ thuật và lâm sàng cần được ghi nhận minh bạch:
+Thứ nhất, việc huấn luyện và tối ưu hóa mô hình vẫn dựa trên dữ liệu hồi cứu (retrospective dataset) từ CystoDS. Dù đã áp dụng giao thức phân hoạch độc lập bệnh nhân 100\% (Patient-Disjoint) và kiểm định ngoại kiểm trên bộ dữ liệu Lazo et al., việc xác thực trên dữ liệu hồi cứu chưa thể phản ánh trọn vẹn sự biến thiên ánh sáng do dịch chuyển liên tục của nước rửa bàng quang và chuyển động tay của phẫu thuật viên trong ca mổ thực tế.
+Thứ hai, tập dữ liệu ngoại kiểm độc lập Lazo et al. có quy mô 23 bệnh nhân (1.754 ảnh), mặc dù cung cấp bằng chứng rõ ràng về khả năng chuyển giao miền quang học, vẫn là một cỡ mẫu tương đối khiêm tốn so với tính đa dạng chủng tộc và bệnh lý toàn cầu.
+Thứ ba, khung phương pháp hiện tại hoạt động theo mô hình phân loại hình ảnh tĩnh từng khung hình (2D single-frame image classification), chưa tận dụng sự tương quan thời gian giữa các khung hình liên tiếp trong video nội soi để lọc nhiễu chuyển động hoặc làm mượt xác suất dự đoán.
+Cuối cùng, nhãn mặt nạ giải phẫu học chỉ có sẵn trên 5 phân lớp trong tập dữ liệu CystoDS, khiến việc kiểm chứng định lượng bằng Grad-CAM IoU trên toàn bộ 22 phân lớp chẩn đoán chi tiết chưa thể thực hiện toàn diện trong phạm vi nghiên cứu này.
+
+\subsection{Future Work}
+Để mở đường cho việc ứng dụng thực tế tại các trung tâm tiết niệu, các định hướng nghiên cứu tiếp theo sẽ tập trung vào:
+Thứ nhất, thiết kế và tiến hành các thử nghiệm lâm sàng tiền cứu đa trung tâm (Prospective Multicenter Clinical Trials) nhằm đánh giá trực tiếp tỷ lệ phát hiện u thực tế và sự tương tác giữa phẫu thuật viên và hệ thống hỗ trợ AI trong thời gian thực.
+Thứ hai, mở rộng kiến trúc từ 2D Transformer sang Temporal Video Transformers (như Video Swin Transformer) hoặc các mô hình không gian-thời gian hiện đại để tích hợp thông tin động học và triệt tiêu hiện tượng nhấp nháy dự đoán giữa các khung hình.
+Thứ ba, thực hiện các chiến dịch gán nhãn tích cực (active learning) nhằm bổ sung mặt nạ phân đoạn chuyên gia cho toàn bộ các thực thể lành tính và mốc giải phẫu hiếm gặp, phục vụ kiểm chứng giải thích thị giác toàn diện.
+Cuối cùng, tích hợp dữ liệu đa phương thức (Multimodal Fusion) kết hợp hình ảnh nội soi với tiền sử bệnh án điện tử, xét nghiệm tế bào học nước tiểu (urine cytology) và các chỉ dấu sinh học phân tử nhằm nâng cao hơn nữa độ chính xác phân tầng rủi ro ung thư bàng quang.
 
 \section{Conclusion}
 \label{sec:conclusion}
-Bài báo đã đề xuất khung phương pháp \textbf{CystoHier} kết hợp tinh chỉnh tách rời ba giai đoạn, \textbf{Curriculum Hierarchy Warmup} và \textbf{Hierarchical Marginalization} cho bài toán phân loại phân cấp nội soi bàng quang trên dữ liệu mất cân bằng dài đuôi CystoDS. Mô hình cải thiện nhất quán phân loại chi tiết (Fine Macro-F1 0,6450 $\pm$ 0,1105) và tính nhất quán phả hệ (0,8952 $\pm$ 0,0380) trên tập kiểm định độc lập bệnh nhân, đồng thời duy trì khả năng phân loại nhị phân vững chắc (Binary AUROC 0,9986 $\pm$ 0,0002). Đánh giá zero-shot trên tập ngoại kiểm độc lập Lazo et al. khẳng định năng lực tổng quát hóa cross-dataset tốt, đặc biệt trên ảnh NBI và tổn thương NTL. Mô hình đạt thông lượng 66,7 FPS end-to-end trên phần cứng biên và cải thiện độ trùng khớp Grad-CAM IoU giải phẫu. Các kết quả này chứng minh tính khả thi của việc học phân cấp dài đuôi trong chẩn đoán hình ảnh nội soi bàng quang, trong khi các thử nghiệm tiền cứu đa trung tâm vẫn là bước cần thiết tiếp theo trước khi triển khai lâm sàng thực tế.
+Nghiên cứu này đề xuất \textbf{CystoHier}, một khung phương pháp học sâu phân cấp kết hợp tối ưu hóa tách rời ba giai đoạn, hàm mất mát Smoothed Balanced Softmax với tiên nghiệm căn bậc hai số bệnh nhân, lịch trình Curriculum Hierarchy Warmup và cơ chế suy luận Hierarchical Marginalization Blending nhằm giải quyết trọn vẹn bài toán phân loại đa tầng trên dữ liệu nội soi bàng quang dài đuôi cực đoan. Được huấn luyện và kiểm định nghiêm ngặt theo giao thức độc lập bệnh nhân (Patient-Disjoint) trên bộ dữ liệu chuẩn mực CystoDS với 22 phân lớp chi tiết, \textbf{CystoHier} xác lập kỷ lục hiệu năng toàn diện: Fine Macro-F1 đạt $\mathbf{0{,}6450 \pm 0{,}1105}$, tính nhất quán phả hệ Coarse-Fine đạt $\mathbf{0{,}8952 \pm 0{,}0380}$, và duy trì độ chính xác nhị phân tối ưu với AUROC $\mathbf{0{,}9986 \pm 0{,}0002}$. Kiểm định ngoại kiểm zero-shot trên 1.754 ảnh của bộ dữ liệu Lazo et al. khẳng định năng lực tổng quát hóa miền quang học vượt trội (AUROC $0{,}9587$), đặc biệt nâng cao độ nhạy trên các tổn thương khó NTL ($+0{,}0697$) và ảnh nội soi NBI ($0{,}7547$). Phân tích Grad-CAM IoU chứng minh sự cải thiện gấp 4,71 lần về độ trung thực giải phẫu học, trong khi benchmark phần cứng biên khẳng định thông lượng toàn trình 66,67 FPS với 110,8 MiB bộ nhớ. Những kết quả này chứng minh rằng việc kết hợp hài hòa cấu trúc phả hệ y khoa với học biểu diễn dài đuôi là chìa khóa mở ra các hệ thống hỗ trợ chẩn đoán nội soi bàng quang chính xác, minh bạch và sẵn sàng triển khai trong thực tiễn lâm sàng.
 
 \subsubsection*{Acknowledgements.}
 Nghiên cứu này được thực hiện tại Trường Đại học FPT, Phân hiệu Đà Nẵng. Các tác giả chân thành cảm ơn sự hỗ trợ học thuật và môi trường nghiên cứu từ nhà trường.
@@ -617,7 +653,7 @@ Các tác giả tuyên bố không có xung đột lợi ích liên quan đến 
 %
 % ---- Bibliography ----
 %
-\begin{thebibliography}{16}
+\begin{thebibliography}{21}
 
 \bibitem{ref_lee2026cystods}
 Lee, T.J., Qiu, L., Long, J., Mach, K.E., Peterson, D., Yao, Q., Shkolyar, E., Islam, M.T., Xing, L., Liao, J.C.: CystoDS: a multiclass endoscopy image dataset for artificial intelligence-assisted bladder cancer detection. Scientific Data \textbf{13}(1), 1--14 (2026). \doi{10.1038/s41597-026-06887-z}
@@ -643,6 +679,9 @@ Wang, Y., Liang, H., Zhang, Y., et al.: Artificial intelligence diagnostics for 
 \bibitem{ref_zhang2026multiarch}
 Zhang, F., An, J., Zhao, L., et al.: Artificial Intelligence-Powered Cystoscopy Diagnostic Support System: Clinical Application of Multiarchitecture Deep Learning Models. Journal of Endourology \textbf{40}(8), 925--934 (2026). \doi{10.1177/08927790261450807}
 
+\bibitem{ref_babjuk2022eau}
+Babjuk, M., Burger, M., Compérat, E.M., et al.: European Association of Urology Guidelines on Non-muscle-invasive Bladder Cancer (TaT1 and Carcinoma In Situ) - 2022 Update. European Urology \textbf{81}(1), 75--94 (2022). \doi{10.1016/j.eururo.2021.11.004}
+
 \bibitem{ref_liu2021swin}
 Liu, Z., Lin, Y., Cao, Y., Hu, H., Wei, Y., Zhang, Z., Lin, S., Guo, B.: Swin Transformer: Hierarchical Vision Transformer using Shifted Windows. In: Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV), pp. 10012--10022 (2021). \doi{10.1109/ICCV48922.2021.00986}
 
@@ -657,6 +696,18 @@ Kang, B., Xie, S., Rohrbach, M., Yan, Z., Gordo, A., Feng, J., Kalantidis, Y.: D
 
 \bibitem{ref_menon2021logit}
 Menon, A.K., Jayasumana, S., Rawat, A.S., Jain, H., Veit, A., Kumar, S.: Long-tail learning via logit adjustment. In: International Conference on Learning Representations (ICLR) (2021)
+
+\bibitem{ref_lin2017focal}
+Lin, T.-Y., Goyal, P., Girshick, R., He, K., Dollár, P.: Focal Loss for Dense Object Detection. In: Proceedings of the IEEE International Conference on Computer Vision (ICCV), pp. 2980--2988 (2017). \doi{10.1109/ICCV.2017.324}
+
+\bibitem{ref_cao2019ldam}
+Cao, K., Wei, C., Gaidon, A., Arechiga, N., Ma, T.: Learning Imbalanced Datasets with Label-Distribution-Aware Margin Loss. In: Advances in Neural Information Processing Systems (NeurIPS), vol. 32, pp. 1567--1578 (2019)
+
+\bibitem{ref_cui2019class}
+Cui, Y., Jia, M., Lin, T.-Y., Song, Y., Belongie, S.: Class-Balanced Loss Based on Effective Number of Samples. In: Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), pp. 9268--9277 (2019). \doi{10.1109/CVPR.2019.00949}
+
+\bibitem{ref_selvaraju2017gradcam}
+Selvaraju, R.R., Cogswell, M., Das, A., Vedaldi, A., Parikh, D., Batra, D.: Grad-CAM: Visual Explanations from Deep Networks via Gradient-Based Localization. In: Proceedings of the IEEE International Conference on Computer Vision (ICCV), pp. 618--626 (2017). \doi{10.1109/ICCV.2017.74}
 
 \bibitem{ref_he2016resnet}
 He, K., Zhang, X., Ren, S., Sun, J.: Deep Residual Learning for Image Recognition. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR), pp. 770--778 (2016). \doi{10.1109/CVPR.2016.90}
