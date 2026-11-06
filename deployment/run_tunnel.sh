@@ -11,6 +11,13 @@ REPO_ROOT="$(cd "${SCRIPT_DIR}/.." && pwd)"
 LOG_DIR="${REPO_ROOT}/logs"
 mkdir -p "${LOG_DIR}"
 
+# Load .env if present
+if [[ -f "${REPO_ROOT}/.env" ]]; then
+    set -a
+    source "${REPO_ROOT}/.env"
+    set +a
+fi
+
 TUNNEL_LOG="${LOG_DIR}/tunnel.log"
 BACKEND_PORT="${PORT:-8000}"
 
