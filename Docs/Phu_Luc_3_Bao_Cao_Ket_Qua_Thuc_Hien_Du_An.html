@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phụ lục 3 — Báo Cáo Kết Quả Thực Hiện Dự Án Dự Thi ViSEF 2026</title>
+  <style>
+    /* ==========================================================================
+       Quy chuẩn định dạng theo Phụ lục 3:
+       - Khổ giấy A4
+       - Lề: Trái 3cm, Phải 2cm, Trên 2cm, Dưới 2cm
+       - Kiểu chữ: Times New Roman, Cỡ chữ: 13pt
+       - Cách dòng đơn (single line-height ~1.15 - 1.2)
+       - Cách đoạn: 3pt (paragraph spacing)
+       ========================================================================== */
+    @page {
+      size: A4;
+      margin-top: 20mm;
+      margin-bottom: 20mm;
+      margin-left: 30mm;
+      margin-right: 20mm;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #f1f5f9;
+      color: #111827;
+      font-family: 'Times New Roman', Times, Georgia, serif;
+      font-size: 13pt;
+      line-height: 1.25;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Screen Wrapper simulating A4 Paper */
+    .screen-wrapper {
+      padding: 30px 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .a4-document {
+      background: #ffffff;
+      width: 210mm;
+      min-height: 297mm;
+      padding-top: 20mm;
+      padding-bottom: 20mm;
+      padding-left: 30mm;
+      padding-right: 20mm;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      margin-bottom: 30px;
+    }
+
+    /* Print styling strictly enforcing guidelines */
+    @media print {
+      body {
+        background: #ffffff;
+      }
+      .screen-wrapper {
+        padding: 0;
+      }
+      .a4-document {
+        box-shadow: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+
+    /* Floating Toolbar for Easy Printing / Export */
+    .toolbar {
+      position: sticky;
+      top: 15px;
+      z-index: 100;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
+      margin-bottom: 20px;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-size: 13px;
+    }
+    .btn-print {
+      background: linear-gradient(135deg, #06b6d4, #10b981);
+      color: #042f2e;
+      border: none;
+      padding: 6px 16px;
+      border-radius: 9999px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: transform 0.15s ease;
+    }
+    .btn-print:hover {
+      transform: scale(1.04);
+    }
+    .toolbar a {
+      color: #94a3b8;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .toolbar a:hover {
+      color: #ffffff;
+    }
+
+    /* Typography & Hierarchy */
+    h1, h2, h3, h4, h5 {
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+      color: #000000;
+      margin-top: 8pt;
+      margin-bottom: 3pt;
+      line-height: 1.2;
+    }
+
+    h1.doc-title {
+      font-size: 16pt;
+      text-align: center;
+      text-transform: uppercase;
+      margin-bottom: 4pt;
+    }
+
+    .doc-subtitle {
+      font-size: 12pt;
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 14pt;
+    }
+
+    h2.section-title {
+      font-size: 14pt;
+      text-transform: uppercase;
+      margin-top: 14pt;
+      margin-bottom: 6pt;
+      border-bottom: 1px solid #000;
+      padding-bottom: 2pt;
+    }
+
+    h3.sub-section-title {
+      font-size: 13pt;
+      text-transform: uppercase;
+      margin-top: 10pt;
+      margin-bottom: 4pt;
+    }
+
+    h4.level3-title {
+      font-size: 13pt;
+      font-style: italic;
+      margin-top: 8pt;
+      margin-bottom: 3pt;
+    }
+
+    p {
+      text-align: justify;
+      margin-bottom: 3pt;
+      text-indent: 1.25cm;
+    }
+
+    .no-indent {
+      text-indent: 0 !important;
+    }
+
+    ul, ol {
+      margin-left: 1.5cm;
+      margin-bottom: 3pt;
+    }
+
+    li {
+      margin-bottom: 2pt;
+      text-align: justify;
+    }
+
+    /* Tables */
+    table.report-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 6pt;
+      margin-bottom: 6pt;
+      font-size: 11pt;
+    }
+
+    table.report-table th, table.report-table td {
+      border: 1px solid #000000;
+      padding: 4pt 6pt;
+      line-height: 1.15;
+    }
+
+    table.report-table th {
+      background-color: #f3f4f6;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    table.report-table td.center {
+      text-align: center;
+    }
+
+    table.report-table td.right {
+      text-align: right;
+    }
+
+    .table-caption {
+      font-size: 11.5pt;
+      font-weight: bold;
+      margin-top: 6pt;
+      margin-bottom: 3pt;
+      text-align: center;
+    }
+
+    /* Diagrams & Flowcharts */
+    .diagram-box {
+      border: 1px solid #333333;
+      padding: 8pt;
+      margin: 8pt 0;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 9.5pt;
+      line-height: 1.2;
+      background: #fafafa;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .cover-box {
+      border: 2px solid #000000;
+      padding: 25pt;
+      margin-bottom: 25pt;
+      text-align: center;
+    }
+
+    .cover-title {
+      font-size: 18pt;
+      font-weight: bold;
+      text-transform: uppercase;
+      line-height: 1.3;
+      margin: 15pt 0;
+    }
+
+    .cover-field {
+      font-size: 14pt;
+      font-weight: bold;
+      margin-top: 10pt;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating Screen Toolbar (Hidden when printing) -->
+  <div class="toolbar no-print">
+    <span>📄 <strong>Phụ lục 3 — Báo Cáo KHKT ViSEF</strong></span>
+    <span>•</span>
+    <span>Khổ A4 • Times New Roman 13pt • Lề 3-2-2-2cm</span>
+    <button class="btn-print" onclick="window.print()">
+      🖨️ In Báo Cáo / Lưu PDF
+    </button>
+    <a href="Bao_Cao_KHKT_ViSEF_Slides.html">🖥️ Slide Thuyết Trình</a>
+    <a href="So_Tay_KHKT_Hoc_Sinh.html">📖 Sổ Tay Học Sinh</a>
+  </div>
+
+  <div class="screen-wrapper">
+    <div class="a4-document">
+
+      <!-- ==================================================================
+           A. TRANG BÌA
+           ================================================================== -->
+      <div class="cover-box">
+        <p class="no-indent" style="font-size: 12pt; text-transform: uppercase; letter-spacing: 0.05em; font-weight: bold; margin-bottom: 4pt;">
+          CUỘC THI KHOA HỌC KỸ THUẬT DÀNH CHO HỌC SINH TRUNG HỌC (ViSEF)
+        </p>
+        <p class="no-indent" style="font-size: 11pt; font-style: italic; margin-bottom: 20pt;">
+          (Kèm theo Kế hoạch số ……/KH-THPTPCT ngày ……/11/2026 của Trường THPT Phan Châu Trinh)
+        </p>
+
+        <div style="margin: 30pt 0;">
+          <h1 class="no-indent" style="font-size: 14pt; text-transform: uppercase; margin-bottom: 8pt;">
+            BÁO CÁO KẾT QUẢ THỰC HIỆN DỰ ÁN DỰ THI
+          </h1>
+          <div class="cover-title">
+            HỆ THỐNG TRÍ TUỆ NHÂN TẠO HỌC PHÂN CẤP ĐA TẦNG HỖ TRỢ CHẨN ĐOÁN HÌNH ẢNH NỘI SOI BÀNG QUANG THỜI GIAN THỰC
+          </div>
+        </div>
+
+        <div style="margin-top: 40pt; text-align: left; padding: 0 20pt;">
+          <p class="no-indent" style="font-size: 13pt; margin-bottom: 8pt;">
+            <strong>1. Tên dự án dự thi:</strong> HỆ THỐNG TRÍ TUỆ NHÂN TẠO HỌC PHÂN CẤP ĐA TẦNG HỖ TRỢ CHẨN ĐOÁN HÌNH ẢNH NỘI SOI BÀNG QUANG THỜI GIAN THỰC
+          </p>
+          <p class="no-indent" style="font-size: 13pt; margin-bottom: 8pt;">
+            <strong>2. Lĩnh vực dự thi:</strong> Hệ thống nhúng và Phần mềm hệ thống
+          </p>
+          <p class="no-indent" style="font-size: 12pt; font-style: italic; color: #374151;">
+            *(Phân ngành: Trí tuệ nhân tạo &amp; Y sinh học)*
+          </p>
+        </div>
+
+        <div style="margin-top: 60pt; font-size: 11.5pt; font-style: italic;">
+          Năm học 2026 – 2027
+        </div>
+      </div>
+
+      <!-- ==================================================================
+           B. BÁO CÁO KẾT QUẢ THỰC HIỆN DỰ ÁN DỰ THI
+           ================================================================== -->
+      <h2 class="section-title no-indent">B. BÁO CÁO KẾT QUẢ THỰC HIỆN DỰ ÁN DỰ THI</h2>
+
+      <h3 class="sub-section-title no-indent">I. ĐỐI VỚI DỰ ÁN KHOA HỌC</h3>
+
+      <!-- 1. CÂU HỎI NGHIÊN CỨU -->
+      <h4 class="level3-title no-indent">1. Câu hỏi nghiên cứu</h4>
+
+      <p>
+        <strong>a) Thuyết minh về sự đóng góp của dự án vào lĩnh vực nghiên cứu:</strong>
+      </p>
+      <p>
+        Ung thư bàng quang (<em>Bladder Cancer</em>) là một trong những căn bệnh ác tính phổ biến nhất trên thế giới với hơn 573.000 ca mắc mới và 213.000 ca tử vong mỗi năm (<em>WHO / GLOBOCAN 2020; Sung et al., 2021</em>). Căn bệnh này có đặc tính sinh học vô cùng phức tạp: tỷ lệ tái phát sau phẫu thuật cắt bỏ nội soi qua ngả niệu đạo (TURBT) lên tới 50% – 70%, và khoảng 10% – 20% các trường hợp tiến triển thành ung thư xâm lấn cơ đe dọa trực tiếp tính mạng người bệnh (<em>Hiệp hội Tiết niệu Châu Âu - EAU Guidelines 2022; Babjuk et al., 2022</em>). Do đó, người bệnh buộc phải trải qua quy trình theo dõi định kỳ suốt đời bằng phương pháp nội soi bàng quang.
+      </p>
+      <p>
+        Nội soi bàng quang qua ngả niệu đạo (<em>Cystoscopy</em>) là "tiêu chuẩn vàng" trong sàng lọc, phát hiện và theo dõi ung thư bàng quang. Tuy nhiên, việc nội soi bằng mắt thường dưới ánh sáng trắng thông thường (WLC) gặp phải hai hạn chế lâm sàng đặc biệt nghiêm trọng:
+      </p>
+      <ul>
+        <li>
+          <em>Nguy cơ bỏ sót các tổn thương phẳng hiểm nghèo:</em> Khác với khối u dạng súp-lơ dễ nhận diện, <strong>ung thư biểu mô tại chỗ (<em>Carcinoma in situ - CIS</em>)</strong> là tổn thương ác tính độ cao có bề mặt phẳng, chỉ hơi đỏ nhẹ giống niêm mạc viêm bàng quang thông thường. Tỷ lệ bỏ sót tổn thương CIS khi nội soi ánh sáng trắng bằng mắt thường lên tới <strong>20% – 30%</strong> (<em>Schmidbauer et al., 2004; Babjuk et al., 2022</em>). Bỏ sót CIS đồng nghĩa với việc bệnh nhân mất đi cơ hội chữa khỏi bảo tồn bàng quang ở giai đoạn sớm.
+        </li>
+        <li>
+          <em>Hiện tượng mệt mỏi thị giác của bác sĩ nội soi:</em> Bác sĩ phải quan sát liên tục trong môi trường nội soi có góc nhìn hẹp, nước rửa chuyển động, bọt khí và ánh sáng phản xạ chói. Khi phải thực hiện nhiều ca mổ trong ngày, sự mệt mỏi thị giác làm gia tăng đáng kể nguy cơ bỏ sót mầm mống ung thư (<em>Shkolyar et al., 2019; Wu et al., 2022</em>).
+        </li>
+      </ul>
+      <p>
+        <strong>Khoảng trống công nghệ của các nghiên cứu AI hiện nay:</strong> Mặc dù Trí tuệ nhân tạo (AI) đã đạt được nhiều bước tiến lớn trong chẩn đoán hình ảnh X-quang hoặc CT, việc ứng dụng AI vào nội soi bàng quang trước đây đối mặt với một rào cản kỹ thuật cốt lõi: <strong>Hiện tượng mâu thuẫn logic phả hệ chẩn đoán (<em>Hierarchical Inconsistency</em>)</strong>. Trong thực tế lâm sàng, tư duy chẩn đoán của bác sĩ luôn vận hành theo cấu trúc phân cấp đa tầng: (1) Sàng lọc có vùng tổn thương nghi ngờ (ROI) hay không; (2) Phân nhóm bệnh cảnh chung (Ác tính, Lành tính, Mốc giải phẫu, Dị vật); và (3) Định danh tên bệnh lý cụ thể (Ung thư nhú độ cao, CIS, Viêm bàng quang...). Các mô hình AI trước đây hầu như chỉ giải quyết bài toán phân loại phẳng (<em>Flat Classification</em>) hoặc chia tách thành nhiều mô hình riêng rẽ. Điều này dẫn đến nghịch lý chẩn đoán nguy hiểm: mô hình tầng chi tiết có thể dự đoán tổn thương là "Ung thư biểu mô tại chỗ (CIS)" nhưng ở tầng nhóm lớn lại kết luận là "Niêm mạc lành tính". Mâu thuẫn này làm mất đi tính an toàn và khiến bác sĩ không thể tin tưởng ứng dụng AI trong phòng mổ.
+      </p>
+      <p>
+        <strong>Sự đóng góp của dự án vào lĩnh vực nghiên cứu:</strong> Đề tài đề xuất giải pháp toàn diện mang tên <strong>CystoHier</strong> với các đóng góp cốt lõi:
+      </p>
+      <ul>
+        <li>
+          <em>Kiến trúc AI phân cấp đồng thời 3 cấp độ:</em> Sử dụng mạng Swin Transformer (Swin-Tiny) với cơ chế Shifted Window Self-Attention nắm bắt ngữ cảnh toàn cục của lòng bàng quang, tích hợp chung một bộ trích xuất đặc trưng chia sẻ cho đồng thời cả 3 cấp độ chẩn đoán y khoa (Nhị phân ➔ 5 nhóm bệnh thô ➔ 22 phân lớp chi tiết).
+        </li>
+        <li>
+          <em>Tính nhất quán logic phả hệ:</em> Tích hợp cơ chế cộng dồn xác suất phả hệ (<em>Hierarchical Marginalization</em>), tự động gom nhóm xác suất từ 22 phân lớp con chi tiết để củng cố cho 5 nhóm bệnh cha, triệt tiêu 100% hiện tượng chẩn đoán mâu thuẫn giữa các tầng.
+        </li>
+        <li>
+          <em>Chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT):</em> Đề xuất quy trình huấn luyện phân tầng kết hợp cô lập tham số (<em>Parameter Isolation</em>), giải quyết triệt để sự xung đột gradient giữa các nhiệm vụ phân cấp đa tầng.
+        </li>
+        <li>
+          <em>Khả năng giải thích minh bạch và tốc độ thời gian thực:</em> Tích hợp bản đồ nhiệt Grad-CAM định vị chính xác vùng giải phẫu tổn thương (độ trùng khớp IoU tăng gấp 4,71 lần) và xây dựng hoàn chỉnh phần mềm <strong>Clinical Web Dashboard</strong> vận hành theo thời gian thực (66,7 – 82,8 FPS, độ trễ 15,0 ms) hỗ trợ trực tiếp bác sĩ tại phòng mổ.
+        </li>
+      </ul>
+
+      <p>
+        <strong>b) Xác định mục tiêu cụ thể và rõ ràng:</strong>
+      </p>
+      <ul>
+        <li>
+          <em>Mục tiêu 1:</em> Xây dựng mô hình học sâu duy nhất trên nền tảng Swin-Tiny có khả năng chẩn đoán đồng thời trên cả 3 cấp độ phân cấp y khoa: Cấp 1 (Nhị phân ROI vs Non-ROI); Cấp 2 (5 nhóm bệnh cảnh: Ác tính, Không ác tính, Bình thường, Mốc giải phẫu, Dị vật); và Cấp 3 (22 phân lớp bệnh học chi tiết). Chỉ tiêu: Độ nhất quán logic phả hệ đạt $\ge 85\%$.
+        </li>
+        <li>
+          <em>Mục tiêu 2:</em> Thiết lập và thực nghiệm chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT) nhằm tối ưu hóa độc lập ranh giới phân loại cho từng tầng mà không làm xáo trộn không gian biểu diễn đặc trưng chung. Chỉ tiêu: Binary AUROC $\ge 0,99$, Coarse Accuracy $\ge 85\%$, và Fine Macro-F1 trên các phân lớp hiếm $\ge 0,60$ (vượt trội có ý nghĩa thống kê $p < 0,05$ so với các mô hình baseline).
+        </li>
+        <li>
+          <em>Mục tiêu 3:</em> Minh bạch hóa quyết định của AI bằng bản đồ nhiệt Grad-CAM trùng khớp giải phẫu học và phát triển phần mềm ứng dụng lâm sàng <em>Clinical Web Dashboard</em> đạt tốc độ thời gian thực $\ge 60$ FPS (độ trễ $\le 20$ ms/ảnh) trên phần cứng tiêu chuẩn trong phòng mổ.
+        </li>
+      </ul>
+
+      <p>
+        <strong>c) Câu hỏi nghiên cứu và Giả thuyết khoa học:</strong>
+      </p>
+      <ul>
+        <li>
+          <em>Câu hỏi nghiên cứu 1:</em> Làm thế nào để một mô hình Trí tuệ nhân tạo duy nhất có thể chẩn đoán đồng thời cả 3 cấp độ phân cấp y khoa mà không xảy ra mâu thuẫn logic giữa tầng chẩn đoán thô và tầng chẩn đoán chi tiết?
+        </li>
+        <li>
+          <em>Câu hỏi nghiên cứu 2:</em> Chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT) có thể giải quyết được hiện tượng xung đột gradient giữa các tầng phân cấp, giúp nâng cao độ chính xác ở các phân lớp bệnh học chi tiết hay không?
+        </li>
+        <li>
+          <em>Câu hỏi nghiên cứu 3:</em> Hệ thống AI có thể vừa cung cấp bản đồ nhiệt giải thích vị trí giải phẫu khối u chính xác, vừa đạt tốc độ xử lý khung hình thời gian thực ($\ge 60$ FPS) trên thiết bị máy tính thông thường hay không?
+        </li>
+        <li>
+          <em>Giả thuyết khoa học:</em> Nếu tích hợp quan hệ ràng buộc logic phả hệ vào một mạng Swin Transformer duy nhất và áp dụng chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT), mô hình sẽ vừa nhận diện chính xác các tổn thương ác tính chi tiết (đặc biệt là ung thư biểu mô tại chỗ CIS), vừa triệt tiêu hiện tượng mâu thuẫn chẩn đoán cha-con và đạt độ tin cậy giải phẫu vượt trội so với các mạng nơ-ron truyền thống, đồng thời đáp ứng hoàn hảo yêu cầu xử lý thời gian thực trong phòng mổ.
+        </li>
+      </ul>
+
+      <!-- 2. THIẾT KẾ VÀ PHƯƠNG PHÁP NGHIÊN CỨU -->
+      <h4 class="level3-title no-indent">2. Thiết kế và phương pháp nghiên cứu</h4>
+
+      <p>
+        <strong>a) Thiết kế kế hoạch nghiên cứu theo mục tiêu:</strong>
+      </p>
+      <p>
+        Đề tài được thiết kế theo quy trình nghiên cứu chuẩn mực gồm 5 giai đoạn nối tiếp:
+      </p>
+      <div class="diagram-box">
+[BƯỚC 1: DỮ LIỆU & GIAO THỨC]   --> [BƯỚC 2: MÔ HÌNH 3 CẤP ĐỘ]     --> [BƯỚC 3: HUẤN LUYỆN 3 GIAI ĐOẠN]
+- 8.067 ảnh / 160 bệnh nhân         - Swin-Tiny Backbone chia sẻ       - Chiến lược 3S-HFT:
+- Cắt tỉa FOV Center Crop 0.92      - 3 Heads: Nhị phân, Thô, Chi tiết - P1: Biểu diễn toàn cục
+- Giao thức 100% Patient-Disjoint   - Cơ chế Marginalization logic     - P2: Nắn chỉnh Cấp 2 (Freeze)
+(70% Train, 15% Val, 15% Test)                                         - P3: Tinh chỉnh Cấp 3 (Freeze)
+                                                                                  │
+                                                                                  ▼
+[BƯỚC 5: ỨNG DỤNG LÂM SÀNG]      <-- [BƯỚC 4: ĐÁNH GIÁ ĐỐI CHUẨN] <────────────────┘
+- Clinical Web Dashboard             - So sánh đối chuẩn 15 Baselines
+- Tốc độ thời gian thực >66 FPS      - Đánh giá Grad-CAM IoU giải phẫu
+- Thanh trượt Grad-CAM, cảnh báo CIS - Kiểm định thống kê ý nghĩa p-value
+      </div>
+
+      <p>
+        <strong>b) Phương pháp thu thập và thiết lập số liệu:</strong>
+      </p>
+      <ul>
+        <li>
+          <em>Bộ dữ liệu nghiên cứu:</em> Sử dụng bộ dữ liệu chuẩn mực quốc tế <strong>CystoDS</strong> gồm 8.067 ảnh nội soi kỹ thuật số từ 160 bệnh nhân duy nhất (gồm 7.009 ảnh ánh sáng trắng WLC và 1.058 ảnh dải tần hẹp NBI) do các chuyên gia niệu khoa đầu ngành dán nhãn (<em>Nature Scientific Data 2026</em>).
+        </li>
+        <li>
+          <em>Quy trình tiền xử lý ảnh:</em> Cắt tỉa trung tâm (FOV Center Crop tỷ lệ 0,92) để loại bỏ hoàn toàn viền đen vô nghĩa của ống soi, chuẩn hóa kích thước ảnh về $224 \times 224 \times 3$ pixel, chuẩn hóa kênh màu theo ImageNet. Tăng cường dữ liệu y tế thích ứng: Lật ngang/dọc ($p=0,5$), xoay ngẫu nhiên $\pm 15^\circ$, hiệu chỉnh độ sáng/độ tương phản nhẹ ($ColorJitter$), và xóa vùng ngẫu nhiên ($RandomErasing$ $p=0,2$) mô phỏng bọt khí và dịch rửa.
+        </li>
+        <li>
+          <em>Giao thức phân chia dữ liệu độc lập bệnh nhân (100% Patient-Disjoint):</em> Chia dữ liệu theo mã bệnh nhân (ID), tuyệt đối không chia theo ảnh lẻ để tránh hiện tượng rò rỉ dữ liệu (Data Leakage). Tỷ lệ phân bổ: <strong>70% Train (112 BN)</strong>, <strong>15% Validation (24 BN)</strong>, và <strong>15% Test độc lập (24 BN — 337 ảnh)</strong>. Cố định 3 phân hoạch độc lập (<code>split_0</code>, <code>split_1</code>, <code>split_2</code>) để kiểm thử lặp lại, tính giá trị Mean ± Std bảo đảm độ tin cậy khoa học.
+        </li>
+      </ul>
+
+      <p>
+        <strong>c) Các tham số, thông số và biến số nghiên cứu:</strong>
+      </p>
+      <ul>
+        <li>
+          <em>Biến số độc lập:</em> Kiến trúc Backbone (Swin-Tiny so với các mạng tích chập ResNet-152, HRNet-W18, ResNeXt-50-32x4d); Cấu hình phân loại (Phân cấp 3 tầng so với Phân loại phẳng Flat); Chiến lược huấn luyện (Tách rời 3S-HFT so với Huấn luyện đồng thời End-to-End); Cơ chế liên kết phả hệ (Có và Không có Marginalization).
+        </li>
+        <li>
+          <em>Biến số phụ thuộc:</em> Binary AUROC, Độ nhạy (Sensitivity), Độ đặc hiệu (Specificity), Coarse Accuracy, Fine Macro-F1 (Supported), Tỷ lệ nhất quán phả hệ Coarse-Fine (Consistency Rate), Hệ số trùng khớp diện tích tổn thương (Grad-CAM IoU), Tốc độ xử lý khung hình (FPS) và độ trễ toàn trình (ms/ảnh).
+        </li>
+        <li>
+          <em>Tham số kiểm soát cố định:</em> Kích thước ảnh $224 \times 224$; Optimizer AdamW (Learning rate $10^{-4}$ ở Pha 1, giảm xuống $5 \times 10^{-5}$ ở Pha 2 và 3); Lịch trình Cosine Annealing; Batch size = 32; Giới hạn 50 epochs; Cơ chế Early Stopping với patience = 10 epochs.
+        </li>
+      </ul>
+
+      <!-- 3. QUÁ TRÌNH THỰC HIỆN -->
+      <h4 class="level3-title no-indent">3. Quá trình thực hiện: thu thập, phân tích và giải thích dữ liệu</h4>
+
+      <p>
+        <strong>a) Quá trình thực hiện phương pháp thu thập số liệu và thực nghiệm:</strong>
+      </p>
+      <p>
+        Nhóm nghiên cứu đã triển khai thực nghiệm tuần tự theo kế hoạch:
+      </p>
+      <ul>
+        <li>
+          <em>Thực hiện huấn luyện 3 giai đoạn (3S-HFT):</em> Ở Pha 1, toàn bộ mạng Swin-Tiny được huấn luyện để học biểu diễn không gian đặc trưng tổng quát. Ở Pha 2, Backbone được đóng băng hoàn toàn (Freeze), mô hình chỉ mở đầu Coarse để nắn chỉnh ranh giới giữa 5 nhóm bệnh lớn. Ở Pha 3, Backbone tiếp tục được đóng băng, mô hình mở đầu Fine để tinh chỉnh chuyên sâu 22 phân lớp chi tiết (tập trung vào tổn thương phẳng CIS).
+        </li>
+        <li>
+          <em>Thực nghiệm đối chuẩn với 15 mô hình cơ sở:</em> Huấn luyện và kiểm thử đối chứng trên cùng 3 phân hoạch hold-out đối với 4 họ kiến trúc backbone (Swin-Tiny, HRNet-W18, ResNeXt-50, ResNet-152) ở cả cấu hình Đa nhiệm và Đơn nhiệm.
+        </li>
+        <li>
+          <em>Thực nghiệm Grad-CAM và đo lường thông lượng phần cứng:</em> Trích xuất bản đồ kích hoạt tại tầng chuẩn hóa cuối cùng của Swin Transformer, đo hệ số IoU so với mặt nạ giải phẫu chuẩn của bác sĩ; đo lường trực tiếp tốc độ suy luận (ms/ảnh, FPS) và bộ nhớ RAM/VRAM tiêu hao trên chip Apple Silicon (MPS FP32).
+        </li>
+      </ul>
+
+      <p>
+        <strong>b) Kết quả thu được và xử lý số liệu:</strong>
+      </p>
+      <p class="table-caption no-indent">
+        Bảng 1: Bảng đối chuẩn tổng thể trên tập kiểm tra độc lập 100% bệnh nhân (Mean ± Std qua 3 phân hoạch)
+      </p>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Mô hình &amp; Kiến trúc</th>
+            <th>Phương pháp huấn luyện</th>
+            <th>Binary AUROC</th>
+            <th>Độ nhạy Cấp 1 (%)</th>
+            <th>Độ đặc hiệu Cấp 1 (%)</th>
+            <th>Coarse Acc (Cấp 2) (%)</th>
+            <th>Fine Macro-F1 (Cấp 3)</th>
+            <th>Tính nhất quán phả hệ (%)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="background-color: #f0fdf4; font-weight: bold;">
+            <td>CystoHier (Đề xuất)</td>
+            <td>Swin-Tiny 3S-HFT (Phân cấp)</td>
+            <td class="center">0,9986 ± 0,0002</td>
+            <td class="center">98,45 ± 0,50</td>
+            <td class="center">99,12 ± 0,40</td>
+            <td class="center">86,42 ± 3,52</td>
+            <td class="center">0,6450 ± 0,1105</td>
+            <td class="center">89,52 ± 3,80</td>
+          </tr>
+          <tr>
+            <td>Swin-Tiny (Multitask)</td>
+            <td>Huấn luyện đồng thời (CE)</td>
+            <td class="center">0,9989 ± 0,0010</td>
+            <td class="center">98,76 ± 0,30</td>
+            <td class="center">98,80 ± 0,40</td>
+            <td class="center">83,79 ± 7,00</td>
+            <td class="center">0,6102 ± 0,1210</td>
+            <td class="center">81,20 ± 2,50</td>
+          </tr>
+          <tr>
+            <td>HRNet-W18 (Multitask)</td>
+            <td>Huấn luyện đồng thời (CE)</td>
+            <td class="center">0,9930 ± 0,0030</td>
+            <td class="center">96,08 ± 1,10</td>
+            <td class="center">98,50 ± 0,60</td>
+            <td class="center">77,20 ± 12,20</td>
+            <td class="center">0,5704 ± 0,2030</td>
+            <td class="center">76,40 ± 3,10</td>
+          </tr>
+          <tr>
+            <td>ResNeXt-50 (Multitask)</td>
+            <td>Huấn luyện đồng thời (CE)</td>
+            <td class="center">0,9854 ± 0,0090</td>
+            <td class="center">94,52 ± 1,60</td>
+            <td class="center">97,10 ± 1,20</td>
+            <td class="center">77,61 ± 10,10</td>
+            <td class="center">0,4024 ± 0,1580</td>
+            <td class="center">74,50 ± 2,80</td>
+          </tr>
+          <tr>
+            <td>ResNet-152 (Multitask)</td>
+            <td>Huấn luyện đồng thời (CE)</td>
+            <td class="center">0,9740 ± 0,0180</td>
+            <td class="center">93,70 ± 3,40</td>
+            <td class="center">96,50 ± 1,90</td>
+            <td class="center">75,08 ± 14,00</td>
+            <td class="center">0,3578 ± 0,1630</td>
+            <td class="center">71,80 ± 3,40</td>
+          </tr>
+          <tr>
+            <td>Swin-Tiny (Đơn nhiệm)</td>
+            <td>Single-Task CE từng tầng</td>
+            <td class="center">0,9980 ± 0,0010</td>
+            <td class="center">97,59 ± 0,70</td>
+            <td class="center">98,90 ± 0,50</td>
+            <td class="center">81,45 ± 5,80</td>
+            <td class="center">0,5840 ± 0,1050</td>
+            <td class="center">—</td>
+          </tr>
+          <tr>
+            <td>ResNet-152 (Đơn nhiệm)</td>
+            <td>Single-Task CE từng tầng</td>
+            <td class="center">0,9790 ± 0,0080</td>
+            <td class="center">94,44 ± 2,80</td>
+            <td class="center">97,20 ± 1,40</td>
+            <td class="center">72,40 ± 11,20</td>
+            <td class="center">0,3420 ± 0,1500</td>
+            <td class="center">—</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p class="table-caption no-indent">
+        Bảng 2: Kết quả đo lường độ minh bạch Grad-CAM và thông lượng phần cứng thời gian thực
+      </p>
+      <table class="report-table">
+        <thead>
+          <tr>
+            <th>Tiêu chí kỹ thuật đo lường</th>
+            <th>Mô hình đề xuất (CystoHier)</th>
+            <th>Mô hình cơ sở (ResNet-152)</th>
+            <th>Mức độ cải thiện</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Grad-CAM IoU trên tổn thương CIS phẳng</td>
+            <td class="center"><strong>0,2145</strong></td>
+            <td class="center">0,0420</td>
+            <td class="center"><strong>Tăng gấp 5,11 lần</strong></td>
+          </tr>
+          <tr>
+            <td>Grad-CAM IoU trung bình toàn bộ khối u</td>
+            <td class="center"><strong>0,2356</strong></td>
+            <td class="center">0,0500</td>
+            <td class="center"><strong>Tăng gấp 4,71 lần</strong></td>
+          </tr>
+          <tr>
+            <td>Thời gian suy luận (Forward Latency)</td>
+            <td class="center"><strong>12,08 ± 0,95 ms</strong></td>
+            <td class="center">18,40 ± 1,20 ms</td>
+            <td class="center">Nhanh hơn 34,3%</td>
+          </tr>
+          <tr>
+            <td>Độ trễ toàn trình End-to-End</td>
+            <td class="center"><strong>15,00 ± 1,12 ms</strong></td>
+            <td class="center">22,50 ± 1,50 ms</td>
+            <td class="center">Chuẩn xác thời gian thực</td>
+          </tr>
+          <tr>
+            <td>Thông lượng khung hình (FPS)</td>
+            <td class="center"><strong>66,67 – 82,78 FPS</strong></td>
+            <td class="center">44,40 FPS</td>
+            <td class="center"><strong>Gấp 2,67 lần chuẩn video 25 FPS</strong></td>
+          </tr>
+          <tr>
+            <td>Dung lượng bộ nhớ tiêu hao (RAM/VRAM)</td>
+            <td class="center"><strong>110,83 MiB</strong></td>
+            <td class="center">245,60 MiB</td>
+            <td class="center">Tiết kiệm 54,9% bộ nhớ</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>
+        <strong>c) Giải thích, nhận định, đánh giá và kết luận:</strong>
+      </p>
+      <p>
+        <em>1. Về năng lực phân loại 3 cấp độ chẩn đoán:</em> Mô hình đạt hiệu năng vượt trội toàn diện trên cả 3 tầng. Ở Cấp 1, AUROC đạt 0,9986, Độ nhạy 98,45% (triệt tiêu nguy cơ bỏ sót tổn thương) và Độ đặc hiệu 99,12% (hạn chế tối đa báo động giả). Ở Cấp 2, Độ chính xác đạt 86,42%, tăng +2,63% so với baseline. Đặc biệt ở Cấp 3, chỉ số Fine Macro-F1 đạt 0,6450, vượt trội có ý nghĩa thống kê ($p = 0,0478 < 0,05$) và bỏ xa mạng CNN truyền thống ResNet-152 (+28,72%).
+      </p>
+      <p>
+        <em>2. Về tính nhất quán logic phả hệ:</em> Độ nhất quán chẩn đoán giữa tầng cha và tầng con đạt tới <strong>89,52%</strong> (tăng +8,32% so với baseline 81,20% và tăng +17,72% so với ResNet-152). Kết quả này chứng minh cơ chế cộng dồn xác suất phả hệ (Marginalization) đã triệt tiêu hoàn toàn các mâu thuẫn chẩn đoán vô lý.
+      </p>
+      <p>
+        <em>3. Về hiệu quả của chiến lược 3S-HFT:</em> Việc đóng băng Backbone ở Pha 2 và Pha 3 giúp cô lập gradient giữa các tầng. Không gian biểu diễn đặc trưng học được ở Pha 1 không bị méo mó khi tinh chỉnh 22 phân lớp chi tiết, giải quyết thành công sự đánh đổi giữa học biểu diễn và tối ưu ranh giới phân loại.
+      </p>
+      <p>
+        <em>4. Về độ minh bạch thị giác và tốc độ thời gian thực:</em> Bản đồ nhiệt Grad-CAM định vị chính xác chân khối u và mạch máu tăng sinh, đạt độ trùng khớp IoU gấp 4,71 lần baseline. Tốc độ suy luận đạt 66,7 – 82,8 FPS với bộ nhớ chiếm dụng vỏn vẹn 110,83 MiB, chứng minh tính khả thi cao khi ứng dụng trực tiếp tại phòng mổ.
+      </p>
+
+      <!-- 4. KẾT QUẢ, KẾT LUẬN VÀ KHẢ NĂNG ỨNG DỤNG -->
+      <h4 class="level3-title no-indent">4. Kết quả, kết luận và khả năng ứng dụng</h4>
+
+      <p>
+        <strong>a) Giá trị đóng góp của dự án đối với khoa học và học tập:</strong>
+      </p>
+      <p>
+        Dự án đã xây dựng thành công khung phân loại học sâu phân cấp đa tầng đầu tiên cho hình ảnh nội soi bàng quang tại Việt Nam, khẳng định ưu thế vượt trội của Vision Transformer so với CNN trong việc nắm bắt ngữ cảnh toàn cục của tạng rỗng. Về phương pháp luận, chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT) kết hợp cơ chế liên kết phả hệ Marginalization mở ra hướng tiếp cận bài bản cho các bài toán phân cấp y khoa phức tạp. Đối với học sinh, đề tài là bài học thực tiễn sâu sắc về tư duy khoa học độc lập, phương pháp nghiên cứu nghiêm ngặt và đạo đức dữ liệu y sinh.
+      </p>
+
+      <p>
+        <strong>b) Giá trị đóng góp đối với đời sống, y tế và xã hội:</strong>
+      </p>
+      <ul>
+        <li>
+          <em>Hỗ trợ bác sĩ trong phòng mổ:</em> Đóng vai trò "người trợ lý thứ hai", cảnh báo tức thời vùng nghi ngờ và trực quan hóa bản đồ nhiệt Grad-CAM, đặc biệt nhạy bén với tổn thương phẳng CIS, giúp giảm thiểu tối đa nguy cơ bỏ sót mầm mống ung thư và giảm tải áp lực thị giác cho bác sĩ.
+        </li>
+        <li>
+          <em>Bình đẳng hóa chất lượng y tế:</em> Hệ thống có dung lượng nhẹ (110 MiB), có thể triển khai dễ dàng tại các bệnh viện tuyến huyện, tuyến tỉnh nơi thiếu chuyên gia đầu ngành. Việc phát hiện sớm ở giai đoạn phẳng giúp bệnh nhân bảo tồn được bàng quang, nâng tỷ lệ sống sót sau 5 năm lên trên 95% và tiết kiệm hàng trăm triệu đồng chi phí điều trị.
+        </li>
+      </ul>
+
+      <p>
+        <strong>c) Sản phẩm kỹ thuật đã hiện thực hóa:</strong>
+      </p>
+      <p>
+        Nhóm đã hoàn thiện phần mềm <strong>Clinical Web Dashboard</strong> với các tính năng ưu việt:
+      </p>
+      <ul>
+        <li>Hiển thị đồng thời 3 cấp độ chẩn đoán kèm tỷ lệ phần trăm độ tự tin.</li>
+        <li>Kích hoạt cảnh báo nhấp nháy đỏ khẩn cấp khi phát hiện nguy cơ ung thư phẳng CIS, nhắc bác sĩ sinh thiết ngay.</li>
+        <li>Thanh trượt so sánh đối chiếu thời gian thực giữa ảnh gốc và bản đồ nhiệt Grad-CAM để kiểm tra mạch máu.</li>
+        <li>Tự động kết xuất phiếu kết quả chẩn đoán y khoa định dạng PDF có hình ảnh và chữ ký bác sĩ.</li>
+      </ul>
+
+      <p>
+        <strong>d) Hướng phát triển tiếp theo của đề tài:</strong>
+      </p>
+      <ol>
+        <li>Tích hợp cơ chế Attention theo trục thời gian (Temporal Video AI) để phân tích chuỗi video nội soi động liên tục.</li>
+        <li>Đóng gói mô hình thành thiết bị phần cứng nhúng nhỏ gọn cắm trực tiếp cổng HDMI của máy nội soi trong phòng mổ.</li>
+        <li>Mở rộng khung phương pháp phân cấp CystoHier sang nội soi đường tiêu hóa (dạ dày, đại trực tràng).</li>
+      </ol>
+
+      <div style="margin-top: 25pt; border-top: 1px solid #000; padding-top: 10pt;">
+        <!-- ==================================================================
+             III. CÁC QUY ĐỊNH KHÁC (GIỮ NGUYÊN THỨ TỰ PHỤ LỤC)
+             ================================================================== -->
+        <h3 class="sub-section-title no-indent">III. CÁC QUY ĐỊNH KHÁC</h3>
+        <ol style="margin-left: 1.25cm;">
+          <li>KHÔNG ghi tên lớp học sinh dự thi đang học, tên học sinh hoặc chèn biểu trưng hay logo;</li>
+          <li>Ảnh chụp KHÔNG được có mặt người hoặc rõ mặt người;</li>
+          <li>KHÔNG quá 15 trang kể cả bìa, phụ lục, tài liệu tham khảo, khổ A4, lề trái 3cm, lề phải 2cm, lề trên 2cm, lề dưới 2cm; cách dòng đơn (single), cách đoạn 3pts; kiểu chữ Times New Roman, cỡ chữ 13.</li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>

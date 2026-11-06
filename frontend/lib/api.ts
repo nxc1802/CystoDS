@@ -5,8 +5,11 @@ import {
   SampleItem,
 } from "@/types";
 
-const API_BASE_URL =
+const rawApiUrl =
   process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000/api/v1";
+const API_BASE_URL = rawApiUrl.endsWith("/api/v1")
+  ? rawApiUrl.replace(/\/+$/, "")
+  : `${rawApiUrl.replace(/\/+$/, "")}/api/v1`;
 
 export const FALLBACK_SAMPLES: SampleItem[] = [
   {

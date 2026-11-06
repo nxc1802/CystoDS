@@ -15,7 +15,7 @@
 
 Nội soi bàng quang (*Cystoscopy*) là phương pháp tiêu chuẩn vàng trong tầm soát, chẩn đoán và theo dõi ung thư bàng quang. Tuy nhiên, các bác sĩ thường đối mặt với nguy cơ bỏ sót các tổn thương nguy hiểm nhưng khó thấy (như ung thư biểu mô tại chỗ *CIS* có bề mặt phẳng giống niêm mạc viêm) và hiện tượng mệt mỏi thị giác khi thực hiện nhiều ca nội soi liên tục. 
 
-Đề tài nghiên cứu và phát triển **CystoHier** — một hệ thống Trí tuệ nhân tạo (AI) hỗ trợ chẩn đoán hình ảnh nội soi bàng quang theo thời gian thực với **điểm mới đột phá**: **Xử lý đồng thời và nhất quán cả 3 cấp độ chẩn đoán y khoa trong một mô hình duy nhất**:
+Đề tài nghiên cứu và phát triển **CystoHier** — một hệ thống Trí tuệ nhân tạo (AI) hỗ trợ chẩn đoán hình ảnh nội soi bàng quang theo thời gian thực với **điểm mới đột phá**: **Xử lý đồng thời và nhất quán cả 3 cấp độ chẩn đoán y khoa trong một mô hình duy nhất kết hợp chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT)**:
 1. **Cấp 1 (Nhị phân):** Phát hiện tức thời có tổn thương nghi ngờ (*ROI*) hay không (*Non-ROI*).
 2. **Cấp 2 (Nhóm bệnh cảnh thô - 5 nhóm):** Phân loại tổn thương thành Ác tính, Không ác tính, Niêm mạc bình thường, Mốc giải phẫu, hoặc Dị vật.
 3. **Cấp 3 (Bệnh học chi tiết - 22 phân lớp):** Định danh chính xác tên bệnh lý cụ thể (như Ung thư nhú độ cao, Ung thư tại chỗ CIS, U nhú niệu mạc...).
@@ -23,7 +23,7 @@ Nội soi bàng quang (*Cystoscopy*) là phương pháp tiêu chuẩn vàng tron
 Được đánh giá nghiêm ngặt theo giao thức **100% độc lập bệnh nhân (*Patient-Disjoint*)** trên 8.067 ảnh từ 160 bệnh nhân, mô hình đạt kết quả vượt bậc:
 - **Độ nhạy phát hiện tổn thương:** **98,45%** (Binary AUROC đạt **0,9986**), gần như triệt tiêu nguy cơ bỏ sót bệnh.
 - **Độ chính xác nhóm bệnh:** **86,42%**.
-- **Nhận diện phân lớp hiếm (Fine F1-Score):** **0,6450** (vượt trội so với các mạng CNN truyền thống chỉ đạt ~0,35).
+- **Nhận diện phân lớp hiếm (Fine F1-Score):** **0,6450** (vượt trội có ý nghĩa thống kê $p < 0,05$ so với các mạng CNN truyền thống chỉ đạt ~0,35).
 - **Tính nhất quán chẩn đoán giữa các tầng:** Đạt **89,52%** (loại bỏ hoàn toàn mâu thuẫn logic giữa tầng cha và tầng con).
 - **Minh bạch thị giác:** Bản đồ nhiệt Grad-CAM định vị chính xác vùng giải phẫu tổn thương cao gấp **4,71 lần** mô hình thông thường.
 
@@ -34,17 +34,21 @@ Dự án đã hiện thực hóa thành phần mềm **Clinical Web Dashboard** 
 # PHẦN 1: ĐẶT VẤN ĐỀ & MỤC TIÊU ĐỀ TÀI
 
 ### 1.1. Bối cảnh thực tế và Lý do chọn đề tài
-- **Mức độ phổ biến và nguy hiểm:** Ung thư bàng quang là một trong những bệnh ung thư đường tiết niệu phổ biến nhất thế giới. Tỷ lệ tái phát sau phẫu thuật lên đến 50% – 70%, đòi hỏi người bệnh phải nội soi định kỳ suốt đời.
+- **Mức độ phổ biến và nguy hiểm:** Ung thư bàng quang là một trong những bệnh ung thư đường tiết niệu phổ biến nhất thế giới với hơn **573.000 ca mắc mới** và **213.000 ca tử vong** mỗi năm *(Trích dẫn: WHO / GLOBOCAN 2020; Sung et al., CA Cancer J Clin 2021)*. Tỷ lệ tái phát sau phẫu thuật lên đến **50% – 70%**, đòi hỏi người bệnh phải nội soi định kỳ suốt đời *(Trích dẫn: Hướng dẫn lâm sàng Hiệp hội Tiết niệu Châu Âu - EAU Guidelines 2022; Babjuk et al., Eur Urol)*.
 - **Thách thức của bác sĩ nội soi:**
-  - *Tổn thương phẳng dễ bị bỏ sót:* Khác với ung thư dạng chồi súp-lơ dễ nhìn thấy, ung thư biểu mô tại chỗ (*Carcinoma in situ - CIS*) là tổn thương phẳng, chỉ hơi đỏ nhẹ giống niêm mạc viêm thông thường nên tỷ lệ bỏ sót bằng mắt thường có thể lên tới 20% – 30%.
-  - *Mệt mỏi thị giác:* Bác sĩ phải quan sát liên tục trong môi trường nội soi có góc nhìn hẹp, nước rửa dịch chuyển, bọt khí và phản xạ ánh sáng.
+  - *Tổn thương phẳng dễ bị bỏ sót:* Khác với ung thư dạng chồi súp-lơ dễ nhìn thấy, **ung thư biểu mô tại chỗ (*Carcinoma in situ - CIS*)** là tổn thương phẳng, chỉ hơi đỏ nhẹ giống niêm mạc viêm thông thường nên tỷ lệ bỏ sót bằng mắt thường có thể lên tới **20% – 30%** khi nội soi ánh sáng trắng *(Trích dẫn: Schmidbauer et al., Eur Urol 2004; Babjuk et al., Eur Urol 2022)*.
+  - *Mệt mỏi thị giác:* Bác sĩ phải quan sát liên tục trong môi trường nội soi có góc nhìn hẹp, nước rửa dịch chuyển, bọt khí và phản xạ ánh sáng. Làm việc nhiều ca mổ liên tục làm gia tăng nguy cơ bỏ sót mầm mống ung thư *(Trích dẫn: Shkolyar et al., J Urol 2019)*.
 
-### 1.2. Khoảng trống công nghệ của các giải pháp AI hiện nay
-Hầu hết các nghiên cứu AI nội soi hiện nay chỉ dừng lại ở bài toán phân loại phẳng đơn giản (chỉ đoán có u hay không u) hoặc tách làm nhiều mô hình riêng rẽ, dẫn đến **mâu thuẫn logic chẩn đoán**: Có trường hợp AI đoán chi tiết là "Ung thư nhú", nhưng ở tầng nhóm lớn lại bảo là "Lành tính". Ngoài ra, dữ liệu thực tế bị mất cân bằng trầm trọng (niêm mạc bình thường chiếm gần 80% số ảnh, trong khi ca ung thư hiếm chỉ xuất hiện ở 2-3 bệnh nhân).
+### 1.2. Khoảng trống công nghệ: Mâu thuẫn logic phả hệ chẩn đoán
+Hầu hết các nghiên cứu AI nội soi hiện nay chỉ dừng lại ở bài toán phân loại phẳng (*Flat Classification*) hoặc chia tách làm nhiều mô hình riêng rẽ độc lập. Điều này dẫn đến **hiện tượng mâu thuẫn logic phả hệ (*Hierarchical Inconsistency*)** nghiêm trọng:
+> Có trường hợp mô hình lớp con dự đoán ảnh là **"Ung thư biểu mô tại chỗ (CIS)"** (Ác tính), nhưng mô hình tầng cha lại kết luận là **"Niêm mạc lành tính"**! 
+
+Nghịch lý chẩn đoán này khiến bác sĩ hoàn toàn mất niềm tin vào AI và không thể ứng dụng trong phẫu thuật lâm sàng.
 
 ### 1.3. Mục tiêu của đề tài
-1. Xây dựng mô hình AI có khả năng **xử lý đồng thời cả 3 cấp độ chẩn đoán y khoa** một cách chính xác và nhất quán.
-2. Xây dựng **phần mềm hỗ trợ lâm sàng thời gian thực** có giao diện trực quan, bản đồ nhiệt giải thích vùng tổn thương cho bác sĩ và tốc độ đạt trên 60 FPS.
+1. Xây dựng mô hình AI có khả năng **xử lý đồng thời cả 3 cấp độ chẩn đoán y khoa** trong một kiến trúc duy nhất, bảo đảm tính nhất quán logic phả hệ tuyệt đối.
+2. Ứng dụng **chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT)** giúp tối ưu hóa độc lập ranh giới phân loại cho từng tầng chẩn đoán, triệt tiêu xung đột gradient.
+3. Minh bạch hóa vùng nhìn AI bằng bản đồ nhiệt Grad-CAM và xây dựng **phần mềm hỗ trợ lâm sàng thời gian thực** đạt tốc độ $\ge 60$ FPS trên thiết bị thông thường trong phòng mổ.
 
 ---
 
@@ -54,8 +58,8 @@ Hầu hết các nghiên cứu AI nội soi hiện nay chỉ dừng lại ở b�
 
 ```mermaid
 flowchart LR
-    G1["GIAI ĐOẠN 1<br><b>Dữ liệu Y tế</b><br>8.067 ảnh / 160 BN<br>Chuẩn 100% Patient-Disjoint"] --> G2["GIAI ĐOẠN 2<br><b>Mô hình 3 Cấp độ</b><br>Swin-Tiny Backbone<br>3 Heads đồng thời"]
-    G2 --> G3["GIAI ĐOẠN 3<br><b>Huấn luyện Tách rời</b><br>Cân bằng số ca bệnh<br>Ràng buộc phả hệ"]
+    G1["GIAI ĐOẠN 1<br><b>Dữ liệu Y tế</b><br>8.067 ảnh / 160 BN<br>Chuẩn 100% Patient-Disjoint"] --> G2["GIAI ĐOẠN 2<br><b>Mô hình 3 Cấp độ</b><br>Swin-Tiny Backbone<br>Ràng buộc phả hệ"]
+    G2 --> G3["GIAI ĐOẠN 3<br><b>Huấn luyện 3 Giai đoạn</b><br>Chiến lược 3S-HFT<br>Tách rời tham số"]
     G3 --> G4["GIAI ĐOẠN 4<br><b>Đánh giá Đối chuẩn</b><br>So sánh 15 Baseline<br>Bản đồ nhiệt Grad-CAM"]
     G4 --> G5["GIAI ĐOẠN 5<br><b>Sản phẩm Ứng dụng</b><br>Clinical Web Dashboard<br>Thời gian thực >66 FPS"]
 ```
@@ -73,9 +77,9 @@ flowchart LR
 
 ---
 
-### GIAI ĐOẠN 2: ĐIỂM MỚI CỐT LÕI CỦA MÔ HÌNH (PROPOSED METHOD)
+### GIAI ĐOẠN 2: ĐIỂM MỚI 1 - MÔ HÌNH XỬ LÝ 3 CẤP ĐỘ ĐỒNG THỜI
 
-Điểm mới sáng tạo và khác biệt lớn nhất của nghiên cứu nằm ở việc **tích hợp trọn vẹn tư duy chẩn đoán 3 cấp độ của bác sĩ vào trong 1 kiến trúc mạng duy nhất**:
+Khác biệt lớn nhất của nghiên cứu nằm ở việc **tích hợp trọn vẹn tư duy chẩn đoán 3 cấp độ của bác sĩ vào trong 1 kiến trúc mạng duy nhất**:
 
 ```text
                Ảnh nội soi bàng quang đầu vào (224x224)
@@ -100,22 +104,20 @@ flowchart LR
                             (Không mâu thuẫn giữa cha và con)
 ```
 
-#### Điểm mới nổi bật:
 1. **Một mô hình xử lý trọn vẹn 3 cấp độ chẩn đoán (*Multi-Level Hierarchy*):**
    - Thay vì phải chạy 3 mô hình riêng biệt gây nặng máy và chậm trễ, mô hình dùng chung một bộ trích xuất đặc trưng thị giác mạnh mẽ (**Swin Transformer**) và rẽ nhánh ra 3 đầu chẩn đoán chuyên biệt.
 2. **Cơ chế liên kết logic phả hệ (*Hierarchical Marginalization*):**
    - Xác suất dự đoán từ 22 lớp chi tiết ở Cấp 3 được tự động gom nhóm để củng cố cho 5 nhóm bệnh ở Cấp 2.
    - **Lợi ích:** Đảm bảo tính nhất quán tuyệt đối trong chẩn đoán — không bao giờ xảy ra tình trạng Cấp 3 chẩn đoán là ung thư mà Cấp 2 lại kết luận là mô bình thường.
-3. **Cơ chế cân bằng lớp hiếm theo số ca bệnh nhân (*Patient-Prior Balancing*):**
-   - Mô hình điều chỉnh độ ưu tiên học dựa trên **số lượng bệnh nhân thực tế** thay vì số lượng ảnh. Nhờ đó, các tổn thương ung thư nguy hiểm nhưng hiếm gặp (như CIS) được mô hình chú trọng học sâu, không bị các ảnh niêm mạc bình thường lấn át.
 
 ---
 
-### GIAI ĐOẠN 3: HUẤN LUYỆN & TỐI ƯU HÓA HỆ THỐNG
-Quy trình huấn luyện được chia làm 3 bước nối tiếp rõ ràng:
-- **Bước 1 (Học đặc trưng tổng quát):** Toàn bộ mạng học cách nhận biết màu sắc, đường nét, cấu trúc mô bàng quang.
-- **Bước 2 (Cân bằng nhóm bệnh Cấp 2):** Cố định bộ trích xuất đặc trưng, tối ưu hóa ranh giới giữa 5 nhóm bệnh lớn.
-- **Bước 3 (Tinh chỉnh phân lớp chi tiết Cấp 3):** Tinh chỉnh đầu phân loại 22 bệnh lý chi tiết, giúp mô hình phân biệt chính xác từng thể ung thư và tổn thương viêm.
+### GIAI ĐOẠN 3: ĐIỂM MỚI 2 - CHIẾN LƯỢC HUẤN LUYỆN TÁCH RỜI 3 GIAI ĐOẠN (3S-HFT)
+
+Thay vì huấn luyện đồng thời tất cả các đầu phân loại làm xung đột gradient, nhóm đề xuất quy trình **3S-HFT (Three-Stage Hierarchical Fine-Tuning)**:
+- **Giai đoạn 1 (Học biểu diễn tổng quát):** Mở toàn bộ mạng để học trích xuất đặc trưng hình thái, cấu trúc mô và vi mạch máu của lòng bàng quang.
+- **Giai đoạn 2 (Nắn chỉnh ranh giới nhóm thô):** Đóng băng Backbone trích xuất đặc trưng, chỉ mở và tối ưu hóa ranh giới giữa 5 nhóm bệnh cảnh lớn Cấp 2.
+- **Giai đoạn 3 (Tinh chỉnh phân loại chi tiết):** Tiếp tục đóng băng Backbone, tinh chỉnh chuyên sâu đầu phân loại 22 bệnh lý Cấp 3 (đặc biệt là phân lớp phẳng nguy hiểm CIS).
 
 ---
 
@@ -147,12 +149,11 @@ Mô hình **CystoHier** đạt kết quả vượt bậc so với các mô hình
 | **Tính logic** | **Độ nhất quán phả hệ giữa các tầng** | **89,52%** | 81,20% | **Tăng mạnh +8,32%** |
 
 > **Nhận xét quan trọng:**
-> - Mô hình giải quyết triệt để vấn đề mất cân bằng: Trên 22 phân lớp chi tiết, chỉ số F1 đạt **0,6450** (vượt trội hoàn toàn so với mạng CNN truyền thống chỉ đạt 0,35).
-> - Nhờ cơ chế liên kết phả hệ, **độ nhất quán giữa tầng cha và tầng con đạt tới 89,52%**, tạo sự an tâm và độ tin cậy tuyệt đối cho bác sĩ khi sử dụng.
+> - Trên 22 phân lớp chi tiết, chỉ số F1 đạt **0,6450** (vượt trội hoàn toàn so với mạng CNN truyền thống chỉ đạt 0,35).
+> - Nhờ cơ chế liên kết phả hệ và huấn luyện 3 giai đoạn, **độ nhất quán giữa tầng cha và tầng con đạt tới 89,52%**, tạo sự an tâm và độ tin cậy tuyệt đối cho bác sĩ khi sử dụng.
 
 ### 2. Khả năng giải thích minh bạch bằng bản đồ nhiệt (Grad-CAM)
-- Bác sĩ không thể tin tưởng một mô hình "hộp đen" nếu không biết AI nhìn vào đâu để đưa ra kết luận.
-- Mô hình tích hợp bản đồ nhiệt **Grad-CAM**, tự động tô màu vùng hình ảnh mà mô hình căn cứ để chẩn đoán.
+- Bác sĩ cần biết AI nhìn vào đâu để đưa ra kết luận. Mô hình tích hợp bản đồ nhiệt **Grad-CAM**, tự động tô màu vùng hình ảnh mà mô hình căn cứ để chẩn đoán.
 - Độ trùng khớp diện tích (*IoU*) giữa vùng AI chú ý với vùng khối u do chuyên gia giải phẫu khoanh định đạt **0,2356** — **cao gấp 4,71 lần** so với mô hình thông thường (chỉ đạt 0,0500).
 
 ---

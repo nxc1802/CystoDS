@@ -1,0 +1,2028 @@
+<!DOCTYPE html>
+<html lang="vi" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>CystoHier AI — Hệ Thống Trình Diễn & Sổ Tay Khoa Học Kỹ Thuật ViSEF</title>
+  <meta name="description" content="Nền tảng kép kết hợp Slide thuyết trình tương tác và Sổ tay đọc hiểu dành cho học sinh THPT tham dự Cuộc thi KHKT Quốc gia ViSEF">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================================================
+       Vanguard Master Theme System: OLED Dark & Glassmorphism
+       ========================================================================== */
+    :root {
+      --bg-dark: #07090e;
+      --bg-surface: #0d111a;
+      --card-bg: rgba(255, 255, 255, 0.035);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --card-hover-border: rgba(6, 182, 212, 0.4);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --text-dim: #64748b;
+      --cyan: #06b6d4;
+      --cyan-light: #22d3ee;
+      --emerald: #10b981;
+      --emerald-light: #34d399;
+      --rose: #f43f5e;
+      --rose-light: #fb7185;
+      --amber: #f59e0b;
+      --purple: #8b5cf6;
+      --purple-light: #a78bfa;
+      --blue: #3b82f6;
+      --radius-sm: 0.5rem;
+      --radius-md: 0.85rem;
+      --radius-lg: 1.25rem;
+      --radius-xl: 1.75rem;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-display: 'Outfit', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      width: 100%;
+      height: 100%;
+    }
+
+    /* Ambient background glows */
+    .ambient-glow {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .ambient-glow::before {
+      content: '';
+      position: absolute;
+      top: -15%;
+      left: 15%;
+      width: 55vw;
+      height: 55vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(6, 182, 212, 0.08) 0%, transparent 65%);
+      filter: blur(100px);
+    }
+    .ambient-glow::after {
+      content: '';
+      position: absolute;
+      bottom: -15%;
+      right: 10%;
+      width: 50vw;
+      height: 50vw;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(16, 185, 129, 0.06) 0%, transparent 70%);
+      filter: blur(110px);
+    }
+
+    /* Top Master Navigation Bar */
+    header.master-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      background: rgba(7, 9, 14, 0.88);
+      border-bottom: 1px solid var(--card-border);
+      padding: 0.65rem 1.5rem;
+    }
+    .header-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      cursor: pointer;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(6, 182, 212, 0.25), rgba(16, 185, 129, 0.25));
+      border: 1px solid rgba(6, 182, 212, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.15rem;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    }
+    .brand-text h1 {
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.05rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+    .brand-text h1 span { color: var(--cyan); }
+    .brand-text p {
+      font-size: 0.68rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Mode Switcher Tabs */
+    .mode-switcher {
+      display: flex;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--card-border);
+      padding: 0.25rem;
+      border-radius: 9999px;
+      gap: 0.25rem;
+    }
+    .mode-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 1rem;
+      border-radius: 9999px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .mode-btn:hover {
+      color: #fff;
+    }
+    .mode-btn.active {
+      background: linear-gradient(135deg, var(--cyan), var(--emerald));
+      color: #03141a;
+      font-weight: 800;
+      box-shadow: 0 2px 12px rgba(6, 182, 212, 0.35);
+    }
+
+    /* Actions Right */
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .pill-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.4rem 0.85rem;
+      border-radius: 9999px;
+      border: 1px solid var(--card-border);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-muted);
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition-smooth);
+    }
+    .pill-btn:hover {
+      color: #fff;
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.1);
+    }
+
+    /* View Containers */
+    .view-container {
+      display: none;
+      position: relative;
+      z-index: 10;
+      width: 100%;
+    }
+    .view-container.active {
+      display: block;
+    }
+
+    /* ==========================================================================
+       VIEW 1: SLIDE PRESENTATION DECK STYLES
+       ========================================================================== */
+    #view-slides {
+      height: calc(100vh - 61px);
+      display: none;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+    #view-slides.active {
+      display: flex;
+    }
+    .slide-stage {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.25rem 2rem;
+      overflow: hidden;
+      position: relative;
+    }
+    .slide-card {
+      width: 100%;
+      max-width: 1240px;
+      height: 100%;
+      max-height: 720px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-xl);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+      display: none;
+      flex-direction: column;
+      padding: 2.25rem 2.75rem;
+      overflow-y: auto;
+      position: relative;
+      animation: fadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .slide-card.active {
+      display: flex;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px) scale(0.995); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Slide Header */
+    .slide-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .slide-tag-group {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+    .slide-stage-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      background: rgba(6, 182, 212, 0.12);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--cyan-light);
+    }
+    .slide-title-main {
+      font-family: var(--font-display);
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.02em;
+    }
+    .slide-number-indicator {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      font-weight: 600;
+    }
+    .slide-number-indicator span {
+      color: var(--cyan);
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+
+    /* Slide Body Content Grids */
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      align-items: center;
+    }
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+    }
+
+    /* Metric / Highlight Card */
+    .info-card {
+      background: rgba(255, 255, 255, 0.025);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: var(--transition-smooth);
+    }
+    .info-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-2px);
+    }
+    .card-accent-cyan { border-left: 3px solid var(--cyan); }
+    .card-accent-emerald { border-left: 3px solid var(--emerald); }
+    .card-accent-rose { border-left: 3px solid var(--rose); }
+    .card-accent-purple { border-left: 3px solid var(--purple); }
+    .card-accent-amber { border-left: 3px solid var(--amber); }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .card-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .card-metric {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      font-family: var(--font-mono);
+    }
+    .card-metric .metric-val {
+      font-size: 1.25rem;
+      font-weight: 800;
+    }
+
+    /* Citation badge style */
+    .citation-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan-light);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.25);
+      border-radius: 4px;
+      padding: 0.15rem 0.45rem;
+      margin-top: 0.35rem;
+    }
+
+    /* Pipeline Step Diagram */
+    .pipeline-stepper {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .pipeline-step {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1rem 0.85rem;
+      text-align: center;
+      position: relative;
+      transition: var(--transition-smooth);
+    }
+    .pipeline-step.step-active {
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.08);
+      box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+    }
+    .step-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.12);
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      margin-bottom: 0.4rem;
+    }
+    .step-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.88rem;
+      color: #fff;
+      margin-bottom: 0.3rem;
+    }
+    .step-desc {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Clean Comparison Tables */
+    .table-clean {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 0.85rem;
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+    .table-clean th {
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text-main);
+      font-weight: 700;
+      padding: 0.65rem 0.9rem;
+      text-align: left;
+      border-bottom: 1px solid var(--card-border);
+      font-family: var(--font-display);
+    }
+    .table-clean td {
+      padding: 0.6rem 0.9rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+      font-family: var(--font-mono);
+    }
+    .table-clean tr:last-child td { border-bottom: none; }
+    .table-clean tr.row-highlight {
+      background: rgba(6, 182, 212, 0.08);
+    }
+    .table-clean tr.row-highlight td {
+      color: #fff;
+      font-weight: 600;
+    }
+    .badge-win {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--emerald-light);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    /* Slide Footer Navigation Controls */
+    .slide-controls {
+      height: 60px;
+      background: rgba(7, 9, 14, 0.95);
+      border-top: 1px solid var(--card-border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 2rem;
+      z-index: 50;
+    }
+    .ctrl-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .nav-arrow-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid var(--card-border);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 1.1rem;
+      transition: var(--transition-smooth);
+    }
+    .nav-arrow-btn:hover:not(:disabled) {
+      background: var(--cyan);
+      color: #000;
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.5);
+    }
+    .nav-arrow-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+    .progress-bar-wrapper {
+      flex: 1;
+      max-width: 480px;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 9999px;
+      overflow: hidden;
+      margin: 0 1.5rem;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      width: 7.14%;
+      background: linear-gradient(90deg, var(--cyan), var(--emerald));
+      border-radius: 9999px;
+      transition: width 0.3s ease;
+    }
+    .keyboard-hint {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+    .keyboard-hint kbd {
+      background: rgba(255, 255, 255, 0.08);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+    }
+
+    /* ==========================================================================
+       VIEW 2: SỔ TAY HỌC SINH (STUDENT HANDBOOK) STYLES
+       ========================================================================== */
+    #view-handbook {
+      padding: 2.5rem 1.5rem 5rem;
+    }
+    .handbook-container {
+      max-width: 1140px;
+      margin: 0 auto;
+    }
+
+    /* Handbook Hero */
+    .handbook-hero {
+      text-align: center;
+      padding: 1.5rem 0 3rem;
+    }
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-family: var(--font-mono);
+      background: rgba(6, 182, 212, 0.1);
+      border: 1px solid rgba(6, 182, 212, 0.3);
+      color: var(--cyan-light);
+      margin-bottom: 1.25rem;
+    }
+    .handbook-hero h2 {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.8vw, 3rem);
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+    .handbook-hero h2 span {
+      background: linear-gradient(135deg, var(--cyan-light), var(--emerald-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .handbook-hero p {
+      max-width: 780px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+    }
+
+    /* Section Headers */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 0.75rem;
+      margin: 3.5rem 0 1.5rem;
+    }
+    .section-header h3 {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .section-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    /* Elevator Cards */
+    .elevator-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+    }
+    .elevator-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.4rem;
+      backdrop-filter: blur(16px);
+      transition: var(--transition-smooth);
+      position: relative;
+    }
+    .elevator-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+    }
+    .elevator-icon {
+      font-size: 1.6rem;
+      margin-bottom: 0.75rem;
+    }
+    .elevator-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .elevator-body {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    .elevator-stat {
+      margin-top: 1rem;
+      padding-top: 0.75rem;
+      border-top: 1px dashed rgba(255, 255, 255, 0.08);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Interactive 3-Level Mindmap */
+    .tree-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 1rem;
+    }
+    .tree-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition-smooth);
+      cursor: pointer;
+    }
+    .tree-card:hover, .tree-card.active {
+      border-color: var(--cyan);
+      background: rgba(6, 182, 212, 0.06);
+      transform: translateY(-3px);
+    }
+    .tree-card-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.2rem 0.55rem;
+      border-radius: 9999px;
+      margin-bottom: 0.75rem;
+    }
+    .badge-t1 { background: rgba(244, 63, 94, 0.15); color: var(--rose-light); border: 1px solid rgba(244, 63, 94, 0.3); }
+    .badge-t2 { background: rgba(245, 158, 11, 0.15); color: #fcd34d; border: 1px solid rgba(245, 158, 11, 0.3); }
+    .badge-t3 { background: rgba(6, 182, 212, 0.15); color: var(--cyan-light); border: 1px solid rgba(6, 182, 212, 0.3); }
+
+    .tree-card h4 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 0.5rem;
+    }
+    .tree-card p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+      margin-bottom: 0.85rem;
+    }
+    .tree-sublist {
+      list-style: none;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+      padding-top: 0.75rem;
+    }
+    .tree-sublist li {
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tree-sublist li::before {
+      content: '▸';
+      color: var(--cyan);
+    }
+
+    /* Accordions for Chapters */
+    .accordion-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+    }
+    .accordion-item {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      transition: var(--transition-smooth);
+    }
+    .accordion-item.open {
+      border-color: rgba(6, 182, 212, 0.35);
+      background: rgba(255, 255, 255, 0.045);
+    }
+    .accordion-header {
+      padding: 1.15rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+    .chapter-number {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--cyan);
+      background: rgba(6, 182, 212, 0.1);
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .chapter-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: #fff;
+    }
+    .accordion-arrow {
+      color: var(--text-dim);
+      transition: transform 0.3s ease;
+      font-size: 0.8rem;
+    }
+    .accordion-item.open .accordion-arrow {
+      transform: rotate(180deg);
+      color: var(--cyan);
+    }
+    .accordion-content {
+      padding: 0 1.4rem 1.4rem;
+      display: none;
+    }
+    .accordion-item.open .accordion-content {
+      display: block;
+    }
+    .perspective-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-top: 0.5rem;
+    }
+    .perspective-box {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+    }
+    .perspective-box h5 {
+      font-family: var(--font-display);
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 0.4rem;
+    }
+    .perspective-box p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Q&A Simulator */
+    .qa-switcher {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .qa-switch-btn {
+      padding: 0.45rem 1rem;
+      border-radius: 9999px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      color: var(--text-muted);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .qa-switch-btn.active {
+      background: rgba(6, 182, 212, 0.15);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+    .qa-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.4rem;
+      margin-bottom: 1rem;
+    }
+    .qa-question {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: baseline;
+      gap: 0.5rem;
+    }
+    .q-badge {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--rose-light);
+      background: rgba(244, 63, 94, 0.15);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+    }
+    .qa-intent {
+      font-size: 0.8rem;
+      color: var(--amber);
+      font-style: italic;
+      margin-bottom: 0.75rem;
+    }
+    .qa-answer {
+      background: rgba(0, 0, 0, 0.35);
+      border-left: 3px solid var(--emerald);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      padding: 1rem 1.15rem;
+      font-size: 0.85rem;
+      color: #e2e8f0;
+      line-height: 1.65;
+    }
+
+    /* Glossary Search */
+    .search-bar-wrap {
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .search-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 0.75rem 1rem 0.75rem 2.5rem;
+      color: #fff;
+      font-size: 0.9rem;
+      outline: none;
+      transition: var(--transition-smooth);
+    }
+    .search-input:focus {
+      border-color: var(--cyan);
+      box-shadow: 0 0 15px rgba(6, 182, 212, 0.2);
+    }
+    .search-icon-pos {
+      position: absolute;
+      left: 0.9rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-dim);
+    }
+    .glossary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+    .glossary-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      transition: var(--transition-smooth);
+    }
+    .glossary-card:hover {
+      border-color: var(--card-hover-border);
+      transform: translateY(-2px);
+    }
+    .term-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.4rem;
+    }
+    .term-sub {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--cyan);
+    }
+    .term-def {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+      margin-bottom: 0.6rem;
+    }
+    .term-pitch {
+      font-size: 0.78rem;
+      color: var(--emerald-light);
+      background: rgba(16, 185, 129, 0.08);
+      padding: 0.4rem 0.65rem;
+      border-radius: 6px;
+      border-left: 2px solid var(--emerald);
+    }
+
+    /* Footer */
+    footer.master-footer {
+      border-top: 1px solid var(--card-border);
+      background: var(--bg-dark);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+      position: relative;
+      z-index: 10;
+    }
+    footer.master-footer p strong { color: #fff; }
+
+    /* Responsive Queries */
+    @media (max-width: 992px) {
+      .grid-2col, .grid-3col, .tree-grid, .perspective-grid {
+        grid-template-columns: 1fr;
+      }
+      .pipeline-stepper {
+        grid-template-columns: 1fr 1fr;
+      }
+      .slide-card {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Ambient Glow -->
+  <div class="ambient-glow"></div>
+
+  <!-- Master Sticky Header -->
+  <header class="master-header">
+    <div class="header-inner">
+      <!-- Brand -->
+      <div class="brand-group" onclick="switchView('slides')">
+        <div class="brand-icon">🩺</div>
+        <div class="brand-text">
+          <h1>CystoHier <span>AI</span></h1>
+          <p>KHKT Quốc Gia ViSEF • AI &amp; Y Sinh Học</p>
+        </div>
+      </div>
+
+      <!-- Mode Switcher (Merge Dual Views) -->
+      <div class="mode-switcher">
+        <button class="mode-btn active" id="btn-mode-slides" onclick="switchView('slides')">
+          <span>🖥️</span> Slide Thuyết Trình
+        </button>
+        <button class="mode-btn" id="btn-mode-handbook" onclick="switchView('handbook')">
+          <span>📖</span> Sổ Tay Học Sinh
+        </button>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="header-actions">
+        <button class="pill-btn" onclick="toggleFullScreen()" title="Bật / Thoát toàn màn hình">
+          <span>⛶</span> Toàn màn hình
+        </button>
+        <a href="Bao_Cao_KHKT_ViSEF.md" class="pill-btn" target="_blank" title="Xem báo cáo toàn văn Markdown">
+          <span>📄</span> Báo Cáo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       VIEW 1: SLIDE PRESENTATION DECK (14 SLIDES CHUẨN THPT)
+       ======================================================================== -->
+  <main id="view-slides" class="view-container active">
+    <div class="slide-stage">
+
+      <!-- SLIDE 1: BÌA BÁO CÁO -->
+      <section class="slide-card active" data-slide="1">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Cuộc Thi KHKT Cấp Quốc Gia • ViSEF 2026</span>
+          </div>
+          <div class="slide-number-indicator">Slide <span>01</span> / 14</div>
+        </div>
+        <div class="slide-body" style="text-align: center; max-width: 860px; margin: 0 auto;">
+          <div style="font-size: 2.8rem; margin-bottom: 0.5rem;">🩺 🔬 🤖</div>
+          <h2 style="font-family: var(--font-display); font-size: clamp(1.8rem, 3.2vw, 2.5rem); font-weight: 800; line-height: 1.25; margin-bottom: 1rem; color: #fff;">
+            NGHIÊN CỨU PHÁT TRIỂN HỆ THỐNG TRÍ TUỆ NHÂN TẠO HỌC PHÂN CẤP ĐA TẦNG HỖ TRỢ CHẨN ĐOÁN HÌNH ẢNH NỘI SOI BÀNG QUANG THỜI GIAN THỰC
+          </h2>
+          <p style="font-size: 1.05rem; color: var(--cyan-light); font-weight: 600; margin-bottom: 1.5rem;">
+            Dự Án: CystoHier — Phân Loại 3 Cấp Độ Chẩn Đoán Đồng Thời Với Chiến Lược Huấn Luyện 3 Giai Đoạn
+          </p>
+          <div style="display: flex; justify-content: center; gap: 1.5rem; font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">
+            <span>🏫 <strong>Lĩnh vực:</strong> Hệ thống nhúng &amp; Phần mềm hệ thống</span>
+            <span>🧬 <strong>Phân ngành:</strong> Trí tuệ nhân tạo &amp; Y sinh học</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 2: TÓM TẮT ĐỀ TÀI TRONG 60 GIÂY (ĐÃ BỎ GIAO THỨC CHUẨN) -->
+      <section class="slide-card" data-slide="2">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Tổng Quan Đề Tài</span>
+            <h3 class="slide-title-main">Bản Đồ Dự Án Trong 60 Giây (Executive Pitch)</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>02</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3col">
+            <div class="info-card card-accent-rose">
+              <div class="card-title"><span>🚨</span> Vấn Đề Lâm Sàng</div>
+              <div class="card-desc">Bác sĩ soi bàng quang thường mệt mỏi thị giác và dễ bỏ sót <strong>20% – 30%</strong> ung thư biểu mô tại chỗ (CIS) do vết thương phẳng đỏ nhẹ giống niêm mạc viêm bàng quang.</div>
+              <div class="card-metric"><span>Tỷ lệ bỏ sót CIS:</span><strong class="metric-val" style="color:var(--rose)">20% – 30%</strong></div>
+            </div>
+            <div class="info-card card-accent-cyan">
+              <div class="card-title"><span>💡</span> Điểm Mới Đột Phá</div>
+              <div class="card-desc">Một mô hình duy nhất <strong>xử lý trọn vẹn cả 3 cấp độ chẩn đoán y khoa</strong> (Nhị phân ➔ 5 nhóm bệnh ➔ 22 bệnh học chi tiết) kết hợp <strong>chiến lược huấn luyện 3 giai đoạn (3S-HFT)</strong>.</div>
+              <div class="card-metric"><span>Kiến trúc:</span><strong class="metric-val" style="color:var(--cyan)">Swin 3-Levels</strong></div>
+            </div>
+            <div class="info-card card-accent-emerald">
+              <div class="card-title"><span>🏆</span> Hiệu Năng Vàng Đạt Được</div>
+              <div class="card-desc">Binary AUROC đạt <strong>0.9986</strong>, F1 lớp hiếm Cấp 3 đạt <strong>0.6450</strong> (p &lt; 0.05), nhất quán phả hệ đạt <strong>89.52%</strong> và chạy thời gian thực <strong>66.7 – 82.8 FPS</strong>.</div>
+              <div class="card-metric"><span>Grad-CAM IoU:</span><strong class="metric-val" style="color:var(--emerald-light)">Tăng 4.71 Lần</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 3: BỐI CẢNH Y HỌC & TÍNH CẤP THIẾT (CÓ TRÍCH DẪN SỐ LIỆU) -->
+      <section class="slide-card" data-slide="3">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Giai Đoạn 1 • Đặt Vấn Đề</span>
+            <h3 class="slide-title-main">Bối Cảnh Y Học &amp; Tính Cấp Thiết Của Đề Tài</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>03</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div>
+              <h4 style="font-family:var(--font-display); font-size:1.2rem; color:#fff; margin-bottom:0.75rem;">
+                Ung Thư Bàng Quang — "Sát Thủ Thầm Lặng" Đường Tiết Niệu
+              </h4>
+              <p style="font-size:0.9rem; color:var(--text-muted); line-height:1.7; margin-bottom:0.5rem;">
+                Khoảng <strong>573.000 ca mắc mới</strong> và <strong>213.000 ca tử vong</strong> mỗi năm trên toàn cầu. Tỷ lệ tái phát sau phẫu thuật nội soi lên tới <strong>50% – 70%</strong>, buộc người bệnh phải theo dõi định kỳ suốt đời.
+              </p>
+              <div class="citation-badge">📚 Trích dẫn: WHO / GLOBOCAN 2020; Sung et al., CA Cancer J Clin 2021; EAU Guidelines 2022</div>
+
+              <div class="info-card card-accent-rose" style="margin-top:1rem;">
+                <div class="card-title">⚠️ Nguy cơ bỏ sót ung thư phẳng (Carcinoma in situ - CIS)</div>
+                <div class="card-desc">Khác với khối u dạng nhú dễ thấy, tổn thương CIS là dạng phẳng, chỉ đỏ nhẹ giống niêm mạc viêm bàng quang. Tỷ lệ bỏ sót khi nội soi ánh sáng trắng thông thường lên tới <strong>20% – 30%</strong>.</div>
+                <div class="citation-badge">📚 Trích dẫn: Babjuk et al., Eur Urol 2022; Schmidbauer et al., Eur Urol 2004</div>
+              </div>
+            </div>
+            <div>
+              <div class="info-card card-accent-amber" style="margin-bottom:1rem;">
+                <div class="card-title">👁️ Hiện tượng mệt mỏi thị giác của bác sĩ</div>
+                <div class="card-desc">Bác sĩ phải quan sát liên tục trong môi trường nội soi có góc nhìn hẹp, nước rửa chuyển động, bọt khí và phản xạ ánh sáng. Làm việc nhiều ca mổ liên tục làm gia tăng nguy cơ bỏ sót các tổn thương phẳng hiểm nghèo.</div>
+                <div class="citation-badge">📚 Trích dẫn: Shkolyar et al., J Urol 2019; Wu et al., Nat Commun 2022</div>
+              </div>
+              <div class="info-card card-accent-cyan">
+                <div class="card-title">🎯 Giải pháp cần thiết</div>
+                <div class="card-desc">Xây dựng một "trợ lý thị giác thông minh" chạy thời gian thực trực tiếp trên màn hình phòng mổ, vừa phát hiện nhanh vùng nghi ngờ, vừa chẩn đoán chính xác bản chất bệnh học để hỗ trợ bác sĩ.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 4: KHOẢNG TRỐNG KỸ THUẬT: MÂU THUẪN LOGIC PHẢ HỆ -->
+      <section class="slide-card" data-slide="4">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Giai Đoạn 1 • Khoảng Trống Kỹ Thuật</span>
+            <h3 class="slide-title-main">Rào Cản Cốt Lõi: Mâu Thuẫn Logic Phả Hệ Chẩn Đoán</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>04</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div class="info-card card-accent-rose">
+              <div class="card-title" style="font-size:1.15rem;">❌ Nghịch Lý Chẩn Đoán Của Các Mô Hình Hiện Nay</div>
+              <div class="card-desc" style="font-size:0.9rem; line-height:1.7;">
+                Hầu hết các nghiên cứu AI nội soi trước đây chỉ giải quyết bài toán phẳng (*Flat Classification*) hoặc chia tách thành các mô hình rời rạc độc lập. Điều này dẫn đến hiện tượng <strong>mâu thuẫn logic phả hệ (*Hierarchical Inconsistency*)</strong> nghiêm trọng:
+              </div>
+              <div style="margin:1rem 0; padding:1rem; background:rgba(0,0,0,0.4); border-radius:var(--radius-sm); border:1px solid rgba(244,63,94,0.3); font-family:var(--font-mono); font-size:0.85rem; color:#fecdd3;">
+                [Ảnh Nội Soi Nghi Ngờ]<br>
+                ➔ Đầu Chi Tiết (Fine) đoán: <strong>"Ung thư biểu mô tại chỗ (CIS)"</strong> (Ác tính)<br>
+                ➔ Nhưng Đầu Nhóm Thô (Coarse) lại đoán: <strong>"Niêm mạc lành tính"</strong>!
+              </div>
+              <div class="card-desc" style="font-size:0.85rem; color:var(--rose-light);">
+                ⚠️ Mâu thuẫn này khiến bác sĩ hoàn toàn mất niềm tin vào AI và không thể ứng dụng trong phẫu thuật lâm sàng.
+              </div>
+            </div>
+
+            <div class="info-card card-accent-cyan">
+              <div class="card-title" style="font-size:1.15rem;">💡 Yêu Cầu Đặt Ra Cho Đề Tài</div>
+              <div class="card-desc" style="font-size:0.9rem; line-height:1.8;">
+                • Tư duy chẩn đoán y khoa vốn có cấu trúc phân cấp từ tổng quan đến chi tiết.<br>
+                • Hệ thống AI bắt buộc phải có <strong>ràng buộc phả hệ chặt chẽ</strong>: Dự đoán lớp con chi tiết phải thuộc đúng nhóm lớp cha được chỉ định.<br>
+                • Phải giải quyết sự xung đột gradient giữa các cấp độ chẩn đoán khác nhau để mô hình đạt độ chính xác tối ưu trên cả 3 tầng.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 5: MỤC TIÊU NGHIÊN CỨU (ĐÃ BỎ MỤC TIÊU 2) -->
+      <section class="slide-card" data-slide="5">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Giai Đoạn 1 • Mục Tiêu Đề Tài</span>
+            <h3 class="slide-title-main">Mục Tiêu Nghiên Cứu &amp; Giả Thuyết Khoa Học</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>05</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div class="info-card card-accent-cyan">
+              <div class="card-title">🎯 3 Mục Tiêu Khoa Học &amp; Kỹ Thuật Trọng Tâm</div>
+              <div class="card-desc" style="font-size: 0.92rem; line-height: 1.85;">
+                • <strong>Mục tiêu 1:</strong> Thiết kế mô hình học sâu duy nhất có khả năng <strong>xử lý đồng thời cả 3 cấp độ chẩn đoán y khoa</strong>, bảo đảm tính nhất quán logic phả hệ tuyệt đối.<br>
+                • <strong>Mục tiêu 2:</strong> Ứng dụng <strong>chiến lược huấn luyện tách rời 3 giai đoạn (3S-HFT)</strong> giúp tối ưu hóa độc lập ranh giới phân loại cho từng tầng chẩn đoán.<br>
+                • <strong>Mục tiêu 3:</strong> Minh bạch hóa vùng nhìn bằng bản đồ nhiệt Grad-CAM trùng khớp giải phẫu và xây dựng phần mềm Web Dashboard đạt tốc độ thời gian thực <strong>&ge; 60 FPS</strong> trong phòng mổ.
+              </div>
+            </div>
+            <div class="info-card card-accent-emerald">
+              <div class="card-title">💡 Giả Thuyết Khoa Học</div>
+              <div class="card-desc" style="font-size: 0.92rem; line-height: 1.85;">
+                <em>"Nếu tích hợp quan hệ ràng buộc logic phả hệ vào một mạng Swin Transformer duy nhất và huấn luyện theo chiến lược tách rời 3 giai đoạn, mô hình sẽ vừa nhận diện chính xác các tổn thương ác tính chi tiết, vừa triệt tiêu mâu thuẫn chẩn đoán cha-con và đạt độ tin cậy giải phẫu vượt trội so với các mạng nơ-ron truyền thống."</em>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 6: TỔNG QUAN PIPELINE CHUẨN 5 BƯỚC -->
+      <section class="slide-card" data-slide="6">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Phương Pháp Nghiên Cứu</span>
+            <h3 class="slide-title-main">Quy Trình Nghiên Cứu Chuẩn Mực (Standard Pipeline)</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>06</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="pipeline-stepper">
+            <div class="pipeline-step">
+              <span class="step-badge">BƯỚC 1</span>
+              <div class="step-title">Dữ Liệu &amp; Tiền Xử Lý</div>
+              <div class="step-desc">8.067 ảnh / 160 BN. Cắt viền đen FOV. Phân chia 70/15/15 theo bệnh nhân.</div>
+            </div>
+            <div class="pipeline-step step-active">
+              <span class="step-badge">BƯỚC 2 (ĐIỂM MỚI)</span>
+              <div class="step-title">Kiến Trúc 3 Cấp Độ</div>
+              <div class="step-desc">Swin-Tiny Backbone chia sẻ 3 đầu chẩn đoán đồng thời + Ràng buộc phả hệ.</div>
+            </div>
+            <div class="pipeline-step step-active">
+              <span class="step-badge">BƯỚC 3 (ĐIỂM MỚI)</span>
+              <div class="step-title">Huấn Luyện 3 Giai Đoạn</div>
+              <div class="step-desc">Chiến lược 3S-HFT: Học biểu diễn ➔ Nắn chỉnh nhóm thô ➔ Tinh chỉnh 22 lớp.</div>
+            </div>
+            <div class="pipeline-step">
+              <span class="step-badge">BƯỚC 4</span>
+              <div class="step-title">Đánh Giá Đối Chuẩn</div>
+              <div class="step-desc">So sánh 15 mô hình baseline, đo độ nhất quán và bản đồ Grad-CAM IoU.</div>
+            </div>
+            <div class="pipeline-step">
+              <span class="step-badge">BƯỚC 5</span>
+              <div class="step-title">Ứng Dụng Lâm Sàng</div>
+              <div class="step-desc">Clinical Web Dashboard thời gian thực &gt;66 FPS, xuất phiếu bệnh án PDF.</div>
+            </div>
+          </div>
+          <div class="info-card card-accent-cyan" style="margin-top:1rem;">
+            <div class="card-desc">
+              💡 <strong>Tiêu chuẩn ViSEF:</strong> Toàn bộ quy trình được xây dựng nghiêm ngặt, minh bạch và có tính tái lập cao theo đúng quy định nghiên cứu khoa học kỹ thuật dành cho học sinh trung học.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 7: DỮ LIỆU & TIỀN XỬ LÝ -->
+      <section class="slide-card" data-slide="7">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 1 • Chuẩn Bị Dữ Liệu</span>
+            <h3 class="slide-title-main">Tập Dữ Liệu Y Tế &amp; Tiền Xử Lý Hình Ảnh</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>07</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div>
+              <h4 style="font-family:var(--font-display); font-size:1.15rem; color:#fff; margin-bottom:0.75rem;">
+                Bộ Dữ Liệu Chuẩn Quốc Tế CystoDS
+              </h4>
+              <ul style="font-size:0.88rem; color:var(--text-muted); line-height:1.8; margin-left:1.2rem; margin-bottom:1rem;">
+                <li>Tổng số: <strong>8.067 ảnh nội soi kỹ thuật số</strong> từ <strong>160 bệnh nhân</strong>.</li>
+                <li>Bao gồm 7.009 ảnh ánh sáng trắng (WLC) và 1.058 ảnh dải tần hẹp (NBI).</li>
+                <li>Được dán nhãn chuẩn xác bởi các chuyên gia niệu khoa đầu ngành.</li>
+                <li><strong>Tiền xử lý:</strong> Cắt tỉa trung tâm <em>FOV Center Crop (0.92)</em> để loại bỏ viền đen ống soi, đưa ảnh về kích thước chuẩn $224 \times 224$ pixel.</li>
+              </ul>
+            </div>
+            <div class="info-card card-accent-purple">
+              <div class="card-title">🛡️ Giao Thức Phân Chia Độc Lập Bệnh Nhân</div>
+              <div class="card-desc" style="font-size:0.85rem; line-height:1.7;">
+                • Chia theo mã Bệnh nhân, tuyệt đối không chia ngẫu nhiên theo ảnh lẻ.<br>
+                • <strong>70% Train</strong> (112 Bệnh nhân)<br>
+                • <strong>15% Validation</strong> (24 Bệnh nhân)<br>
+                • <strong>15% Test độc lập</strong> (24 Bệnh nhân — 337 ảnh)<br>
+                • <strong>Ý nghĩa:</strong> Bệnh nhân ở tập kiểm tra hoàn toàn mới, khẳng định AI học bản chất bệnh học chứ không "nhớ màu da" của bệnh nhân.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 8: ĐIỂM MỚI 1 - MÔ HÌNH XỬ LÝ 3 CẤP ĐỘ -->
+      <section class="slide-card" data-slide="8">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 2 • Điểm Mới Cốt Lõi 1</span>
+            <h3 class="slide-title-main">Điểm Mới 1: Một Mô Hình Duy Nhất Xử Lý Cả 3 Cấp Độ Chẩn Đoán</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>08</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+            Sử dụng mạng <strong>Swin Transformer</strong> chia sẻ ở tầng sâu và rẽ nhánh ra 3 đầu phân loại tương ứng với 3 tầng tư duy chẩn đoán y khoa:
+          </p>
+          <div class="grid-3col">
+            <div class="info-card card-accent-rose">
+              <span class="tree-card-badge badge-t1">CẤP 1 • SÀNG LỌC (BINARY)</span>
+              <div class="card-title">Đầu Nhị Phân (Binary Head)</div>
+              <div class="card-desc">Trả lời câu hỏi: <em>"Bức ảnh có tổn thương cần lưu ý hay hoàn toàn bình thường?"</em></div>
+              <ul class="tree-sublist" style="margin-top:0.5rem;">
+                <li><strong>Non-ROI:</strong> Niêm mạc bình thường</li>
+                <li><strong>ROI:</strong> Vùng tổn thương nghi ngờ</li>
+              </ul>
+            </div>
+            <div class="info-card card-accent-amber">
+              <span class="tree-card-badge badge-t2">CẤP 2 • NHÓM BỆNH (COARSE)</span>
+              <div class="card-title">Đầu Nhóm Thô (Coarse Head)</div>
+              <div class="card-desc">Phân loại tổn thương vào <strong>5 nhóm bệnh cảnh lớn</strong>:</div>
+              <ul class="tree-sublist" style="margin-top:0.5rem;">
+                <li>Malignant (Ác tính) • Non-malignant (Lành tính)</li>
+                <li>Normal mucosa • Mốc giải phẫu • Dị vật</li>
+              </ul>
+            </div>
+            <div class="info-card card-accent-cyan">
+              <span class="tree-card-badge badge-t3">CẤP 3 • CHI TIẾT (FINE)</span>
+              <div class="card-title">Đầu Bệnh Học (Fine Head)</div>
+              <div class="card-desc">Định danh chính xác tên của <strong>22 phân lớp bệnh lý</strong>:</div>
+              <ul class="tree-sublist" style="margin-top:0.5rem;">
+                <li>Ung thư nhú độ cao • Độ thấp • <strong>CIS (Ung thư phẳng)</strong></li>
+                <li>Viêm bàng quang • U nhú niệu mạc • Sẹo diện cắt...</li>
+              </ul>
+            </div>
+          </div>
+          <div class="info-card card-accent-emerald" style="margin-top:1rem; padding:0.85rem 1.25rem;">
+            <div class="card-desc" style="color:#fff; font-size:0.85rem;">
+              🔗 <strong>Cơ chế cộng dồn xác suất phả hệ (Marginalization):</strong> Xác suất 22 lớp con tự động gom nhóm để củng cố cho 5 lớp cha tương ứng, loại bỏ 100% tình trạng mâu thuẫn giữa lớp cha và con!
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 9: ĐIỂM MỚI 2 - CHIẾN LƯỢC HUẤN LUYỆN 3 GIAI ĐOẠN (3S-HFT) -->
+      <section class="slide-card" data-slide="9">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 3 • Điểm Mới Cốt Lõi 2</span>
+            <h3 class="slide-title-main">Điểm Mới 2: Chiến Lược Huấn Luyện Tách Rời 3 Giai Đoạn (3S-HFT)</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>09</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <p style="font-size:0.88rem; color:var(--text-muted); margin-bottom:1rem;">
+            Nếu huấn luyện cả 3 đầu cùng một lúc, các gradient sẽ xung đột và triệt tiêu nhau. Đề tài đề xuất quy trình <strong>3S-HFT (Three-Stage Hierarchical Fine-Tuning)</strong> tối ưu từng tầng:
+          </p>
+          <div class="grid-3col">
+            <div class="info-card card-accent-cyan">
+              <span class="tree-card-badge badge-t1">GIAI ĐOẠN 1</span>
+              <div class="card-title">Học Biểu Diễn Tổng Quát</div>
+              <div class="card-desc">
+                • <strong>Trạng thái:</strong> Mở 100% Backbone và các đầu phân loại.<br>
+                • <strong>Nhiệm vụ:</strong> Mạng nơ-ron tự do học các đặc trưng thị giác toàn cục (màu sắc, vân vi mạch máu, bờ khối u) của lòng bàng quang.<br>
+                • <strong>Kết quả:</strong> Tạo không gian biểu diễn đặc trưng chất lượng cao.
+              </div>
+            </div>
+            <div class="info-card card-accent-amber">
+              <span class="tree-card-badge badge-t2">GIAI ĐOẠN 2</span>
+              <div class="card-title">Nắn Chỉnh Nhóm Thô (Cấp 2)</div>
+              <div class="card-desc">
+                • <strong>Trạng thái:</strong> <strong>ĐÓNG BĂNG Backbone</strong>, chỉ mở đầu Coarse.<br>
+                • <strong>Nhiệm vụ:</strong> Giữ cố định đặc trưng hình thái, chỉ tập trung tối ưu ranh giới phân định 5 nhóm bệnh cảnh lâm sàng.<br>
+                • <strong>Kết quả:</strong> Tăng độ chính xác phân nhóm mà không làm méo mó biểu diễn ảnh.
+              </div>
+            </div>
+            <div class="info-card card-accent-emerald">
+              <span class="tree-card-badge badge-t3">GIAI ĐOẠN 3</span>
+              <div class="card-title">Tinh Chỉnh Chi Tiết (Cấp 3)</div>
+              <div class="card-desc">
+                • <strong>Trạng thái:</strong> <strong>ĐÓNG BĂNG Backbone</strong>, chỉ mở đầu Fine.<br>
+                • <strong>Nhiệm vụ:</strong> Tập trung phân tách sắc nét ranh giới giữa 22 phân lớp bệnh lý cụ thể (đặc biệt là tổn thương phẳng CIS).<br>
+                • <strong>Kết quả:</strong> Tối ưu hóa F1-score trên các phân lớp hiếm.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 10: KẾT QUẢ ĐỐI CHUẨN TỔNG THỂ -->
+      <section class="slide-card" data-slide="10">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 4 • Kết Quả Thực Nghiệm</span>
+            <h3 class="slide-title-main">Bảng Đối Chuẩn Tổng Thể Trên Tập Test Độc Lập</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>10</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <table class="table-clean" style="margin-bottom:1rem;">
+            <thead>
+              <tr>
+                <th>Mô hình / Kiến trúc</th>
+                <th>Binary AUROC</th>
+                <th>Độ nhạy Cấp 1</th>
+                <th>Coarse Acc (Cấp 2)</th>
+                <th>Fine Macro-F1 (Cấp 3)</th>
+                <th>Độ nhất quán phả hệ</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="row-highlight">
+                <td><strong>CystoHier (Đề xuất)</strong></td>
+                <td><strong>0.9986</strong> <span class="badge-win">Top 1</span></td>
+                <td><strong>98.45%</strong></td>
+                <td><strong>86.42%</strong> <span class="badge-win">+2.63%</span></td>
+                <td><strong>0.6450</strong> <span class="badge-win">p &lt; 0.05</span></td>
+                <td><strong>89.52%</strong> <span class="badge-win">+8.32%</span></td>
+              </tr>
+              <tr>
+                <td>Swin-Tiny Baseline</td>
+                <td>0.9989</td>
+                <td>98.76%</td>
+                <td>83.79%</td>
+                <td>0.6102</td>
+                <td>81.20%</td>
+              </tr>
+              <tr>
+                <td>HRNet-W18 Baseline</td>
+                <td>0.9930</td>
+                <td>96.08%</td>
+                <td>77.20%</td>
+                <td>0.5704</td>
+                <td>76.40%</td>
+              </tr>
+              <tr>
+                <td>ResNeXt-50 Baseline</td>
+                <td>0.9854</td>
+                <td>94.52%</td>
+                <td>77.61%</td>
+                <td>0.4024</td>
+                <td>74.50%</td>
+              </tr>
+              <tr>
+                <td>ResNet-152 (CNN Cổ điển)</td>
+                <td>0.9740</td>
+                <td>93.70%</td>
+                <td>75.08%</td>
+                <td>0.3578</td>
+                <td>71.80%</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="font-size:0.82rem; color:var(--text-muted); display:flex; justify-content:space-between;">
+            <span>★ Kiểm định ý nghĩa thống kê: $p = 0.0478 < 0.05$ (Cải thiện thực sự, không do ngẫu nhiên)</span>
+            <span>★ Bỏ xa mạng CNN truyền thống ResNet-152 tới <strong>+28.72%</strong> ở tầng chẩn đoán chi tiết</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: MINH BẠCH THỊ GIÁC VỚI GRAD-CAM -->
+      <section class="slide-card" data-slide="11">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 4 • Khả Năng Giải Thích (XAI)</span>
+            <h3 class="slide-title-main">Minh Bạch Thị Giác: Bản Đồ Nhiệt Grad-CAM</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>11</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div>
+              <h4 style="font-family:var(--font-display); font-size:1.15rem; color:#fff; margin-bottom:0.75rem;">
+                Xóa Bỏ Định Kiến "Mô Hình Hộp Đen"
+              </h4>
+              <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.7; margin-bottom:1rem;">
+                Bác sĩ cần biết AI căn cứ vào đâu để đưa ra kết luận. Hệ thống tích hợp bản đồ nhiệt Grad-CAM, tự động tô màu vùng hình ảnh mà mạng nơ-ron tập trung quan sát.
+              </p>
+              <div class="info-card card-accent-emerald" style="margin-bottom:0.75rem;">
+                <div class="card-title">🎯 Độ trùng khớp giải phẫu (IoU) tăng gấp 4.71 lần</div>
+                <div class="card-desc">Chỉ số diện tích trùng khớp giữa vùng AI chú ý với khoanh vùng khối u của bác sĩ đạt <strong>0.2356</strong> — cao gấp 4.71 lần so với mô hình thông thường (chỉ đạt 0.0500).</div>
+              </div>
+              <p style="font-size:0.82rem; color:var(--text-dim);">
+                AI tập trung chính xác vào chân khối u và mạch máu tăng sinh, hoàn toàn không bị đánh lừa bởi bóng đen hay bọt khí rửa bàng quang.
+              </p>
+            </div>
+            <div style="text-align: center;">
+              <img src="output/fig_gradcam_comparison_web.jpg" alt="So sánh Grad-CAM" style="max-width: 100%; max-height: 380px; border-radius: var(--radius-md); border: 1px solid var(--card-border); box-shadow: 0 10px 30px rgba(0,0,0,0.5);" onerror="this.onerror=null; this.src='paper/paper_assets/fig_gradcam_comparison.png';">
+              <p style="font-size:0.75rem; color:var(--text-dim); margin-top:0.5rem; font-family:var(--font-mono);">
+                Ảnh gốc nội soi ➔ Vùng bác sĩ khoanh định ➔ Bản đồ nhiệt Grad-CAM của CystoHier
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 12: ĐO LƯỜNG TỐC ĐỘ THỜI GIAN THỰC (ĐÃ BỎ SLIDE NGOẠI KIỂM) -->
+      <section class="slide-card" data-slide="12">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 5 • Hiệu Năng Kỹ Thuật</span>
+            <h3 class="slide-title-main">Đo Lường Tốc Độ Thời Gian Thực &amp; Tiêu Hao Tài Nguyên</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>12</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-3col">
+            <div class="info-card card-accent-cyan">
+              <div class="card-title">⚡ Tốc Độ Xử Lý Khung Hình</div>
+              <div class="card-desc">Đạt từ <strong>66.7 đến 82.8 FPS</strong> (Khung hình / giây).<br>Độ trễ toàn trình End-to-End chỉ vỏn vẹn <strong>15.0 mili-giây / ảnh</strong>.</div>
+              <div class="card-metric"><span>Chuẩn video nội soi:</span><strong class="metric-val" style="color:var(--cyan)">25 FPS (Đạt x2.67)</strong></div>
+            </div>
+            <div class="info-card card-accent-emerald">
+              <div class="card-title">💾 Chiếm Dụng Bộ Nhớ Cực Thấp</div>
+              <div class="card-desc">Toàn bộ mô hình với 28.2 triệu tham số chỉ chiếm dụng <strong>110.8 MiB RAM/VRAM</strong>.</div>
+              <div class="card-metric"><span>Bộ nhớ RAM tiêu hao:</span><strong class="metric-val" style="color:var(--emerald-light)">110.8 MiB</strong></div>
+            </div>
+            <div class="info-card card-accent-purple">
+              <div class="card-title">💻 Khả Năng Triển Khai Thực Tế</div>
+              <div class="card-desc">Không cần siêu máy tính đắt tiền. Chạy mượt mà trên laptop thông thường hoặc máy tính nhúng gắn trên xe đẩy nội soi của phòng mổ.</div>
+              <div class="card-metric"><span>Phần cứng:</span><strong class="metric-val" style="color:var(--purple-light)">Máy tính tiêu chuẩn</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: SẢN PHẨM ỨNG DỤNG LÂM SÀNG -->
+      <section class="slide-card" data-slide="13">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Bước 5 • Sản Phẩm Thực Tế</span>
+            <h3 class="slide-title-main">Sản Phẩm Thực Tế: Clinical Web Dashboard</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>13</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div>
+              <h4 style="font-family:var(--font-display); font-size:1.15rem; color:#fff; margin-bottom:0.75rem;">
+                Giao Diện Chuyên Khoa Phòng Mổ
+              </h4>
+              <ul style="font-size:0.88rem; color:var(--text-muted); line-height:1.8; margin-left:1.2rem; margin-bottom:1rem;">
+                <li><strong>Hiển thị 3 cấp độ đồng thời:</strong> Đèn tín hiệu ROI ➔ Biểu đồ thanh 5 nhóm bệnh ➔ Tên bệnh chi tiết kèm % độ tự tin.</li>
+                <li><strong>Cảnh báo tức thời ung thư phẳng CIS:</strong> Nhấp nháy đỏ khẩn cấp khi phát hiện nguy cơ ung thư tại chỗ Tis.</li>
+                <li><strong>Thanh trượt so sánh Grad-CAM:</strong> Bác sĩ có thể kéo mờ/rõ bản đồ nhiệt đè lên ảnh gốc để đối soát mạch máu.</li>
+                <li><strong>Xuất phiếu bệnh án điện tử:</strong> Tự động xuất file PDF có ảnh chụp, vùng khoanh định và chữ ký bác sĩ.</li>
+              </ul>
+            </div>
+            <div class="info-card card-accent-cyan" style="display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:2rem;">
+              <div style="font-size:3rem; margin-bottom:0.5rem;">🖥️ 📑 🩺</div>
+              <div style="font-family:var(--font-display); font-size:1.2rem; font-weight:800; color:#fff; margin-bottom:0.5rem;">
+                Hệ Thống Đã Vận Hành Thực Tế
+              </div>
+              <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:1.25rem;">
+                Xây dựng hoàn chỉnh với React, TypeScript, FastAPI và nạp trực tiếp mô hình AI CystoHier tối ưu.
+              </p>
+              <button class="pill-btn" onclick="switchView('handbook')" style="background:var(--cyan); color:#000; font-weight:700;">
+                Xem Chi Tiết Tại Sổ Tay Học Sinh ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 14: KẾT LUẬN & Ý NGHĨA NHÂN VĂN -->
+      <section class="slide-card" data-slide="14">
+        <div class="slide-topbar">
+          <div class="slide-tag-group">
+            <span class="slide-stage-badge">Kết Luận &amp; Ý Nghĩa Đề Tài</span>
+            <h3 class="slide-title-main">Kết Luận Khoa Học &amp; Giá Trị Nhân Văn Của Đề Tài</h3>
+          </div>
+          <div class="slide-number-indicator">Slide <span>14</span> / 14</div>
+        </div>
+        <div class="slide-body">
+          <div class="grid-2col">
+            <div class="info-card card-accent-emerald">
+              <div class="card-title">🏆 Đóng Góp Khoa Học Cốt Lõi</div>
+              <div class="card-desc" style="font-size:0.85rem; line-height:1.7;">
+                1. Khung mô hình <strong>xử lý trọn vẹn cả 3 cấp độ chẩn đoán</strong> bàng quang đầu tiên tại Việt Nam.<br>
+                2. Cơ chế ràng buộc phả hệ logic đạt tính nhất quán <strong>89.52%</strong>.<br>
+                3. Chiến lược huấn luyện tách rời <strong>3S-HFT</strong> tối ưu hóa ranh giới từng tầng, đưa Macro-F1 lớp hiếm lên <strong>0.6450</strong> ($p < 0.05$).<br>
+                4. Phần mềm thực tế đạt tốc độ thời gian thực <strong>66.7 – 82.8 FPS</strong>, độ chính xác Grad-CAM tăng gấp <strong>4.71 lần</strong>.
+              </div>
+            </div>
+            <div class="info-card card-accent-rose">
+              <div class="card-title">❤️ Giá Trị Nhân Văn Sâu Sắc</div>
+              <div class="card-desc" style="font-size:0.85rem; line-height:1.7;">
+                • <strong>Bình đẳng hóa y tế:</strong> Giúp bệnh viện tuyến huyện, tuyến tỉnh chẩn đoán chính xác ung thư bàng quang sớm mà không cần chờ chuyên gia đầu ngành.<br>
+                • <strong>Cứu sống người bệnh:</strong> Phát hiện sớm ở giai đoạn phẳng (CIS) giúp bệnh nhân bảo tồn được bàng quang, không phải cắt bỏ nội tạng và nâng tỷ lệ sống 5 năm lên trên 95%.
+              </div>
+            </div>
+          </div>
+          <div style="text-align:center; margin-top:1.5rem; font-family:var(--font-display); font-size:1.1rem; color:var(--cyan-light); font-weight:700;">
+            ✨ Kính chúc Quý Ban Giám Khảo sức khỏe và trân trọng cảm ơn sự lắng nghe! ✨
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Bottom Slide Controls -->
+    <div class="slide-controls">
+      <div class="ctrl-group">
+        <button class="nav-arrow-btn" id="btn-prev" onclick="changeSlide(-1)" title="Slide trước (Phím Mũi tên trái)">‹</button>
+        <button class="nav-arrow-btn" id="btn-next" onclick="changeSlide(1)" title="Slide tiếp theo (Phím Mũi tên phải / Phím Cách)">›</button>
+        <span class="keyboard-hint"><kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd> điều khiển slide</span>
+      </div>
+
+      <div class="progress-bar-wrapper">
+        <div class="progress-bar-fill" id="slide-progress"></div>
+      </div>
+
+      <div class="ctrl-group">
+        <span class="keyboard-hint"><kbd>F</kbd> Toàn màn hình • <kbd>T</kbd> Đổi chế độ</span>
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================================================================
+       VIEW 2: SỔ TAY KHOA HỌC KỸ THUẬT (STUDENT HANDBOOK & DEFENSE PREP)
+       ======================================================================== -->
+  <main id="view-handbook" class="view-container">
+    <div class="handbook-container">
+
+      <!-- Hero -->
+      <section class="handbook-hero">
+        <div class="hero-eyebrow">
+          <span>🏆 SỔ TAY KHOA HỌC KỸ THUẬT VISEF • DÀNH CHO HỌC SINH THPT</span>
+        </div>
+        <h2>Cẩm Nang Đọc Hiểu Đề Tài:<br><span>AI Chẩn Đoán Nội Soi Bàng Quang 3 Cấp Độ</span></h2>
+        <p>
+          Tài liệu cô đọng giúp học sinh THPT nắm chắc bản chất khoa học, ghi nhớ số liệu vàng, hiểu sâu điểm mới sáng tạo về kiến trúc 3 tầng và chiến lược huấn luyện 3 giai đoạn để tự tin bảo vệ đề tài trước Ban Giám khảo.
+        </p>
+      </section>
+
+      <!-- 1. Tóm tắt 60 giây -->
+      <div class="section-header">
+        <h3><span>⚡</span> 1. Bản Đồ Đề Tài Trong 60 Giây (Elevator Pitch)</h3>
+        <span class="section-tag">Quick Summary</span>
+      </div>
+      <div class="elevator-grid">
+        <div class="elevator-card">
+          <div class="elevator-icon">🚨</div>
+          <div class="elevator-title">Vấn Đề Thực Tế</div>
+          <div class="elevator-body">Nội soi bàng quang thường bỏ sót <strong>20% – 30%</strong> ung thư phẳng (CIS) do vết thương chỉ hơi đỏ giống viêm. Bác sĩ mệt mỏi thị giác khi soi nhiều ca liên tục.</div>
+          <div class="elevator-stat"><span>Bỏ sót CIS:</span><strong style="color:var(--rose)">20% – 30%</strong></div>
+        </div>
+        <div class="elevator-card">
+          <div class="elevator-icon">💡</div>
+          <div class="elevator-title">Điểm Mới Đột Phá</div>
+          <div class="elevator-body">Một mô hình duy nhất <strong>xử lý trọn vẹn cả 3 cấp độ chẩn đoán y khoa</strong> kèm <strong>chiến lược huấn luyện 3 giai đoạn (3S-HFT)</strong>, triệt tiêu mâu thuẫn chẩn đoán giữa các tầng.</div>
+          <div class="elevator-stat"><span>Kiến trúc:</span><strong style="color:var(--cyan)">Swin 3-Levels</strong></div>
+        </div>
+        <div class="elevator-card">
+          <div class="elevator-icon">🏆</div>
+          <div class="elevator-title">Kết Quả Vàng</div>
+          <div class="elevator-body">Binary AUROC đạt <strong>0.9986</strong>, F1 lớp hiếm Cấp 3 đạt <strong>0.6450</strong> ($p < 0.05$), nhất quán phả hệ <strong>89.52%</strong> và chạy thời gian thực <strong>66.7 – 82.8 FPS</strong>.</div>
+          <div class="elevator-stat"><span>Grad-CAM IoU:</span><strong style="color:var(--emerald)">Tăng 4.71 Lần</strong></div>
+        </div>
+      </div>
+
+      <!-- 2. Cây phả hệ 3 tầng -->
+      <div class="section-header">
+        <h3><span>🌳</span> 2. Cây Phả Hệ Chẩn Đoán 3 Tầng Y Khoa</h3>
+        <span class="section-tag">Hierarchical Taxonomy</span>
+      </div>
+      <p style="font-size:0.9rem; color:var(--text-muted); margin-bottom:1rem;">
+        Bác sĩ không bao giờ đoán bừa 1 trong 22 lớp mà luôn tư duy theo hình cây phả hệ 3 tầng:
+      </p>
+      <div class="tree-grid">
+        <div class="tree-card" onclick="alert('Cấp 1: Phát hiện sàng lọc nhị phân (ROI vs Non-ROI). AUROC đạt 0.9986!')">
+          <span class="tree-card-badge badge-t1">TẦNG 1 • SÀNG LỌC (BINARY)</span>
+          <h4>Vùng Tổn Thương (ROI)</h4>
+          <p>Mục tiêu: Trả lời nhanh "Ảnh này có bình thường không hay có tổn thương cần xem xét?"</p>
+          <ul class="tree-sublist">
+            <li><strong>Non-ROI:</strong> Niêm mạc hoàn toàn bình thường</li>
+            <li><strong>ROI:</strong> Có dấu hiệu nghi ngờ (U, sung huyết, sẹo...)</li>
+          </ul>
+          <div style="margin-top:0.75rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--rose)">
+            ★ AUROC: 0.9986 • Độ nhạy: 98.45%
+          </div>
+        </div>
+        <div class="tree-card" onclick="alert('Cấp 2: 5 nhóm bệnh cảnh lớn. Độ chính xác đạt 86.42%!')">
+          <span class="tree-card-badge badge-t2">TẦNG 2 • NHÓM BỆNH (COARSE)</span>
+          <h4>5 Nhóm Bệnh Học Lớn</h4>
+          <p>Mục tiêu: Định hướng xử trí điều trị chung ban đầu cho bác sĩ.</p>
+          <ul class="tree-sublist">
+            <li>Malignant (Khối u nghi ngờ ác tính)</li>
+            <li>Non-malignant (Lành tính, viêm nhiễm)</li>
+            <li>Normal mucosa • Landmarks • Foreign bodies</li>
+          </ul>
+          <div style="margin-top:0.75rem; font-family:var(--font-mono); font-size:0.75rem; color:#fcd34d">
+            ★ Độ chính xác: 86.42% (Tăng +2.63%)
+          </div>
+        </div>
+        <div class="tree-card" onclick="alert('Cấp 3: 22 phân lớp chi tiết. F1-Macro đạt 0.6450, nhất quán đạt 89.52%!')">
+          <span class="tree-card-badge badge-t3">TẦNG 3 • CHI TIẾT (FINE)</span>
+          <h4>22 Phân Lớp Bệnh Lý</h4>
+          <p>Mục tiêu: Đưa ra chẩn đoán giải phẫu bệnh chi tiết để bác sĩ chỉ định phẫu thuật.</p>
+          <ul class="tree-sublist">
+            <li><strong>CIS</strong> (Ung thư biểu mô tại chỗ - Tis nguy hiểm)</li>
+            <li>Ung thư nhú độ cao • Độ thấp • Tiền ung thư</li>
+            <li>Viêm bàng quang, u nhú niệu mạc, túi thừa...</li>
+          </ul>
+          <div style="margin-top:0.75rem; font-family:var(--font-mono); font-size:0.75rem; color:var(--cyan-light)">
+            ★ Macro-F1: 0.6450 • Nhất quán: 89.52%
+          </div>
+        </div>
+      </div>
+
+      <!-- 3. Hướng dẫn đọc hiểu theo phong cách đời thường -->
+      <div class="section-header">
+        <h3><span>📚</span> 3. Hướng Dẫn Đọc Hiểu Bản Chất Kỹ Thuật Đề Tài</h3>
+        <span class="section-tag">Concept Decoders</span>
+      </div>
+      <div class="accordion-list">
+        <!-- Item 1 -->
+        <div class="accordion-item open">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="header-left">
+              <div class="chapter-number">01</div>
+              <div class="chapter-title">Tại Sao Phải Cần AI Hỗ Trợ Nội Soi Bàng Quang?</div>
+            </div>
+            <div class="accordion-arrow">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div class="perspective-grid">
+              <div class="perspective-box">
+                <h5>🩺 Góc Y Học Thực Tiễn</h5>
+                <p>Ung thư bàng quang tái phát rất cao (50-70%). Bác sĩ soi bàng quang thường mệt mỏi thị giác. Nguy hiểm nhất là <strong>CIS (Carcinoma in situ)</strong> — ung thư phẳng ác tính cao nhưng bề mặt chỉ đỏ nhẹ như viêm bàng quang, dẫn đến tỷ lệ bỏ sót lên tới 20-30% bằng mắt thường!</p>
+              </div>
+              <div class="perspective-box">
+                <h5>💡 Số Liệu &amp; Trích Dẫn Chuẩn</h5>
+                <p>• 573.000 ca mắc, 213.000 ca tử vong / năm <em>(WHO / GLOBOCAN 2020)</em>.<br>
+                • Tỷ lệ tái phát 50% – 70% <em>(EAU Guidelines 2022)</em>.<br>
+                • Tỷ lệ bỏ sót CIS 20% – 30% khi nội soi ánh sáng trắng <em>(Babjuk et al.)</em>.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 2 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="header-left">
+              <div class="chapter-number">02</div>
+              <div class="chapter-title">Điểm Mới 1: Mô Hình Xử Lý 3 Cấp Độ Hoạt Động Ra Sao?</div>
+            </div>
+            <div class="accordion-arrow">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div class="perspective-grid">
+              <div class="perspective-box">
+                <h5>⚙️ Giải Pháp Kỹ Thuật Phân Cấp</h5>
+                <p>Dùng chung một mạng Swin-Tiny trích xuất đặc trưng không gian toàn cục, sau đó rẽ nhánh ra 3 đầu chẩn đoán: Cấp 1 (Nhị phân), Cấp 2 (5 nhóm thô), Cấp 3 (22 lớp chi tiết). Xác suất lớp con được tự động cộng dồn ngược lên lớp cha, loại bỏ hoàn toàn mâu thuẫn chẩn đoán.</p>
+              </div>
+              <div class="perspective-box">
+                <h5>💡 Giải Thích Đời Thường Dễ Hiểu</h5>
+                <p>Giống như một hội đồng bác sĩ: Bác sĩ trưởng phòng (Cấp 1) duyệt nhanh hồ sơ; Bác sĩ chuyên khoa (Cấp 2) phân loại nhóm bệnh; Bác sĩ giải phẫu bệnh (Cấp 3) đọc tên cụ thể. Cả 3 người cùng nhìn chung một ca chụp và liên kết chặt chẽ với nhau, không ai nói trái ý ai!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Item 3 -->
+        <div class="accordion-item">
+          <div class="accordion-header" onclick="toggleAccordion(this)">
+            <div class="header-left">
+              <div class="chapter-number">03</div>
+              <div class="chapter-title">Điểm Mới 2: Chiến Lược Huấn Luyện 3 Giai Đoạn (3S-HFT) Là Gì?</div>
+            </div>
+            <div class="accordion-arrow">▼</div>
+          </div>
+          <div class="accordion-content">
+            <div class="perspective-grid">
+              <div class="perspective-box">
+                <h5>⚙️ Quy Trình 3 Pha Huấn Luyện</h5>
+                <p>• <strong>Pha 1:</strong> Mở toàn bộ mạng để học biểu diễn đặc trưng thị giác toàn cục.<br>
+                • <strong>Pha 2:</strong> Đóng băng Backbone, chỉ mở và nắn chỉnh đầu nhóm bệnh Cấp 2.<br>
+                • <strong>Pha 3:</strong> Tiếp tục đóng băng Backbone, tinh chỉnh chuyên sâu đầu 22 phân lớp chi tiết Cấp 3.<br>
+                Nhờ đó, gradient ở các tầng không triệt tiêu nhau.</p>
+              </div>
+              <div class="perspective-box">
+                <h5>💡 Ví Dụ Đi Xe Đạp Cho Học Sinh</h5>
+                <p><strong>Ví dụ tập chạy xe đạp:</strong> Khi mới tập đi xe đạp (Pha 1), người tập chỉ cần học giữ thăng bằng trước. Khi đã biết lái vững (đóng băng kỹ năng thăng bằng), ta mới bắt đầu tập xi-nhan, rẽ trái rẽ phải (Pha 2) và học luật giao thông nâng cao (Pha 3)!</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4. Luyện vấn đáp Ban giám khảo -->
+      <div class="section-header">
+        <h3><span>🎯</span> 4. Luyện Phản Biện: Câu Hỏi "Tủ" Của Ban Giám Khảo ViSEF</h3>
+        <span class="section-tag">Judge Q&amp;A Simulator</span>
+      </div>
+      <div class="qa-switcher">
+        <button class="qa-switch-btn active" onclick="switchQATab('med')">🩺 Câu Hỏi Giám Khảo Y Học</button>
+        <button class="qa-switch-btn" onclick="switchQATab('ai')">💻 Câu Hỏi Giám Khảo AI / CNTT</button>
+      </div>
+
+      <!-- QA Y Học -->
+      <div id="qa-group-med">
+        <div class="qa-card">
+          <div class="qa-question">
+            <span class="q-badge">CÂU HỎI 1</span>
+            <span>"Bác sĩ chúng tôi nội soi hàng chục năm kinh nghiệm, tại sao lại phải cần thêm AI hỗ trợ?"</span>
+          </div>
+          <div class="qa-intent">🎯 Mục đích giám khảo: Kiểm tra thái độ khiêm tốn khoa học và hiểu biết về vai trò hỗ trợ của AI.</div>
+          <div class="qa-answer">
+            <strong>Kịch bản trả lời điểm 10:</strong><br>
+            "Dạ thưa Ban Giám khảo, hệ thống AI của chúng em được thiết kế với triết lý <em>Bác sĩ là trung tâm</em> — đóng vai trò như một 'người trợ lý thứ hai' trong phòng mổ chứ hoàn toàn không thay thế bác sĩ. Bác sĩ kinh nghiệm vẫn có thể gặp hiện tượng mệt mỏi thị giác khi phải soi liên tục 10-15 ca mổ mỗi ngày, đặc biệt là với các tổn thương ung thư phẳng CIS rất dễ nhầm với viêm bàng quang (tỷ lệ bỏ sót 20-30% theo nghiên cứu EAU). AI của chúng em có độ nhạy 98.45% và chạy thời gian thực &gt;66 FPS, giúp cảnh báo vùng nghi ngờ và định vị Grad-CAM để bác sĩ không bỏ sót bất kỳ tổn thương hiểm nghèo nào."
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="qa-question">
+            <span class="q-badge">CÂU HỎI 2</span>
+            <span>"Làm sao bác sĩ chúng tôi có thể tin tưởng vào kết quả chẩn đoán của mô hình AI?"</span>
+          </div>
+          <div class="qa-intent">🎯 Mục đích giám khảo: Kiểm tra tính minh bạch và độ tin cậy giải thích được (Explainability).</div>
+          <div class="qa-answer">
+            <strong>Kịch bản trả lời điểm 10:</strong><br>
+            "Dạ thưa Ban Giám khảo, mô hình của chúng em xóa bỏ hoàn toàn định kiến 'hộp đen' nhờ tích hợp bản đồ nhiệt Grad-CAM. Kết quả đo lường thực nghiệm cho thấy độ trùng khớp giải phẫu (IoU) giữa vùng AI chú ý với khoanh vùng của bác sĩ đạt 0.2356, cao gấp 4.71 lần so với mô hình thông thường (0.0500). AI nhìn chính xác vào chân cuống khối u và mạng lưới vi mạch máu tăng sinh, giúp bác sĩ đối chiếu trực tiếp trên màn hình."
+          </div>
+        </div>
+      </div>
+
+      <!-- QA AI -->
+      <div id="qa-group-ai" style="display:none;">
+        <div class="qa-card">
+          <div class="qa-question">
+            <span class="q-badge">CÂU HỎI 3</span>
+            <span>"Tại sao các em không dùng luôn ResNet-50 hay YOLO cho nhanh, mà phải xây dựng Swin-Tiny 3 cấp độ?"</span>
+          </div>
+          <div class="qa-intent">🎯 Mục đích giám khảo: Kiểm tra tính mới (Novelty) và lý do lựa chọn kiến trúc kỹ thuật.</div>
+          <div class="qa-answer">
+            <strong>Kịch bản trả lời điểm 10:</strong><br>
+            "Dạ thưa Thầy/Cô, thực nghiệm đối chuẩn của đề tài đã so sánh trực tiếp giữa Swin-Tiny và ResNet-50. Kết quả cho thấy ResNet-50 phân loại phẳng chỉ đạt F1 Cấp 3 là 0.3578 và độ nhất quán phả hệ chỉ 71.80% (thường xuyên mâu thuẫn giữa lớp cha và con). Trong khi đó, Swin-Tiny tận dụng cơ chế Shifted Window Self-Attention giúp liên kết ngữ cảnh giải phẫu toàn cục, đạt Macro-F1 0.6450 (vượt trội có ý nghĩa thống kê p = 0.0478 &lt; 0.05) và độ nhất quán đạt tới 89.52%."
+          </div>
+        </div>
+        <div class="qa-card">
+          <div class="qa-question">
+            <span class="q-badge">CÂU HỎI 4</span>
+            <span>"Chiến lược huấn luyện 3 giai đoạn (3S-HFT) của em giải quyết vấn đề kỹ thuật cốt lõi nào?"</span>
+          </div>
+          <div class="qa-intent">🎯 Mục đích giám khảo: Kiểm tra mức độ hiểu sâu chiến lược huấn luyện tách rời của học sinh.</div>
+          <div class="qa-answer">
+            <strong>Kịch bản trả lời điểm 10:</strong><br>
+            "Dạ thưa Ban Giám khảo, trong mô hình phân cấp đa nhiệm, gradient từ đầu nhị phân, đầu thô và đầu chi tiết có biên độ và hướng tối ưu rất khác nhau, nếu huấn luyện đồng thời sẽ gây ra hiện tượng xung đột gradient (Gradient Conflict), làm giảm chất lượng biểu diễn đặc trưng. Chiến lược 3S-HFT của chúng em tách thành 3 pha: Pha 1 cho toàn bộ mạng học biểu diễn tổng quát; Pha 2 và Pha 3 đóng băng mạng trích xuất đặc trưng để tối ưu hóa độc lập ranh giới phân loại cho từng tầng. Nhờ đó, tính nhất quán phả hệ đạt tới 89.52% và F1 lớp hiếm tăng vượt trội."
+          </div>
+        </div>
+      </div>
+
+      <!-- 5. Tra cứu thuật ngữ nhanh -->
+      <div class="section-header">
+        <h3><span>📖</span> 5. Tra Cứu Thuật Ngữ ViSEF Pop-Up</h3>
+        <span class="section-tag">Interactive Glossary</span>
+      </div>
+      <div class="search-bar-wrap">
+        <span class="search-icon-pos">🔍</span>
+        <input type="text" id="glossarySearchInput" class="search-input" placeholder="Gõ tìm kiếm thuật ngữ (ví dụ: CIS, 3S-HFT, Grad-CAM, Hierarchy, Swin)..." onkeyup="filterGlossaryCards()">
+      </div>
+      <div class="glossary-grid" id="glossaryCardsGrid">
+        <div class="glossary-card">
+          <div class="term-title"><span>CIS (Carcinoma in situ)</span><span class="term-sub">Ung Thư Tại Chỗ</span></div>
+          <div class="term-def">Ung thư biểu mô tại chỗ dạng phẳng, độ ác tính rất cao nhưng rất khó nhìn thấy bằng mắt thường vì chỉ đỏ nhẹ như viêm bàng quang. Dễ bị bỏ sót 20-30%.</div>
+          <div class="term-pitch">👉 Cách nói với giám khảo: "CIS là đối tượng ưu tiên số 1 của đề tài vì bỏ sót CIS đồng nghĩa với việc bệnh nhân mất cơ hội sống."</div>
+        </div>
+        <div class="glossary-card">
+          <div class="term-title"><span>3S-HFT</span><span class="term-sub">Huấn Luyện 3 Giai Đoạn</span></div>
+          <div class="term-def">Three-Stage Hierarchical Fine-Tuning: Học biểu diễn toàn cục ở Pha 1, sau đó đóng băng Backbone để tối ưu độc lập đầu thô ở Pha 2 và đầu chi tiết ở Pha 3.</div>
+          <div class="term-pitch">👉 Cách nói với giám khảo: "3S-HFT giúp giải quyết triệt để hiện tượng xung đột gradient giữa các cấp độ chẩn đoán."</div>
+        </div>
+        <div class="glossary-card">
+          <div class="term-title"><span>Grad-CAM &amp; IoU</span><span class="term-sub">Explainable AI (XAI)</span></div>
+          <div class="term-def">Kỹ thuật tạo bản đồ nhiệt thị giác minh bạch hóa quyết định của AI. Chỉ số IoU đo mức độ trùng khớp giữa vùng AI chú ý với khoanh vùng chuẩn của bác sĩ.</div>
+          <div class="term-pitch">👉 Cách nói với giám khảo: "Grad-CAM của CystoHier tăng độ trùng khớp giải phẫu gấp 4.71 lần so với mô hình thông thường."</div>
+        </div>
+        <div class="glossary-card">
+          <div class="term-title"><span>Hierarchical Consistency</span><span class="term-sub">Nhất Quán Phả Hệ</span></div>
+          <div class="term-def">Tỷ lệ các dự đoán mà lớp con (Cấp 3) thực sự thuộc về đúng lớp cha (Cấp 2). Ngăn chặn tình trạng AI kết luận 'Ung thư nhú' nhưng lại xếp vào nhóm 'Lành tính'.</div>
+          <div class="term-pitch">👉 Cách nói với giám khảo: "Mô hình đề xuất đạt tính nhất quán 89.52%, tăng +8.32% so với baseline."</div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Master Footer -->
+  <footer class="master-footer">
+    <p><strong>CystoHier AI — Hệ Thống Hỗ Trợ Chẩn Đoán Nội Soi Bàng Quang Thời Gian Thực</strong></p>
+    <p style="margin-top:0.3rem;">Bản quyền nghiên cứu khoa học kỹ thuật dành cho học sinh trung học (ViSEF) • Tập trung Kiến trúc 3 Tầng &amp; Huấn Luyện 3 Giai Đoạn</p>
+  </footer>
+
+  <!-- ========================================================================
+       JAVASCRIPT: DUAL-VIEW CONTROLLER & INTERACTION ENGINE
+       ======================================================================== -->
+  <script>
+    let currentSlide = 1;
+    const totalSlides = 14;
+
+    // Switch between Slide Deck and Student Handbook
+    function switchView(mode) {
+      const slidesView = document.getElementById('view-slides');
+      const handbookView = document.getElementById('view-handbook');
+      const btnSlides = document.getElementById('btn-mode-slides');
+      const btnHandbook = document.getElementById('btn-mode-handbook');
+
+      if (mode === 'slides') {
+        slidesView.classList.add('active');
+        handbookView.classList.remove('active');
+        btnSlides.classList.add('active');
+        btnHandbook.classList.remove('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      } else {
+        slidesView.classList.remove('active');
+        handbookView.classList.add('active');
+        btnSlides.classList.remove('active');
+        btnHandbook.classList.add('active');
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    // Slide navigation
+    function changeSlide(direction) {
+      const slides = document.querySelectorAll('.slide-card');
+      slides[currentSlide - 1].classList.remove('active');
+
+      currentSlide += direction;
+      if (currentSlide < 1) currentSlide = 1;
+      if (currentSlide > totalSlides) currentSlide = totalSlides;
+
+      slides[currentSlide - 1].classList.add('active');
+      updateSlideControls();
+    }
+
+    function updateSlideControls() {
+      document.getElementById('btn-prev').disabled = (currentSlide === 1);
+      document.getElementById('btn-next').disabled = (currentSlide === totalSlides);
+      const progressPercent = (currentSlide / totalSlides) * 100;
+      document.getElementById('slide-progress').style.width = progressPercent + '%';
+    }
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const slidesView = document.getElementById('view-slides');
+      if (slidesView.classList.contains('active')) {
+        if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+          e.preventDefault();
+          if (currentSlide < totalSlides) changeSlide(1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+          e.preventDefault();
+          if (currentSlide > 1) changeSlide(-1);
+        } else if (e.key === 'Home') {
+          e.preventDefault();
+          goToSlide(1);
+        } else if (e.key === 'End') {
+          e.preventDefault();
+          goToSlide(totalSlides);
+        }
+      }
+
+      // Hotkey F: Fullscreen
+      if (e.key === 'f' || e.key === 'F') {
+        if (e.target.tagName !== 'INPUT') {
+          e.preventDefault();
+          toggleFullScreen();
+        }
+      }
+
+      // Hotkey T: Toggle view
+      if (e.key === 't' || e.key === 'T') {
+        if (e.target.tagName !== 'INPUT') {
+          e.preventDefault();
+          const slidesView = document.getElementById('view-slides');
+          if (slidesView.classList.contains('active')) {
+            switchView('handbook');
+          } else {
+            switchView('slides');
+          }
+        }
+      }
+    });
+
+    function goToSlide(slideNum) {
+      const slides = document.querySelectorAll('.slide-card');
+      slides[currentSlide - 1].classList.remove('active');
+      currentSlide = slideNum;
+      slides[currentSlide - 1].classList.add('active');
+      updateSlideControls();
+    }
+
+    // Fullscreen toggle
+    function toggleFullScreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    // Accordion Toggle
+    function toggleAccordion(header) {
+      const item = header.parentElement;
+      item.classList.toggle('open');
+    }
+
+    // QA Tab Switcher
+    function switchQATab(tab) {
+      const medList = document.getElementById('qa-group-med');
+      const aiList = document.getElementById('qa-group-ai');
+      const buttons = document.querySelectorAll('.qa-switch-btn');
+
+      if (tab === 'med') {
+        medList.style.display = 'block';
+        aiList.style.display = 'none';
+        buttons[0].classList.add('active');
+        buttons[1].classList.remove('active');
+      } else {
+        medList.style.display = 'none';
+        aiList.style.display = 'block';
+        buttons[0].classList.remove('active');
+        buttons[1].classList.add('active');
+      }
+    }
+
+    // Glossary Search Filter
+    function filterGlossaryCards() {
+      const query = document.getElementById('glossarySearchInput').value.toLowerCase();
+      const cards = document.querySelectorAll('#glossaryCardsGrid .glossary-card');
+      cards.forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = text.includes(query) ? 'block' : 'none';
+      });
+    }
+
+    // Check URL parameters for default view
+    window.addEventListener('DOMContentLoaded', () => {
+      const path = window.location.pathname;
+      if (path.includes('So_Tay')) {
+        switchView('handbook');
+      } else {
+        switchView('slides');
+      }
+      updateSlideControls();
+    });
+  </script>
+</body>
+</html>
